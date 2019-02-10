@@ -26,3 +26,5 @@ insert into AUTHOR (FIRST_NAME, SECOND_NAME, PSEUDONIM) values ('Iosiph', 'Stali
 insert into USERS (LOGIN, PASSWORD, FIRST_NAME, SECOND_NAME, REGISTER_DATE, SALE, BALANCE, ROLE_ID, STATUS_ID, EMAIL) values ('mrmrmr7', 'EpamClass2019', 'First name', 'Second name', '2008-08-08 20:08:08', 10, 100, 1, 1, 'aliex.s@yandex.by')
 insert into USERS (LOGIN, PASSWORD, FIRST_NAME, SECOND_NAME, REGISTER_DATE, SALE, BALANCE, ROLE_ID, STATUS_ID, EMAIL) values ('mrmrmr8', 'EpamClass2019', 'First name', 'Second name', '2008-08-08 20:08:08', 10, 100, 1, 1, 'aliex.kot@yandex.by')
 
+insert into USER_BONUS (USER_ID, BONUS_ID) values (1, 1)
+insert into USER_BONUS (USER_ID, BONUS_ID) values (1, 2)

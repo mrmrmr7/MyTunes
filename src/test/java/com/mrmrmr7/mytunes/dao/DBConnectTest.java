@@ -1,9 +1,12 @@
 package com.mrmrmr7.mytunes.dao;
 
-import org.apache.commons.io.FileUtils;
+import com.mrmrmr7.mytunes.entity.User;
+import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,31 +14,41 @@ class DBConnectTest {
 
     @Test
     void getConnection() throws Exception {
-        DBConnect dbConnect = new DBConnect(
-                "jdbc:hsqldb:file:src/main/resources/hsqldb/database/mytunes",
-                "SA",
-                "",
-                "org.hsqldb.jdbc.JDBCDriver"
-        );
+        ConnectionPool dbConnect = ConnectionPoolFactory
+                .getInstance()
+                .getConnectionPool(ConnectionPoolType.JDBC);
+
+        DBFill.fill();
 
         try (Connection connection = dbConnect.getConnection()){
-            String dataBase = FileUtils
-                    .fileRead("src/main/resources/hsqldb/script/dbScheme.sql");
 
-            connection
-                    .createStatement()
-                    .executeUpdate(dataBase);
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from users");
+            preparedStatement.clearParameters();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            String fullTestData = FileUtils
-                    .fileRead("src/main/resources/hsqldb/script/fullTestData.sql");
+            List<User> userList = new ArrayList<>();
+            int i;
+            while (resultSet.next()) {
+                i = 1;
+                userList.add(
+                        new User(resultSet.getInt(i++),
+                                resultSet.getDate(i++),
+                                resultSet.getString(i++),
+                                resultSet.getString(i++),
+                                resultSet.getString(i++),
+                                resultSet.getString(i++),
+                                resultSet.getString(i++),
+                                resultSet.getLong(i++),
+                                resultSet.getByte(i++),
+                                resultSet.getByte(i++),
+                                resultSet.getByte(i))
+                );
+            }
 
-            connection
-                    .createStatement()
-                    .executeUpdate(fullTestData);
-
-
+            System.out.println(userList.toString());
 
             String expected = "2.4.1";
+
             String actual = connection
                     .getMetaData()
                     .getDatabaseProductVersion();
