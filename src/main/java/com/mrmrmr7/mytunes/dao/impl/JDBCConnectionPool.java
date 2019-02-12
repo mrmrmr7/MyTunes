@@ -22,8 +22,8 @@ public class JDBCConnectionPool implements ConnectionPool {
     private final String USER;
     private final String PASSWORD;
     private final int POOL_CAPACITY = 8;
-    private static List<Connection> openConnection = new ArrayList<>();
-    private static List<Connection> closedConnection = new ArrayList<>();
+    public static List<Connection> openConnection = new ArrayList<>();
+    public static List<Connection> closedConnection = new ArrayList<>();
     private Lock lock = new ReentrantLock();
 
     public JDBCConnectionPool(String aJDBCUrl, String aUser, String aPassword, String aDriverclass) {
@@ -34,7 +34,7 @@ public class JDBCConnectionPool implements ConnectionPool {
     }
 
     @Override
-    public Connection getConnection() throws DAOException, InterruptedException {
+    public Connection getConnection() throws SQLException, InterruptedException {
         Connection connection;
         lock.lock();
         try {
@@ -47,7 +47,7 @@ public class JDBCConnectionPool implements ConnectionPool {
                 closedConnection.add(connection);
             }
         } catch (SQLException e) {
-            throw new DAOException("Exception while getting connection: ",e);
+            throw new SQLException(e);
         }
 
         while (closedConnection.isEmpty()) {
@@ -71,8 +71,7 @@ public class JDBCConnectionPool implements ConnectionPool {
         }
     }
 
-    public static synchronized void releaseConnection(Connection connection) {
-        openConnection.remove(connection);
-        closedConnection.add(connection);
+    public static synchronized void releaseConnection() {
+        closedConnection.add(openConnection.remove(0));
     }
 }

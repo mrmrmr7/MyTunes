@@ -15,18 +15,4 @@ public class ControllerQuery {
 
     private ControllerQuery() {
     }
-
-    public List<User> getById(int id) throws ControllerException {
-        if (id > 0) {
-            ServiceQuery serviceQuery = ServiceQuery.getInstance();
-            try {
-                List<User> userList = serviceQuery.getByID(id);
-                return userList;
-            } catch (ServiceException e) {
-                throw new ControllerException("Can't get user by negative id");
-            }
-        } else {
-            throw new ControllerException("Negative id");
-        }
-    }
 }

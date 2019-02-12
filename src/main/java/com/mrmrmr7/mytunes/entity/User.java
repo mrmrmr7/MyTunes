@@ -1,8 +1,10 @@
 package com.mrmrmr7.mytunes.entity;
 
-import java.util.Date;
+import com.mrmrmr7.mytunes.dao.Identified;
 
-public class User implements DBInstance {
+import java.sql.Date;
+
+public class User implements Identified<Integer> {
     private int id;
     private Date register_data;
     private String login;
@@ -11,10 +13,6 @@ public class User implements DBInstance {
     private String second_name;
     private String email;
     private long balance;
-
-    public int getID() {
-        return id;
-    }
 
     public String getLOGIN() {
         return login;
@@ -126,5 +124,10 @@ public class User implements DBInstance {
                 ", role_id=" + role_id +
                 ", status_id=" + status_id +
                 '}';
+    }
+
+    @Override
+    public Integer getId() {
+        return id;
     }
 }

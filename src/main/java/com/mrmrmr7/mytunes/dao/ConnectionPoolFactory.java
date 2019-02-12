@@ -13,7 +13,7 @@ public class ConnectionPoolFactory {
     private ConnectionPoolFactory() {
     }
 
-    public ConnectionPool getConnectionPool(ConnectionPoolType type) throws DAOException {
+    public ConnectionPool getConnectionPool(ConnectionPoolType type) {
         switch (type) {
             case JDBC: return new JDBCConnectionPool(
                     "jdbc:hsqldb:mem:testdb",
@@ -22,7 +22,7 @@ public class ConnectionPoolFactory {
                     "org.hsqldb.jdbc.JDBCDriver"
             );
             default:
-                throw new DAOException("No such ConnectionPool: " + type.name());
+                return null;
         }
     }
 }
