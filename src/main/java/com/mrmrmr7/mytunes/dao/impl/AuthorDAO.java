@@ -24,17 +24,19 @@ public class AuthorDAO extends AbstractJDBCDAO<Author, Integer> implements Gener
         return ourInstance;
     }
 
-    private AuthorDAO() {
+    public AuthorDAO() {
     }
 
     @Override
     public Optional<Author> getByPK(Integer id) throws DAOException, SQLException {
 
         try (Connection connection = dbConnect.getConnection()) {
-            ResultSet resultSet = prepareStatementForGet(connection, id)
-                    .executeQuery();
-            resultSet.next();
-            return Optional.of(resultSetCompiller.setAuthor(resultSet));
+            try (PreparedStatement preparedStatement = prepareStatementForGet(connection, id)){
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    resultSet.next();
+                    return Optional.of(resultSetCompiller.setAuthor(resultSet));
+                }
+            }
         } catch (InterruptedException e) {
             throw new DAOException("Impossible to get connection");
         }
@@ -46,10 +48,13 @@ public class AuthorDAO extends AbstractJDBCDAO<Author, Integer> implements Gener
         List<Author> userList = new ArrayList<>();
 
         try (Connection connection = dbConnect.getConnection()) {
-            ResultSet resultSet = prepareStatementForGetAll(connection, TableName.AUTHOR).executeQuery();
-            while (resultSet.next()) {
-                userList
-                        .add(resultSetCompiller.setAuthor(resultSet));
+            try (PreparedStatement preparedStatement = prepareStatementForGetAll(connection, TableName.AUTHOR)){
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        userList
+                                .add(resultSetCompiller.setAuthor(resultSet));
+                    }
+                }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -62,19 +67,20 @@ public class AuthorDAO extends AbstractJDBCDAO<Author, Integer> implements Gener
     public void insert(Author object) throws SQLException {
 
         try (Connection connection = dbConnect.getConnection()){
-            prepareStatementForInsert(connection, object)
-                    .executeUpdate();
-        } catch (InterruptedException | SQLException e) {
+            try (PreparedStatement preparedStatement = prepareStatementForInsert(connection, object)) {
+                preparedStatement.executeUpdate();
+            }
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void delete(Integer id) throws SQLException {
-
         try (Connection connection = dbConnect.getConnection()){
-            prepareStatementForDelete(connection, id)
-                    .executeUpdate();
+            try (PreparedStatement preparedStatement = prepareStatementForDelete(connection, id)){
+                preparedStatement.executeUpdate();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -85,8 +91,9 @@ public class AuthorDAO extends AbstractJDBCDAO<Author, Integer> implements Gener
     public void update(Author object) throws SQLException {
 
         try (Connection connection = dbConnect.getConnection()){
-            prepareStatementForUpdate(connection, object)
-                    .executeUpdate();
+            try (PreparedStatement preparedStatement = prepareStatementForUpdate(connection, object)){
+                preparedStatement.executeUpdate();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -94,7 +101,6 @@ public class AuthorDAO extends AbstractJDBCDAO<Author, Integer> implements Gener
 
     @Override
     protected PreparedStatement prepareStatementForInsert(Connection connection, Author object) throws SQLException {
-
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
         return prepareForUpdate(preparedStatement, object);
     }
@@ -102,10 +108,9 @@ public class AuthorDAO extends AbstractJDBCDAO<Author, Integer> implements Gener
     @Override
     protected PreparedStatement prepareStatementForUpdate(Connection connection, Author object) throws SQLException {
 
-        PreparedStatement preparedStatement = prepareForUpdate(connection
-                .prepareStatement(getUpdateQuery()),
+        PreparedStatement preparedStatement = prepareForUpdate(connection.prepareStatement(getUpdateQuery()),
                 object);
-        preparedStatement.setInt(4, object.getId());
+        preparedStatement.setInt(4,object.getId());
         return preparedStatement;
     }
 

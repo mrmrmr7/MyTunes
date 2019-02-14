@@ -28,3 +28,12 @@ insert into USERS (LOGIN, PASSWORD, FIRST_NAME, SECOND_NAME, REGISTER_DATE, SALE
 
 insert into USER_BONUS (USER_ID, BONUS_ID) values (1, 1)
 insert into USER_BONUS (USER_ID, BONUS_ID) values (1, 2)
+
+insert into GENRE (GENRE) values ('Rock')
+insert into GENRE (GENRE) values ('Hard Rock')
+
+insert into ALBUM (PRICE, DESCRIPTION, AUTHOR_ID, GENRE_ID) values (123, 'Back side of moon', 1, 1)
+insert into ALBUM (PRICE, DESCRIPTION, AUTHOR_ID, GENRE_ID) values (123, 'Gorgorod', 1, 2)
+insert into ALBUM (PRICE, DESCRIPTION, AUTHOR_ID, GENRE_ID) values (123, 'Downtown', 1, 1)
+
+insert into COMPOSITION (PRICE, NAME, ALBUM_ID, YEAR) values (1, 'Vasilisa', 3, 2018)

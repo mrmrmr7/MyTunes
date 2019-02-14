@@ -3,7 +3,8 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Author;
 import com.mrmrmr7.mytunes.util.DBFill;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -16,23 +17,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class AuthorDAOTest {
     private static AuthorDAO authorDAO;
 
-    @BeforeAll
-    static void init() throws InterruptedException, SQLException, IOException {
-        authorDAO = AuthorDAO.getInstance();
+    @BeforeEach
+    void init() throws InterruptedException, SQLException, IOException {
         DBFill.createDB();
+        authorDAO = AuthorDAO.getInstance();
     }
 
-    @Test
-    void getInstance() {
-        assertNotNull(authorDAO);
+    @AfterEach
+    void deinit() throws InterruptedException, SQLException, IOException {
+        DBFill.drop();
     }
 
     @Test
     void getByPK() throws InterruptedException, SQLException, IOException, DAOException {
-        DBFill.fill();
 
         Optional<Author> author = authorDAO.getByPK(1);
-        String expected = "Author{id=1, firstName='Oxxxymiron', secondName='Miron', pseudonim='Yanovich'}";
+        String expected = "Author{id=1, firstName='Miron', secondName='Yanovich', pseudonim='Oxxxymiron'}";
         String actual = author.get().toString();
 
         assertEquals(expected, actual);
@@ -58,7 +58,7 @@ class AuthorDAOTest {
         DBFill.fill();
 
         Author author = new Author(4,
-                "Fifa",
+                "1",
                 "Fufa",
                 "Orochimaru");
 

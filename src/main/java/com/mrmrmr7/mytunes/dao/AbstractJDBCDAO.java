@@ -16,7 +16,6 @@ public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Numbe
     protected abstract PreparedStatement prepareStatementForGet(Connection connection, PK id) throws SQLException;
 
     protected PreparedStatement prepareStatementForGetAll(Connection connection, TableName tableName) throws SQLException {
-
         return connection.prepareStatement(getSelectAllQuery(tableName));
     }
 

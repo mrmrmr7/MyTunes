@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.service;
 
 import com.mrmrmr7.mytunes.entity.Author;
+import com.mrmrmr7.mytunes.entity.Composition;
 import com.mrmrmr7.mytunes.entity.User;
 
 import java.sql.ResultSet;
@@ -32,4 +33,12 @@ public class ResultSetCompiller {
                 resultSet.getString(++i));
     }
 
+    public Composition setComposition(ResultSet resultSet) throws SQLException {
+        int i = 0;
+        return new Composition(resultSet.getInt(++i),
+                resultSet.getInt(++i),
+                resultSet.getString(++i),
+                resultSet.getInt(++i),
+                resultSet.getInt(++i));
+    }
 }

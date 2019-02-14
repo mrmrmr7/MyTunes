@@ -2,7 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.entity.User;
+import com.mrmrmr7.mytunes.entity.Composition;
 import com.mrmrmr7.mytunes.service.ResultSetCompiller;
 
 import java.sql.Connection;
@@ -13,43 +13,43 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDAO<User, Integer> {
-    private final static UserDAO ourInstance = new UserDAO();
+public class CompositionDAO extends AbstractJDBCDAO<Composition, Integer> implements GenericDAO<Composition, Integer> {
+    private final static CompositionDAO ourInstance = new CompositionDAO();
     private final ResultSetCompiller resultSetCompiller = new ResultSetCompiller();
     private final ConnectionPool dbConnect = ConnectionPoolFactory
             .getInstance()
             .getConnectionPool(ConnectionPoolType.JDBC);
 
-    public static UserDAO getInstance() {
+    public static CompositionDAO getInstance() {
         return ourInstance;
     }
 
-    public UserDAO() {
+    public CompositionDAO() {
     }
 
     @Override
-    public Optional<User> getByPK(Integer id) throws DAOException, SQLException {
+    public Optional<Composition> getByPK(Integer id) throws DAOException, SQLException {
 
         try (Connection connection = dbConnect.getConnection()) {
             ResultSet resultSet = prepareStatementForGet(connection, id)
                     .executeQuery();
             resultSet.next();
-            return Optional.of(resultSetCompiller.setUser(resultSet));
+            return Optional.of(resultSetCompiller.setComposition(resultSet));
         } catch (InterruptedException e) {
             throw new DAOException("Impossible to get connection");
         }
     }
 
     @Override
-    public List<User> getAll() throws SQLException {
+    public List<Composition> getAll() throws SQLException {
 
-        List<User> userList = new ArrayList<>();
+        List<Composition> userList = new ArrayList<>();
 
         try (Connection connection = dbConnect.getConnection()) {
-            ResultSet resultSet = prepareStatementForGetAll(connection, TableName.USER).executeQuery();
+            ResultSet resultSet = prepareStatementForGetAll(connection, TableName.COMPOSITION).executeQuery();
             while (resultSet.next()) {
                 userList
-                        .add(resultSetCompiller.setUser(resultSet));
+                        .add(resultSetCompiller.setComposition(resultSet));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -59,12 +59,12 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
     }
 
     @Override
-    public void insert(User object) throws SQLException {
+    public void insert(Composition object) throws SQLException {
 
         try (Connection connection = dbConnect.getConnection()){
             prepareStatementForInsert(connection, object)
                     .executeUpdate();
-        } catch (InterruptedException | SQLException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -82,7 +82,7 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
     }
 
     @Override
-    public void update(User object) throws SQLException {
+    public void update(Composition object) throws SQLException {
 
         try (Connection connection = dbConnect.getConnection()){
             prepareStatementForUpdate(connection, object)
@@ -93,69 +93,65 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
     }
 
     @Override
-    protected PreparedStatement prepareStatementForInsert(Connection connection, User object) throws SQLException {
+    protected PreparedStatement prepareStatementForInsert(Connection connection, Composition object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
         return prepareForUpdate(preparedStatement, object);
     }
 
     @Override
-    protected PreparedStatement prepareStatementForUpdate(Connection connection, User object) throws SQLException {
+    protected PreparedStatement prepareStatementForUpdate(Connection connection, Composition object) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getUpdateQuery());
-        return prepareForUpdate(preparedStatement, object);
+        PreparedStatement preparedStatement = prepareForUpdate(connection
+                        .prepareStatement(getUpdateQuery()),
+                object);
+        preparedStatement.setInt(4, object.getId());
+        return preparedStatement;
     }
 
     @Override
     protected PreparedStatement prepareStatementForDelete(Connection connection, Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.USER));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.COMPOSITION));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
 
     @Override
     protected PreparedStatement prepareStatementForGet(Connection connection, Integer id) throws SQLException {
+
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.USER));
+                .prepareStatement(getSelectQuery(TableName.COMPOSITION));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
 
-    private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, User object) throws SQLException {
+    private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Composition object) throws SQLException {
 
         int i = 0;
-        preparedStatement.setString(++i, object.getLOGIN());
-        preparedStatement.setString(++i, object.getPassword());
-        preparedStatement.setString(++i, object.getFirst_name());
-        preparedStatement.setString(++i, object.getSecond_name());
-        preparedStatement.setDate(++i, object.getRegister_data());
-        preparedStatement.setInt(++i, object.getSale());
-        preparedStatement.setLong(++i, object.getBalance());
-        preparedStatement.setByte(++i, object.getRole_id());
-        preparedStatement.setByte(++i, object.getStatus_id());
-        preparedStatement.setString(++i, object.getEmail());
-        preparedStatement.setInt(++i, object.getId());
+        preparedStatement.setInt(++i, object.getPrice());
+        preparedStatement.setString(++i, object.getName());
+        preparedStatement.setInt(++i, object.getAlbum_id());
+        preparedStatement.setInt(++i, object.getYear());
         return preparedStatement;
     }
 
     @Override
-    protected String getInsertQuery() {
+    public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.USER.getValue() +
-                "(LOGIN, PASSWORD, FIRST_NAME, SECOND_NAME, REGISTER_DATE, SALE, BALANCE, ROLE_ID, STATUS_ID, EMAIL) " +
+        return "INSERT INTO " + TableName.COMPOSITION.getValue() +
+                "(PRICE, NAME, ALBUM_ID, YEAR) " +
                 "VALUES " +
-                "(?,?,?,?,?,?,?,?,?,?)";
+                "(?,?,?,?)";
     }
 
     @Override
-    protected String getUpdateQuery() {
+    public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.USER.getValue() + " SET " +
-                "LOGIN=?, PASSWORD=?, " +
-                "FIRST_NAME=?, SECOND_NAME=?, " +
-                "REGISTER_DATE=?, SALE=?, " +
-                "BALANCE=?, ROLE_ID=?, " +
-                "STATUS_ID=?, EMAIL=? WHERE ID=?";
+        return "UPDATE " + TableName.COMPOSITION.getValue() + " SET " +
+                "PRICE=?, NAME=?, " +
+                "ALBUM_ID=?" +
+                "WHERE ID=?";
+
     }
 }

@@ -2,7 +2,6 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 
 import com.mrmrmr7.mytunes.dao.ConnectionPool;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hsqldb.jdbc.JDBCConnection;
@@ -11,8 +10,9 @@ import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -22,42 +22,44 @@ public class JDBCConnectionPool implements ConnectionPool {
     private final String USER;
     private final String PASSWORD;
     private final int POOL_CAPACITY = 8;
-    public static List<Connection> openConnection = new ArrayList<>();
-    public static List<Connection> closedConnection = new ArrayList<>();
-    private Lock lock = new ReentrantLock();
+    private static AtomicInteger createdConnectionCount = new AtomicInteger(0);
+    private static Deque<Connection> pool = new ArrayDeque<>();
+    private Lock lockForOpen = new ReentrantLock();
+    private static Lock lockForClose = new ReentrantLock();
+    private Semaphore semaphore;
 
     public JDBCConnectionPool(String aJDBCUrl, String aUser, String aPassword, String aDriverclass) {
         this.JDBC_URL = aJDBCUrl;
         this.USER = aUser;
         this.PASSWORD = aPassword;
+        semaphore = new Semaphore(POOL_CAPACITY);
         initDriver(aDriverclass);
     }
 
     @Override
     public Connection getConnection() throws SQLException, InterruptedException {
-        Connection connection;
-        lock.lock();
+        semaphore.acquire();
+        lockForOpen.lock();
+        System.out.println("lol ");
+
         try {
-            if (closedConnection.size() + openConnection.size() < POOL_CAPACITY) {
+            if (createdConnectionCount.get() < POOL_CAPACITY) {
+                Connection connection;
                 connection = (Connection) Proxy.newProxyInstance(
                         JDBCConnection.class.getClassLoader(),
                         JDBCConnection.class.getInterfaces(),
                         new JDBCConnectionProxy(DriverManager.
                                 getConnection(JDBC_URL, USER, PASSWORD)));
-                closedConnection.add(connection);
+                pool.push(connection);
+                createdConnectionCount.incrementAndGet();
             }
         } catch (SQLException e) {
             throw new SQLException(e);
         }
 
-        while (closedConnection.isEmpty()) {
-            Thread.sleep(10L);
-        }
+        Connection connection = pool.poll();
 
-        connection = closedConnection.remove(0);
-        openConnection.add(connection);
-
-        lock.unlock();
+        lockForOpen.unlock();
 
         return connection;
     }
@@ -71,7 +73,10 @@ public class JDBCConnectionPool implements ConnectionPool {
         }
     }
 
-    public static synchronized void releaseConnection() {
-        closedConnection.add(openConnection.remove(0));
+    public static void releaseConnection(Connection connection) {
+        lockForClose.lock();
+        System.out.println("close");
+        pool.push(connection);
+        lockForClose.lock();
     }
 }

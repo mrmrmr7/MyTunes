@@ -9,7 +9,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DBFill {
-    public static void createDB() throws IOException, SQLException, InterruptedException {
+    public static synchronized void createDB() throws IOException, SQLException, InterruptedException {
+
         Connection connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.JDBC).getConnection();
 
         String dataBase = FileUtils
@@ -19,11 +20,12 @@ public class DBFill {
                 .createStatement()
                 .executeUpdate(dataBase);
 
+        connection.close();
     }
-    public static void fill() throws IOException, SQLException, InterruptedException {
+
+    public static synchronized void fill() throws IOException, SQLException, InterruptedException {
+
         Connection connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.JDBC).getConnection();
-
-
 
         String fullTestData = FileUtils
                 .fileRead("src/main/resources/hsqldb/script/fullTestData.sql");
@@ -31,5 +33,21 @@ public class DBFill {
         connection
                 .createStatement()
                 .executeUpdate(fullTestData);
+
+        connection.close();
+    }
+
+    public static synchronized void drop() throws IOException, SQLException, InterruptedException {
+
+        Connection connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.JDBC).getConnection();
+
+        String fullTestData = FileUtils
+                .fileRead("src/main/resources/hsqldb/script/dropDB.sql");
+
+        connection
+                .createStatement()
+                .executeUpdate(fullTestData);
+
+        connection.close();
     }
 }

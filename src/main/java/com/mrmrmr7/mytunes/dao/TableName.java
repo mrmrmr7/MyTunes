@@ -2,7 +2,8 @@ package com.mrmrmr7.mytunes.dao;
 
 public enum TableName {
     USER ("USERS"),
-    AUTHOR ("AUTHOR");
+    AUTHOR ("AUTHOR"),
+    COMPOSITION ("COMPOSITION");
 
     private String value;
 

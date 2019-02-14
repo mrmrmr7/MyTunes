@@ -1,28 +1,27 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
-import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
 
-import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
-import static java.time.LocalDate.now;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserDAOTest {
-    @BeforeAll
-    static void crt() throws InterruptedException, SQLException, IOException {
+    @BeforeEach
+    void crt() throws InterruptedException, SQLException, IOException {
         DBFill.createDB();
+    }
+
+    @AfterEach
+    void deinit() throws InterruptedException, SQLException, IOException {
+        DBFill.drop();
     }
 
     @Test
