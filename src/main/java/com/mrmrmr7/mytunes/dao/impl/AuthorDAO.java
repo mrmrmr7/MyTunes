@@ -30,13 +30,11 @@ public class AuthorDAO extends AbstractJDBCDAO<Author, Integer> implements Gener
     @Override
     public Optional<Author> getByPK(Integer id) throws DAOException, SQLException {
 
-        try (Connection connection = dbConnect.getConnection()) {
-            try (PreparedStatement preparedStatement = prepareStatementForGet(connection, id)){
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    resultSet.next();
-                    return Optional.of(resultSetCompiller.setAuthor(resultSet));
-                }
-            }
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = prepareStatementForGet(connection, id);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            resultSet.next();
+            return Optional.of(resultSetCompiller.setAuthor(resultSet));
         } catch (InterruptedException e) {
             throw new DAOException("Impossible to get connection");
         }
@@ -47,14 +45,12 @@ public class AuthorDAO extends AbstractJDBCDAO<Author, Integer> implements Gener
 
         List<Author> userList = new ArrayList<>();
 
-        try (Connection connection = dbConnect.getConnection()) {
-            try (PreparedStatement preparedStatement = prepareStatementForGetAll(connection, TableName.AUTHOR)){
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    while (resultSet.next()) {
-                        userList
-                                .add(resultSetCompiller.setAuthor(resultSet));
-                    }
-                }
+        try (Connection connection = dbConnect.getConnection();
+             PreparedStatement preparedStatement = prepareStatementForGetAll(connection, TableName.AUTHOR);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                userList
+                        .add(resultSetCompiller.setAuthor(resultSet));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

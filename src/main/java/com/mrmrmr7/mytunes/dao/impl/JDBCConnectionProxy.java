@@ -1,5 +1,8 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import org.hsqldb.jdbc.JDBCConnection;
+
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -14,9 +17,11 @@ public class JDBCConnectionProxy implements InvocationHandler {
     @Override
     public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
         if (method.getName().equals("close")) {
-            JDBCConnectionPool.releaseConnection(connection);
+            System.out.println("i'm here");
+            JDBCConnectionPool.getInstance().releaseConnection(connection);
             return null;
+        } else {
+            return method.invoke(connection, objects);
         }
-        return method.invoke(connection, objects);
     }
 }

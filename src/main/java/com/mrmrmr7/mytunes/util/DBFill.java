@@ -7,19 +7,24 @@ import org.apache.commons.io.FileUtils;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBFill {
     public static synchronized void createDB() throws IOException, SQLException, InterruptedException {
 
-        Connection connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.JDBC).getConnection();
+        Connection connection = ConnectionPoolFactory.getInstance()
+                .getConnectionPool(ConnectionPoolType.JDBC)
+                .getConnection();
 
         String dataBase = FileUtils
                 .fileRead("src/main/resources/hsqldb/script/dbScheme.sql");
+        Statement statement = connection
+                .createStatement();
 
-        connection
-                .createStatement()
-                .executeUpdate(dataBase);
 
+        statement.executeUpdate(dataBase);
+
+        statement.close();
         connection.close();
     }
 
@@ -29,10 +34,12 @@ public class DBFill {
 
         String fullTestData = FileUtils
                 .fileRead("src/main/resources/hsqldb/script/fullTestData.sql");
+        Statement statement = connection
+                .createStatement();
 
-        connection
-                .createStatement()
-                .executeUpdate(fullTestData);
+        statement.executeUpdate(fullTestData);
+
+        statement.close();
 
         connection.close();
     }
@@ -43,10 +50,13 @@ public class DBFill {
 
         String fullTestData = FileUtils
                 .fileRead("src/main/resources/hsqldb/script/dropDB.sql");
+        Statement statement = connection
+                .createStatement();
 
-        connection
-                .createStatement()
-                .executeUpdate(fullTestData);
+
+        statement.executeUpdate(fullTestData);
+
+        statement.close();
 
         connection.close();
     }

@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hsqldb.jdbc.JDBCConnection;
 
+import java.io.IOException;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,6 +19,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class JDBCConnectionPool implements ConnectionPool {
     private final static Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
+    private final static JDBCConnectionPool INSTANCE = new JDBCConnectionPool();
     private final String JDBC_URL;
     private final String USER;
     private final String PASSWORD;
@@ -28,12 +30,22 @@ public class JDBCConnectionPool implements ConnectionPool {
     private static Lock lockForClose = new ReentrantLock();
     private Semaphore semaphore;
 
-    public JDBCConnectionPool(String aJDBCUrl, String aUser, String aPassword, String aDriverclass) {
-        this.JDBC_URL = aJDBCUrl;
-        this.USER = aUser;
-        this.PASSWORD = aPassword;
+    public static JDBCConnectionPool getInstance() {
+        return INSTANCE;
+    }
+
+    private JDBCConnectionPool() {
+        Properties properties = new Properties();
+        try {
+            properties.load(getClass().getResourceAsStream("/db.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         semaphore = new Semaphore(POOL_CAPACITY);
-        initDriver(aDriverclass);
+        JDBC_URL = properties.getProperty("url");
+        USER = properties.getProperty("user");
+        PASSWORD = properties.getProperty("password");
+        initDriver(properties.getProperty("driver"));
     }
 
     @Override
@@ -44,21 +56,21 @@ public class JDBCConnectionPool implements ConnectionPool {
 
         try {
             if (createdConnectionCount.get() < POOL_CAPACITY) {
-                Connection connection;
-                connection = (Connection) Proxy.newProxyInstance(
+                Connection connection = (Connection) Proxy.newProxyInstance(
                         JDBCConnection.class.getClassLoader(),
                         JDBCConnection.class.getInterfaces(),
                         new JDBCConnectionProxy(DriverManager.
                                 getConnection(JDBC_URL, USER, PASSWORD)));
-                pool.push(connection);
+                pool.addLast(connection);
                 createdConnectionCount.incrementAndGet();
             }
         } catch (SQLException e) {
             throw new SQLException(e);
         }
 
-        Connection connection = pool.poll();
+        Connection connection = pool.pollLast();
 
+        semaphore.release();
         lockForOpen.unlock();
 
         return connection;
@@ -73,10 +85,13 @@ public class JDBCConnectionPool implements ConnectionPool {
         }
     }
 
-    public static void releaseConnection(Connection connection) {
+    public void releaseConnection(Connection connection) {
         lockForClose.lock();
+        JDBCConnectionPool.pool.push((Connection) Proxy.newProxyInstance(
+                JDBCConnection.class.getClassLoader(),
+                JDBCConnection.class.getInterfaces(),
+                new JDBCConnectionProxy(connection)));
         System.out.println("close");
-        pool.push(connection);
         lockForClose.lock();
     }
 }

@@ -1,14 +1,21 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.ConnectionPool;
+import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Author;
 import com.mrmrmr7.mytunes.util.DBFill;
+import org.hsqldb.jdbc.JDBCConnection;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,12 +28,15 @@ class AuthorDAOTest {
     void init() throws InterruptedException, SQLException, IOException {
         DBFill.createDB();
         authorDAO = AuthorDAO.getInstance();
+        Connection connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.JDBC).getConnection();
+
     }
 
     @AfterEach
     void deinit() throws InterruptedException, SQLException, IOException {
         DBFill.drop();
     }
+
 
     @Test
     void getByPK() throws InterruptedException, SQLException, IOException, DAOException {
