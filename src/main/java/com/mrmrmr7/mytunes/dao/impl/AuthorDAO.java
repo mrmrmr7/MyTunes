@@ -45,12 +45,14 @@ public class AuthorDAO extends AbstractJDBCDAO<Author, Integer> implements Gener
 
         List<Author> userList = new ArrayList<>();
 
-        try (Connection connection = dbConnect.getConnection();
-             PreparedStatement preparedStatement = prepareStatementForGetAll(connection, TableName.AUTHOR);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-            while (resultSet.next()) {
-                userList
-                        .add(resultSetCompiller.setAuthor(resultSet));
+        try (Connection connection = dbConnect.getConnection()) {
+            try (PreparedStatement preparedStatement = prepareStatementForGetAll(connection, TableName.AUTHOR);){
+                try (ResultSet resultSet = preparedStatement.executeQuery()){
+                    while (resultSet.next()) {
+                        userList
+                                .add(resultSetCompiller.setAuthor(resultSet));
+                    }
+                }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -16,6 +16,7 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Stream;
 
 public class JDBCConnectionPool implements ConnectionPool {
     private final static Logger logger = LogManager.getLogger(JDBCConnectionPool.class);

@@ -1,35 +1,32 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.ConnectionPool;
-import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
-import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Author;
 import com.mrmrmr7.mytunes.util.DBFill;
-import org.hsqldb.jdbc.JDBCConnection;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class AuthorDAOTest {
+public class AuthorDAOTest {
     private static AuthorDAO authorDAO;
 
     @BeforeEach
     void init() throws InterruptedException, SQLException, IOException {
-        DBFill.createDB();
         authorDAO = AuthorDAO.getInstance();
-        Connection connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.JDBC).getConnection();
+        DBFill.createDB();
+    }
 
+    @Test
+    void getInstance() {
+        assertNotNull(authorDAO);
     }
 
     @AfterEach
@@ -38,8 +35,10 @@ class AuthorDAOTest {
     }
 
 
+
     @Test
-    void getByPK() throws InterruptedException, SQLException, IOException, DAOException {
+    public void getByPK() throws InterruptedException, SQLException, IOException, DAOException {
+        DBFill.fill();
 
         Optional<Author> author = authorDAO.getByPK(1);
         String expected = "Author{id=1, firstName='Miron', secondName='Yanovich', pseudonim='Oxxxymiron'}";
@@ -49,7 +48,7 @@ class AuthorDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException, IOException, InterruptedException {
+    public void getAll() throws SQLException, IOException, InterruptedException {
         DBFill.fill();
 
         List<Author> authorList = authorDAO.getAll();
@@ -64,7 +63,7 @@ class AuthorDAOTest {
     }
 
     @Test
-    void insert() throws InterruptedException, SQLException, IOException, DAOException {
+    public void insert() throws InterruptedException, SQLException, IOException, DAOException {
         DBFill.fill();
 
         Author author = new Author(4,
@@ -82,7 +81,7 @@ class AuthorDAOTest {
     }
 
     @Test
-    void delete() throws InterruptedException, SQLException, IOException {
+    public void delete() throws InterruptedException, SQLException, IOException {
         DBFill.fill();
 
         authorDAO.delete(2);
@@ -98,7 +97,7 @@ class AuthorDAOTest {
     }
 
     @Test
-    void update() throws InterruptedException, SQLException, IOException, DAOException {
+    public void update() throws InterruptedException, SQLException, IOException, DAOException {
         DBFill.fill();
 
         Author author = new Author(2,

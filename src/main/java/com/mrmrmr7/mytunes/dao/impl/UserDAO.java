@@ -103,6 +103,7 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
     protected PreparedStatement prepareStatementForUpdate(Connection connection, User object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getUpdateQuery());
+        preparedStatement.setInt(11, object.getId());
         return prepareForUpdate(preparedStatement, object);
     }
 
@@ -135,7 +136,6 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
         preparedStatement.setByte(++i, object.getRole_id());
         preparedStatement.setByte(++i, object.getStatus_id());
         preparedStatement.setString(++i, object.getEmail());
-        preparedStatement.setInt(++i, object.getId());
         return preparedStatement;
     }
 

@@ -36,7 +36,6 @@ public class DBFill {
                 .fileRead("src/main/resources/hsqldb/script/fullTestData.sql");
         Statement statement = connection
                 .createStatement();
-
         statement.executeUpdate(fullTestData);
 
         statement.close();
