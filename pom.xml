@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>by.subota.max</groupId>
+    <groupId>com.mrmrmr7.mytunes</groupId>
     <artifactId>web-project-sample</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
     <name>web-project-sample Maven Webapp</name>
     <!-- FIXME change it to the project's website -->
-    <!--<url>http://www.example.com</url>-->
+    <url>http://www.example.com</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
