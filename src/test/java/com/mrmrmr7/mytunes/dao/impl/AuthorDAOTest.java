@@ -24,17 +24,15 @@ public class AuthorDAOTest {
         DBFill.createDB();
     }
 
-    @Test
-    void getInstance() {
-        assertNotNull(authorDAO);
-    }
-
     @AfterEach
     void deinit() throws InterruptedException, SQLException, IOException {
         DBFill.drop();
     }
 
-
+    @Test
+    void getInstance() {
+        assertNotNull(authorDAO);
+    }
 
     @Test
     public void getByPK() throws InterruptedException, SQLException, IOException, DAOException {
