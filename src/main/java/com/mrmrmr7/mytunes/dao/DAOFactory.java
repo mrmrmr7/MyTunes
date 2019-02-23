@@ -21,6 +21,6 @@ public class DAOFactory {
     }
 
     public GenericDAO getDAO(Class entitiyClass) {
-        return AuthorDAO.getInstance();
+        return new AuthorDAO();
     }
 }

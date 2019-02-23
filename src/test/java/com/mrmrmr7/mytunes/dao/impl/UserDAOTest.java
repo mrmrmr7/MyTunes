@@ -14,9 +14,23 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserDAOTest {
+    public static UserDAO userDAO;
+
+    @BeforeAll
+    public static void daoInit() {
+        userDAO = new UserDAO();
+        userDAO.init();
+    }
+
+    @AfterAll
+    public static void daoDestroy() {
+        userDAO.destroy();
+    }
+
     @BeforeEach
     void crt() throws InterruptedException, SQLException, IOException {
         DBFill.createDB();
+        DBFill.fill();
     }
 
     @AfterEach
@@ -26,14 +40,11 @@ class UserDAOTest {
 
     @Test
     void getInstance() {
-        UserDAO userDAO = UserDAO.getInstance();
         assertNotNull(userDAO);
     }
 
     @Test
-    void getByPK() throws SQLException, DAOException, IOException, InterruptedException {
-        DBFill.fill();
-        UserDAO userDAO = UserDAO.getInstance();
+    void getByPK() throws SQLException {
 
         Optional<User> user1 = userDAO.getByPK(1);
 
@@ -44,10 +55,7 @@ class UserDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException, InterruptedException, DAOException, IOException {
-        Thread.sleep(1000);
-        DBFill.fill();
-        UserDAO userDAO = UserDAO.getInstance();
+    void getAll() throws SQLException {
 
         List<User> user = userDAO.getAll();
 
@@ -68,10 +76,8 @@ class UserDAOTest {
     }
 
     @Test
-    void insert() throws SQLException, DAOException, IOException, InterruptedException {
+    void insert() throws SQLException {
 
-        DBFill.fill();
-        UserDAO userDAO = UserDAO.getInstance();
         User user = new User(11,
                 new Date(123123),
                 "Kotik",
@@ -95,10 +101,7 @@ class UserDAOTest {
     }
 
     @Test
-    void delete() throws SQLException, InterruptedException, IOException {
-
-        DBFill.fill();
-        UserDAO userDAO = UserDAO.getInstance();
+    void delete() throws SQLException{
 
         userDAO.delete(1);
         List<User> userList = userDAO.getAll();
@@ -120,10 +123,7 @@ class UserDAOTest {
     }
 
     @Test
-    void update() throws SQLException, DAOException, IOException, InterruptedException {
-
-        DBFill.fill();
-        UserDAO userDAO = UserDAO.getInstance();
+    void update() throws SQLException{
 
         userDAO.update(new User(1,
                 new Date(123123),

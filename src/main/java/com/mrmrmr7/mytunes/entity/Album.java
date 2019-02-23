@@ -1,13 +1,17 @@
 package com.mrmrmr7.mytunes.entity;
 
-public class Album implements DBInstance {
-    private long id;
+import com.mrmrmr7.mytunes.dao.Identified;
+
+import java.util.Objects;
+
+public class Album implements Identified<Integer> {
+    private Integer id;
     private String description;
     private long price;
     private int author_id;
     private int genre_id;
 
-    public Album(long id, String description, long price, int author_id, int genre_id) {
+    public Album(int id, long price, String description, int author_id, int genre_id) {
         this.id = id;
         this.description = description;
         this.price = price;
@@ -15,11 +19,11 @@ public class Album implements DBInstance {
         this.genre_id = genre_id;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -53,5 +57,33 @@ public class Album implements DBInstance {
 
     public void setGenre_id(int genre_id) {
         this.genre_id = genre_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Album album = (Album) o;
+        return price == album.price &&
+                author_id == album.author_id &&
+                genre_id == album.genre_id &&
+                Objects.equals(id, album.id) &&
+                Objects.equals(description, album.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, price, author_id, genre_id);
+    }
+
+    @Override
+    public String toString() {
+        return "Album{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", author_id=" + author_id +
+                ", genre_id=" + genre_id +
+                '}';
     }
 }

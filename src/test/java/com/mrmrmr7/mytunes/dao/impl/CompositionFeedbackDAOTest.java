@@ -3,9 +3,8 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.CompositionFeedback;
 import com.mrmrmr7.mytunes.util.DBFill;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,11 +16,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class CompositionFeedbackDAOTest {
-    public CompositionFeedbackDAO compositionFeedbackDAO;
+    public static CompositionFeedbackDAO compositionFeedbackDAO;
+
+    @BeforeAll
+    public static void daoInit() {
+        compositionFeedbackDAO = new CompositionFeedbackDAO();
+        compositionFeedbackDAO.init();
+    }
+
+    @AfterAll
+    public static void daoDestroy() {
+        compositionFeedbackDAO.destroy();
+    }
 
     @BeforeEach
     public void init() throws InterruptedException, SQLException, IOException {
-         compositionFeedbackDAO = CompositionFeedbackDAO.getInstance();
         DBFill.createDB();
         DBFill.fill();
     }
@@ -37,7 +46,7 @@ class CompositionFeedbackDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException, DAOException {
+    void getByPK() throws SQLException {
 
         Optional<CompositionFeedback> compositionFeedback;
         compositionFeedback = compositionFeedbackDAO.getByPK(4);

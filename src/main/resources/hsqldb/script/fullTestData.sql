@@ -5,15 +5,16 @@ insert into STATUS (STATUS) values ('deleted');
 insert into ROLE (ROLE) values ('administrator');
 insert into ROLE (ROLE) values ('client');
 
-insert into BONUS (BONUS) values  ('sale 50%');
-insert into BONUS (BONUS) values  ('sale 60%');
-insert into BONUS (BONUS) values  ('sale 70%');
-insert into BONUS (BONUS) values  ('sale 80%');
-insert into BONUS (BONUS) values  ('sale 90%');
-insert into BONUS (BONUS) values  ('free song');
-insert into BONUS (BONUS) values  ('free album');
-insert into BONUS (BONUS) values  ('free music selection');
-insert into BONUS (BONUS) values  ('unlim');
+insert into BONUS (BONUS) values ('sale 40%');
+insert into BONUS (BONUS) values ('sale 50%');
+insert into BONUS (BONUS) values ('sale 60%');
+insert into BONUS (BONUS) values ('sale 70%');
+insert into BONUS (BONUS) values ('sale 80%');
+insert into BONUS (BONUS) values ('sale 90%');
+insert into BONUS (BONUS) values ('free song');
+insert into BONUS (BONUS) values ('free album');
+insert into BONUS (BONUS) values ('free music selection');
+insert into BONUS (BONUS) values ('unlim');
 
 insert into AUTHOR (FIRST_NAME, SECOND_NAME, PSEUDONIM) values ('Unknown', 'Unknown', 'Unknown');
 insert into AUTHOR (FIRST_NAME, SECOND_NAME, PSEUDONIM) values ('Alexandr', 'Zaporozhtsev', 'Grand-Master');

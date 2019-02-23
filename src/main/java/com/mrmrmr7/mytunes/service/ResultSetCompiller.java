@@ -1,9 +1,6 @@
 package com.mrmrmr7.mytunes.service;
 
-import com.mrmrmr7.mytunes.entity.Author;
-import com.mrmrmr7.mytunes.entity.Composition;
-import com.mrmrmr7.mytunes.entity.CompositionFeedback;
-import com.mrmrmr7.mytunes.entity.User;
+import com.mrmrmr7.mytunes.entity.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,6 +46,49 @@ public class ResultSetCompiller {
                 resultSet.getInt(++i),
                 resultSet.getString(++i),
                 resultSet.getTimestamp(++i)
+        );
+    }
+
+    public Bonus setBonus(ResultSet resultSet) throws SQLException {
+        int i = 0;
+        return new Bonus(
+                resultSet.getInt(++i),
+                resultSet.getString(++i)
+        );
+    }
+
+    public Status setStatus(ResultSet resultSet) throws SQLException {
+        int i = 0;
+        return new Status(
+                resultSet.getInt(++i),
+                resultSet.getString(++i)
+        );
+    }
+
+    public Genre setGenre(ResultSet resultSet) throws SQLException {
+        int i = 0;
+        return new Genre(
+                resultSet.getInt(++i),
+                resultSet.getString(++i)
+        );
+    }
+
+    public Role setRole(ResultSet resultSet) throws SQLException {
+        int i = 0;
+        return new Role(
+                resultSet.getInt(++i),
+                resultSet.getString(++i)
+        );
+    }
+
+    public Album setAlbum(ResultSet resultSet) throws SQLException {
+        int i = 0;
+        return new Album(
+                resultSet.getInt(++i),
+                resultSet.getLong(++i),
+                resultSet.getString(++i),
+                resultSet.getInt(++i),
+                resultSet.getInt(++i)
         );
     }
 }

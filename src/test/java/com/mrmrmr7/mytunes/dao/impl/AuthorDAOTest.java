@@ -3,9 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Author;
 import com.mrmrmr7.mytunes.util.DBFill;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,10 +16,21 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class AuthorDAOTest {
     private static AuthorDAO authorDAO;
 
+    @BeforeAll
+    public static void daoInit() {
+        authorDAO = new AuthorDAO();
+        authorDAO.init();
+    }
+
+    @AfterAll
+    public static void daoDestroy() {
+        authorDAO.destroy();
+    }
+
     @BeforeEach
     void init() throws InterruptedException, SQLException, IOException {
-        authorDAO = AuthorDAO.getInstance();
         DBFill.createDB();
+        DBFill.fill();
     }
 
     @AfterEach
@@ -36,7 +45,6 @@ public class AuthorDAOTest {
 
     @Test
     public void getByPK() throws InterruptedException, SQLException, IOException, DAOException {
-        DBFill.fill();
 
         Optional<Author> author = authorDAO.getByPK(1);
         String expected = "Author{id=1, firstName='Unknown', secondName='Unknown', pseudonim='Unknown'}";
@@ -47,7 +55,6 @@ public class AuthorDAOTest {
 
     @Test
     public void getAll() throws SQLException, IOException, InterruptedException {
-        DBFill.fill();
 
         List<Author> authorList = authorDAO.getAll();
         String expected = "[" +
@@ -69,7 +76,6 @@ public class AuthorDAOTest {
 
     @Test
     public void insert() throws InterruptedException, SQLException, IOException, DAOException {
-        DBFill.fill();
 
         Author author = new Author(11,
                 "1",
@@ -87,7 +93,6 @@ public class AuthorDAOTest {
 
     @Test
     public void delete() throws InterruptedException, SQLException, IOException {
-        DBFill.fill();
 
         authorDAO.delete(2);
         List<Author> authorList = authorDAO.getAll();
@@ -108,7 +113,6 @@ public class AuthorDAOTest {
 
     @Test
     public void update() throws InterruptedException, SQLException, IOException, DAOException {
-        DBFill.fill();
 
         Author author = new Author(2,
                 "Fifa",

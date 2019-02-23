@@ -3,7 +3,9 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.User;
+import com.mrmrmr7.mytunes.service.DBConnectionService;
 import com.mrmrmr7.mytunes.service.ResultSetCompiller;
+import com.mrmrmr7.mytunes.service.ServiceException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,29 +16,18 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDAO<User, Integer> {
-    private final static UserDAO ourInstance = new UserDAO();
-    private final ResultSetCompiller resultSetCompiller = new ResultSetCompiller();
-    private final ConnectionPool dbConnect = ConnectionPoolFactory
-            .getInstance()
-            .getConnectionPool(ConnectionPoolType.JDBC);
-
-    public static UserDAO getInstance() {
-        return ourInstance;
-    }
 
     public UserDAO() {
     }
 
     @Override
-    public Optional<User> getByPK(Integer id) throws DAOException, SQLException {
+    public Optional<User> getByPK(Integer id) throws SQLException {
 
-        try (Connection connection = dbConnect.getConnection()) {
-            ResultSet resultSet = prepareStatementForGet(connection, id)
-                    .executeQuery();
-            resultSet.next();
-            return Optional.of(resultSetCompiller.setUser(resultSet));
-        } catch (InterruptedException e) {
-            throw new DAOException("Impossible to get connection");
+        try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return Optional.of(resultSetCompiller.setUser(resultSet));
+            }
         }
     }
 
@@ -44,63 +35,48 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
     public List<User> getAll() throws SQLException {
 
         List<User> userList = new ArrayList<>();
-
-        try (Connection connection = dbConnect.getConnection()) {
-            ResultSet resultSet = prepareStatementForGetAll(connection, TableName.USER).executeQuery();
-            while (resultSet.next()) {
-                userList
-                        .add(resultSetCompiller.setUser(resultSet));
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.USER)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    userList
+                            .add(resultSetCompiller.setUser(resultSet));
+                }
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
-
         return userList;
     }
 
     @Override
     public void insert(User object) throws SQLException {
-
-        try (Connection connection = dbConnect.getConnection()){
-            prepareStatementForInsert(connection, object)
-                    .executeUpdate();
-        } catch (InterruptedException | SQLException e) {
-            e.printStackTrace();
+        try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
+            preparedStatement.executeUpdate();
         }
     }
 
     @Override
     public void delete(Integer id) throws SQLException {
-
-        try (Connection connection = dbConnect.getConnection()){
-            prepareStatementForDelete(connection, id)
-                    .executeUpdate();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
+            preparedStatement.executeUpdate();
         }
-
     }
 
     @Override
     public void update(User object) throws SQLException {
 
-        try (Connection connection = dbConnect.getConnection()){
-            prepareStatementForUpdate(connection, object)
-                    .executeUpdate();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)) {
+                    preparedStatement.executeUpdate();
         }
     }
 
     @Override
-    protected PreparedStatement prepareStatementForInsert(Connection connection, User object) throws SQLException {
+    protected PreparedStatement prepareStatementForInsert(User object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
         return prepareForUpdate(preparedStatement, object);
     }
 
     @Override
-    protected PreparedStatement prepareStatementForUpdate(Connection connection, User object) throws SQLException {
+    protected PreparedStatement prepareStatementForUpdate(User object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getUpdateQuery());
         preparedStatement.setInt(11, object.getId());
@@ -108,7 +84,7 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
     }
 
     @Override
-    protected PreparedStatement prepareStatementForDelete(Connection connection, Integer id) throws SQLException {
+    protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.USER));
         preparedStatement.setInt(1, id);
@@ -116,7 +92,7 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
     }
 
     @Override
-    protected PreparedStatement prepareStatementForGet(Connection connection, Integer id) throws SQLException {
+    protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
         PreparedStatement preparedStatement = connection
                 .prepareStatement(getSelectQuery(TableName.USER));
         preparedStatement.setInt(1, id);

@@ -3,7 +3,9 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Composition;
+import com.mrmrmr7.mytunes.service.DBConnectionService;
 import com.mrmrmr7.mytunes.service.ResultSetCompiller;
+import com.mrmrmr7.mytunes.service.ServiceException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,40 +16,28 @@ import java.util.List;
 import java.util.Optional;
 
 public class CompositionDAO extends AbstractJDBCDAO<Composition, Integer> implements GenericDAO<Composition, Integer> {
-    private final static CompositionDAO ourInstance = new CompositionDAO();
-    private final ResultSetCompiller resultSetCompiller = new ResultSetCompiller();
-    private final ConnectionPool dbConnect = ConnectionPoolFactory
-            .getInstance()
-            .getConnectionPool(ConnectionPoolType.JDBC);
-
-    public static CompositionDAO getInstance() {
-        return ourInstance;
-    }
 
     public CompositionDAO() {
     }
 
     @Override
-    public Optional<Composition> getByPK(Integer id) throws DAOException, SQLException {
-
-        try (Connection connection = dbConnect.getConnection()) {
-            ResultSet resultSet = prepareStatementForGet(connection, id)
-                    .executeQuery();
-            resultSet.next();
-            return Optional.of(resultSetCompiller.setComposition(resultSet));
-        } catch (InterruptedException e) {
-            throw new DAOException("Impossible to get connection");
+    public Optional<Composition> getByPK(Integer id) throws SQLException {
+        try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return Optional.of(resultSetCompiller.setComposition(resultSet));
+            }
         }
     }
 
-    public List<Composition> getByPKList(List<Integer> idList) throws DAOException, SQLException {
+    public List<Composition> getByPKList(List<Integer> idList) {
 
         List<Composition> compositionList = new ArrayList<>();
 
         idList.forEach(s -> {
             try {
                 getByPK(s).ifPresent(compositionList::add);
-            } catch (DAOException | SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         });
@@ -60,14 +50,13 @@ public class CompositionDAO extends AbstractJDBCDAO<Composition, Integer> implem
 
         List<Composition> userList = new ArrayList<>();
 
-        try (Connection connection = dbConnect.getConnection()) {
-            ResultSet resultSet = prepareStatementForGetAll(connection, TableName.COMPOSITION).executeQuery();
-            while (resultSet.next()) {
-                userList
-                        .add(resultSetCompiller.setComposition(resultSet));
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.COMPOSITION)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    userList
+                            .add(resultSetCompiller.setComposition(resultSet));
+                }
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
         return userList;
@@ -76,46 +65,36 @@ public class CompositionDAO extends AbstractJDBCDAO<Composition, Integer> implem
     @Override
     public void insert(Composition object) throws SQLException {
 
-        try (Connection connection = dbConnect.getConnection()){
-            prepareStatementForInsert(connection, object)
-                    .executeUpdate();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
+            preparedStatement.executeUpdate();
         }
     }
 
     @Override
     public void delete(Integer id) throws SQLException {
 
-        try (Connection connection = dbConnect.getConnection()){
-            prepareStatementForDelete(connection, id)
-                    .executeUpdate();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
+            preparedStatement.executeUpdate();
         }
-
     }
 
     @Override
     public void update(Composition object) throws SQLException {
 
-        try (Connection connection = dbConnect.getConnection()){
-            prepareStatementForUpdate(connection, object)
-                    .executeUpdate();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
+            preparedStatement.executeUpdate();
         }
     }
 
     @Override
-    protected PreparedStatement prepareStatementForInsert(Connection connection, Composition object) throws SQLException {
+    protected PreparedStatement prepareStatementForInsert(Composition object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
         return prepareForUpdate(preparedStatement, object);
     }
 
     @Override
-    protected PreparedStatement prepareStatementForUpdate(Connection connection, Composition object) throws SQLException {
+    protected PreparedStatement prepareStatementForUpdate(Composition object) throws SQLException {
 
         PreparedStatement preparedStatement = prepareForUpdate(connection
                         .prepareStatement(getUpdateQuery()),
@@ -125,7 +104,7 @@ public class CompositionDAO extends AbstractJDBCDAO<Composition, Integer> implem
     }
 
     @Override
-    protected PreparedStatement prepareStatementForDelete(Connection connection, Integer id) throws SQLException {
+    protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.COMPOSITION));
         preparedStatement.setInt(1, id);
@@ -133,7 +112,7 @@ public class CompositionDAO extends AbstractJDBCDAO<Composition, Integer> implem
     }
 
     @Override
-    protected PreparedStatement prepareStatementForGet(Connection connection, Integer id) throws SQLException {
+    protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
                 .prepareStatement(getSelectQuery(TableName.COMPOSITION));

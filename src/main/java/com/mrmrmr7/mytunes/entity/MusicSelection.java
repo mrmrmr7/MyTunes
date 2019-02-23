@@ -2,7 +2,7 @@ package com.mrmrmr7.mytunes.entity;
 
 import java.util.List;
 
-public class MusicSelection implements DBInstance {
+public class MusicSelection {
     private long id;
     private List<Long> composition_id;
     private int selection_id;

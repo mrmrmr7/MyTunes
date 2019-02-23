@@ -20,9 +20,9 @@ create table album (
     price       int           NOT NULL,
     description varchar(5000) NOT NULL,
     author_id   TINYINT       default '1' NOT NULL,
-    genre_id    TINYINT       NOT NULL,
+    genre_id    TINYINT       ,
     constraint album_author_id_fk foreign key (author_id) references author (id) on DELETE set default ,
-    constraint album_genre_fk     foreign key (genre_id)  references genre (id)
+    constraint album_genre_fk     foreign key (genre_id)  references genre (id) on DELETE cascade
     );
 
 create table composition (
@@ -31,7 +31,7 @@ create table composition (
     name        varchar(50) NOT NULL,
     album_id    int         NOT NULL,
     year        int,
-    constraint composition_album_fk foreign key (album_id) references album (id)
+    constraint composition_album_fk foreign key (album_id) references album (id) on DELETE cascade
     );
 
 create table music_selection (
@@ -69,10 +69,10 @@ create table users (
     email         varchar(50) NOT NULL unique,
     balance       BIGINT      NOT NULL,
     sale          TINYINT     NOT NULL,
-    role_id       TINYINT     NOT NULL,
-    status_id     TINYINT     NOT NULL,
-    constraint user_role_fk   foreign key (role_id)   references role (id),
-    constraint user_status_fk foreign key (status_id) references status (id)
+    role_id       TINYINT     ,
+    status_id     TINYINT     ,
+    constraint user_role_fk   foreign key (role_id)   references role (id) on DELETE cascade ,
+    constraint user_status_fk foreign key (status_id) references status (id) ON DELETE CASCADE
     );
 
 create table user_album (
@@ -96,8 +96,8 @@ create table user_bonus (
     primary key,
     user_id  int     NOT NULL,
     bonus_id TINYINT NOT NULL,
-    constraint user_id_fk  foreign key (user_id)  references users (id)  ON DELETE CASCADE,
-    constraint bonus_id_fk foreign key (bonus_id) references bonus (id)
+    constraint user_id_fk  foreign key (user_id)  references users (id) ON DELETE CASCADE,
+    constraint bonus_id_fk foreign key (bonus_id) references bonus (id) ON DELETE CASCADE
     );
 
 create table user_composition (

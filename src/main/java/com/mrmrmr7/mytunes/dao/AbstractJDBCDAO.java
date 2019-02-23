@@ -1,21 +1,26 @@
 package com.mrmrmr7.mytunes.dao;
 
+import com.mrmrmr7.mytunes.service.DBConnectionService;
+import com.mrmrmr7.mytunes.service.ResultSetCompiller;
+import com.mrmrmr7.mytunes.service.ServiceException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Number> implements GenericDAO<T, PK> {
     protected Connection connection;
+    protected final ResultSetCompiller resultSetCompiller = new ResultSetCompiller();
 
-    protected abstract PreparedStatement prepareStatementForInsert(Connection connection, T object) throws SQLException;
+    protected abstract PreparedStatement prepareStatementForInsert(T object) throws SQLException;
 
-    protected abstract PreparedStatement prepareStatementForDelete(Connection connection, PK id) throws SQLException;
+    protected abstract PreparedStatement prepareStatementForDelete(PK id) throws SQLException;
 
-    protected abstract PreparedStatement prepareStatementForUpdate(Connection connection, T object) throws SQLException;
+    protected abstract PreparedStatement prepareStatementForUpdate(T object) throws SQLException;
 
-    protected abstract PreparedStatement prepareStatementForGet(Connection connection, PK id) throws SQLException;
+    protected abstract PreparedStatement prepareStatementForGet(PK id) throws SQLException;
 
-    protected PreparedStatement prepareStatementForGetAll(Connection connection, TableName tableName) throws SQLException {
+    protected PreparedStatement prepareStatementForGetAll(TableName tableName) throws SQLException {
         return connection.prepareStatement(getSelectAllQuery(tableName));
     }
 
@@ -35,4 +40,21 @@ public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Numbe
         return "DELETE FROM " + tableName.getValue() + " WHERE ID=?";
     }
 
+    public void init() {
+        try {
+            connection = DBConnectionService.getConnection();
+            System.out.println("DAO init successfully");
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void destroy() {
+        try {
+            DBConnectionService.closeConnection(connection);;
+            System.out.println("DAO destroy successfully");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

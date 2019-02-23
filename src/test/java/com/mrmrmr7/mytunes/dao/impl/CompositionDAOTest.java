@@ -3,9 +3,8 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Composition;
 import com.mrmrmr7.mytunes.util.DBFill;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.apache.logging.log4j.message.AsynchronouslyFormattable;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.io.StreamCorruptedException;
@@ -21,16 +20,21 @@ import static org.junit.jupiter.api.Assertions.*;
 class CompositionDAOTest {
     private static CompositionDAO compositionDAO;
 
-    @BeforeEach
-    void init() throws InterruptedException, SQLException, IOException {
-        compositionDAO = CompositionDAO.getInstance();
-        DBFill.createDB();
-        DBFill.fill();
+    @BeforeAll
+    public static void daoInit() {
+        compositionDAO = new CompositionDAO();
+        compositionDAO.init();
     }
 
-    @Test
-    void getInstance() {
-        assertNotNull(compositionDAO);
+    @AfterAll
+    public static void daoDestroy() {
+        compositionDAO.destroy();
+    }
+
+    @BeforeEach
+    void init() throws InterruptedException, SQLException, IOException {
+        DBFill.createDB();
+        DBFill.fill();
     }
 
     @AfterEach
@@ -38,9 +42,13 @@ class CompositionDAOTest {
         DBFill.drop();
     }
 
+    @Test
+    void getInstance() {
+        assertNotNull(compositionDAO);
+    }
 
     @Test
-    void getByPK() throws InterruptedException, SQLException, IOException, DAOException {
+    void getByPK() throws SQLException, DAOException {
 
         Optional<Composition> composition = compositionDAO.getByPK(1);
         String expected = "Composition{id=1, year=2018, price=1, album_id=1, name='Vasilisa'}";
@@ -50,7 +58,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException, IOException, InterruptedException {
+    void getAll() throws SQLException {
 
         List<Composition> compositionList = compositionDAO.getAll();
         String expected = "[Composition{id=1, year=2018, price=1, album_id=1, name='Vasilisa'}, " +
@@ -69,7 +77,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void insert() throws InterruptedException, SQLException, IOException, DAOException {
+    void insert() throws SQLException, DAOException {
 
         Composition composition = new Composition(
                 11,
@@ -89,7 +97,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void delete() throws InterruptedException, SQLException, IOException {
+    void delete() throws SQLException {
 
         compositionDAO.delete(2);
         List<Composition> compositionList = compositionDAO.getAll();
@@ -110,7 +118,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void update() throws InterruptedException, SQLException, IOException, DAOException {
+    void update() throws SQLException, DAOException {
 
         Composition composition = new Composition(
                 1,
