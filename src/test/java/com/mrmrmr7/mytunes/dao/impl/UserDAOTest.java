@@ -37,7 +37,7 @@ class UserDAOTest {
 
         Optional<User> user1 = userDAO.getByPK(1);
 
-        String expected = "User{ID=1, LOGIN='mrmrmr7', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.s@yandex.by', balance=100, sale=10, role_id=1, status_id=1}";
+        String expected = "User{ID=1, LOGIN='mrmrmr1', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.s@yandex.by', balance=100, sale=10, role_id=1, status_id=1}";
         String actual = user1.get().toString();
 
         assertEquals(expected, actual);
@@ -52,9 +52,16 @@ class UserDAOTest {
         List<User> user = userDAO.getAll();
 
         String expected = "[" +
-                "User{ID=1, LOGIN='mrmrmr7', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.s@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=2, LOGIN='mrmrmr8', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot@yandex.by', balance=100, sale=10, role_id=1, status_id=1}" +
-                "]";
+                "User{ID=1, LOGIN='mrmrmr1', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.s@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=2, LOGIN='mrmrmr2', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot1@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=3, LOGIN='mrmrmr3', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot2@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=4, LOGIN='mrmrmr4', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot3@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=5, LOGIN='mrmrmr5', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot4@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=6, LOGIN='mrmrmr6', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot5@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=7, LOGIN='mrmrmr7', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot6@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=8, LOGIN='mrmrmr8', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot7@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=9, LOGIN='mrmrmr9', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot8@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=10, LOGIN='mrmrmr10', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot9@yandex.by', balance=100, sale=10, role_id=1, status_id=1}]";
         String actual = user.toString();
 
         assertEquals(expected, actual);
@@ -65,7 +72,7 @@ class UserDAOTest {
 
         DBFill.fill();
         UserDAO userDAO = UserDAO.getInstance();
-        User user = new User(3,
+        User user = new User(11,
                 new Date(123123),
                 "Kotik",
                 "KissMeMeow",
@@ -79,9 +86,9 @@ class UserDAOTest {
 
         userDAO.insert(user);
 
-        Optional<User> user1 = userDAO.getByPK(3);
+        Optional<User> user1 = userDAO.getByPK(11);
 
-        String expected = "User{ID=3, LOGIN='Kotik', register_data=1970-01-01, password='KissMeMeow', first_name='Alex', second_name='Ermakow', email='aliex.s@yanedex.kz', balance=2, sale=1, role_id=1, status_id=1}";
+        String expected = "User{ID=11, LOGIN='Kotik', register_data=1970-01-01, password='KissMeMeow', first_name='Alex', second_name='Ermakow', email='aliex.s@yanedex.kz', balance=2, sale=1, role_id=1, status_id=1}";
         String actual = user1.get().toString();
 
         assertEquals(expected, actual);
@@ -96,10 +103,19 @@ class UserDAOTest {
         userDAO.delete(1);
         List<User> userList = userDAO.getAll();
 
-        String expected = "[User{ID=2, LOGIN='mrmrmr8', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot@yandex.by', balance=100, sale=10, role_id=1, status_id=1}]";
+        String expected = "[" +
+                "User{ID=2, LOGIN='mrmrmr2', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot1@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=3, LOGIN='mrmrmr3', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot2@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=4, LOGIN='mrmrmr4', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot3@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=5, LOGIN='mrmrmr5', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot4@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=6, LOGIN='mrmrmr6', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot5@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=7, LOGIN='mrmrmr7', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot6@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=8, LOGIN='mrmrmr8', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot7@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=9, LOGIN='mrmrmr9', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot8@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=10, LOGIN='mrmrmr10', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot9@yandex.by', balance=100, sale=10, role_id=1, status_id=1}]";
+
         String actual = userList.toString();
 
-        userDAO.delete(2);
         assertEquals(expected, actual);
     }
 

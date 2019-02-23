@@ -39,7 +39,7 @@ public class AuthorDAOTest {
         DBFill.fill();
 
         Optional<Author> author = authorDAO.getByPK(1);
-        String expected = "Author{id=1, firstName='Miron', secondName='Yanovich', pseudonim='Oxxxymiron'}";
+        String expected = "Author{id=1, firstName='Unknown', secondName='Unknown', pseudonim='Unknown'}";
         String actual = author.get().toString();
 
         assertEquals(expected, actual);
@@ -51,9 +51,16 @@ public class AuthorDAOTest {
 
         List<Author> authorList = authorDAO.getAll();
         String expected = "[" +
-                "Author{id=1, firstName='Miron', secondName='Yanovich', pseudonim='Oxxxymiron'}, " +
+                "Author{id=1, firstName='Unknown', secondName='Unknown', pseudonim='Unknown'}, " +
                 "Author{id=2, firstName='Alexandr', secondName='Zaporozhtsev', pseudonim='Grand-Master'}, " +
-                "Author{id=3, firstName='Iosiph', secondName='Stalin', pseudonim='Slava KPSS'}" +
+                "Author{id=3, firstName='Iosiph', secondName='Stalin', pseudonim='Slava KPSS'}, " +
+                "Author{id=4, firstName='LoshkAh', secondName='Anton', pseudonim='MORGENSTERN'}, " +
+                "Author{id=5, firstName='dVeri', secondName='Anon', pseudonim='Stone'}, " +
+                "Author{id=6, firstName='Spice', secondName='Snaf', pseudonim='LSP'}, " +
+                "Author{id=7, firstName='Andrey', secondName='Kirill', pseudonim='FLOVERS'}, " +
+                "Author{id=8, firstName='Maloy', secondName='Diller', pseudonim='TwoBoys'}, " +
+                "Author{id=9, firstName='Maloy1', secondName='Diller1', pseudonim='TwoBoys1'}, " +
+                "Author{id=10, firstName='Maloy2', secondName='Diller2', pseudonim='TwoBoys2'}" +
                 "]";
         String actual = authorList.toString();
 
@@ -64,13 +71,13 @@ public class AuthorDAOTest {
     public void insert() throws InterruptedException, SQLException, IOException, DAOException {
         DBFill.fill();
 
-        Author author = new Author(4,
+        Author author = new Author(11,
                 "1",
                 "Fufa",
                 "Orochimaru");
 
         authorDAO.insert(author);
-        Optional<Author> authorOptional = authorDAO.getByPK(4);
+        Optional<Author> authorOptional = authorDAO.getByPK(11);
 
         String actual = authorOptional.get().toString();
         String expected = author.toString();
@@ -85,10 +92,15 @@ public class AuthorDAOTest {
         authorDAO.delete(2);
         List<Author> authorList = authorDAO.getAll();
 
-        String expected = "[" +
-                "Author{id=1, firstName='Miron', secondName='Yanovich', pseudonim='Oxxxymiron'}, " +
-                "Author{id=3, firstName='Iosiph', secondName='Stalin', pseudonim='Slava KPSS'}" +
-                "]";
+        String expected = "[Author{id=1, firstName='Unknown', secondName='Unknown', pseudonim='Unknown'}, " +
+                "Author{id=3, firstName='Iosiph', secondName='Stalin', pseudonim='Slava KPSS'}, " +
+                "Author{id=4, firstName='LoshkAh', secondName='Anton', pseudonim='MORGENSTERN'}, " +
+                "Author{id=5, firstName='dVeri', secondName='Anon', pseudonim='Stone'}, " +
+                "Author{id=6, firstName='Spice', secondName='Snaf', pseudonim='LSP'}, " +
+                "Author{id=7, firstName='Andrey', secondName='Kirill', pseudonim='FLOVERS'}, " +
+                "Author{id=8, firstName='Maloy', secondName='Diller', pseudonim='TwoBoys'}, " +
+                "Author{id=9, firstName='Maloy1', secondName='Diller1', pseudonim='TwoBoys1'}, " +
+                "Author{id=10, firstName='Maloy2', secondName='Diller2', pseudonim='TwoBoys2'}]";
         String actual = authorList.toString();
 
         assertEquals(expected, actual);

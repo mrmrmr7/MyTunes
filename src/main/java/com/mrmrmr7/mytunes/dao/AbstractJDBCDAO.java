@@ -24,7 +24,7 @@ public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Numbe
     protected abstract String getUpdateQuery();
 
     protected String getSelectQuery(TableName tableName) {
-        return "SELECT * FROM " + tableName.getValue() + " WHERE id=?";
+        return "SELECT * FROM " + tableName.getValue() + " WHERE ID=?";
     }
 
     protected String getSelectAllQuery(TableName tableName) {
@@ -32,7 +32,7 @@ public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Numbe
     }
 
     protected String getDeleteQuery(TableName tableName) {
-        return "DELETE FROM " + tableName.getValue() + " WHERE id=?";
+        return "DELETE FROM " + tableName.getValue() + " WHERE ID=?";
     }
 
 }

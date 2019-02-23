@@ -9,12 +9,19 @@ public class Composition  implements Identified<Integer> {
     private int album_id;
     private String name;
 
-    public Composition(int id, int price, String name, int album_id, int year) {
+    public Composition(int price, String name, int album_id, int year) {
         this.year = year;
-        this.id = id;
         this.price = price;
         this.name = name;
         this.album_id = album_id;
+    }
+
+    public Composition(int id, int price, String name, int album_id, int year) {
+        this.id = id;
+        this.year = year;
+        this.price = price;
+        this.album_id = album_id;
+        this.name = name;
     }
 
     public int getYear() {
