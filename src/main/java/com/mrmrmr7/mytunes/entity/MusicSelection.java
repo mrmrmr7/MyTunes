@@ -1,39 +1,70 @@
 package com.mrmrmr7.mytunes.entity;
 
+import com.mrmrmr7.mytunes.dao.Identified;
+import org.omg.CORBA.INTERNAL;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
-public class MusicSelection {
-    private long id;
-    private List<Long> composition_id;
-    private int selection_id;
+public class MusicSelection implements Identified<Integer> {
+    private List<Integer> idList;
+    private List<Integer> compositionIdList;
+    private Integer selection_id;
 
-    public MusicSelection(long id, List<Long> composition_id, int selection_id) {
-        this.id = id;
-        this.composition_id = composition_id;
+    public MusicSelection(List<Integer> idList, List<Integer> composition_idList, Integer selection_id) {
+        this.idList = idList;
+        this.compositionIdList = composition_idList;
         this.selection_id = selection_id;
     }
 
-    public long getId() {
-        return id;
+    public MusicSelection(Integer id, Integer selection_id, Integer compositionIdList) {
+        this(new ArrayList<>(Arrays.asList(id)), new ArrayList<>(Arrays.asList(compositionIdList)), selection_id);
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public int getCortageId(int id) {
+        return idList.get(id);
     }
 
-    public List<Long> getComposition_id() {
-        return composition_id;
+    public void addCompositionId(Integer id, Integer compositionIdList) {
+        this.idList.add(id);
+        this.compositionIdList.add(compositionIdList);
     }
 
-    public void setComposition_id(List<Long> composition_id) {
-        this.composition_id = composition_id;
-    }
-
-    public int getSelection_id() {
+    @Override
+    public Integer getId() {
         return selection_id;
     }
 
-    public void setSelection_id(int selection_id) {
-        this.selection_id = selection_id;
+    public List<Integer> getCompositionIdList() {
+        return compositionIdList;
+    }
+
+    public Integer getCompositionId(int id) {
+        return compositionIdList.get(id);
+    }
+
+    @Override
+    public String toString() {
+        return "MusicSelection{" +
+                "selection_id=" + selection_id +
+                ", id=" + idList.toString() +
+                ", compositionIdList=" + compositionIdList.toString() +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MusicSelection that = (MusicSelection) o;
+        return selection_id == that.selection_id &&
+                Objects.equals(compositionIdList, that.compositionIdList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(compositionIdList, selection_id);
     }
 }

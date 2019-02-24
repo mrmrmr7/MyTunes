@@ -5,12 +5,13 @@ public enum TableName {
     AUTHOR ("AUTHOR"),
     COMPOSITION ("COMPOSITION"),
     COMPOSITION_FEEDBACK ("COMPOSITION_FEEDBACK"),
+    ALBUM ("ALBUM"),
     ALBUM_FEEDBACK ("ALBUM_FEEDBACK"),
     BONUS ("BONUS"),
     STATUS ("STATUS"),
     GENRE ("GENRE"),
     ROLE ("ROLE"),
-    ALBUM ("ALBUM");
+    MUSIC_SELECTION ("MUSIC_SELECTION");
 
     private String value;
 

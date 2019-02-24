@@ -6,6 +6,7 @@ import com.mrmrmr7.mytunes.service.ServiceException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Number> implements GenericDAO<T, PK> {
@@ -21,7 +22,7 @@ public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Numbe
     protected abstract PreparedStatement prepareStatementForGet(PK id) throws SQLException;
 
     protected PreparedStatement prepareStatementForGetAll(TableName tableName) throws SQLException {
-        return connection.prepareStatement(getSelectAllQuery(tableName));
+        return connection.prepareStatement(getSelectAllQuery(tableName), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
     }
 
     protected abstract String getInsertQuery();

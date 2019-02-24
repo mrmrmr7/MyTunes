@@ -5,6 +5,7 @@ import com.mrmrmr7.mytunes.entity.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ResultSetCompiller {
@@ -99,5 +100,27 @@ public class ResultSetCompiller {
                 resultSet.getInt(++i),
                 resultSet.getInt(++i)
         );
+    }
+
+    public MusicSelection setMusicSelection(ResultSet resultSet) throws SQLException {
+        final int SELECTION_ID_COL_NUM = 2;
+        final int ID_COL_NUM = 1;
+
+        int thisMusicSelection = resultSet.getInt(SELECTION_ID_COL_NUM);
+
+        int i = 0;
+        MusicSelection musicSelection = new MusicSelection(
+                resultSet.getInt(++i),
+                resultSet.getInt(++i),
+                resultSet.getInt(++i)
+        );
+
+        while (resultSet.next() && (resultSet.getInt(SELECTION_ID_COL_NUM) == thisMusicSelection)) {
+            musicSelection.addCompositionId(resultSet.getInt(ID_COL_NUM),resultSet.getInt(i));
+        }
+
+        resultSet.previous();
+
+        return musicSelection;
     }
 }
