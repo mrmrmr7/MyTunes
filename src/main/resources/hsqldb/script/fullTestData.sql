@@ -72,6 +72,27 @@ insert into ALBUM (PRICE, DESCRIPTION, AUTHOR_ID, GENRE_ID) values (123, 'Downto
 insert into ALBUM (PRICE, DESCRIPTION, AUTHOR_ID, GENRE_ID) values (123, 'Downtown5', 9, 1);
 insert into ALBUM (PRICE, DESCRIPTION, AUTHOR_ID, GENRE_ID) values (123, 'Downtown6', 1, 1);
 
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (2, 3);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (3, 4);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (5, 2);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (4, 1);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (7, 8);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (9, 4);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (7, 3);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (6, 5);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (5, 2);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (4, 1);
+
+insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (1, 'Norm takoy album1', '2019-05-03 12:00:03');
+insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (2, 'Norm takoy album2', '2019-05-03 12:00:03');
+insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (3, 'Norm takoy album3', '2019-05-03 12:00:03');
+insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (4, 'Norm takoy album4', '2019-05-03 12:00:03');
+insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (5, 'Norm takoy album5', '2019-05-03 12:00:03');
+insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (6, 'Norm takoy album6', '2019-05-03 12:00:03');
+insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (7, 'Norm takoy album7', '2019-05-03 12:00:03');
+insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (8, 'Norm takoy album8', '2019-05-03 12:00:03');
+insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (9, 'Norm takoy album9', '2019-05-03 12:00:03');
+
 insert into COMPOSITION (PRICE, NAME, ALBUM_ID, YEAR) values (1, 'Vasilisa', 1, 2018);
 insert into COMPOSITION (PRICE, NAME, ALBUM_ID, YEAR) values (1, 'Vse OK', 2, 2018);
 insert into COMPOSITION (PRICE, NAME, ALBUM_ID, YEAR) values (1, 'Hype', 3, 2018);
@@ -94,12 +115,12 @@ insert into USER_COMPOSITION (USER_ID, COMPOSITION_ID) values (2, 3);
 insert into USER_COMPOSITION (USER_ID, COMPOSITION_ID) values (3, 1);
 insert into USER_COMPOSITION (USER_ID, COMPOSITION_ID) values (3, 3);
 
-insert into composition_feedback (ID, FEEDBACK, DATE) values (1, 'Norm takaya pesnya1', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE) values (2, 'Norm takaya pesnya2', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE) values (3, 'Norm takaya pesnya3', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE) values (4, 'Norm takaya pesnya4', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE) values (5, 'Norm takaya pesnya5', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE) values (6, 'Norm takaya pesnya6', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE) values (7, 'Norm takaya pesnya7', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE) values (8, 'Norm takaya pesnya8', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE) values (9, 'Norm takaya pesnya9', '2009-06-04 19:14:20');
+insert into COMPOSITION_FEEDBACK (ID, FEEDBACK, DATE) values (1, 'Norm takaya pesnya1', '2009-06-04 19:14:20');
+insert into COMPOSITION_FEEDBACK (ID, FEEDBACK, DATE) values (2, 'Norm takaya pesnya2', '2009-06-04 19:14:20');
+insert into COMPOSITION_FEEDBACK (ID, FEEDBACK, DATE) values (3, 'Norm takaya pesnya3', '2009-06-04 19:14:20');
+insert into COMPOSITION_FEEDBACK (ID, FEEDBACK, DATE) values (4, 'Norm takaya pesnya4', '2009-06-04 19:14:20');
+insert into COMPOSITION_FEEDBACK (ID, FEEDBACK, DATE) values (5, 'Norm takaya pesnya5', '2009-06-04 19:14:20');
+insert into COMPOSITION_FEEDBACK (ID, FEEDBACK, DATE) values (6, 'Norm takaya pesnya6', '2009-06-04 19:14:20');
+insert into COMPOSITION_FEEDBACK (ID, FEEDBACK, DATE) values (7, 'Norm takaya pesnya7', '2009-06-04 19:14:20');
+insert into COMPOSITION_FEEDBACK (ID, FEEDBACK, DATE) values (8, 'Norm takaya pesnya8', '2009-06-04 19:14:20');
+insert into COMPOSITION_FEEDBACK (ID, FEEDBACK, DATE) values (9, 'Norm takaya pesnya9', '2009-06-04 19:14:20');

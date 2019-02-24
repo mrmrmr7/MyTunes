@@ -49,6 +49,15 @@ public class ResultSetCompiller {
         );
     }
 
+    public AlbumFeedback setAlbumFeedback(ResultSet resultSet) throws SQLException {
+        int i = 0;
+        return new AlbumFeedback(
+                resultSet.getInt(++i),
+                resultSet.getString(++i),
+                resultSet.getTimestamp(++i)
+        );
+    }
+
     public Bonus setBonus(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new Bonus(
