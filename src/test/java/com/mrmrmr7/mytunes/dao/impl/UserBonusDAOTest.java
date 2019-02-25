@@ -113,17 +113,17 @@ class UserBonusDAOTest {
     }
 
     @Test
-    void update() throws SQLException, DAOException {
+    void update() throws SQLException{
 
         UserBonus userBonus = new UserBonus(
-                31,
+                4,
                 4,
                 3
         );
 
         userBonusDAO.update(userBonus);
 
-        String expected = "UserBonus{selection_id=4, id=[31, 32, 33, 34, 35, 36, 37, 38, 39, 40], compositionIdList=[3, 2, 3, 4, 5, 6, 7, 8, 9, 10]}";
+        String expected = "UserBonus{id=4, cortageIdList=[4], bonusIdList=[3]}";
         String actual = userBonusDAO.getByPK(4).get().toString();
 
         assertEquals(expected, actual);

@@ -65,7 +65,7 @@ public class UserBonusDAO extends AbstractJDBCDAO<UserBonus, Integer> implements
     public void update(UserBonus object) throws SQLException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
-            preparedStatement.executeUpdate();
+            preparedStatement.executeBatch();
         }
     }
 
@@ -86,10 +86,17 @@ public class UserBonusDAO extends AbstractJDBCDAO<UserBonus, Integer> implements
     @Override
     protected PreparedStatement prepareStatementForUpdate(UserBonus object) throws SQLException {
 
-        PreparedStatement preparedStatement = prepareForUpdate(connection
-                        .prepareStatement(getUpdateQuery()),
-                object);
-        preparedStatement.setInt(2, object.getId());
+        PreparedStatement preparedStatement = prepareForUpdate(connection.prepareStatement(getUpdateQuery()), object);
+
+        int j = 0;
+
+        for (int i = 0; i < object.getBonusIdList().size(); i++) {
+            preparedStatement.setInt(++j, object.getId());
+            preparedStatement.setInt(++j, object.getBonusId(i));
+            preparedStatement.setInt(++j, object.getCortageId(i));
+            preparedStatement.addBatch();
+        }
+
         return preparedStatement;
     }
 
