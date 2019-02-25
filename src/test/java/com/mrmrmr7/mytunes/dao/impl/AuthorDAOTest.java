@@ -19,7 +19,6 @@ public class AuthorDAOTest {
     @BeforeAll
     public static void daoInit() {
         authorDAO = new AuthorDAO();
-        authorDAO.init();
     }
 
     @AfterAll

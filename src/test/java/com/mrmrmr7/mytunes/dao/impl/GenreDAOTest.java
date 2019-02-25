@@ -17,7 +17,6 @@ class GenreDAOTest {
     @BeforeAll
     public static void daoInit() {
         genreDAO = new GenreDAO();
-        genreDAO.init();
     }
 
     @AfterAll

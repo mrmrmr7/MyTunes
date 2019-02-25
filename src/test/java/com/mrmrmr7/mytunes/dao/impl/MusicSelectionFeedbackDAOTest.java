@@ -20,7 +20,6 @@ class MusicSelectionFeedbackDAOTest {
     @BeforeAll
     public static void daoInit() {
         musicSelectionFeedbackDAO = new MusicSelectionFeedbackDAO();
-        musicSelectionFeedbackDAO.init();
     }
 
     @AfterAll

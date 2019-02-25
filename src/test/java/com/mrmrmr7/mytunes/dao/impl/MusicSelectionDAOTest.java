@@ -18,7 +18,6 @@ class MusicSelectionDAOTest {
     @BeforeAll
     public static void daoInit() {
         musicSelectionDAO = new MusicSelectionDAO();
-        musicSelectionDAO.init();
     }
 
     @AfterAll

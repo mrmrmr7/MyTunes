@@ -18,7 +18,6 @@ class UserAlbumDAOTest {
     @BeforeAll
     public static void daoInit() {
         userAlbumDAO = new UserAlbumDAO();
-        userAlbumDAO.init();
     }
 
     @AfterAll

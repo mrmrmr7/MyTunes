@@ -12,9 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AlbumDAO extends AbstractJDBCDAO<Album, Integer> implements GenericDAO<Album, Integer> {
+public class AlbumDAO extends AbstractJDBCDAO<Album, Integer> {
 
     public AlbumDAO() {
+
     }
 
     @Override

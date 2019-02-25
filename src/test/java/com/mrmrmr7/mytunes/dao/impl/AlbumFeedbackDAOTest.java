@@ -20,7 +20,6 @@ class AlbumFeedbackDAOTest {
     @BeforeAll
     public static void daoInit() {
         albumFeedbackDAO = new AlbumFeedbackDAO();
-        albumFeedbackDAO.init();
     }
 
     @AfterAll

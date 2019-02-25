@@ -19,7 +19,6 @@ class UserDAOTest {
     @BeforeAll
     public static void daoInit() {
         userDAO = new UserDAO();
-        userDAO.init();
     }
 
     @AfterAll

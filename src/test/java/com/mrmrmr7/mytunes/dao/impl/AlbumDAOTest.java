@@ -17,7 +17,6 @@ class AlbumDAOTest {
     @BeforeAll
     public static void daoInit() {
         albumDAO = new AlbumDAO();
-        albumDAO.init();
     }
 
     @AfterAll

@@ -23,7 +23,6 @@ class CompositionDAOTest {
     @BeforeAll
     public static void daoInit() {
         compositionDAO = new CompositionDAO();
-        compositionDAO.init();
     }
 
     @AfterAll

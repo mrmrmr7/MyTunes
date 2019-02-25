@@ -17,7 +17,6 @@ class BonusDAOTest {
     @BeforeAll
     public static void daoInit() {
         bonusDAO = new BonusDAO();
-        bonusDAO.init();
     }
 
     @AfterAll

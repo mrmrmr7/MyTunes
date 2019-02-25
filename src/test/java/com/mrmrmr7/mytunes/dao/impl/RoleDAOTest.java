@@ -17,7 +17,6 @@ class RoleDAOTest {
     @BeforeAll
     public static void daoInit() {
         roleDAO = new RoleDAO();
-        roleDAO.init();
     }
 
     @AfterAll

@@ -11,7 +11,10 @@ import java.sql.SQLException;
 
 public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Number> implements GenericDAO<T, PK> {
     protected Connection connection;
+
     protected final ResultSetCompiller resultSetCompiller = new ResultSetCompiller();
+
+    public AbstractJDBCDAO() { init(); }
 
     protected abstract PreparedStatement prepareStatementForInsert(T object) throws SQLException;
 

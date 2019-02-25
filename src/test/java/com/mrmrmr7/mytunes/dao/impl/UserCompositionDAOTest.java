@@ -18,7 +18,6 @@ class UserCompositionDAOTest {
     @BeforeAll
     public static void daoInit() {
         userCompositionDAO = new UserCompositionDAO();
-        userCompositionDAO.init();
     }
 
     @AfterAll

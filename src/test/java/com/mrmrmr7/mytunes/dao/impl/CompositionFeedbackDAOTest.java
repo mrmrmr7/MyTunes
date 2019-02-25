@@ -21,7 +21,6 @@ class CompositionFeedbackDAOTest {
     @BeforeAll
     public static void daoInit() {
         compositionFeedbackDAO = new CompositionFeedbackDAO();
-        compositionFeedbackDAO.init();
     }
 
     @AfterAll

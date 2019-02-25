@@ -17,7 +17,6 @@ class StatusDAOTest {
     @BeforeAll
     public static void daoInit() {
         statusDAO = new StatusDAO();
-        statusDAO.init();
     }
 
     @AfterAll
