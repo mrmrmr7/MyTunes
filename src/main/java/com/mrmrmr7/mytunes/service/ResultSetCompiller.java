@@ -161,4 +161,26 @@ public class ResultSetCompiller {
 
         return musicSelection;
     }
+
+    public UserBonus setUserBonus(ResultSet resultSet) throws SQLException {
+        final int USER_ID_COL_NUM = 2;
+        final int ID_COL_NUM = 1;
+
+        int thisMusicSelection = resultSet.getInt(USER_ID_COL_NUM);
+
+        int i = 0;
+        UserBonus musicSelection = new UserBonus(
+                resultSet.getInt(++i),
+                resultSet.getInt(++i),
+                resultSet.getInt(++i)
+        );
+
+        while (resultSet.next() && (resultSet.getInt(USER_ID_COL_NUM) == thisMusicSelection)) {
+            musicSelection.addBonusId(resultSet.getInt(ID_COL_NUM),resultSet.getInt(i));
+        }
+
+        resultSet.previous();
+
+        return musicSelection;
+    }
 }

@@ -13,7 +13,8 @@ public enum TableName {
     ROLE ("ROLE"),
     MUSIC_SELECTION ("MUSIC_SELECTION"),
     MUSIC_SELECTION_FEEDBACK ("MUSIC_SELECTION_FEEDBACK"),
-    USER_ALBUM ("USER_ALBUM");
+    USER_ALBUM ("USER_ALBUM"),
+    USER_BONUS ("USER_BONUS");
 
     private String value;
 

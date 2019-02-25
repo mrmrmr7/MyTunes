@@ -126,7 +126,6 @@ public class MusicSelectionDAO extends AbstractJDBCDAO<MusicSelection, Integer> 
         return "DELETE FROM " + tableName.getValue() + " WHERE SELECTION_ID=?";
     }
 
-
     @Override
     public String getInsertQuery() {
 
