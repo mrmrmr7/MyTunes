@@ -71,16 +71,19 @@ insert into ALBUM (PRICE, DESCRIPTION, AUTHOR_ID, GENRE_ID) values (123, 'Downto
 insert into ALBUM (PRICE, DESCRIPTION, AUTHOR_ID, GENRE_ID) values (123, 'Downtown5', 9, 1);
 insert into ALBUM (PRICE, DESCRIPTION, AUTHOR_ID, GENRE_ID) values (123, 'Downtown6', 1, 1);
 
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (1, 3);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (1, 5);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (1, 4);
 insert into USER_ALBUM (USER_ID, ALBUM_ID) values (2, 3);
 insert into USER_ALBUM (USER_ID, ALBUM_ID) values (3, 4);
-insert into USER_ALBUM (USER_ID, ALBUM_ID) values (5, 2);
 insert into USER_ALBUM (USER_ID, ALBUM_ID) values (4, 1);
-insert into USER_ALBUM (USER_ID, ALBUM_ID) values (7, 8);
-insert into USER_ALBUM (USER_ID, ALBUM_ID) values (9, 4);
-insert into USER_ALBUM (USER_ID, ALBUM_ID) values (7, 3);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (5, 2);
 insert into USER_ALBUM (USER_ID, ALBUM_ID) values (6, 5);
-insert into USER_ALBUM (USER_ID, ALBUM_ID) values (5, 2);
-insert into USER_ALBUM (USER_ID, ALBUM_ID) values (4, 1);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (7, 8);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (8, 3);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (9, 4);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (9, 2);
+insert into USER_ALBUM (USER_ID, ALBUM_ID) values (10, 1);
 
 insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (1, 'Norm takoy album1', '2019-05-03 12:00:03');
 insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (2, 'Norm takoy album2', '2019-05-03 12:00:03');
@@ -233,3 +236,15 @@ insert into MUSIC_SELECTION (SELECTION_ID, COMPOSITION_ID) values (10, 7);
 insert into MUSIC_SELECTION (SELECTION_ID, COMPOSITION_ID) values (10, 8);
 insert into MUSIC_SELECTION (SELECTION_ID, COMPOSITION_ID) values (10, 9);
 insert into MUSIC_SELECTION (SELECTION_ID, COMPOSITION_ID) values (10, 10);
+
+
+
+insert into MUSIC_SELECTION_FEEDBACK (ID, FEEDBACK, DATE) values (1, 'Norm takaya wiborka1', '2011-11-11 11:11:11');
+insert into MUSIC_SELECTION_FEEDBACK (ID, FEEDBACK, DATE) values (2, 'Norm takaya wiborka2', '2011-11-11 11:11:11');
+insert into MUSIC_SELECTION_FEEDBACK (ID, FEEDBACK, DATE) values (3, 'Norm takaya wiborka3', '2011-11-11 11:11:11');
+insert into MUSIC_SELECTION_FEEDBACK (ID, FEEDBACK, DATE) values (4, 'Norm takaya wiborka4', '2011-11-11 11:11:11');
+insert into MUSIC_SELECTION_FEEDBACK (ID, FEEDBACK, DATE) values (5, 'Norm takaya wiborka5', '2011-11-11 11:11:11');
+insert into MUSIC_SELECTION_FEEDBACK (ID, FEEDBACK, DATE) values (6, 'Norm takaya wiborka6', '2011-11-11 11:11:11');
+insert into MUSIC_SELECTION_FEEDBACK (ID, FEEDBACK, DATE) values (7, 'Norm takaya wiborka7', '2011-11-11 11:11:11');
+insert into MUSIC_SELECTION_FEEDBACK (ID, FEEDBACK, DATE) values (8, 'Norm takaya wiborka8', '2011-11-11 11:11:11');
+insert into MUSIC_SELECTION_FEEDBACK (ID, FEEDBACK, DATE) values (9, 'Norm takaya wiborka9', '2011-11-11 11:11:11');

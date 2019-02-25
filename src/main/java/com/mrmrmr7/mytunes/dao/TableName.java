@@ -11,7 +11,9 @@ public enum TableName {
     STATUS ("STATUS"),
     GENRE ("GENRE"),
     ROLE ("ROLE"),
-    MUSIC_SELECTION ("MUSIC_SELECTION");
+    MUSIC_SELECTION ("MUSIC_SELECTION"),
+    MUSIC_SELECTION_FEEDBACK ("MUSIC_SELECTION_FEEDBACK"),
+    USER_ALBUM ("USER_ALBUM");
 
     private String value;
 

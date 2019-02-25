@@ -1,5 +1,7 @@
 package com.mrmrmr7.mytunes.service;
 
+import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
+import com.mrmrmr7.mytunes.dao.Identified;
 import com.mrmrmr7.mytunes.entity.*;
 
 import java.sql.ResultSet;
@@ -9,6 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ResultSetCompiller {
+
+    public Identified set(Class c, ResultSet resultSet) throws SQLException {
+        return setMusicSelectionFeedback(resultSet);
+    }
+
     public User setUser(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new User(resultSet.getInt(++i),
@@ -116,6 +123,37 @@ public class ResultSetCompiller {
         );
 
         while (resultSet.next() && (resultSet.getInt(SELECTION_ID_COL_NUM) == thisMusicSelection)) {
+            musicSelection.addCompositionId(resultSet.getInt(ID_COL_NUM),resultSet.getInt(i));
+        }
+
+        resultSet.previous();
+
+        return musicSelection;
+    }
+
+    public MusicSelectionFeedback setMusicSelectionFeedback(ResultSet resultSet) throws SQLException {
+        int i = 0;
+        return new MusicSelectionFeedback(
+                resultSet.getInt(++i),
+                resultSet.getString(++i),
+                resultSet.getTimestamp(++i)
+        );
+    }
+
+    public UserAlbum setUserAlbum(ResultSet resultSet) throws SQLException {
+        final int ALBUM_ID_COL_NUM = 2;
+        final int ID_COL_NUM = 1;
+
+        int thisMusicSelection = resultSet.getInt(ALBUM_ID_COL_NUM);
+
+        int i = 0;
+        UserAlbum musicSelection = new UserAlbum(
+                resultSet.getInt(++i),
+                resultSet.getInt(++i),
+                resultSet.getInt(++i)
+        );
+
+        while (resultSet.next() && (resultSet.getInt(ALBUM_ID_COL_NUM) == thisMusicSelection)) {
             musicSelection.addCompositionId(resultSet.getInt(ID_COL_NUM),resultSet.getInt(i));
         }
 
