@@ -110,6 +110,7 @@ public class ResultSetCompiller {
     }
 
     public MusicSelection setMusicSelection(ResultSet resultSet) throws SQLException {
+
         final int SELECTION_ID_COL_NUM = 2;
         final int ID_COL_NUM = 1;
 
@@ -141,6 +142,7 @@ public class ResultSetCompiller {
     }
 
     public UserAlbum setUserAlbum(ResultSet resultSet) throws SQLException {
+
         final int ALBUM_ID_COL_NUM = 2;
         final int ID_COL_NUM = 1;
 
@@ -163,6 +165,7 @@ public class ResultSetCompiller {
     }
 
     public UserBonus setUserBonus(ResultSet resultSet) throws SQLException {
+
         final int USER_ID_COL_NUM = 2;
         final int ID_COL_NUM = 1;
 
@@ -177,6 +180,52 @@ public class ResultSetCompiller {
 
         while (resultSet.next() && (resultSet.getInt(USER_ID_COL_NUM) == thisMusicSelection)) {
             musicSelection.addBonusId(resultSet.getInt(ID_COL_NUM),resultSet.getInt(i));
+        }
+
+        resultSet.previous();
+
+        return musicSelection;
+    }
+
+    public UserComposition setUserComposition(ResultSet resultSet) throws SQLException {
+
+        final int ALBUM_ID_COL_NUM = 2;
+        final int ID_COL_NUM = 1;
+
+        int thisMusicSelection = resultSet.getInt(ALBUM_ID_COL_NUM);
+
+        int i = 0;
+        UserComposition musicSelection = new UserComposition(
+                resultSet.getInt(++i),
+                resultSet.getInt(++i),
+                resultSet.getInt(++i)
+        );
+
+        while (resultSet.next() && (resultSet.getInt(ALBUM_ID_COL_NUM) == thisMusicSelection)) {
+            musicSelection.addCompositionId(resultSet.getInt(ID_COL_NUM),resultSet.getInt(i));
+        }
+
+        resultSet.previous();
+
+        return musicSelection;
+    }
+
+    public UserMusicSelection setUserMusicSelection(ResultSet resultSet) throws SQLException {
+
+        final int ALBUM_ID_COL_NUM = 2;
+        final int ID_COL_NUM = 1;
+
+        int thisMusicSelection = resultSet.getInt(ALBUM_ID_COL_NUM);
+
+        int i = 0;
+        UserMusicSelection musicSelection = new UserMusicSelection(
+                resultSet.getInt(++i),
+                resultSet.getInt(++i),
+                resultSet.getInt(++i)
+        );
+
+        while (resultSet.next() && (resultSet.getInt(ALBUM_ID_COL_NUM) == thisMusicSelection)) {
+            musicSelection.addMusicSelection(resultSet.getInt(ID_COL_NUM),resultSet.getInt(i));
         }
 
         resultSet.previous();
