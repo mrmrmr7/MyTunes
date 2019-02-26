@@ -9,14 +9,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns="/main")
+@WebServlet(name="nm", urlPatterns="")
 public class WebAppServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> somelist = new ArrayList<>();
         req.setAttribute("themeList", somelist);
-        req.getRequestDispatcher("mytunes/site/tables-data.jsp").include(req, resp);
+        req.getServletContext().getRequestDispatcher("/web/index.jsp").forward(req, resp);
     }
 
     @Override

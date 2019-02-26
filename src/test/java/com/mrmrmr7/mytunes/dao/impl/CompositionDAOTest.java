@@ -3,7 +3,6 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Composition;
 import com.mrmrmr7.mytunes.util.DBFill;
-import org.apache.logging.log4j.message.AsynchronouslyFormattable;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
