@@ -55,7 +55,7 @@ public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Numbe
 
     public void destroy() {
         try {
-            DBConnectionService.closeConnection(connection);;
+            DBConnectionService.closeConnection(connection);
             System.out.println("DAO destroy successfully");
         } catch (SQLException e) {
             e.printStackTrace();

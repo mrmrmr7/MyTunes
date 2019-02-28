@@ -53,7 +53,6 @@ public class JDBCConnectionPool implements ConnectionPool {
     public Connection getConnection() throws SQLException, InterruptedException {
         semaphore.acquire();
         lockForOpen.lock();
-        System.out.println("lol ");
 
         try {
             if (createdConnectionCount.get() < POOL_CAPACITY) {
@@ -92,7 +91,6 @@ public class JDBCConnectionPool implements ConnectionPool {
                 JDBCConnection.class.getClassLoader(),
                 JDBCConnection.class.getInterfaces(),
                 new JDBCConnectionProxy(connection)));
-        System.out.println("close");
-        lockForClose.lock();
+        lockForClose.unlock();
     }
 }

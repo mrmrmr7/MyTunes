@@ -24,8 +24,10 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
     public Optional<User> getByPK(Integer id) throws SQLException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
+
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
+
                 return Optional.of(resultSetCompiller.setUser(resultSet));
             }
         }

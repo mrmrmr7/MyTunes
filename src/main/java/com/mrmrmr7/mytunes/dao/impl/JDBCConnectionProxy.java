@@ -17,7 +17,6 @@ public class JDBCConnectionProxy implements InvocationHandler {
     @Override
     public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
         if (method.getName().equals("close")) {
-            System.out.println("i'm here");
             JDBCConnectionPool.getInstance().releaseConnection(connection);
             return null;
         } else {
