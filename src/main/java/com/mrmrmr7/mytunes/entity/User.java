@@ -6,20 +6,23 @@ import java.sql.Date;
 
 public class User implements Identified<Integer> {
     private int id;
-    private Date register_data;
+    private Date registerData;
     private String login;
     private String password;
-    private String first_name;
-    private String second_name;
+    private String firstName;
+    private String secondName;
     private String email;
     private long balance;
+    private byte sale;
+    private byte roleId;
+    private byte statusId;
 
-    public String getLOGIN() {
+    public String getLogin() {
         return login;
     }
 
-    public Date getRegister_data() {
-        return register_data;
+    public Date getRegisterData() {
+        return registerData;
     }
 
     public String getPassword() {
@@ -30,20 +33,20 @@ public class User implements Identified<Integer> {
         this.password = password;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getSecond_name() {
-        return second_name;
+    public String getSecondName() {
+        return secondName;
     }
 
-    public void setSecond_name(String second_name) {
-        this.second_name = second_name;
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 
     public String getEmail() {
@@ -70,43 +73,40 @@ public class User implements Identified<Integer> {
         this.sale = sale;
     }
 
-    public byte getRole_id() {
-        return role_id;
+    public byte getRoleId() {
+        return roleId;
     }
 
-    public void setRole_id(byte role_id) {
-        this.role_id = role_id;
+    public void setRoleId(byte roleId) {
+        this.roleId = roleId;
     }
 
-    public byte getStatus_id() {
-        return status_id;
+    public byte getStatusId() {
+        return statusId;
     }
 
-    public void setStatus_id(byte status_id) {
-        this.status_id = status_id;
+    public void setStatusId(byte statusId) {
+        this.statusId = statusId;
     }
 
-    private byte sale;
-    private byte role_id;
-    private byte status_id;
 
-    public User(int ID, Date register_data,
+    public User(int ID, Date registerData,
                 String LOGIN, String password,
-                String first_name, String second_name,
+                String firstName, String secondName,
                 String email,
                 long balance, byte sale,
-                byte role_id, byte status_id) {
+                byte roleId, byte statusId) {
         this.id = ID;
         this.login = LOGIN;
-        this.register_data = register_data;
+        this.registerData = registerData;
         this.password = password;
-        this.first_name = first_name;
-        this.second_name = second_name;
+        this.firstName = firstName;
+        this.secondName = secondName;
         this.email = email;
         this.balance = balance;
         this.sale = sale;
-        this.role_id = role_id;
-        this.status_id = status_id;
+        this.roleId = roleId;
+        this.statusId = statusId;
     }
 
     @Override
@@ -114,15 +114,15 @@ public class User implements Identified<Integer> {
         return "User{" +
                 "ID=" + id +
                 ", LOGIN='" + login + '\'' +
-                ", register_data=" + register_data +
+                ", registerData=" + registerData +
                 ", password='" + password + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", second_name='" + second_name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
                 ", email='" + email + '\'' +
                 ", balance=" + balance +
                 ", sale=" + sale +
-                ", role_id=" + role_id +
-                ", status_id=" + status_id +
+                ", roleId=" + roleId +
+                ", statusId=" + statusId +
                 '}';
     }
 

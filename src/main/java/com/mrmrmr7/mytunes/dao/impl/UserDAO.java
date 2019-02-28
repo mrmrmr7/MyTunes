@@ -1,13 +1,8 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.*;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.User;
-import com.mrmrmr7.mytunes.service.DBConnectionService;
-import com.mrmrmr7.mytunes.service.ResultSetCompiller;
-import com.mrmrmr7.mytunes.service.ServiceException;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -104,15 +99,15 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, User object) throws SQLException {
 
         int i = 0;
-        preparedStatement.setString(++i, object.getLOGIN());
+        preparedStatement.setString(++i, object.getLogin());
         preparedStatement.setString(++i, object.getPassword());
-        preparedStatement.setString(++i, object.getFirst_name());
-        preparedStatement.setString(++i, object.getSecond_name());
-        preparedStatement.setDate(++i, object.getRegister_data());
+        preparedStatement.setString(++i, object.getFirstName());
+        preparedStatement.setString(++i, object.getSecondName());
+        preparedStatement.setDate(++i, object.getRegisterData());
         preparedStatement.setInt(++i, object.getSale());
         preparedStatement.setLong(++i, object.getBalance());
-        preparedStatement.setByte(++i, object.getRole_id());
-        preparedStatement.setByte(++i, object.getStatus_id());
+        preparedStatement.setByte(++i, object.getRoleId());
+        preparedStatement.setByte(++i, object.getStatusId());
         preparedStatement.setString(++i, object.getEmail());
         return preparedStatement;
     }
