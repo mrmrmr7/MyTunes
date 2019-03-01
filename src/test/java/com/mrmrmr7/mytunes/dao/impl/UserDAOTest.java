@@ -77,8 +77,7 @@ class UserDAOTest {
     @Test
     void insert() throws SQLException {
 
-        User user = new User(11,
-                new Date(123123),
+        User user = new User(
                 "Kotik",
                 "KissMeMeow",
                 "Alex",
@@ -93,7 +92,7 @@ class UserDAOTest {
 
         Optional<User> user1 = userDAO.getByPK(11);
 
-        String expected = "User{ID=11, LOGIN='Kotik', register_data=1970-01-01, password='KissMeMeow', first_name='Alex', second_name='Ermakow', email='aliex.s@yanedex.kz', balance=2, sale=1, role_id=1, status_id=1}";
+        String expected = "User{ID=11, LOGIN='Kotsik', register_data=1970-01-01, password='KissMeMeow', first_name='Alex', second_name='Ermakow', email='aliex.s@yanedex.kz', balance=2, sale=1, role_id=1, status_id=1}";
         String actual = user1.get().toString();
 
         assertEquals(expected, actual);

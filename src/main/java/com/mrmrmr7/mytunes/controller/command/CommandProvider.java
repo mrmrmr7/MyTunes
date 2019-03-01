@@ -1,5 +1,9 @@
 package com.mrmrmr7.mytunes.controller.command;
 
+import com.mrmrmr7.mytunes.controller.command.user.*;
+import com.mrmrmr7.mytunes.controller.command.author.*;
+
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +19,14 @@ public class CommandProvider {
     }
 
     private CommandProvider() {
-        commandMap.put("getUser", new GetUserCommand());
+        commandMap.put("userGetById", new CommandUserGetById());
+        commandMap.put("userGetAll", new CommandUserGetAll());
+        commandMap.put("userInsert", new CommandUserInsert());
+        commandMap.put("userDelete", new CommandUserDelete());
+        commandMap.put("authorGetById", new CommandAuthorGetById());
+        commandMap.put("authorGetAll", new CommandAuthorGetAll());
+        commandMap.put("authorInsert", new CommandAuthorInsert());
+        commandMap.put("authorDelete", new CommandAuthorDelete());
 //        commandMap.put("main", new ShowEmptyMainPageCommand());
 //        commandMap.put("register_cocktail", new CreateNewCocktailCommand());
 //        commandMap.put("cocktail_list", new ViewCocktailListCommand());

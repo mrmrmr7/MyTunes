@@ -15,6 +15,10 @@ public class Author implements Identified<Integer> {
         this.pseudonim = pseudonim;
     }
 
+    public Author(String firstName, String secondName, String pseudonim) {
+        this(0, firstName, secondName, pseudonim);
+    }
+
     public Integer getId() {
         return id;
     }

@@ -22,7 +22,7 @@ public class DBFill {
         }
 
         String dataBase = FileUtils
-                .fileRead("src/main/resources/hsqldb/script/dbScheme.sql");
+                .fileRead("src/test/resources/hsqldb/script/dbScheme.sql");
         Statement statement = connection
                 .createStatement();
 
@@ -37,6 +37,7 @@ public class DBFill {
     public static synchronized void fill() throws IOException, SQLException, InterruptedException {
 
         Connection connection = null;
+
         try {
             connection = DBConnectionService.getConnection();
         } catch (ServiceException e) {
@@ -44,7 +45,7 @@ public class DBFill {
         }
 
         String fullTestData = FileUtils
-                .fileRead("src/main/resources/hsqldb/script/fullTestData.sql");
+                .fileRead("src/test/resources/hsqldb/script/fullTestData.sql");
         Statement statement = connection
                 .createStatement();
         statement.executeUpdate(fullTestData);
@@ -59,7 +60,7 @@ public class DBFill {
         Connection connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.JDBC).getConnection();
 
         String fullTestData = FileUtils
-                .fileRead("src/main/resources/hsqldb/script/dropDB.sql");
+                .fileRead("src/test/resources/hsqldb/script/dropDB.sql");
         Statement statement = connection
                 .createStatement();
 

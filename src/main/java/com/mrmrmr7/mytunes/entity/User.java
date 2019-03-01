@@ -17,6 +17,33 @@ public class User implements Identified<Integer> {
     private byte roleId;
     private byte statusId;
 
+    public User(int ID, Date registerData,
+                String LOGIN, String password,
+                String firstName, String secondName,
+                String email,
+                long balance, byte sale,
+                byte roleId, byte statusId) {
+        this.id = ID;
+        this.login = LOGIN;
+        this.registerData = registerData;
+        this.password = password;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.email = email;
+        this.balance = balance;
+        this.sale = sale;
+        this.roleId = roleId;
+        this.statusId = statusId;
+    }
+
+    public User(String LOGIN, String password,
+                String firstName, String secondName,
+                String email,
+                long balance, byte sale,
+                byte roleId, byte statusId) {
+        this(0, new Date(21213135435L), LOGIN, password, firstName, secondName, email, balance, sale, roleId, statusId);
+    }
+
     public String getLogin() {
         return login;
     }
@@ -90,39 +117,21 @@ public class User implements Identified<Integer> {
     }
 
 
-    public User(int ID, Date registerData,
-                String LOGIN, String password,
-                String firstName, String secondName,
-                String email,
-                long balance, byte sale,
-                byte roleId, byte statusId) {
-        this.id = ID;
-        this.login = LOGIN;
-        this.registerData = registerData;
-        this.password = password;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.email = email;
-        this.balance = balance;
-        this.sale = sale;
-        this.roleId = roleId;
-        this.statusId = statusId;
-    }
 
     @Override
     public String toString() {
         return "User{" +
                 "ID=" + id +
                 ", LOGIN='" + login + '\'' +
-                ", registerData=" + registerData +
+                ", register_data=" + registerData +
                 ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
+                ", first_name='" + firstName + '\'' +
+                ", second_name='" + secondName + '\'' +
                 ", email='" + email + '\'' +
                 ", balance=" + balance +
                 ", sale=" + sale +
-                ", roleId=" + roleId +
-                ", statusId=" + statusId +
+                ", role_id=" + roleId +
+                ", status_id=" + statusId +
                 '}';
     }
 

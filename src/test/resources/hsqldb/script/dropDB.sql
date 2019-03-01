@@ -1,0 +1,16 @@
+drop table user_music_selection
+drop table composition_feedback
+drop table user_composition
+drop table user_bonus
+drop table album_feedback
+drop table user_album
+drop table users
+drop table status
+drop table ROLE
+drop table music_selection_feedback
+drop table music_selection
+drop table composition
+drop table album
+drop table genre
+drop table bonus
+drop table author 

@@ -62,7 +62,8 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>CRUD operations</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="jsp/crud.jsp">GetUser operation</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="jsp/include/user/crud.jsp">UserDAO CRUD</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="jsp/include/author/crud.jsp">AuthorDAO CRUD</a></li>
                         </ul>
                     </li>
 
