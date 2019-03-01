@@ -4,7 +4,6 @@ import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.ResponseContent;
 import com.mrmrmr7.mytunes.controller.command.Router;
 import com.mrmrmr7.mytunes.dao.impl.AuthorDAO;
-import com.mrmrmr7.mytunes.dao.impl.UserDAO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -25,7 +24,7 @@ public class CommandAuthorDelete implements Command {
 
         authorDAO.destroy();
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router(request.getContextPath() + "/jsp/include/author/crud.jsp", "redirect"));
+        responseContent.setRouter(new Router(request.getContextPath() + "/jsp/crud/author.jsp", "redirect"));
         return responseContent;
     }
 }

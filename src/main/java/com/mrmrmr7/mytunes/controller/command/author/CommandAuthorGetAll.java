@@ -4,9 +4,7 @@ import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.ResponseContent;
 import com.mrmrmr7.mytunes.controller.command.Router;
 import com.mrmrmr7.mytunes.dao.impl.AuthorDAO;
-import com.mrmrmr7.mytunes.dao.impl.UserDAO;
 import com.mrmrmr7.mytunes.entity.Author;
-import com.mrmrmr7.mytunes.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;

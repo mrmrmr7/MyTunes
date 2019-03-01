@@ -23,7 +23,7 @@ public class CommandUserDelete implements Command {
         }
         userDAO.destroy();
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router(request.getContextPath() + "/jsp/include/user/crud.jsp", "redirect"));
+        responseContent.setRouter(new Router(request.getContextPath() + "/jsp/crud/user.jsp", "redirect"));
         return responseContent;
     }
 }

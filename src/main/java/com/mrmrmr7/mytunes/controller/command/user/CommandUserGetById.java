@@ -27,5 +27,5 @@ public class CommandUserGetById implements Command {
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router("/jsp/view.jsp", "forward"));
         return responseContent;
-    }
+    } 
 }

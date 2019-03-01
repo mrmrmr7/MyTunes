@@ -1,7 +1,14 @@
 package com.mrmrmr7.mytunes.controller.command;
 
+import com.mrmrmr7.mytunes.controller.command.author.CommandAuthorDelete;
+import com.mrmrmr7.mytunes.controller.command.author.CommandAuthorGetAll;
+import com.mrmrmr7.mytunes.controller.command.author.CommandAuthorGetById;
+import com.mrmrmr7.mytunes.controller.command.author.CommandAuthorInsert;
+import com.mrmrmr7.mytunes.controller.command.genre.CommandGenreDelete;
+import com.mrmrmr7.mytunes.controller.command.genre.CommandGenreGetAll;
+import com.mrmrmr7.mytunes.controller.command.genre.CommandGenreGetById;
+import com.mrmrmr7.mytunes.controller.command.genre.CommandGenreInsert;
 import com.mrmrmr7.mytunes.controller.command.user.*;
-import com.mrmrmr7.mytunes.controller.command.author.*;
 
 
 import java.util.HashMap;
@@ -27,6 +34,10 @@ public class CommandProvider {
         commandMap.put("authorGetAll", new CommandAuthorGetAll());
         commandMap.put("authorInsert", new CommandAuthorInsert());
         commandMap.put("authorDelete", new CommandAuthorDelete());
+        commandMap.put("genreGetById", new CommandGenreGetById());
+        commandMap.put("genreGetAll", new CommandGenreGetAll());
+        commandMap.put("genreInsert", new CommandGenreInsert());
+        commandMap.put("genreDelete", new CommandGenreDelete());
 //        commandMap.put("main", new ShowEmptyMainPageCommand());
 //        commandMap.put("register_cocktail", new CreateNewCocktailCommand());
 //        commandMap.put("cocktail_list", new ViewCocktailListCommand());

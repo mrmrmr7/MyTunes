@@ -30,7 +30,7 @@ public class CommandAuthorInsert implements Command {
         }
         authorDAO.destroy();
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router(request.getContextPath() + "/jsp/include/author/crud.jsp", "redirect"));
+        responseContent.setRouter(new Router(request.getContextPath() + "/jsp/crud/author.jsp", "redirect"));
         return responseContent;
     }
 }
