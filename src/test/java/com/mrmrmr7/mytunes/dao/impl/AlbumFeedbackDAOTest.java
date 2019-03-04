@@ -44,7 +44,7 @@ class AlbumFeedbackDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<AlbumFeedback> albumFeedback;
         albumFeedback = albumFeedbackDAO.getByPK(4);
@@ -56,7 +56,7 @@ class AlbumFeedbackDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<AlbumFeedback> albumFeedbackList;
         albumFeedbackList = albumFeedbackDAO.getAll();
@@ -96,7 +96,7 @@ class AlbumFeedbackDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         albumFeedbackDAO.delete(1);
         List<AlbumFeedback> albumFeedbackList = albumFeedbackDAO.getAll();

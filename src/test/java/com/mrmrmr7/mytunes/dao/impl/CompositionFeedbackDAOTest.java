@@ -45,7 +45,7 @@ class CompositionFeedbackDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<CompositionFeedback> compositionFeedback;
         compositionFeedback = compositionFeedbackDAO.getByPK(4);
@@ -57,7 +57,7 @@ class CompositionFeedbackDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<CompositionFeedback> compositionFeedbackList;
         compositionFeedbackList = compositionFeedbackDAO.getAll();
@@ -97,7 +97,7 @@ class CompositionFeedbackDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         compositionFeedbackDAO.delete(1);
         List<CompositionFeedback> compositionFeedbackList = compositionFeedbackDAO.getAll();

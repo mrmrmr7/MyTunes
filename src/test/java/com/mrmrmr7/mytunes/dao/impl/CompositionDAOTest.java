@@ -56,7 +56,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<Composition> compositionList = compositionDAO.getAll();
         String expected = "[Composition{id=1, year=2018, price=1, album_id=1, name='Vasilisa'}, " +
@@ -95,7 +95,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         compositionDAO.delete(2);
         List<Composition> compositionList = compositionDAO.getAll();

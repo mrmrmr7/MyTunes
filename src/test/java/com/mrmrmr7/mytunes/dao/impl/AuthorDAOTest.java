@@ -43,7 +43,7 @@ public class AuthorDAOTest {
     }
 
     @Test
-    public void getByPK() throws InterruptedException, SQLException, IOException, DAOException {
+    public void getByPK() throws  DAOException {
 
         Optional<Author> author = authorDAO.getByPK(1);
         String expected = "Author{id=1, firstName='Unknown', secondName='Unknown', pseudonim='Unknown'}";
@@ -53,7 +53,7 @@ public class AuthorDAOTest {
     }
 
     @Test
-    public void getAll() throws SQLException, IOException, InterruptedException {
+    public void getAll() throws DAOException {
 
         List<Author> authorList = authorDAO.getAll();
         String expected = "[" +
@@ -74,7 +74,7 @@ public class AuthorDAOTest {
     }
 
     @Test
-    public void insert() throws InterruptedException, SQLException, IOException, DAOException {
+    public void insert() throws  DAOException {
 
         Author author = new Author(11,
                 "1",
@@ -91,7 +91,7 @@ public class AuthorDAOTest {
     }
 
     @Test
-    public void delete() throws InterruptedException, SQLException, IOException {
+    public void delete() throws DAOException {
 
         authorDAO.delete(2);
         List<Author> authorList = authorDAO.getAll();
@@ -111,7 +111,7 @@ public class AuthorDAOTest {
     }
 
     @Test
-    public void update() throws InterruptedException, SQLException, IOException, DAOException {
+    public void update() throws  DAOException {
 
         Author author = new Author(2,
                 "Fifa",

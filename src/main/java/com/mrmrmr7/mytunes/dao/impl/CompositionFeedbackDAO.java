@@ -1,8 +1,8 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.*;
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.CompositionFeedback;
-import com.mrmrmr7.mytunes.service.ResultSetCompiller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,16 +17,22 @@ public class CompositionFeedbackDAO extends AbstractJDBCDAO<CompositionFeedback,
     }
 
     @Override
-    public Optional<CompositionFeedback> getByPK(Integer id) throws SQLException {
-        try (PreparedStatement preparedStatement = prepareStatementForGet(id);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-            resultSet.next();
-            return Optional.of(resultSetCompiller.setCompositionFeedback(resultSet));
+    public Optional<CompositionFeedback> getByPK(Integer id) throws DAOException {
+
+        try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return Optional.of(resultSetCompiller.setCompositionFeedback(resultSet));
+            } catch (SQLException e) {
+                throw new DAOException("4.6.1");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("4.6.2");
         }
     }
 
     @Override
-    public List<CompositionFeedback> getAll() throws SQLException {
+    public List<CompositionFeedback> getAll() throws DAOException {
 
         List<CompositionFeedback> compositionFeedbackList = new ArrayList<>();
         try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.COMPOSITION_FEEDBACK)) {
@@ -35,33 +41,43 @@ public class CompositionFeedbackDAO extends AbstractJDBCDAO<CompositionFeedback,
                     compositionFeedbackList
                             .add(resultSetCompiller.setCompositionFeedback(resultSet));
                 }
+            } catch (SQLException e) {
+                throw new DAOException("4.6.3");
             }
+        } catch (SQLException e) {
+            throw new DAOException("4.6.4");
         }
 
         return compositionFeedbackList;
     }
 
     @Override
-    public void insert(CompositionFeedback object) throws SQLException {
+    public void insert(CompositionFeedback object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)){
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.6.5");
         }
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.6.6");
         }
     }
 
     @Override
-    public void update(CompositionFeedback object) throws SQLException {
+    public void update(CompositionFeedback object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)) {
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.6.7");
         }
     }
 

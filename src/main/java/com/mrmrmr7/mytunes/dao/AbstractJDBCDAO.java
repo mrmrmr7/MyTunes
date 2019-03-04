@@ -1,7 +1,7 @@
 package com.mrmrmr7.mytunes.dao;
 
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.service.DBConnectionService;
-import com.mrmrmr7.mytunes.service.ResultSetCompiller;
 import com.mrmrmr7.mytunes.service.ServiceException;
 
 import java.sql.Connection;

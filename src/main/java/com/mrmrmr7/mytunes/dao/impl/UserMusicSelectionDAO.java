@@ -2,6 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
 import com.mrmrmr7.mytunes.dao.TableName;
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.UserMusicSelection;
 
 import java.sql.PreparedStatement;
@@ -17,16 +18,22 @@ public class UserMusicSelectionDAO extends AbstractJDBCDAO<UserMusicSelection, I
     }
 
     @Override
-    public Optional<UserMusicSelection> getByPK(Integer id) throws SQLException {
-        try (PreparedStatement preparedStatement = prepareStatementForGet(id);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-            resultSet.next();
-            return Optional.of(resultSetCompiller.setUserMusicSelection(resultSet));
+    public Optional<UserMusicSelection> getByPK(Integer id) throws DAOException {
+
+        try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return Optional.of(resultSetCompiller.setUserMusicSelection(resultSet));
+            } catch (SQLException e) {
+                throw new DAOException("4.16.1");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("4.16.2");
         }
     }
 
     @Override
-    public List<UserMusicSelection> getAll() throws SQLException {
+    public List<UserMusicSelection> getAll() throws DAOException {
 
         List<UserMusicSelection> userList = new ArrayList<>();
         try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.USER_MUSIC_SELECTION)){
@@ -35,30 +42,43 @@ public class UserMusicSelectionDAO extends AbstractJDBCDAO<UserMusicSelection, I
                     userList
                             .add(resultSetCompiller.setUserMusicSelection(resultSet));
                 }
+            } catch (SQLException e) {
+                throw new DAOException("4.16.3");
             }
+        } catch (SQLException e) {
+            throw new DAOException("4.16.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(UserMusicSelection object) throws SQLException {
+    public void insert(UserMusicSelection object) throws DAOException {
+
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeBatch();
+        } catch (SQLException e) {
+            throw new DAOException("4.16.5");
         }
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) throws DAOException {
+
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.16.6");
         }
     }
 
     @Override
-    public void update(UserMusicSelection object) throws SQLException {
+    public void update(UserMusicSelection object) throws DAOException {
+
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeBatch();
+        } catch (SQLException e) {
+            throw new DAOException("4.16.7");
         }
     }
 

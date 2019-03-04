@@ -3,11 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Author;
-import com.mrmrmr7.mytunes.service.DBConnectionService;
-import com.mrmrmr7.mytunes.service.ResultSetCompiller;
-import com.mrmrmr7.mytunes.service.ServiceException;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,54 +17,71 @@ public class AuthorDAO extends AbstractJDBCDAO<Author, Integer> implements Gener
     }
 
     @Override
-    public Optional<Author> getByPK(Integer id) throws DAOException, SQLException {
+    public Optional<Author> getByPK(Integer id) throws DAOException {
+
         try (PreparedStatement preparedStatement = prepareStatementForGet(id);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             resultSet.next();
             return Optional.of(resultSetCompiller.setAuthor(resultSet));
+        } catch (SQLException e) {
+            throw new DAOException("4.3.1");
         }
     }
 
     @Override
-    public List<Author> getAll() throws SQLException {
+    public List<Author> getAll() throws DAOException {
 
         List<Author> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.AUTHOR);){
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.AUTHOR)){
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()) {
                     userList
                             .add(resultSetCompiller.setAuthor(resultSet));
                 }
+            } catch (SQLException e) {
+                throw new DAOException("4.3.2");
             }
+        } catch (SQLException e) {
+            throw new DAOException("4.3.3");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(Author object) throws SQLException {
+    public void insert(Author object) throws DAOException {
+
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.3.4");
         }
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) throws DAOException {
+
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.3.5");
         }
     }
 
     @Override
-    public void update(Author object) throws SQLException {
+    public void update(Author object) throws DAOException {
+
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.3.6");
         }
     }
 
     @Override
     protected PreparedStatement prepareStatementForInsert(Author object) throws SQLException {
+
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
         return prepareForUpdate(preparedStatement, object);
     }

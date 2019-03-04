@@ -37,7 +37,7 @@ class UserAlbumDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<UserAlbum> userAlbum = userAlbumDAO.getByPK(6);
 
@@ -48,7 +48,7 @@ class UserAlbumDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<UserAlbum> userAlbumList = userAlbumDAO.getAll();
 
@@ -70,7 +70,7 @@ class UserAlbumDAOTest {
     }
 
     @Test
-    void insert() throws SQLException {
+    void insert() throws DAOException {
 
         UserAlbum toInsert = new UserAlbum(
                 5,
@@ -89,7 +89,7 @@ class UserAlbumDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         userAlbumDAO.delete(2);
 
@@ -112,7 +112,7 @@ class UserAlbumDAOTest {
     }
 
     @Test
-    void update() throws SQLException, DAOException {
+    void update() throws DAOException {
 
         Optional<UserAlbum> userAlbum = userAlbumDAO.getByPK(4);
 

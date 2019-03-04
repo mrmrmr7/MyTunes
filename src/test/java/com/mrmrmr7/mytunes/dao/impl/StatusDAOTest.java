@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Status;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
@@ -36,7 +37,7 @@ class StatusDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<Status> status = statusDAO.getByPK(1);
 
@@ -47,7 +48,7 @@ class StatusDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<Status> statusList = statusDAO.getAll();
 
@@ -62,7 +63,7 @@ class StatusDAOTest {
     }
 
     @Test
-    void insert() throws SQLException {
+    void insert() throws DAOException {
 
         Status expected = new Status(
                 4,
@@ -77,7 +78,7 @@ class StatusDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         statusDAO.delete(1);
 
@@ -93,7 +94,7 @@ class StatusDAOTest {
     }
 
     @Test
-    void update() throws SQLException {
+    void update() throws DAOException {
 
         Status expected = new Status(
                 1,

@@ -23,7 +23,7 @@ const jsUnitSaucelabs = new JSUnitSaucelabs({
   build: process.env.TRAVIS_JOB_ID
 })
 
-const testURL = 'http://localhost:3000/js/tests/index.jsp?hidepassed'
+const testURL = 'http://localhost:3000/js/tests/account.jsp?hidepassed'
 const browsersFile = require(path.resolve(__dirname, './sauce_browsers.json'))
 const errorMessages = [
   'Test exceeded maximum duration',

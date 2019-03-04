@@ -37,7 +37,7 @@ class MusicSelectionDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<MusicSelection> musicSelection = musicSelectionDAO.getByPK(6);
 
@@ -52,7 +52,7 @@ class MusicSelectionDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<MusicSelection> musicSelectionList = musicSelectionDAO.getAll();
 
@@ -74,7 +74,7 @@ class MusicSelectionDAOTest {
     }
 
     @Test
-    void insert() throws SQLException {
+    void insert() throws DAOException {
 
         MusicSelection expected = new MusicSelection(
                 5,
@@ -90,7 +90,7 @@ class MusicSelectionDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         musicSelectionDAO.delete(1);
 

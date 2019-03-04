@@ -19,16 +19,21 @@ public class MusicSelectionDAO extends AbstractJDBCDAO<MusicSelection, Integer> 
     }
 
     @Override
-    public Optional<MusicSelection> getByPK(Integer id) throws SQLException {
-        try (PreparedStatement preparedStatement = prepareStatementForGet(id);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-            resultSet.next();
-            return Optional.of(resultSetCompiller.setMusicSelection(resultSet));
+    public Optional<MusicSelection> getByPK(Integer id) throws DAOException {
+        try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return Optional.of(resultSetCompiller.setMusicSelection(resultSet));
+            } catch (SQLException e) {
+                throw new DAOException("4.8.1");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("4.8.2");
         }
     }
 
     @Override
-    public List<MusicSelection> getAll() throws SQLException {
+    public List<MusicSelection> getAll() throws DAOException {
 
         List<MusicSelection> userList = new ArrayList<>();
         try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.MUSIC_SELECTION)){
@@ -37,30 +42,40 @@ public class MusicSelectionDAO extends AbstractJDBCDAO<MusicSelection, Integer> 
                     userList
                             .add(resultSetCompiller.setMusicSelection(resultSet));
                 }
+            } catch (SQLException e) {
+                throw new DAOException("4.8.3");
             }
+        } catch (SQLException e) {
+            throw new DAOException("4.8.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(MusicSelection object) throws SQLException {
+    public void insert(MusicSelection object) throws DAOException {
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeBatch();
+        } catch (SQLException e) {
+            throw new DAOException("4.8.5");
         }
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) throws DAOException {
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.8.6");
         }
     }
 
     @Override
-    public void update(MusicSelection object) throws SQLException {
+    public void update(MusicSelection object) throws DAOException {
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeBatch();
+        } catch (SQLException e) {
+            throw new DAOException("4.8.7");
         }
     }
 

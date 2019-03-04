@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.*;
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.User;
 
 import java.sql.PreparedStatement;
@@ -16,21 +17,23 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
     }
 
     @Override
-    public Optional<User> getByPK(Integer id) throws SQLException {
+    public Optional<User> getByPK(Integer id) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
-
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
 
                 return Optional.of(resultSetCompiller.setUser(resultSet));
+            } catch (SQLException e) {
+                throw new DAOException("4.15.1");
             }
+        } catch (SQLException e) {
+            throw new DAOException("4.15.2");
         }
     }
 
     @Override
-    public List<User> getAll() throws SQLException {
-
+    public List<User> getAll() throws DAOException {
         List<User> userList = new ArrayList<>();
         try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.USER)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -38,30 +41,43 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
                     userList
                             .add(resultSetCompiller.setUser(resultSet));
                 }
+            } catch (SQLException e) {
+                throw new DAOException("4.15.3");
             }
+        } catch (SQLException e) {
+            throw new DAOException("4.15.4");
         }
+
         return userList;
     }
 
     @Override
-    public void insert(User object) throws SQLException {
+    public void insert(User object) throws DAOException {
+
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.15.5");
         }
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) throws DAOException {
+
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.15.6");
         }
     }
 
     @Override
-    public void update(User object) throws SQLException {
+    public void update(User object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)) {
                     preparedStatement.executeUpdate();
+        } catch (SQLException e){
+            throw new DAOException("4.15.7");
         }
     }
 
@@ -131,4 +147,30 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
                 "BALANCE=?, ROLE_ID=?, " +
                 "STATUS_ID=?, EMAIL=? WHERE ID=?";
     }
+
+    public Optional<User> getByLogin(String login) throws DAOException {
+        try (PreparedStatement preparedStatement = prepareStatementForGetByLogin(login)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+
+                return Optional.of(resultSetCompiller.setUser(resultSet));
+            } catch (SQLException e) {
+                throw new DAOException("4.15.1");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("4.15.2");
+        }
+    }
+
+    private PreparedStatement prepareStatementForGetByLogin(String login) throws SQLException {
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectByLoginQuery(TableName.USER));
+        preparedStatement.setString(1, login);
+        return preparedStatement;
+    }
+
+    private String getSelectByLoginQuery(TableName tableName) {
+        return "SELECT * FROM " + tableName.getValue() + " WHERE LOGIN=?";
+    }
+
 }

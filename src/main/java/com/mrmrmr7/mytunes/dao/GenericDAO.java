@@ -10,13 +10,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface GenericDAO<T extends Identified<PK>, PK extends Serializable> {
-    Optional<T> getByPK(PK id) throws DAOException,SQLException;
+    Optional<T> getByPK(PK id) throws DAOException;
 
-    List<T> getAll() throws SQLException, DAOException;
+    List<T> getAll() throws DAOException;
 
-    void insert(T daoObject) throws SQLException;
+    void insert(T daoObject) throws DAOException;
 
-    void delete(PK id) throws SQLException, PersistException;
+    void delete(PK id) throws DAOException;
 
-    void update(T daoObject) throws SQLException, PersistException;
+    void update(T daoObject) throws DAOException;
 }

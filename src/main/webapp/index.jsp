@@ -1,608 +1,737 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
+<!DOCTYPE html>
 <html class="no-js" lang="en">
-<!--<![endif]-->
-
 <head>
+
+    <!--- basic page needs
+    ================================================== -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sufee Admin - HTML5 Admin Template</title>
-    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <title>Transcend</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" href="site/favicon.ico">
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/transcend/css/base.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/transcend/css/vendor.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/transcend/css/main.css">
 
-    <link rel="stylesheet" href="site/vendors/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="site/vendors/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="site/vendors/themify-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="site/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="site/vendors/selectFX/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="site/vendors/jqvmap/dist/jqvmap.min.css">
+    <!-- script
+    ================================================== -->
+    <script src="${pageContext.request.contextPath}/transcend/js/modernizr.js"></script>
+    <script src="${pageContext.request.contextPath}/transcend/js/pace.min.js"></script>
 
-
-    <link rel="stylesheet" href="site/assets/css/style.css">
-
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/transcend/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/transcend/favicon.ico" type="image/x-icon">
 
 </head>
 
-<body>
+<body id="top">
+
+<!-- header
+================================================== -->
+<header class="s-header">
+
+    <div class="header-logo">
+        <a class="site-logo" href="${pageContext.request.contextPath}/transcend/account.jsp">
+            <img src="${pageContext.request.contextPath}/transcend/images/logo.svg" alt="Homepage">
+        </a>
+    </div> <!-- end header-logo -->
+
+    <nav class="header-nav">
+
+        <a href="${pageContext.request.contextPath}/transcend/#0" class="header-nav__close" title="close"><span>Close</span></a>
+
+        <div class="header-nav__content">
+            <h3>Transcend Studio</h3>
+
+            <ul class="header-nav__list">
+                <li class="current"><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#home" title="home">Home</a></li>
+                <li><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#about" title="about">About</a></li>
+                <li><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#services" title="services">Services</a></li>
+                <li><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#works" title="works">Works</a></li>
+                <li><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#contact" title="contact">Contact</a></li>
+                <li><a href="${pageContext.request.contextPath}/signin.jsp" title="contact">Sign in</a></li>
+                <li><a href="${pageContext.request.contextPath}/signup.jsp" title="contact">Sign up</a></li>
+            </ul>
+
+            <p>Perspiciatis hic praesentium nesciunt. Et neque a dolorum <a href='#0'>voluptatem</a> porro iusto sequi veritatis libero enim. Iusto id suscipit veritatis neque reprehenderit.</p>
+
+            <ul class="header-nav__social">
+                <li>
+                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-instagram"></i></a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-behance"></i></a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-dribbble"></i></a>
+                </li>
+            </ul>
+
+        </div> <!-- end header-nav__content -->
+
+    </nav> <!-- end header-nav -->
+
+    <a class="header-menu-toggle" href="${pageContext.request.contextPath}/transcend/#0">
+        <span class="header-menu-icon"></span>
+    </a>
+
+</header> <!-- end s-header -->
 
 
-    <!-- Left Panel -->
+<!-- home
+================================================== -->
+<section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="${pageContext.request.contextPath}/transcend/images/hero-bg.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=top>
 
-    <jsp:include page="jsp/leftpanel.jsp"/>
+    <div class="shadow-overlay"></div>
 
-    <!-- Left Panel -->
+    <div class="home-content">
 
-    <!-- Right Panel -->
+        <div class="row home-content__main">
+            <h1>
+                Hello folks, we are <br>
+                Transcend Studio.
+            </h1>
 
-    <div id="right-panel" class="right-panel">
+            <p>
+                We create stunning digital experiences <br>
+                that will help your business stand out.
+            </p>
+        </div> <!-- end home-content__main -->
 
-        <!-- Header-->
-        <header id="header" class="header">
+    </div> <!-- end home-content -->
 
-            <div class="header-menu">
+    <ul class="home-sidelinks">
+        <li><a class="smoothscroll" href="${pageContext.request.contextPath}/transcend/#about">About<span>who we are</span></a></li>
+        <li><a class="smoothscroll" href="${pageContext.request.contextPath}/transcend/#services">Services<span>what we do</span></a></li>
+        <li><a  class="smoothscroll" href="${pageContext.request.contextPath}/transcend/#contact">Contact<span>get in touch</span></a></li>
+    </ul> <!-- end home-sidelinks -->
 
-                <div class="col-sm-7">
-                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
-                    <div class="header-left">
-                        <button class="search-trigger"><i class="fa fa-search"></i></button>
-                        <div class="form-inline">
-                            <form class="search-form">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
-                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
-                            </form>
-                        </div>
+    <ul class="home-social">
+        <li class="home-social-title">Follow Us</li>
+        <li><a href="${pageContext.request.contextPath}/transcend/#0">
+            <i class="fab fa-facebook"></i>
+            <span class="home-social-text">Facebook</span>
+        </a></li>
+        <li><a href="${pageContext.request.contextPath}/transcend/#0">
+            <i class="fab fa-twitter"></i>
+            <span class="home-social-text">Twitter</span>
+        </a></li>
+        <li><a href="${pageContext.request.contextPath}/transcend/#0">
+            <i class="fab fa-linkedin"></i>
+            <span class="home-social-text">LinkedIn</span>
+        </a></li>
+    </ul> <!-- end home-social -->
 
-                        <div class="dropdown for-notification">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
-                                <span class="count bg-danger">5</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="notification">
-                                <p class="red">You have 3 Notification</p>
-                                <a class="dropdown-item media bg-flat-color-1" href="#">
-                                <i class="fa fa-check"></i>
-                                <p>Server #1 overloaded.</p>
-                            </a>
-                                <a class="dropdown-item media bg-flat-color-4" href="#">
-                                <i class="fa fa-info"></i>
-                                <p>Server #2 overloaded.</p>
-                            </a>
-                                <a class="dropdown-item media bg-flat-color-5" href="#">
-                                <i class="fa fa-warning"></i>
-                                <p>Server #3 overloaded.</p>
-                            </a>
-                            </div>
-                        </div>
+    <a href="${pageContext.request.contextPath}/transcend/#about" class="home-scroll smoothscroll">
+        <span class="home-scroll__text">Scroll Down</span>
+        <span class="home-scroll__icon"></span>
+    </a> <!-- end home-scroll -->
 
-                        <div class="dropdown for-message">
-                            <button class="btn btn-secondary dropdown-toggle" type="button"
-                                id="message"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="ti-email"></i>
-                                <span class="count bg-primary">9</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="message">
-                                <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media bg-flat-color-1" href="#">
-                                <span class="photo media-left"><img alt="avatar" src="site/images/avatar/1.jpg"></span>
-                                <span class="message media-body">
-                                    <span class="name float-left">Jonathan Smith</span>
-                                    <span class="time float-right">Just now</span>
-                                        <p>Hello, this is an example msg</p>
-                                </span>
-                            </a>
-                                <a class="dropdown-item media bg-flat-color-4" href="#">
-                                <span class="photo media-left"><img alt="avatar" src="site/images/avatar/2.jpg"></span>
-                                <span class="message media-body">
-                                    <span class="name float-left">Jack Sanders</span>
-                                    <span class="time float-right">5 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                </span>
-                            </a>
-                                <a class="dropdown-item media bg-flat-color-5" href="#">
-                                <span class="photo media-left"><img alt="avatar" src="site/images/avatar/3.jpg"></span>
-                                <span class="message media-body">
-                                    <span class="name float-left">Cheryl Wheeler</span>
-                                    <span class="time float-right">10 minutes ago</span>
-                                        <p>Hello, this is an example msg</p>
-                                </span>
-                            </a>
-                                <a class="dropdown-item media bg-flat-color-3" href="#">
-                                <span class="photo media-left"><img alt="avatar" src="site/images/avatar/4.jpg"></span>
-                                <span class="message media-body">
-                                    <span class="name float-left">Rachel Santos</span>
-                                    <span class="time float-right">15 minutes ago</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
-                                </span>
-                            </a>
-                            </div>
-                        </div>
-                    </div>
+</section> <!-- end s-home -->
+
+
+<!-- about
+================================================== -->
+<section id='about' class="s-about">
+
+    <div class="row section-header" data-aos="fade-up">
+        <div class="col-full">
+            <h3 class="subhead">Who We Are</h3>
+            <h1 class="display-1">We are a group of design driven individuals passionate about creating beautiful UI designs.</h1>
+        </div>
+    </div> <!-- end section-header -->
+
+    <div class="row" data-aos="fade-up">
+        <div class="col-full">
+            <p class="lead">
+                Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.
+            </p>
+        </div>
+    </div> <!-- end about-desc -->
+
+    <div class="row">
+
+        <div class="about-process process block-1-2 block-tab-full">
+
+            <div class="process__vline-left"></div>
+            <div class="process__vline-right"></div>
+
+            <div class="col-block process__col" data-item="1" data-aos="fade-up">
+                <div class="process__text">
+                    <h4>Define</h4>
+
+                    <p>
+                        Quos dolores saepe mollitia deserunt accusamus autem reprehenderit. Voluptas facere animi explicabo non quis magni recusandae.
+                        Numquam debitis pariatur omnis facere unde. Laboriosam minus amet nesciunt est. Et saepe eos maxime tempore quasi deserunt ab.
+                    </p>
                 </div>
+            </div>
+            <div class="col-block process__col" data-item="2" data-aos="fade-up">
+                <div class="process__text">
+                    <h4>Design</h4>
 
-                <div class="col-sm-5">
-                    <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="site/images/admin.jpg" alt="User Avatar">
-                        </a>
+                    <p>
+                        Quos dolores saepe mollitia deserunt accusamus autem reprehenderit. Voluptas facere animi explicabo non quis magni recusandae.
+                        Numquam debitis pariatur omnis facere unde. Laboriosam minus amet nesciunt est. Et saepe eos maxime tempore quasi deserunt ab.
+                    </p>
+                </div>
+            </div>
+            <div class="col-block process__col" data-item="3" data-aos="fade-up">
+                <div class="process__text">
+                    <h4>Build</h4>
 
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+                    <p>
+                        Quos dolores saepe mollitia deserunt accusamus autem reprehenderit. Voluptas facere animi explicabo non quis magni recusandae.
+                        Numquam debitis pariatur omnis facere unde. Laboriosam minus amet nesciunt est. Et saepe eos maxime tempore quasi deserunt ab.
+                    </p>
+                </div>
+            </div>
+            <div class="col-block process__col" data-item="4" data-aos="fade-up">
+                <div class="process__text">
+                    <h4>Launch</h4>
 
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
-
-                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
-                        </div>
-                    </div>
-
-                    <div class="language-select dropdown" id="language-select">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown"  id="language" aria-haspopup="true" aria-expanded="true">
-                            <i class="flag-icon flag-icon-us"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="language">
-                            <div class="dropdown-item">
-                                <span class="flag-icon flag-icon-fr"></span>
-                            </div>
-                            <div class="dropdown-item">
-                                <i class="flag-icon flag-icon-es"></i>
-                            </div>
-                            <div class="dropdown-item">
-                                <i class="flag-icon flag-icon-us"></i>
-                            </div>
-                            <div class="dropdown-item">
-                                <i class="flag-icon flag-icon-it"></i>
-                            </div>
-                        </div>
-                    </div>
-
+                    <p>
+                        Quos dolores saepe mollitia deserunt accusamus autem reprehenderit. Voluptas facere animi explicabo non quis magni recusandae.
+                        Numquam debitis pariatur omnis facere unde. Laboriosam minus amet nesciunt est. Et saepe eos maxime tempore quasi deserunt ab.
+                    </p>
                 </div>
             </div>
 
-        </header><!-- /header -->
-        <!-- Header-->
+        </div> <!-- end process -->
 
-        <div class="breadcrumbs">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>Dashboard</h1>
-                    </div>
-                </div>
+    </div> <!-- end about-stats -->
+
+</section> <!-- end s-about -->
+
+
+<!-- services
+================================================== -->
+<section id='services' class="s-services light-gray">
+
+    <div class="row section-header" data-aos="fade-up">
+        <div class="col-full">
+            <h3 class="subhead">What We Do</h3>
+            <h1 class="display-1">We have everything you need to launch and grow a successful digital business.</h1>
+        </div>
+    </div> <!-- end section-header -->
+
+    <div class="row" data-aos="fade-up">
+        <div class="col-full">
+            <p class="lead">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.
+            </p>
+        </div>
+    </div> <!-- end about-desc -->
+
+    <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
+
+        <div class="col-block service-item " data-aos="fade-up">
+            <div class="service-icon service-icon--brand-identity">
+                <i class="icon-tv"></i>
             </div>
-            <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li class="active">Dashboard</li>
-                        </ol>
-                    </div>
-                </div>
+            <div class="service-text">
+                <h3 class="h4">Brand Identity</h3>
+                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                </p>
             </div>
         </div>
 
-        <div class="content mt-3">
-
-            <div class="col-sm-12">
-                <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                    <span class="badge badge-pill badge-success">Success</span> You successfully read this important alert message.
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+        <div class="col-block service-item" data-aos="fade-up">
+            <div class="service-icon  service-icon--illustration">
+                <i class="icon-group"></i>
             </div>
+            <div class="service-text">
+                <h3 class="h4">Illustration</h3>
+                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-block service-item" data-aos="fade-up">
+            <div class="service-icon  service-icon--web-design">
+                <i class="icon-earth"></i>
+            </div>
+            <div class="service-text">
+                <h3 class="h4">Web Design</h3>
+                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-block service-item" data-aos="fade-up">
+            <div class="service-icon service-icon--product-strategy">
+                <i class="icon-cube"></i>
+            </div>
+            <div class="service-text">
+                <h3 class="h4">Product Strategy</h3>
+                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-block service-item" data-aos="fade-up">
+            <div class="service-icon  service-icon--ui-design">
+                <i class="icon-window"></i>
+            </div>
+            <div class="service-text">
+                <h3 class="h4">UI/UX Design</h3>
+                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-block service-item" data-aos="fade-up">
+            <div class="service-icon service-icon--mobile-dev">
+                <i class="icon-lego-block"></i>
+            </div>
+            <div class="service-text">
+                <h3 class="h4">Mobile Development</h3>
+                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
+                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
+                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
+                </p>
+            </div>
+        </div>
+
+    </div> <!-- end services-list -->
+
+</section> <!-- end s-services -->
 
 
-            <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-1">
-                    <div class="card-body pb-0">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton1" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
-                        <h4 class="mb-0">
-                            <span class="count">10468</span>
-                        </h4>
-                        <p class="text-light">Members online</p>
+<!-- works
+================================================== -->
+<section id='works' class="s-works">
 
-                        <div class="chart-wrapper px-0" style="height:70px;" height="70">
-                            <canvas id="widgetChart1"></canvas>
-                        </div>
+    <div class="row section-header" data-aos="fade-up">
+        <div class="col-full">
+            <h3 class="subhead">Featured Works</h3>
+            <h1 class="display-1">These are some of our recent design projects and we are so excited to show them to you.</h1>
+        </div>
+    </div> <!-- end section-header -->
 
+    <div class="row masonry-wrap">
+        <div class="masonry">
+
+            <div class="masonry__brick" data-aos="fade-up">
+                <div class="item-folio">
+
+                    <div class="item-folio__thumb">
+                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-lamp.jpg" class="thumb-link" title="Lamp" data-size="1050x700">
+                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/lamp.jpg"
+                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/lamp.jpg 1x, images/portfolio/lamp@2x.jpg 2x" alt="">
+                        </a>
                     </div>
 
-                </div>
-            </div>
-            <!--/.col-->
-
-            <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-2">
-                    <div class="card-body pb-0">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton2" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
-                        <h4 class="mb-0">
-                            <span class="count">10468</span>
-                        </h4>
-                        <p class="text-light">Members online</p>
-
-                        <div class="chart-wrapper px-0" style="height:70px;" height="70">
-                            <canvas id="widgetChart2"></canvas>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
-
-            <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-3">
-                    <div class="card-body pb-0">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton3" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
-                        <h4 class="mb-0">
-                            <span class="count">10468</span>
-                        </h4>
-                        <p class="text-light">Members online</p>
-
+                    <div class="item-folio__text">
+                        <h3 class="item-folio__title">
+                            Lamp
+                        </h3>
+                        <p class="item-folio__cat">
+                            Web Design
+                        </p>
                     </div>
 
-                    <div class="chart-wrapper px-0" style="height:70px;" height="70">
-                        <canvas id="widgetChart3"></canvas>
+                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                        Project Link
+                    </a>
+
+                    <div class="item-folio__caption">
+                        <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
                     </div>
-                </div>
-            </div>
-            <!--/.col-->
 
-            <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-4">
-                    <div class="card-body pb-0">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton4" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
-                        <h4 class="mb-0">
-                            <span class="count">10468</span>
-                        </h4>
-                        <p class="text-light">Members online</p>
+                </div> <!-- end item-folio -->
+            </div> <!-- end masonry__brick -->
 
-                        <div class="chart-wrapper px-3" style="height:70px;" height="70">
-                            <canvas id="widgetChart4"></canvas>
-                        </div>
+            <div class="masonry__brick" data-aos="fade-up">
+                <div class="item-folio">
 
+                    <div class="item-folio__thumb">
+                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-salad.jpg" class="thumb-link" title="Salad" data-size="1050x700">
+                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/salad.jpg"
+                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/salad.jpg 1x, images/portfolio/salad@2x.jpg 2x" alt="">
+                        </a>
                     </div>
-                </div>
-            </div>
-            <!--/.col-->
 
-            <div class="col-lg-3 col-md-6">
-                <div class="social-box facebook">
-                    <i class="fa fa-facebook"></i>
-                    <ul>
-                        <li>
-                            <span class="count">40</span> k
-                            <span>friends</span>
-                        </li>
-                        <li>
-                            <span class="count">450</span>
-                            <span>feeds</span>
-                        </li>
-                    </ul>
-                </div>
-                <!--/social-box-->
-            </div>
-            <!--/.col-->
-
-
-            <div class="col-lg-3 col-md-6">
-                <div class="social-box twitter">
-                    <i class="fa fa-twitter"></i>
-                    <ul>
-                        <li>
-                            <span class="count">30</span> k
-                            <span>friends</span>
-                        </li>
-                        <li>
-                            <span class="count">450</span>
-                            <span>tweets</span>
-                        </li>
-                    </ul>
-                </div>
-                <!--/social-box-->
-            </div>
-            <!--/.col-->
-
-
-            <div class="col-lg-3 col-md-6">
-                <div class="social-box linkedin">
-                    <i class="fa fa-linkedin"></i>
-                    <ul>
-                        <li>
-                            <span class="count">40</span> +
-                            <span>contacts</span>
-                        </li>
-                        <li>
-                            <span class="count">250</span>
-                            <span>feeds</span>
-                        </li>
-                    </ul>
-                </div>
-                <!--/social-box-->
-            </div>
-            <!--/.col-->
-
-
-            <div class="col-lg-3 col-md-6">
-                <div class="social-box google-plus">
-                    <i class="fa fa-google-plus"></i>
-                    <ul>
-                        <li>
-                            <span class="count">94</span> k
-                            <span>followers</span>
-                        </li>
-                        <li>
-                            <span class="count">92</span>
-                            <span>circles</span>
-                        </li>
-                    </ul>
-                </div>
-                <!--/social-box-->
-            </div>
-            <!--/.col-->
-
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h4 class="card-title mb-0">Traffic</h4>
-                                <div class="small text-muted">October 2017</div>
-                            </div>
-                            <!--/.col-->
-                            <div class="col-sm-8 hidden-sm-down">
-                                <button type="button" class="btn btn-primary float-right bg-flat-color-1"><i class="fa fa-cloud-download"></i></button>
-                                <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
-                                    <div class="btn-group mr-3" data-toggle="buttons" aria-label="First group">
-                                        <label class="btn btn-outline-secondary">
-                                            <input type="radio" name="options" id="option1"> Day
-                                        </label>
-                                        <label class="btn btn-outline-secondary active">
-                                            <input type="radio" name="options" id="option2" checked=""> Month
-                                        </label>
-                                        <label class="btn btn-outline-secondary">
-                                            <input type="radio" name="options" id="option3"> Year
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/.col-->
-
-
-                        </div>
-                        <!--/.row-->
-                        <div class="chart-wrapper mt-4">
-                            <canvas id="trafficChart" style="height:200px;" height="200"></canvas>
-                        </div>
-
+                    <div class="item-folio__text">
+                        <h3 class="item-folio__title">
+                            Salad
+                        </h3>
+                        <p class="item-folio__cat">
+                            Branding
+                        </p>
                     </div>
-                    <div class="card-footer">
-                        <ul>
-                            <li>
-                                <div class="text-muted">Visits</div>
-                                <strong>29.703 Users (40%)</strong>
-                                <div class="progress progress-xs mt-2" style="height: 5px;">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </li>
-                            <li class="hidden-sm-down">
-                                <div class="text-muted">Unique</div>
-                                <strong>24.093 Users (20%)</strong>
-                                <div class="progress progress-xs mt-2" style="height: 5px;">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="text-muted">Pageviews</div>
-                                <strong>78.706 Views (60%)</strong>
-                                <div class="progress progress-xs mt-2" style="height: 5px;">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </li>
-                            <li class="hidden-sm-down">
-                                <div class="text-muted">New Users</div>
-                                <strong>22.123 Users (80%)</strong>
-                                <div class="progress progress-xs mt-2" style="height: 5px;">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </li>
-                            <li class="hidden-sm-down">
-                                <div class="text-muted">Bounce Rate</div>
-                                <strong>40.15%</strong>
-                                <div class="progress progress-xs mt-2" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-xl-3 col-lg-6">
-                <section class="card">
-                    <div class="twt-feed blue-bg">
-                        <div class="corner-ribon black-ribon">
-                            <i class="fa fa-twitter"></i>
-                        </div>
-                        <div class="fa fa-twitter wtt-mark"></div>
+                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                        Project Link
+                    </a>
 
-                        <div class="media">
-                            <a href="#">
-                                <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="site/images/admin.jpg">
-                            </a>
-                            <div class="media-body">
-                                <h2 class="text-white display-6">Jim Doe</h2>
-                                <p class="text-light">Project Manager</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="weather-category twt-category">
-                        <ul>
-                            <li class="active">
-                                <h5>750</h5>
-                                Tweets
-                            </li>
-                            <li>
-                                <h5>865</h5>
-                                Following
-                            </li>
-                            <li>
-                                <h5>3645</h5>
-                                Followers
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="twt-write col-sm-12">
-                        <textarea placeholder="Write your Tweet and Enter" rows="1" class="form-control t-text-area"></textarea>
-                    </div>
-                    <footer class="twt-footer">
-                        <a href="#"><i class="fa fa-camera"></i></a>
-                        <a href="#"><i class="fa fa-map-marker"></i></a>
-                        New Castle, UK
-                        <span class="pull-right">
-                            32
+                    <span class="item-folio__caption">
+                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
                         </span>
-                    </footer>
-                </section>
+
+                </div> <!-- end item-folio -->
+            </div> <!-- end masonry__brick -->
+
+            <div class="masonry__brick" data-aos="fade-up">
+                <div class="item-folio">
+
+                    <div class="item-folio__thumb">
+                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-woodcraft.jpg" class="thumb-link" title="Woodcraft" data-size="1050x700">
+                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/woodcraft.jpg"
+                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/woodcraft.jpg 1x, images/portfolio/woodcraft@2x.jpg 2x" alt="">
+                        </a>
+                    </div>
+
+                    <div class="item-folio__text">
+                        <h3 class="item-folio__title">
+                            Woodcraft
+                        </h3>
+                        <p class="item-folio__cat">
+                            Branding
+                        </p>
+                    </div>
+
+                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                        Project Link
+                    </a>
+
+                    <span class="item-folio__caption">
+                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                        </span>
+
+                </div> <!-- end item-folio -->
+            </div> <!-- end masonry__brick -->
+
+            <div class="masonry__brick" data-aos="fade-up">
+                <div class="item-folio">
+
+                    <div class="item-folio__thumb">
+                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-liberty.jpg" class="thumb-link" title="Liberty" data-size="1050x700">
+                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/liberty.jpg"
+                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/liberty.jpg 1x, images/portfolio/liberty@2x.jpg 2x" alt="">
+                        </a>
+                    </div>
+
+                    <div class="item-folio__text">
+                        <h3 class="item-folio__title">
+                            Liberty
+                        </h3>
+                        <p class="item-folio__cat">
+                            Web Development
+                        </p>
+                    </div>
+
+                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                        Project Link
+                    </a>
+
+                    <span class="item-folio__caption">
+                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                        </span>
+
+                </div> <!-- end item-folio -->
+            </div> <!-- end masonry__brick -->
+
+
+            <div class="masonry__brick" data-aos="fade-up">
+                <div class="item-folio">
+
+                    <div class="item-folio__thumb">
+                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-fuji.jpg" class="thumb-link" title="Fuji" data-size="1050x700">
+                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/fuji.jpg"
+                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/fuji.jpg 1x, images/portfolio/fuji@2x.jpg 2x" alt="">
+                        </a>
+                    </div>
+
+                    <div class="item-folio__text">
+                        <h3 class="item-folio__title">
+                            Fuji
+                        </h3>
+                        <p class="item-folio__cat">
+                            Web Design
+                        </p>
+                    </div>
+
+                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                        Project Link
+                    </a>
+
+                    <span class="item-folio__caption">
+                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                        </span>
+
+                </div> <!-- end item-folio -->
+            </div> <!-- end masonry__brick -->
+
+            <div class="masonry__brick" data-aos="fade-up">
+                <div class="item-folio">
+
+                    <div class="item-folio__thumb">
+                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-shutterbug.jpg" class="thumb-link" title="Shutterbug" data-size="1050x700">
+                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/shutterbug.jpg"
+                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/shutterbug.jpg 1x, images/portfolio/shutterbug@2x.jpg 2x" alt="">
+                        </a>
+                    </div>
+
+                    <div class="item-folio__text">
+                        <h3 class="item-folio__title">
+                            Lady Shutterbug
+                        </h3>
+                        <p class="item-folio__cat">
+                            Branding
+                        </p>
+                    </div>
+
+                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
+                        Project Link
+                    </a>
+
+                    <span class="item-folio__caption">
+                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
+                        </span>
+
+                </div> <!-- end item-folio -->
+            </div> <!-- end masonry__brick -->
+
+        </div> <!-- end masonry -->
+    </div> <!-- end masonry-wrap -->
+
+    <div class="testimonials-wrap" data-aos="fade-up">
+
+        <div class="row">
+            <div class="col-full testimonials-header">
+                <h2 class="h1">What Clients Are Saying.</h2>
             </div>
+        </div>
+
+        <div class="row testimonials">
+
+            <div class="col-full testimonials__slider">
+
+                <div class="testimonials__slide">
+                    <img src="${pageContext.request.contextPath}/transcend/images/avatars/user-01.jpg" alt="Author image" class="testimonials__avatar">
+                    <p>Qui ipsam temporibus quisquam velMaiores eos cumque distinctio nam accusantium ipsum.
+                        Laudantium quia consequatur molestias delectus culpa facere hic dolores aperiam. Accusantium quos qui praesentium corpori.</p>
+                    <div class="testimonials__author">
+                        Tim Cook
+                        <span>CEO, Apple</span>
+                    </div>
+                </div> <!-- end testimonials__slide -->
+
+                <div class="testimonials__slide">
+                    <img src="${pageContext.request.contextPath}/transcend/images/avatars/user-05.jpg" alt="Author image" class="testimonials__avatar">
+                    <p>Excepturi nam cupiditate culpa doloremque deleniti repellat. Veniam quos repellat voluptas animi adipisci.
+                        Nisi eaque consequatur. Quasi voluptas eius distinctio. Atque eos maxime. Qui ipsam temporibus quisquam vel.</p>
+                    <div class="testimonials__author">
+                        Sundar Pichai
+                        <span>CEO, Google</span>
+                    </div>
+                </div> <!-- end testimonials__slide -->
+
+                <div class="testimonials__slide">
+                    <img src="${pageContext.request.contextPath}/transcend/images/avatars/user-02.jpg" alt="Author image" class="testimonials__avatar">
+                    <p>Repellat dignissimos libero. Qui sed at corrupti expedita voluptas odit. Nihil ea quia nesciunt. Ducimus aut sed ipsam.
+                        Autem eaque officia cum exercitationem sunt voluptatum accusamus. Quasi voluptas eius distinctio.</p>
+                    <div class="testimonials__author">
+                        Satya Nadella
+                        <span>CEO, Microsoft</span>
+                    </div>
+                </div> <!-- end testimonials__slide -->
+
+            </div> <!-- end testimonials__slider -->
+
+        </div> <!-- end testimonials -->
+
+    </div> <!-- end testimonials-wrap -->
+
+</section> <!-- end s-works -->
 
 
-            <div class="col-xl-3 col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
-                            <div class="stat-content dib">
-                                <div class="stat-text">Total Profit</div>
-                                <div class="stat-digit">1,012</div>
-                            </div>
+<!-- stats
+================================================== -->
+<section id="stats" class="s-stats">
+
+    <div class="row stats block-1-4 block-m-1-2 block-mob-full" data-aos="fade-up">
+
+        <div class="col-block stats__col ">
+            <div class="stats__count">129</div>
+            <h5>Awards Received</h5>
+        </div>
+        <div class="col-block stats__col">
+            <div class="stats__count">1507</div>
+            <h5>Cups of Coffee</h5>
+        </div>
+        <div class="col-block stats__col">
+            <div class="stats__count">108</div>
+            <h5>Projects Completed</h5>
+        </div>
+        <div class="col-block stats__col">
+            <div class="stats__count">103</div>
+            <h5>Happy Clients</h5>
+        </div>
+
+    </div> <!-- end stats -->
+
+</section> <!-- end s-stats -->
+
+
+<!-- contact
+================================================== -->
+<section id="contact" class="s-contact">
+
+    <div class="row section-header" data-aos="fade-up">
+        <div class="col-full">
+            <h3 class="subhead subhead--light">Contact Us</h3>
+            <h1 class="display-1 display-1--light">Get in touch and let's make something great together. Let's turn your idea on an even greater product.</h1>
+        </div>
+    </div> <!-- end section-header -->
+
+    <div class="row">
+
+        <div class="col-full contact-main" data-aos="fade-up">
+            <p>
+                <a href="${pageContext.request.contextPath}/transcend/mailto:#0" class="contact-email">hello@transcend-studio.com</a>
+                <span class="contact-number">+1 (917) 123 456  /  +1 (917) 333 987</span>
+            </p>
+        </div> <!-- end contact-main -->
+
+    </div> <!-- end row -->
+
+    <div class="row">
+
+        <div class="col-five tab-full contact-secondary" data-aos="fade-up">
+            <h3 class="subhead subhead--light">Where To Find Us</h3>
+
+            <p class="contact-address">
+                1600 Amphitheatre Parkway<br>
+                Mountain View, CA<br>
+                94043 US
+            </p>
+        </div> <!-- end contact-secondary -->
+
+        <div class="col-five tab-full contact-secondary" data-aos="fade-up">
+            <h3 class="subhead subhead--light">Follow Us</h3>
+
+            <ul class="contact-social">
+                <li>
+                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-instagram"></i></a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-behance"></i></a>
+                </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-dribbble"></i></a>
+                </li>
+            </ul> <!-- end contact-social -->
+
+            <div class="contact-subscribe">
+                <form id="mc-form" class="group mc-form" novalidate="true">
+                    <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
+                    <input type="submit" name="subscribe" value="Subscribe">
+                    <label for="mc-email" class="subscribe-message"></label>
+                </form>
+            </div> <!-- end contact-subscribe -->
+        </div> <!-- end contact-secondary -->
+
+    </div> <!-- end row -->
+
+    <div class="row">
+        <div class="col-full cl-copyright">
+                <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="${pageContext.request.contextPath}/transcend/https://colorlib.com" target="_blank">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
+        </div>
+    </div>
+
+    <div class="cl-go-top">
+        <a class="smoothscroll" title="Back to Top" href="${pageContext.request.contextPath}/transcend/#top"><i class="icon-arrow-up" aria-hidden="true"></i></a>
+    </div>
+
+</section> <!-- end s-contact -->
+
+
+<!-- photoswipe background
+================================================== -->
+<div aria-hidden="true" class="pswp" role="dialog" tabindex="-1">
+
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title=
+                    "Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title=
+                    "Zoom in/out"></button>
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-            <div class="col-xl-3 col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon dib"><i class="ti-user text-primary border-primary"></i></div>
-                            <div class="stat-content dib">
-                                <div class="stat-text">New Customer</div>
-                                <div class="stat-digit">961</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button> <button class="pswp__button pswp__button--arrow--right" title=
+                "Next (arrow right)"></button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
             </div>
+        </div>
 
-            <div class="col-xl-3 col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="stat-widget-one">
-                            <div class="stat-icon dib"><i class="ti-layout-grid2 text-warning border-warning"></i></div>
-                            <div class="stat-content dib">
-                                <div class="stat-text">Active Projects</div>
-                                <div class="stat-digit">770</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    </div>
 
-            <div class="col-xl-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>World</h4>
-                    </div>
-                    <div class="Vector-map-js">
-                        <div id="vmap" class="vmap" style="height: 265px;"></div>
-                    </div>
-                </div>
-                <!-- /# card -->
-            </div>
+</div> <!-- end photoSwipe background -->
 
 
-        </div> <!-- .content -->
-    </div><!-- /#right-panel -->
+<!-- preloader
+================================================== -->
+<div id="preloader">
+    <div id="loader">
+    </div>
+</div>
 
-    <!-- Right Panel -->
 
-    <script src="${pageContext.request.contextPath}/site/vendors/chart.js/dist/Chart.bundle.min.js"></script>
-    <script src="${pageContext.request.contextPath}/site/assets/js/dashboard.js"></script>
-    <script src="${pageContext.request.contextPath}/site/assets/js/widgets.js"></script>
-    <script src="${pageContext.request.contextPath}/site/vendors/jqvmap/dist/jquery.vmap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/site/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <script src="${pageContext.request.contextPath}/site/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script>
-        (function($) {
-            "use strict";
-
-            jQuery('#vmap').vectorMap({
-                map: 'world_en',
-                backgroundColor: null,
-                color: '#ffffff',
-                hoverOpacity: 0.7,
-                selectedColor: '#1de9b6',
-                enableZoom: true,
-                showTooltip: true,
-                values: sample_data,
-                scaleColors: ['#1de9b6', '#03a9f5'],
-                normalizeFunction: 'polynomial'
-            });
-        })(jQuery);
-    </script>
+<!-- Java Script
+================================================== -->
+<script src="${pageContext.request.contextPath}/transcend/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/transcend/js/plugins.js"></script>
+<script src="${pageContext.request.contextPath}/transcend/js/main.js"></script>
 
 </body>
 

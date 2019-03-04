@@ -13,7 +13,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/static/images/logo.png" alt="Logo"></a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/jsp/account.jsp"><img src="${pageContext.request.contextPath}/static/images/logo.png" alt="Logo"></a>
 
             <a class="navbar-brand hidden" href="${pageContext.request.contextPath}/site"><img src="${pageContext.request.contextPath}/static/images/logo2.png" alt="Logo"></a>
         </div>
@@ -21,7 +21,7 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="${pageContext.request.contextPath}/index.jsp"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="${pageContext.request.contextPath}/jsp/account.jsp"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                 </li>
                 <li class="menu-item-has-children dropdown">
                     <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
@@ -49,6 +49,18 @@
                         <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/user.jsp">UserDAO CRUD</a></li>
                         <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/author.jsp">AuthorDAO CRUD</a></li>
                         <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/genre.jsp">GenreDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/role.jsp">RoleDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/album.jsp">AlbumDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/albumfeedback.jsp">AlbumFeedbackDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/bonus.jsp">BonusDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/composition.jsp">CompositionDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/compositionfeedback.jsp">CompositionFeedbackDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/musicselection.jsp">MusicSelectionDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/musicselectionfeedbcak.jsp">MusicSelectionFeedbackDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/useralbum.jsp">UserAlbumDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/userbonus.jsp">UserBonusDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/usercomposition.jsp">UserCompositionDAO CRUD</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/jsp/crud/usermusicselection.jsp">UserMusicSelectionDAO CRUD</a></li>
                     </ul>
                 </li>
 

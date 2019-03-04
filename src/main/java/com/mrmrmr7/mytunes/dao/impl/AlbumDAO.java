@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
 import com.mrmrmr7.mytunes.dao.GenericDAO;
 import com.mrmrmr7.mytunes.dao.TableName;
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Album;
 
 import java.sql.PreparedStatement;
@@ -19,17 +20,21 @@ public class AlbumDAO extends AbstractJDBCDAO<Album, Integer> {
     }
 
     @Override
-    public Optional<Album> getByPK(Integer id) throws SQLException {
+    public Optional<Album> getByPK(Integer id) throws DAOException {
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
                 return Optional.of(resultSetCompiller.setAlbum(resultSet));
+            } catch (SQLException e) {
+                throw new DAOException("4.1.1");
             }
+        } catch (SQLException e) {
+            throw new DAOException("4.1.2");
         }
     }
 
     @Override
-    public List<Album> getAll() throws SQLException {
+    public List<Album> getAll() throws DAOException {
 
         List<Album> userList = new ArrayList<>();
 
@@ -39,33 +44,43 @@ public class AlbumDAO extends AbstractJDBCDAO<Album, Integer> {
                     userList
                             .add(resultSetCompiller.setAlbum(resultSet));
                 }
+            } catch (SQLException e) {
+                throw new DAOException("4.1.3");
             }
+        } catch (SQLException e) {
+            throw new DAOException("4.1.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(Album object) throws SQLException {
+    public void insert(Album object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.1.5");
         }
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.1.6");
         }
     }
 
     @Override
-    public void update(Album object) throws SQLException {
+    public void update(Album object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.1.7");
         }
     }
 

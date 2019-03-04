@@ -17,10 +17,7 @@
             <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Salary</th>
+                    <th>Genre</th>
                 </tr>
                 </thead>
                 <tbody>

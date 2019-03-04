@@ -63,7 +63,7 @@ create table users (
     primary key,
     register_date timestamp   NOT NULL,
     login         varchar(50) NOT NULL unique,
-    password      varchar(70) NOT NULL,
+    password      varchar(60) NOT NULL,
     first_name    varchar(50) NOT NULL,
     second_name   varchar(50) NOT NULL,
     email         varchar(50) NOT NULL unique,

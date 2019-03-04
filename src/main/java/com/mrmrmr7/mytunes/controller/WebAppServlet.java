@@ -34,7 +34,7 @@ public class WebAppServlet extends HttpServlet {
             responseContent = command.process(request);
             if (responseContent.getRouter().getType().equals("redirect")) {
                 System.out.println(request.getAttribute("viewName"));
-                response.sendRedirect(responseContent.getRouter().getRoute());
+                response.sendRedirect(request.getContextPath() + responseContent.getRouter().getRoute());
             } else {
                 System.out.println("Forward to " + request.getContextPath() + responseContent.getRouter().getRoute());
                 request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request, response);

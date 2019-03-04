@@ -19,6 +19,10 @@ public class Album implements Identified<Integer> {
         this.genre_id = genre_id;
     }
 
+    public Album(String description, long price, int author_id, int genre_id) {
+        this(0, price, description, author_id, genre_id);
+    }
+
     public Integer getId() {
         return id;
     }

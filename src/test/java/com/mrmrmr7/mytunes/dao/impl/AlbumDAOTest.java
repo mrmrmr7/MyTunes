@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Album;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
@@ -36,7 +37,7 @@ class AlbumDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<Album> album = albumDAO.getByPK(1);
 
@@ -47,7 +48,7 @@ class AlbumDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<Album> albumList = albumDAO.getAll();
 
@@ -69,7 +70,7 @@ class AlbumDAOTest {
     }
 
     @Test //FIXME очень странная реакция. Equals говорит что разные
-    void insert() throws SQLException {
+    void insert() throws DAOException {
 
         Album expected = new Album(
                 11,
@@ -87,7 +88,7 @@ class AlbumDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         albumDAO.delete(1);
 
@@ -110,7 +111,7 @@ class AlbumDAOTest {
     }
 
     @Test
-    void update() throws SQLException {
+    void update() throws DAOException {
 
         Album expected = new Album(
                 1,

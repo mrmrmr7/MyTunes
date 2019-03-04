@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Role;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
@@ -36,7 +37,7 @@ class RoleDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<Role> role = roleDAO.getByPK(1);
 
@@ -47,7 +48,7 @@ class RoleDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<Role> roleList = roleDAO.getAll();
 
@@ -61,7 +62,7 @@ class RoleDAOTest {
     }
 
     @Test
-    void insert() throws SQLException {
+    void insert() throws DAOException {
 
         Role expected = new Role(
                 3,
@@ -76,7 +77,7 @@ class RoleDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         roleDAO.delete(1);
 
@@ -91,7 +92,7 @@ class RoleDAOTest {
     }
 
     @Test
-    void update() throws SQLException {
+    void update() throws DAOException {
 
         Role expected = new Role(
                 1,

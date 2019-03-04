@@ -18,20 +18,14 @@
             <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Salary</th>
+                    <th>Genre</th>
                 </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="genre" items="${genreList}">
 
                         <tr>
-                            <th><c:out value="${genre.login}"/></th>
-                            <th><c:out value="${genre.firstName}"/></th>
-                            <th><c:out value="${genre.secondName}"/></th>
-                            <th><c:out value="${genre.email}"/></th>
+                            <th><c:out value="${genre.genre}"/></th>
                         </tr>
 
                     </c:forEach>

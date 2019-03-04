@@ -43,7 +43,7 @@ class UserDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<User> user1 = userDAO.getByPK(1);
 
@@ -54,7 +54,7 @@ class UserDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<User> user = userDAO.getAll();
 
@@ -75,7 +75,7 @@ class UserDAOTest {
     }
 
     @Test
-    void insert() throws SQLException {
+    void insert() throws DAOException {
 
         User user = new User(
                 "Kotik",
@@ -99,7 +99,7 @@ class UserDAOTest {
     }
 
     @Test
-    void delete() throws SQLException{
+    void delete() throws DAOException {
 
         userDAO.delete(1);
         List<User> userList = userDAO.getAll();
@@ -121,7 +121,7 @@ class UserDAOTest {
     }
 
     @Test
-    void update() throws SQLException{
+    void update() throws DAOException {
 
         userDAO.update(new User(1,
                 new Date(123123),

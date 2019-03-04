@@ -37,7 +37,7 @@ class UserBonusDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<UserBonus> userBonus = userBonusDAO.getByPK(6);
 
@@ -48,7 +48,7 @@ class UserBonusDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<UserBonus> userBonusList = userBonusDAO.getAll();
 
@@ -70,7 +70,7 @@ class UserBonusDAOTest {
     }
 
     @Test
-    void insert() throws SQLException {
+    void insert() throws DAOException {
 
         UserBonus toInsert = new UserBonus(
                 5,
@@ -89,7 +89,7 @@ class UserBonusDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         userBonusDAO.delete(1);
 
@@ -112,7 +112,7 @@ class UserBonusDAOTest {
     }
 
     @Test
-    void update() throws SQLException{
+    void update() throws DAOException {
 
         UserBonus userBonus = new UserBonus(
                 4,

@@ -1,14 +1,20 @@
 package com.mrmrmr7.mytunes.controller.command;
 
-import com.mrmrmr7.mytunes.controller.command.author.CommandAuthorDelete;
-import com.mrmrmr7.mytunes.controller.command.author.CommandAuthorGetAll;
-import com.mrmrmr7.mytunes.controller.command.author.CommandAuthorGetById;
-import com.mrmrmr7.mytunes.controller.command.author.CommandAuthorInsert;
-import com.mrmrmr7.mytunes.controller.command.genre.CommandGenreDelete;
-import com.mrmrmr7.mytunes.controller.command.genre.CommandGenreGetAll;
-import com.mrmrmr7.mytunes.controller.command.genre.CommandGenreGetById;
-import com.mrmrmr7.mytunes.controller.command.genre.CommandGenreInsert;
-import com.mrmrmr7.mytunes.controller.command.user.*;
+import com.mrmrmr7.mytunes.controller.command.impl.CommandSignIn;
+import com.mrmrmr7.mytunes.controller.command.impl.CommandSignUp;
+import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorDelete;
+import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorGetAll;
+import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorGetById;
+import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorInsert;
+import com.mrmrmr7.mytunes.controller.command.impl.genre.CommandGenreDelete;
+import com.mrmrmr7.mytunes.controller.command.impl.genre.CommandGenreGetAll;
+import com.mrmrmr7.mytunes.controller.command.impl.genre.CommandGenreGetById;
+import com.mrmrmr7.mytunes.controller.command.impl.genre.CommandGenreInsert;
+import com.mrmrmr7.mytunes.controller.command.impl.role.CommandRoleDelete;
+import com.mrmrmr7.mytunes.controller.command.impl.role.CommandRoleGetAll;
+import com.mrmrmr7.mytunes.controller.command.impl.role.CommandRoleGetById;
+import com.mrmrmr7.mytunes.controller.command.impl.role.CommandRoleInsert;
+import com.mrmrmr7.mytunes.controller.command.impl.user.*;
 
 
 import java.util.HashMap;
@@ -38,6 +44,16 @@ public class CommandProvider {
         commandMap.put("genreGetAll", new CommandGenreGetAll());
         commandMap.put("genreInsert", new CommandGenreInsert());
         commandMap.put("genreDelete", new CommandGenreDelete());
+        commandMap.put("roleGetById", new CommandRoleGetById());
+        commandMap.put("roleGetAll", new CommandRoleGetAll());
+        commandMap.put("roleInsert", new CommandRoleInsert());
+        commandMap.put("roleDelete", new CommandRoleDelete());
+        commandMap.put("albumGetById", new CommandRoleGetById());
+        commandMap.put("albumGetAll", new CommandRoleGetAll());
+        commandMap.put("albumInsert", new CommandRoleInsert());
+        commandMap.put("albumDelete", new CommandRoleDelete());
+        commandMap.put("signIn", new CommandSignIn());
+        commandMap.put("signUp", new CommandSignUp());
 //        commandMap.put("main", new ShowEmptyMainPageCommand());
 //        commandMap.put("register_cocktail", new CreateNewCocktailCommand());
 //        commandMap.put("cocktail_list", new ViewCocktailListCommand());

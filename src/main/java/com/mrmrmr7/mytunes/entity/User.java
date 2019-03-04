@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.entity;
 import com.mrmrmr7.mytunes.dao.Identified;
 
 import java.sql.Date;
+import java.util.Calendar;
 
 public class User implements Identified<Integer> {
     private int id;
@@ -41,7 +42,13 @@ public class User implements Identified<Integer> {
                 String email,
                 long balance, byte sale,
                 byte roleId, byte statusId) {
-        this(0, new Date(21213135435L), LOGIN, password, firstName, secondName, email, balance, sale, roleId, statusId);
+        this(0, new Date(Calendar.getInstance().getTime().getTime()), LOGIN, password, firstName, secondName, email, balance, sale, roleId, statusId);
+    }
+
+    public User(String LOGIN, String password,
+                String firstName, String secondName,
+                String email) {
+        this(0, new Date(Calendar.getInstance().getTime().getTime()), LOGIN, password, firstName, secondName, email, (byte)0,(byte)0,(byte)0,(byte)0);
     }
 
     public String getLogin() {

@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
 import com.mrmrmr7.mytunes.dao.GenericDAO;
 import com.mrmrmr7.mytunes.dao.TableName;
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.AlbumFeedback;
 
 import java.sql.PreparedStatement;
@@ -18,16 +19,20 @@ public class AlbumFeedbackDAO extends AbstractJDBCDAO<AlbumFeedback, Integer> im
     }
 
     @Override
-    public Optional<AlbumFeedback> getByPK(Integer id) throws SQLException {
+    public Optional<AlbumFeedback> getByPK(Integer id) throws DAOException {
+
         try (PreparedStatement preparedStatement = prepareStatementForGet(id);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             resultSet.next();
             return Optional.of(resultSetCompiller.setAlbumFeedback(resultSet));
+        } catch (SQLException e) {
+            e.getMessage();
+            throw new DAOException("4.2.1");
         }
     }
 
     @Override
-    public List<AlbumFeedback> getAll() throws SQLException {
+    public List<AlbumFeedback> getAll() throws DAOException {
 
         List<AlbumFeedback> compositionFeedbackList = new ArrayList<>();
         try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.ALBUM_FEEDBACK)) {
@@ -36,33 +41,43 @@ public class AlbumFeedbackDAO extends AbstractJDBCDAO<AlbumFeedback, Integer> im
                     compositionFeedbackList
                             .add(resultSetCompiller.setAlbumFeedback(resultSet));
                 }
+            } catch (SQLException e) {
+                throw new DAOException("4.2.2");
             }
+        } catch (SQLException e) {
+            throw new DAOException("4.2.3");
         }
 
         return compositionFeedbackList;
     }
 
     @Override
-    public void insert(AlbumFeedback object) throws SQLException {
+    public void insert(AlbumFeedback object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)){
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.2.3");
         }
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer id) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.2.4");
         }
     }
 
     @Override
-    public void update(AlbumFeedback object) throws SQLException {
+    public void update(AlbumFeedback object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)) {
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("4.2.5");
         }
     }
 

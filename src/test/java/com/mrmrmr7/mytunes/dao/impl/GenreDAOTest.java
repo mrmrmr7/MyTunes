@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Genre;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
@@ -36,7 +37,7 @@ class GenreDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<Genre> genre = genreDAO.getByPK(1);
 
@@ -47,7 +48,7 @@ class GenreDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<Genre> genreList = genreDAO.getAll();
 
@@ -69,7 +70,7 @@ class GenreDAOTest {
     }
 
     @Test
-    void insert() throws SQLException {
+    void insert() throws DAOException {
 
         Genre expected = new Genre(
                 11,
@@ -84,7 +85,7 @@ class GenreDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         genreDAO.delete(1);
 
@@ -107,7 +108,7 @@ class GenreDAOTest {
     }
 
     @Test
-    void update() throws SQLException {
+    void update() throws DAOException {
 
         Genre expected = new Genre(
                 1,

@@ -44,7 +44,7 @@ class MusicSelectionFeedbackDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<MusicSelectionFeedback> compositionFeedback;
         compositionFeedback = musicSelectionFeedbackDAO.getByPK(4);
@@ -56,7 +56,7 @@ class MusicSelectionFeedbackDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<MusicSelectionFeedback> compositionFeedbackList;
         compositionFeedbackList = musicSelectionFeedbackDAO.getAll();
@@ -96,7 +96,7 @@ class MusicSelectionFeedbackDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         musicSelectionFeedbackDAO.delete(1);
         List<MusicSelectionFeedback> compositionFeedbackList = musicSelectionFeedbackDAO.getAll();

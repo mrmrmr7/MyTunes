@@ -114,7 +114,7 @@ grunt.initConfig( {
 		}
 	},
 	qunit: {
-		files: "test/index.jsp"
+		files: "test/account.jsp"
 	},
 	jshint: {
 		options: {

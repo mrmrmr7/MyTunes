@@ -37,7 +37,7 @@ class UserCompositionDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException {
+    void getByPK() throws DAOException {
 
         Optional<UserComposition> userComposition = userCompositionDAO.getByPK(3);
 
@@ -48,7 +48,7 @@ class UserCompositionDAOTest {
     }
 
     @Test
-    void getAll() throws SQLException {
+    void getAll() throws DAOException {
 
         List<UserComposition> userCompositionList = userCompositionDAO.getAll();
 
@@ -63,7 +63,7 @@ class UserCompositionDAOTest {
     }
 
     @Test
-    void insert() throws SQLException {
+    void insert() throws DAOException {
 
         UserComposition toInsert = new UserComposition(
                 5,
@@ -82,7 +82,7 @@ class UserCompositionDAOTest {
     }
 
     @Test
-    void delete() throws SQLException {
+    void delete() throws DAOException {
 
         userCompositionDAO.delete(2);
 
@@ -98,7 +98,7 @@ class UserCompositionDAOTest {
     }
 
     @Test
-    void update() throws SQLException {
+    void update() throws DAOException {
 
         Optional<UserComposition> userComposition = userCompositionDAO.getByPK(3);
 
