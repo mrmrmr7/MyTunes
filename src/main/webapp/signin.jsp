@@ -49,7 +49,6 @@
                             if (x == "") {
                                 document.getElementById("loginId").className = "is-invalid form-control";
                                 document.getElementById("passwordId").className = "is-invalid form-control";
-                                alert("Name must be");
                                 return false;
                             }
                         }
