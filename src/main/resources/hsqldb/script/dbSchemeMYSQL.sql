@@ -89,7 +89,7 @@ create table user_album (
 create table album_feedback (
     id       int           NOT NULL,
     feedback varchar(500) NOT NULL,
-    date     timestamp     NOT NULL,
+    date     date     NOT NULL,
     constraint album_feedback_user_album_fk foreign key (id) references user_album (id) on delete cascade
     );
 

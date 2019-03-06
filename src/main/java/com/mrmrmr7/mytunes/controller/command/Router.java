@@ -10,20 +10,21 @@ public class Router {
     private Type type;
 
     public enum Type {
-        FORWARD, REDIRECT
+        FORWARD("forward"), REDIRECT ("redirect");
+        private String value;
+
+        Type(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 
-    public Router(String route, String type) {
+    public Router(String route, Type type) {
         this.route = route;
-        this.type = Arrays
-                .stream(Type.values())
-                .filter(type1 ->
-                        type1
-                                .name()
-                                .toLowerCase()
-                                .equals(type))
-                .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+        this.type = type;
     }
 
     public String getRoute() {
@@ -31,9 +32,7 @@ public class Router {
     }
 
     public String getType() {
-        return type
-                .name()
-                .toLowerCase();
+        return type.getValue();
     }
 
 }

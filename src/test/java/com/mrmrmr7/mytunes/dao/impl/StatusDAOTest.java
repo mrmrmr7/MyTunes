@@ -22,7 +22,7 @@ class StatusDAOTest {
 
     @AfterAll
     public static void daoDestroy() {
-        statusDAO.destroy();
+        statusDAO.closeConnection();
     }
 
     @BeforeEach

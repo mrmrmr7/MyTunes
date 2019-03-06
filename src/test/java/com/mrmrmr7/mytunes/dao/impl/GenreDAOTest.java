@@ -22,7 +22,7 @@ class GenreDAOTest {
 
     @AfterAll
     public static void daoDestroy() {
-        genreDAO.destroy();
+        genreDAO.closeConnection();
     }
 
     @BeforeEach

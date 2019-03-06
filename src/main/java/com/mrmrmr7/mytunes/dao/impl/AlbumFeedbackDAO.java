@@ -21,12 +21,14 @@ public class AlbumFeedbackDAO extends AbstractJDBCDAO<AlbumFeedback, Integer> im
     @Override
     public Optional<AlbumFeedback> getByPK(Integer id) throws DAOException {
 
-        try (PreparedStatement preparedStatement = prepareStatementForGet(id);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-            resultSet.next();
-            return Optional.of(resultSetCompiller.setAlbumFeedback(resultSet));
+        try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    resultSet.next();
+                    return Optional.of(resultSetCompiller.setAlbumFeedback(resultSet));
+                } catch (SQLException e) {
+                    throw new DAOException("4.2.0");
+                }
         } catch (SQLException e) {
-            e.getMessage();
             throw new DAOException("4.2.1");
         }
     }
@@ -85,6 +87,7 @@ public class AlbumFeedbackDAO extends AbstractJDBCDAO<AlbumFeedback, Integer> im
     protected PreparedStatement prepareStatementForInsert(AlbumFeedback object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
+        preparedStatement.setInt(3, object.getId());
         return prepareForUpdate(preparedStatement, object);
     }
 
@@ -94,7 +97,9 @@ public class AlbumFeedbackDAO extends AbstractJDBCDAO<AlbumFeedback, Integer> im
         PreparedStatement preparedStatement = prepareForUpdate(connection
                         .prepareStatement(getUpdateQuery()),
                 object);
-        preparedStatement.setInt(4, object.getId());
+        preparedStatement.setString(1, object.getFeedback());
+        preparedStatement.setDate(2, object.getDate());
+        preparedStatement.setInt(3, object.getId());
         return preparedStatement;
     }
 
@@ -118,9 +123,8 @@ public class AlbumFeedbackDAO extends AbstractJDBCDAO<AlbumFeedback, Integer> im
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, AlbumFeedback object) throws SQLException {
 
         int i = 0;
-        preparedStatement.setInt(++i, object.getId());
         preparedStatement.setString(++i, object.getFeedback());
-        preparedStatement.setTimestamp(++i, object.getTimestamp());
+        preparedStatement.setDate(++i, object.getDate());
         return preparedStatement;
     }
 
@@ -128,7 +132,7 @@ public class AlbumFeedbackDAO extends AbstractJDBCDAO<AlbumFeedback, Integer> im
     protected String getInsertQuery() {
 
         return "INSERT INTO " + TableName.ALBUM_FEEDBACK.getValue() +
-                "(ID, FEEDBACK, DATE) " +
+                "(FEEDBACK, DATE, ID) " +
                 "VALUES " +
                 "(?,?,?)";
     }
@@ -137,7 +141,7 @@ public class AlbumFeedbackDAO extends AbstractJDBCDAO<AlbumFeedback, Integer> im
     protected String getUpdateQuery() {
 
         return "UPDATE " + TableName.ALBUM_FEEDBACK.getValue() + " SET " +
-                "ID=?, FEEDBACK=?, " +
+                " FEEDBACK=?, " +
                 "DATE=? WHERE ID=?";
     }
 }

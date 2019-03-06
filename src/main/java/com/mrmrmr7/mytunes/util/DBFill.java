@@ -2,8 +2,7 @@ package com.mrmrmr7.mytunes.util;
 
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.service.DBConnectionService;
-import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
@@ -15,9 +14,10 @@ public class DBFill {
     public static synchronized void createDB() throws IOException, SQLException, InterruptedException {
 
         Connection connection = null;
+
         try {
-            connection = DBConnectionService.getConnection();
-        } catch (ServiceException e) {
+            connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection();
+        } catch (DAOException e) {
             e.printStackTrace();
         }
 
@@ -31,16 +31,16 @@ public class DBFill {
 
         statement.close();
 
-        DBConnectionService.closeConnection(connection);
+        connection.close();
     }
 
-    public static synchronized void fill() throws IOException, SQLException, InterruptedException {
+    public static synchronized void fill() throws IOException, SQLException {
 
         Connection connection = null;
 
         try {
-            connection = DBConnectionService.getConnection();
-        } catch (ServiceException e) {
+            connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection();
+        } catch (DAOException e) {
             e.printStackTrace();
         }
 
@@ -54,15 +54,21 @@ public class DBFill {
 
         statement.close();
 
-        DBConnectionService.closeConnection(connection);
+        connection.close();
     }
 
     public static synchronized void drop() throws IOException, SQLException, InterruptedException {
 
-        Connection connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.JDBC).getConnection();
+        Connection connection = null;
+        try {
+            connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
 
         String fullTestData = FileUtils
                 .fileRead("src/test/resources/hsqldb/script/dropDB.sql");
+
         Statement statement = connection
                 .createStatement();
 
@@ -71,6 +77,6 @@ public class DBFill {
 
         statement.close();
 
-        DBConnectionService.closeConnection(connection);
+        connection.close();
     }
 }

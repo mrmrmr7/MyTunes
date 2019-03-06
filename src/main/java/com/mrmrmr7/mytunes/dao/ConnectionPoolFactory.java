@@ -1,5 +1,7 @@
 package com.mrmrmr7.mytunes.dao;
 
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
+
 public class ConnectionPoolFactory {
     private final static ConnectionPoolFactory INSTANCE = new ConnectionPoolFactory();
     public static ConnectionPoolFactory getInstance() {
@@ -9,13 +11,13 @@ public class ConnectionPoolFactory {
     private ConnectionPoolFactory() {
     }
 
-    public ConnectionPool getConnectionPool(ConnectionPoolType type) {
+    public ConnectionPool getConnectionPool(ConnectionPoolType type) throws DAOException {
 
         switch (type) {
-            case JDBC: return JDBCConnectionPool
+            case MYSQL: return JDBCConnectionPool
                     .getInstance();
             default:
-                return null;
+                throw new DAOException("dao.connectionpool.1");
         }
     }
 }

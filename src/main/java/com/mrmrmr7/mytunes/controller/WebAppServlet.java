@@ -28,29 +28,32 @@ public class WebAppServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Command command = CommandProvider.getInstance().takeCommand(request.getParameter("command"));
-        ResponseContent responseContent;
-        try {
-            responseContent = command.process(request);
-            if (responseContent.getRouter().getType().equals("redirect")) {
-                System.out.println(request.getAttribute("viewName"));
-                response.sendRedirect(request.getContextPath() + responseContent.getRouter().getRoute());
-            } else {
-                System.out.println("Forward to " + request.getContextPath() + responseContent.getRouter().getRoute());
-                request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request, response);
+        if (!response.isCommitted()) {
+            Command command = CommandProvider.getInstance().takeCommand(request.getParameter("command"));
+            ResponseContent responseContent;
+
+            try {
+                responseContent = command.process(request);
+                if (responseContent.getRouter().getType().equals("redirect")) {
+                    System.out.println(request.getAttribute("viewName"));
+                    response.sendRedirect(request.getContextPath() + responseContent.getRouter().getRoute());
+                } else {
+                    System.out.println("Forward to " + request.getContextPath() + responseContent.getRouter().getRoute());
+                    request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request, response);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (PersistException e) {
+                e.printStackTrace();
+            } catch (DAOException e) {
+                e.printStackTrace();
+                response.sendRedirect("/jsp/error.jsp");
+                //тут должно выводиться сообщение
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                response.sendRedirect("/jsp/error.jsp");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (PersistException e) {
-            e.printStackTrace();
-        } catch (DAOException e) {
-            e.printStackTrace();
-            response.sendRedirect("/jsp/error.jsp");
-            //тут должно выводиться сообщение
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            response.sendRedirect("/jsp/error.jsp");
         }
     }
 }

@@ -22,7 +22,7 @@ class SessionDataDAOTest {
 
     @AfterAll
     public static void daoDestroy() {
-        sessionDataDAO.destroy();
+        sessionDataDAO.closeConnection();
     }
 
     @BeforeEach

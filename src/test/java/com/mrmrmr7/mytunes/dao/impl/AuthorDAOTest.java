@@ -23,7 +23,7 @@ public class AuthorDAOTest {
 
     @AfterAll
     public static void daoDestroy() {
-        authorDAO.destroy();
+        authorDAO.closeConnection();
     }
 
     @BeforeEach

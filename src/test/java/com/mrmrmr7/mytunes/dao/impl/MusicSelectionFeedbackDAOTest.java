@@ -24,7 +24,7 @@ class MusicSelectionFeedbackDAOTest {
 
     @AfterAll
     public static void daoDestroy() {
-        musicSelectionFeedbackDAO.destroy();
+        musicSelectionFeedbackDAO.closeConnection();
     }
 
     @BeforeEach

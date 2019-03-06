@@ -26,7 +26,7 @@ class CompositionDAOTest {
 
     @AfterAll
     public static void daoDestroy() {
-        compositionDAO.destroy();
+        compositionDAO.closeConnection();
     }
 
     @BeforeEach

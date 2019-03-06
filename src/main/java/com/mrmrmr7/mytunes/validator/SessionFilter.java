@@ -4,7 +4,8 @@ import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.entity.SessionData;
 import com.mrmrmr7.mytunes.service.ServiceException;
 import com.mrmrmr7.mytunes.service.ServiceSession;
-import com.mrmrmr7.mytunes.service.impl.ServiceSessionImpl;
+import com.mrmrmr7.mytunes.service.ServiceUser;
+import com.mrmrmr7.mytunes.service.impl.ServiceUserImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.*;
@@ -30,38 +31,23 @@ public class SessionFilter implements Filter {
                          FilterChain filterChain)
             throws IOException, ServletException {
 
-        String command = servletRequest.getParameter(CommandDirector.COMMAND.getValue());
-        if (command == null || !command.equals("signIn")) {
+        ServiceUserImpl serviceUser = new ServiceUserImpl();
+        boolean isAuthorized;
 
-            final HttpSession httpSession = ((HttpServletRequest) servletRequest).getSession(false);
-            if(httpSession != null) {
-
-                SessionData sessionData = (SessionData) httpSession.getAttribute("session_data");
-                if(sessionData != null) {
-
-                    try {
-                        ServiceSession serviceSession = new ServiceSessionImpl();
-                        if (!serviceSession.check(sessionData)) {
-                            HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-                            HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-                            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + PageDirector.LANDING_PAGE);
-                        }
-                    } catch (ServiceException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-                    HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-                    httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + PageDirector.LANDING_PAGE);
-                }
-
-            } else {
-                HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-                HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-                httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + PageDirector.LANDING_PAGE);
-            }
+        try {
+            isAuthorized = serviceUser.isAuthorized(servletRequest.getParameter(CommandDirector.COMMAND.getValue()), ((HttpServletRequest) servletRequest).getSession(false));
+        } catch (ServiceException e) {
+            isAuthorized = false;
         }
-        filterChain.doFilter(servletRequest, servletResponse);
+
+        if (!isAuthorized) {
+            HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+            HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + PageDirector.LANDING.getValue());
+        } else {
+            filterChain.doFilter(servletRequest, servletResponse);
+        }
+
     }
 
     @Override

@@ -86,7 +86,6 @@ insert into USER_ALBUM (USER_ID, ALBUM_ID) values (9, 4);
 insert into USER_ALBUM (USER_ID, ALBUM_ID) values (9, 2);
 insert into USER_ALBUM (USER_ID, ALBUM_ID) values (10, 1);
 
-insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (1, 'NORM TAKOY ALBUM1', '2019-05-03 12:00:03');
 insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (2, 'NORM TAKOY ALBUM2', '2019-05-03 12:00:03');
 insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (3, 'NORM TAKOY ALBUM3', '2019-05-03 12:00:03');
 insert into ALBUM_FEEDBACK (ID, FEEDBACK, DATE) values (4, 'NORM TAKOY ALBUM4', '2019-05-03 12:00:03');

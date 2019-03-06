@@ -58,8 +58,7 @@ public class ResultSetCompiller {
         int i = 0;
         return new AlbumFeedback(
                 resultSet.getInt(++i),
-                resultSet.getString(++i),
-                resultSet.getTimestamp(++i)
+                resultSet.getString(++i)
         );
     }
 

@@ -1,9 +1,5 @@
 package com.mrmrmr7.mytunes.dao;
 
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.service.DBConnectionService;
-import com.mrmrmr7.mytunes.service.ServiceException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +10,7 @@ public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Numbe
 
     protected final ResultSetCompiller resultSetCompiller = new ResultSetCompiller();
 
-    public AbstractJDBCDAO() { init(); }
+    public AbstractJDBCDAO() { }
 
     protected abstract PreparedStatement prepareStatementForInsert(T object) throws SQLException;
 
@@ -44,21 +40,20 @@ public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Numbe
         return "DELETE FROM " + tableName.getValue() + " WHERE ID=?";
     }
 
-    public void init() {
-        try {
-            connection = DBConnectionService.getConnection();
-            System.out.println("DAO init successfully");
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+    public Connection getConnection() {
+        return connection;
     }
 
-    public void destroy() {
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    public void closeConnection() {
         try {
-            DBConnectionService.closeConnection(connection);
-            System.out.println("DAO destroy successfully");
+            this.connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
+        this.connection = null;
     }
 }

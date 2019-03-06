@@ -1,5 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.AlbumFeedback;
 import com.mrmrmr7.mytunes.util.DBFill;
@@ -20,11 +22,17 @@ class AlbumFeedbackDAOTest {
     @BeforeAll
     public static void daoInit() {
         albumFeedbackDAO = new AlbumFeedbackDAO();
+
+        try {
+            albumFeedbackDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterAll
     public static void daoDestroy() {
-        albumFeedbackDAO.destroy();
+        albumFeedbackDAO.closeConnection();
     }
 
     @BeforeEach
@@ -50,7 +58,7 @@ class AlbumFeedbackDAOTest {
         albumFeedback = albumFeedbackDAO.getByPK(4);
 
         String actual = albumFeedback.get().getFeedback();
-        String expected = "Norm takoy album4";
+        String expected = "NORM TAKOY ALBUM4";
 
         assertEquals(expected, actual);
     }
@@ -63,15 +71,15 @@ class AlbumFeedbackDAOTest {
 
         String actual = albumFeedbackList.toString();
         String expected = "[" +
-                "AlbumFeedback{id=1, feedback='Norm takoy album1', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=2, feedback='Norm takoy album2', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=3, feedback='Norm takoy album3', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=4, feedback='Norm takoy album4', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=5, feedback='Norm takoy album5', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=6, feedback='Norm takoy album6', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=7, feedback='Norm takoy album7', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=8, feedback='Norm takoy album8', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=9, feedback='Norm takoy album9', timestamp=2019-05-03 12:00:03.0}" +
+                "AlbumFeedback{id=1, feedback='NORM TAKOY ALBUM1', date=2019-03-05}, " +
+                "AlbumFeedback{id=2, feedback='NORM TAKOY ALBUM2', date=2019-03-05}, " +
+                "AlbumFeedback{id=3, feedback='NORM TAKOY ALBUM3', date=2019-03-05}, " +
+                "AlbumFeedback{id=4, feedback='NORM TAKOY ALBUM4', date=2019-03-05}, " +
+                "AlbumFeedback{id=5, feedback='NORM TAKOY ALBUM5', date=2019-03-05}, " +
+                "AlbumFeedback{id=6, feedback='NORM TAKOY ALBUM6', date=2019-03-05}, " +
+                "AlbumFeedback{id=7, feedback='NORM TAKOY ALBUM7', date=2019-03-05}, " +
+                "AlbumFeedback{id=8, feedback='NORM TAKOY ALBUM8', date=2019-03-05}, " +
+                "AlbumFeedback{id=9, feedback='NORM TAKOY ALBUM9', date=2019-03-05}" +
                 "]";
 
         assertEquals(expected, actual);
@@ -81,13 +89,12 @@ class AlbumFeedbackDAOTest {
     void insert() throws SQLException, DAOException {
 
         AlbumFeedback albumFeedback = new AlbumFeedback(
-                10,
-                "Fail song",
-                new Timestamp(456456342)
+                1,
+                "Fail song"
         );
 
         albumFeedbackDAO.insert(albumFeedback);
-        Optional<AlbumFeedback> optionalAlbumFeedback = albumFeedbackDAO.getByPK(10);
+        Optional<AlbumFeedback> optionalAlbumFeedback = albumFeedbackDAO.getByPK(1);
 
         String actual = optionalAlbumFeedback.get().toString();
         String expected = albumFeedback.toString();
@@ -103,35 +110,31 @@ class AlbumFeedbackDAOTest {
 
         String actual = albumFeedbackList.toString();
         String expected = "[" +
-                "AlbumFeedback{id=2, feedback='Norm takoy album2', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=3, feedback='Norm takoy album3', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=4, feedback='Norm takoy album4', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=5, feedback='Norm takoy album5', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=6, feedback='Norm takoy album6', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=7, feedback='Norm takoy album7', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=8, feedback='Norm takoy album8', timestamp=2019-05-03 12:00:03.0}, " +
-                "AlbumFeedback{id=9, feedback='Norm takoy album9', timestamp=2019-05-03 12:00:03.0}" +
+                "AlbumFeedback{id=2, feedback='NORM TAKOY ALBUM2', date=2019-03-05}, " +
+                "AlbumFeedback{id=3, feedback='NORM TAKOY ALBUM3', date=2019-03-05}, " +
+                "AlbumFeedback{id=4, feedback='NORM TAKOY ALBUM4', date=2019-03-05}, " +
+                "AlbumFeedback{id=5, feedback='NORM TAKOY ALBUM5', date=2019-03-05}, " +
+                "AlbumFeedback{id=6, feedback='NORM TAKOY ALBUM6', date=2019-03-05}, " +
+                "AlbumFeedback{id=7, feedback='NORM TAKOY ALBUM7', date=2019-03-05}, " +
+                "AlbumFeedback{id=8, feedback='NORM TAKOY ALBUM8', date=2019-03-05}, " +
+                "AlbumFeedback{id=9, feedback='NORM TAKOY ALBUM9', date=2019-03-05}" +
                 "]";
 
         assertEquals(expected, actual);
     }
 
     @Test
-    void update() throws SQLException, DAOException {
+    void update() throws DAOException {
 
-        AlbumFeedback albumFeedback = new AlbumFeedback(
-                1,
-                "Fail song",
-                new Timestamp(1231435)
+        AlbumFeedback expected = new AlbumFeedback(
+                2,
+                "Fail song"
         );
 
-        albumFeedbackDAO.update(albumFeedback);
+        albumFeedbackDAO.update(expected);
 
-        Optional<AlbumFeedback> albumFeedback1 = albumFeedbackDAO.getByPK(1);
+        Optional<AlbumFeedback> actual = albumFeedbackDAO.getByPK(2);
 
-        String actual = albumFeedback1.get().toString();
-        String expected = "AlbumFeedback{id=1, feedback='Fail song', timestamp=1970-01-01 03:20:31.435}";
-
-        assertEquals(expected, actual);
+        assertEquals(expected, actual.get());
     }
 }

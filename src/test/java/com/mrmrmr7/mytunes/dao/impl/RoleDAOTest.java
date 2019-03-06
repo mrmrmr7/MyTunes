@@ -22,7 +22,7 @@ class RoleDAOTest {
 
     @AfterAll
     public static void daoDestroy() {
-        roleDAO.destroy();
+        roleDAO.closeConnection();
     }
 
     @BeforeEach

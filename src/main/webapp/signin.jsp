@@ -43,14 +43,25 @@
                     </a>
                 </div>
                 <div class="login-form">
-                    <form action="${pageContext.request.contextPath}/crud" method="post">
+                    <script>
+                        function formValidation() {
+                            var x = document.forms["signInForm"]["login"].value;
+                            if (x == "") {
+                                document.getElementById("loginId").className = "is-invalid form-control";
+                                document.getElementById("passwordId").className = "is-invalid form-control";
+                                alert("Name must be");
+                                return false;
+                            }
+                        }
+                    </script>
+                    <form action="${pageContext.request.contextPath}/crud"  method="post" id="si" name="signInForm" onsubmit="return formValidation()">
                         <div class="form-group">
                             <label>Email address</label>
-                            <input type="text" class="form-control" placeholder="Email" name="login">
+                            <input type="text" class="form-control" placeholder="Email" id="loginId" name="login" autofocus>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Password" name="password">
+                            <input type="password" class="form-control" placeholder="Password" id="passwordId" name="password" required>
                         </div>
                         <div class="checkbox">
                             <label>

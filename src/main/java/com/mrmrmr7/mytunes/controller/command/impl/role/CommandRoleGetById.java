@@ -1,32 +1,54 @@
 package com.mrmrmr7.mytunes.controller.command.impl.role;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
+import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.controller.command.ResponseContent;
 import com.mrmrmr7.mytunes.controller.command.Router;
+import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.dao.impl.RoleDAO;
 import com.mrmrmr7.mytunes.entity.Role;
+import com.mrmrmr7.mytunes.entity.BeanDirector;
+import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 
 public class CommandRoleGetById implements Command {
+    private final static String PARAMETER_ID = "id";
+    private final static String INCLUDE_PATH = "role/getbyid";
+    private final static String VIEW_NAME = "viewName";
 
     @Override
     public ResponseContent process(HttpServletRequest request) {
-        System.out.println("GetRole command detected");
+        System.out.println(CommandDirector.ROLE_GET_BY_ID.getValue() + " command detected");
+
         RoleDAO roleDAO = new RoleDAO();
         Role role = null;
         try {
-            role = roleDAO.getByPK(Integer.valueOf(request.getParameter("id"))).get();
+            roleDAO.setConnection(ConnectionPoolFactory
+                    .getInstance()
+                    .getConnectionPool(ConnectionPoolType.MYSQL)
+                    .getConnection());
+
+            role = roleDAO
+                    .getByPK(Integer.valueOf(request.getParameter(PARAMETER_ID)))
+                    .get();
         } catch (DAOException e) {
             System.out.println("Impossible to find role with such id");
+        } finally {
+            roleDAO.closeConnection();
         }
-        roleDAO.destroy();
-        request.setAttribute("role", role);
-        request.setAttribute("viewName", "role/getbyid");
+
+        request.setAttribute(BeanDirector.ROLE.getValue(), role);
+        request.setAttribute(VIEW_NAME, INCLUDE_PATH);
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router("/jsp/view.jsp", "forward"));
+        responseContent.setRouter(
+                new Router(
+                        PageDirector.VIEW.getValue(),
+                        Router.Type.FORWARD
+                )
+        );
         return responseContent;
     }
 }

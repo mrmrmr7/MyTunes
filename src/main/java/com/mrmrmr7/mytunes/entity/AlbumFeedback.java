@@ -2,17 +2,20 @@ package com.mrmrmr7.mytunes.entity;
 
 import com.mrmrmr7.mytunes.dao.Identified;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.sql.Date;
+import java.util.Calendar;
+import java.util.Objects;
 
 public class AlbumFeedback implements Identified<Integer> {
     private Integer id;
     private String feedback;
-    private Timestamp timestamp;
+    private Date date;
 
-    public AlbumFeedback(Integer id, String feedback, Timestamp timestamp) {
+    public AlbumFeedback(Integer id, String feedback) {
         this.id = id;
         this.feedback = feedback;
-        this.timestamp = timestamp;
+        this.date = new Date(Calendar.getInstance().getTime().getTime());
     }
 
     @Override
@@ -20,7 +23,7 @@ public class AlbumFeedback implements Identified<Integer> {
         return "AlbumFeedback{" +
                 "id=" + id +
                 ", feedback='" + feedback + '\'' +
-                ", timestamp=" + timestamp +
+                ", date=" + date +
                 '}';
     }
 
@@ -41,11 +44,25 @@ public class AlbumFeedback implements Identified<Integer> {
         this.feedback = feedback;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public Date getDate() {
+        return date;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AlbumFeedback that = (AlbumFeedback) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(feedback, that.feedback);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, feedback, date);
     }
 }

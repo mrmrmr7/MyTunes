@@ -1,31 +1,53 @@
 package com.mrmrmr7.mytunes.controller.command.impl.user;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
+import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.controller.command.ResponseContent;
 import com.mrmrmr7.mytunes.controller.command.Router;
+import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.dao.impl.UserDAO;
 import com.mrmrmr7.mytunes.entity.User;
+import com.mrmrmr7.mytunes.entity.BeanDirector;
+import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class CommandUserGetById implements Command {
+    private final static String PARAMETER_ID = "id";
+    private final static String INCLUDE_PATH = "user/getbyid.jsp";
+    private final static String VIEW_NAME = "viewName";
 
     @Override
     public ResponseContent process(HttpServletRequest request) {
-        System.out.println("GetUser command detected");
-        UserDAO userDAO = new UserDAO();
+        System.out.println(CommandDirector.USER_GET_BY_ID.getValue() + " command detected");
         User user = null;
+        UserDAO userDAO = new UserDAO();
         try {
-            user = userDAO.getByPK(Integer.valueOf(request.getParameter("id"))).get();
+            userDAO.setConnection(ConnectionPoolFactory
+                    .getInstance()
+                    .getConnectionPool(ConnectionPoolType.MYSQL)
+                    .getConnection());
+
+            user = userDAO
+                    .getByPK(Integer.valueOf(request.getParameter(PARAMETER_ID)))
+                    .get();
         } catch (DAOException e) {
             System.out.println("Impossible to find user with such id");
+        } finally {
+            userDAO.closeConnection();
         }
-        userDAO.destroy();
-        request.setAttribute("user", user);
-        request.setAttribute("viewName", "user/getbyid");
+
+        request.setAttribute(BeanDirector.USER.getValue(), user);
+        request.setAttribute(VIEW_NAME, INCLUDE_PATH);
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router("/jsp/view.jsp", "forward"));
+        responseContent.setRouter(
+                new Router(
+                        request.getContextPath() + PageDirector.VIEW.getValue(),
+                        Router.Type.FORWARD
+                )
+        );
         return responseContent;
     } 
 }

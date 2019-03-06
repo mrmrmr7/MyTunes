@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao;
 
 
+import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hsqldb.jdbc.JDBCConnection;
@@ -40,7 +41,7 @@ public class JDBCConnectionPool implements ConnectionPool {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        semaphore = new Semaphore(POOL_CAPACITY);
+        semaphore = new Semaphore(POOL_CAPACITY, true);
         JDBC_URL = properties.getProperty("url");
         USER = properties.getProperty("user");
         PASSWORD = properties.getProperty("password");
@@ -48,8 +49,12 @@ public class JDBCConnectionPool implements ConnectionPool {
     }
 
     @Override
-    public Connection getConnection() throws SQLException, InterruptedException {
-        semaphore.acquire();
+    public Connection getConnection() throws DAOException {
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new DAOException("");
+        }
         lockForOpen.lock();
 
         try {
@@ -63,12 +68,11 @@ public class JDBCConnectionPool implements ConnectionPool {
                 createdConnectionCount.incrementAndGet();
             }
         } catch (SQLException e) {
-            throw new SQLException(e);
+            throw new DAOException(e.getMessage());
         }
 
         Connection connection = pool.pollLast();
 
-        semaphore.release();
         lockForOpen.unlock();
 
         return connection;
@@ -89,6 +93,7 @@ public class JDBCConnectionPool implements ConnectionPool {
                 JDBCConnection.class.getClassLoader(),
                 JDBCConnection.class.getInterfaces(),
                 new JDBCConnectionProxy(connection)));
+        semaphore.release();
         lockForClose.unlock();
     }
 }
