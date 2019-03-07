@@ -1,4 +1,6 @@
-package com.mrmrmr7.mytunes.controller.command;
+package com.mrmrmr7.mytunes.entity;
+
+import com.mrmrmr7.mytunes.util.PageDirector;
 
 import java.util.Arrays;
 
@@ -22,8 +24,8 @@ public class Router {
         }
     }
 
-    public Router(String route, Type type) {
-        this.route = route;
+    public Router(PageDirector route, Type type) {
+        this.route = route.getValue();
         this.type = type;
     }
 

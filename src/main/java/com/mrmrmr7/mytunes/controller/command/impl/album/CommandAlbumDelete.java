@@ -2,8 +2,8 @@ package com.mrmrmr7.mytunes.controller.command.impl.album;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.controller.command.ResponseContent;
-import com.mrmrmr7.mytunes.controller.command.Router;
+import com.mrmrmr7.mytunes.entity.ResponseContent;
+import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
@@ -11,7 +11,6 @@ import com.mrmrmr7.mytunes.dao.impl.AlbumDAO;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 
 public class CommandAlbumDelete implements Command {
 
@@ -37,12 +36,7 @@ public class CommandAlbumDelete implements Command {
         }
 
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(
-                new Router(
-                        request.getContextPath() + PageDirector.CRUD_ALBUM.getValue(),
-                        Router.Type.REDIRECT
-                )
-        );
+        responseContent.setRouter(new Router(PageDirector.CRUD_ALBUM,Router.Type.REDIRECT));
         return responseContent;
     }
 }

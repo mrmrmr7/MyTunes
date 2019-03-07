@@ -17,17 +17,7 @@
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/site/apple-icon.png">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/favicon.ico">
-
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/themify-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/selectFX/css/cs-skin-elastic.css">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/assets/css/style.css">
+    <jsp:include page="/static/css/crud.jsp"/>
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -38,7 +28,7 @@
 <body>
     <!-- Left Panel -->
 
-    <jsp:include page="/jsp/leftpanel.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/include/leftpanel.jsp"/>
 
     <!-- Left Panel -->
 
@@ -69,15 +59,15 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">You have 3 Notification</p>
-                                <a class="dropdown-item media bg-flat-color-1" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-1" href="../../../site#">
                                 <i class="fa fa-check"></i>
                                 <p>Server #1 overloaded.</p>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-4" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-4" href="../../../site#">
                                 <i class="fa fa-info"></i>
                                 <p>Server #2 overloaded.</p>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-5" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-5" href="../../../site#">
                                 <i class="fa fa-warning"></i>
                                 <p>Server #3 overloaded.</p>
                             </a>
@@ -93,7 +83,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="message">
                                 <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media bg-flat-color-1" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-1" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/1.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Jonathan Smith</span>
@@ -101,7 +91,7 @@
                                         <p>Hello, this is an example msg</p>
                                 </span>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-4" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-4" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/2.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Jack Sanders</span>
@@ -109,7 +99,7 @@
                                         <p>Lorem ipsum dolor sit amet, consectetur</p>
                                 </span>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-5" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-5" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/3.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Cheryl Wheeler</span>
@@ -117,7 +107,7 @@
                                         <p>Hello, this is an example msg</p>
                                 </span>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-3" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-3" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/4.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Rachel Santos</span>
@@ -132,23 +122,23 @@
 
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
-                        <a href="${pageContext.request.contextPath}/site#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href="../../../site#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="${pageContext.request.contextPath}/site/images/admin.jpg" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/site#"><i class="fa fa-user"></i> My Profile</a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-user"></i> My Profile</a>
 
-                            <a class="nav-link" href="${pageContext.request.contextPath}/site#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
 
-                            <a class="nav-link" href="${pageContext.request.contextPath}/site#"><i class="fa fa-cog"></i> Settings</a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-cog"></i> Settings</a>
 
-                            <a class="nav-link" href="${pageContext.request.contextPath}/site#"><i class="fa fa-power-off"></i> Logout</a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-power-off"></i> Logout</a>
                         </div>
                     </div>
 
                     <div class="language-select dropdown" id="language-select">
-                        <a class="dropdown-toggle" href="${pageContext.request.contextPath}/site#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
+                        <a class="dropdown-toggle" href="../../../site#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
                             <i class="flag-icon flag-icon-us"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="language">
@@ -185,8 +175,8 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="${pageContext.request.contextPath}/site#">Dashboard</a></li>
-                            <li><a href="${pageContext.request.contextPath}/site#">Forms</a></li>
+                            <li><a href="../../../site#">Dashboard</a></li>
+                            <li><a href="../../../site#">Forms</a></li>
                             <li class="active">Basic</li>
                         </ol>
                     </div>
@@ -201,23 +191,23 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Insert</strong> album feedback
+                                <strong>Insert</strong> role
                             </div>
                             <div class="card-body card-block">
-                                <form action="${pageContext.request.contextPath}/crud" id="albumFeedbackInsert" method="post" class="form-horizontal">
+
+                                <form action="${pageContext.request.contextPath}/crud" id="roleInsert" method="post" class="form-horizontal">
                                     <div class="form-group">
-                                        <label class="pr-1  form-control-label">Id</label>
-                                        <input type="text" id="albumFirstName2" name="albumFeedbackId" placeholder="1-10" class="form-control">
+                                        <label class="pr-1  form-control-label">Role</label>
+                                        <input type="text" id="roleFirstName" name="roleRole" placeholder="1-10" class="form-control">
                                     </div>
-                                    <div class="form-group">
-                                        <label class="pr-1  form-control-label">Feedback</label>
-                                        <input type="text" id="albumFirstName1" name="albumFeedbackFeedback" placeholder="1-10" class="form-control">
-                                    </div>
-                                    <input type="hidden" name="command" value="albumFeedbackInsert"/>
+                                    <input type="hidden" name="command" value="roleInsert"/>
                                 </form>
                             </div>
+
+
                             <div class="card-footer">
-                                <button type="submit" form="albumFeedbackInsert" class="btn btn-primary btn-sm">
+
+                                <button type="submit" form="roleInsert" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 
@@ -234,18 +224,18 @@
                                 <strong>Get</strong> by id
                             </div>
                                 <div class="card-body card-block">
-                                    <form action="${pageContext.request.contextPath}/crud" method="post" id="albumFeedbackGetById" class="form-horizontal">
+                                    <form action="${pageContext.request.contextPath}/crud" method="post" id="roleGetById" class="form-horizontal">
 
                                         <div class="form-group">
-                                            <label class="pr-1  form-control-label">Album feedback id</label>
+                                            <label class="pr-1  form-control-label">User id</label>
                                             <input type="text" id="getUserById" name="id" placeholder="1-10" class="form-control">
                                         </div>
-                                        <input type="hidden" name="command" value="albumFeedbackGetById"/>
+                                        <input type="hidden" name="command" value="roleGetById"/>
 
                                     </form>
                                 </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" form="albumFeedbackGetById">
+                                <button type="submit" class="btn btn-primary btn-sm" form="roleGetById">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 
@@ -256,13 +246,13 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <strong>Show all</strong> albumFeedbacks
+                                <strong>Show all</strong> roles
                             </div>
-                            <form action="${pageContext.request.contextPath}/crud" method="post" id="albumFeedbackGetAllForm" class="form-horizontal">
-                                <input type="hidden" name="command" value="albumFeedbackGetAll"/>
+                            <form action="${pageContext.request.contextPath}/crud" method="post" id="roleGetAllForm" class="form-horizontal">
+                                <input type="hidden" name="command" value="roleGetAll"/>
                             </form>
                             <div class="card-footer">
-                                <button type="submit" form="albumFeedbackGetAllForm" class="btn btn-primary btn-sm">
+                                <button type="submit" form="roleGetAllForm" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 
@@ -276,18 +266,18 @@
                                 <strong>Delete</strong> by id
                             </div>
                             <div class="card-body card-block">
-                                <form action="${pageContext.request.contextPath}/crud" method="post" id="albumFeedbackDeleteForm" class="form-horizontal">
+                                <form action="${pageContext.request.contextPath}/crud" method="post" id="roleDeleteForm" class="form-horizontal">
 
                                     <div class="form-group">
-                                        <label class="pr-1  form-control-label">albumFeedback id</label>
-                                        <input type="text" id="albumFeedbackDelete" name="id" placeholder="1-10" class="form-control">
+                                        <label class="pr-1  form-control-label">role id</label>
+                                        <input type="text" id="roleDelete" name="id" placeholder="1-10" class="form-control">
                                     </div>
-                                    <input type="hidden" name="command" value="albumFeedbackDelete"/>
+                                    <input type="hidden" name="command" value="roleDelete"/>
 
                                 </form>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" form="albumFeedbackDeleteForm">
+                                <button type="submit" class="btn btn-primary btn-sm" form="roleDeleteForm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 

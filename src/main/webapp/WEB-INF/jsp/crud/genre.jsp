@@ -9,6 +9,7 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="en">
 <!--<![endif]-->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,17 +17,7 @@
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="../site/apple-icon.png">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/favicon.ico">
-
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/themify-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/selectFX/css/cs-skin-elastic.css">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/site/assets/css/style.css">
+    <jsp:include page="/static/css/crud.jsp"/>
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -37,11 +28,7 @@
 <body>
     <!-- Left Panel -->
 
-
-
-
-
-    <jsp:include page="/jsp/leftpanel.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/include/leftpanel.jsp"/>
 
     <!-- Left Panel -->
 
@@ -60,7 +47,7 @@
                         <button class="search-trigger"><i class="fa fa-search"></i></button>
                         <div class="form-inline">
                             <form class="search-form">
-                                <input required="" class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
                         </div>
@@ -72,15 +59,15 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">You have 3 Notification</p>
-                                <a class="dropdown-item media bg-flat-color-1" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-1" href="../../../site#">
                                 <i class="fa fa-check"></i>
                                 <p>Server #1 overloaded.</p>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-4" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-4" href="../../../site#">
                                 <i class="fa fa-info"></i>
                                 <p>Server #2 overloaded.</p>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-5" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-5" href="../../../site#">
                                 <i class="fa fa-warning"></i>
                                 <p>Server #3 overloaded.</p>
                             </a>
@@ -96,7 +83,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="message">
                                 <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media bg-flat-color-1" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-1" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/1.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Jonathan Smith</span>
@@ -104,7 +91,7 @@
                                         <p>Hello, this is an example msg</p>
                                 </span>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-4" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-4" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/2.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Jack Sanders</span>
@@ -112,7 +99,7 @@
                                         <p>Lorem ipsum dolor sit amet, consectetur</p>
                                 </span>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-5" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-5" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/3.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Cheryl Wheeler</span>
@@ -120,7 +107,7 @@
                                         <p>Hello, this is an example msg</p>
                                 </span>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-3" href="${pageContext.request.contextPath}/site#">
+                                <a class="dropdown-item media bg-flat-color-3" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/4.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Rachel Santos</span>
@@ -135,23 +122,23 @@
 
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
-                        <a href="${pageContext.request.contextPath}/site#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href="../../../site#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="${pageContext.request.contextPath}/site/images/admin.jpg" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/site#"><i class="fa fa-user"></i> My Profile</a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-user"></i> My Profile</a>
 
-                            <a class="nav-link" href="${pageContext.request.contextPath}/site#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
 
-                            <a class="nav-link" href="${pageContext.request.contextPath}/site#"><i class="fa fa-cog"></i> Settings</a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-cog"></i> Settings</a>
 
-                            <a class="nav-link" href="${pageContext.request.contextPath}/site#"><i class="fa fa-power-off"></i> Logout</a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-power-off"></i> Logout</a>
                         </div>
                     </div>
 
                     <div class="language-select dropdown" id="language-select">
-                        <a class="dropdown-toggle" href="${pageContext.request.contextPath}/site#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
+                        <a class="dropdown-toggle" href="../../../site#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
                             <i class="flag-icon flag-icon-us"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="language">
@@ -188,8 +175,8 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="${pageContext.request.contextPath}/site#">Dashboard</a></li>
-                            <li><a href="${pageContext.request.contextPath}/site#">Forms</a></li>
+                            <li><a href="../../../site#">Dashboard</a></li>
+                            <li><a href="../../../site#">Forms</a></li>
                             <li class="active">Basic</li>
                         </ol>
                     </div>
@@ -204,65 +191,23 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Insert</strong> user
+                                <strong>Insert</strong> genre
                             </div>
                             <div class="card-body card-block">
 
-                                <form action="${pageContext.request.contextPath}/crud" id="userInsert" method="post" class="form-horizontal">
+                                <form action="${pageContext.request.contextPath}/crud" id="genreInsert" method="post" class="form-horizontal">
                                     <div class="form-group">
-                                        <label class="pr-1  form-control-label">Login</label>
-                                        <input required=""  type="text" id="userLogin" name="login" placeholder="1-10" class="form-control">
+                                        <label class="pr-1  form-control-label">Genre</label>
+                                        <input type="text" id="genreFirstName" name="genreGenre" placeholder="1-10" class="form-control">
                                     </div>
-                                    <div class="form-group">
-                                        <label class="pr-1  form-control-label">Password</label>
-                                        <input required=""  type="text" id="userPassword" name="password" placeholder="1-10" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="pr-1  form-control-label">First name</label>
-                                        <input required=""  type="text" id="userFirstName" name="firstName" placeholder="1-10" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="pr-1  form-control-label">Second name</label>
-                                        <input required=""  type="text" id="userSecondName" name="secondName" placeholder="1-10" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="pr-1  form-control-label">Email</label>
-                                        <input required=""  type="text" id="userEmail" name="email" placeholder="1-10" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="pr-1  form-control-label">Balance</label>
-                                        <input required=""  type="text" id="userBalance" name="balance" placeholder="1-10" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="pr-1  form-control-label">Sale</label>
-                                        <input required=""  type="text" id="userSale" name="sale" placeholder="1-10" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="pr-1  form-control-label">Role id</label>
-                                        <select name="roleId" id="sd2" form="userInsert" class="form-control">
-                                            <option value="0">Please select</option>
-                                            <option value="1">Administrator</option>
-                                            <option value="2">Client</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="pr-1  form-control-label">Status id</label>
-                                        <label for="statusId">Snite</label>
-                                        <select name="statusId" id="statusId" class="form-control">
-                                            <option value="0">Please select</option>
-                                            <option value="1">Activated</option>
-                                            <option value="2">Deactivated</option>
-                                            <option value="3">Deleted</option>
-                                        </select>
-                                    </div>
-                                    <input type="hidden" name="command" value="userInsert"/>
+                                    <input type="hidden" name="command" value="genreInsert"/>
                                 </form>
                             </div>
 
 
                             <div class="card-footer">
 
-                                <button type="submit" form="userInsert" class="btn btn-primary btn-sm">
+                                <button type="submit" form="genreInsert" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 
@@ -279,18 +224,18 @@
                                 <strong>Get</strong> by id
                             </div>
                                 <div class="card-body card-block">
-                                    <form action="${pageContext.request.contextPath}/crud" method="post" id="userGetById" class="form-horizontal">
+                                    <form action="${pageContext.request.contextPath}/crud" method="post" id="genreGetById" class="form-horizontal">
 
                                         <div class="form-group">
                                             <label class="pr-1  form-control-label">User id</label>
-                                            <input required=""  type="text" id="getUserById" name="id" placeholder="1-10" class="form-control">
+                                            <input type="text" id="getUserById" name="id" placeholder="1-10" class="form-control">
                                         </div>
-                                        <input type="hidden" name="command" value="userGetById"/>
+                                        <input type="hidden" name="command" value="genreGetById"/>
 
                                     </form>
                                 </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" form="userGetById">
+                                <button type="submit" class="btn btn-primary btn-sm" form="genreGetById">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 
@@ -301,13 +246,13 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <strong>Show all</strong> users
+                                <strong>Show all</strong> genres
                             </div>
-                            <form action="${pageContext.request.contextPath}/crud" method="post" id="userGetAllForm" class="form-horizontal">
-                                <input type="hidden" name="command" value="userGetAll"/>
+                            <form action="${pageContext.request.contextPath}/crud" method="post" id="genreGetAllForm" class="form-horizontal">
+                                <input type="hidden" name="command" value="genreGetAll"/>
                             </form>
                             <div class="card-footer">
-                                <button type="submit" form="userGetAllForm" class="btn btn-primary btn-sm">
+                                <button type="submit" form="genreGetAllForm" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 
@@ -321,18 +266,18 @@
                                 <strong>Delete</strong> by id
                             </div>
                             <div class="card-body card-block">
-                                <form action="${pageContext.request.contextPath}/crud" method="post" id="userDelete" class="form-horizontal">
+                                <form action="${pageContext.request.contextPath}/crud" method="post" id="genreDeleteForm" class="form-horizontal">
 
                                     <div class="form-group">
-                                        <label class="pr-1  form-control-label">User id</label>
-                                        <input required=""  type="text" id="userDeleteInput" name="id" placeholder="1-10" class="form-control">
+                                        <label class="pr-1  form-control-label">genre id</label>
+                                        <input type="text" id="genreDelete" name="id" placeholder="1-10" class="form-control">
                                     </div>
-                                    <input type="hidden" name="command" value="userDelete"/>
+                                    <input type="hidden" name="command" value="genreDelete"/>
 
                                 </form>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" form="userDelete">
+                                <button type="submit" class="btn btn-primary btn-sm" form="genreDeleteForm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 

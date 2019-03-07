@@ -2,8 +2,8 @@ package com.mrmrmr7.mytunes.controller.command.impl.author;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.controller.command.ResponseContent;
-import com.mrmrmr7.mytunes.controller.command.Router;
+import com.mrmrmr7.mytunes.entity.ResponseContent;
+import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
@@ -45,10 +45,7 @@ public class CommandAuthorInsert implements Command {
 
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(
-                new Router(
-                        request.getContextPath() + PageDirector.CRUD_AUTHOR.getValue(),
-                        Router.Type.REDIRECT
-                )
+                new Router(PageDirector.CRUD_AUTHOR,Router.Type.REDIRECT)
         );
         return responseContent;
     }

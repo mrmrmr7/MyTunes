@@ -5,23 +5,29 @@ import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.dao.impl.SessionDataDAO;
-import com.mrmrmr7.mytunes.dao.impl.TransactionManager;
+import com.mrmrmr7.mytunes.service.ServiceUser;
 import com.mrmrmr7.mytunes.dao.impl.UserDAO;
 import com.mrmrmr7.mytunes.entity.SessionData;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.service.ServiceException;
-import com.mrmrmr7.mytunes.service.ServiceUser;
 import com.mrmrmr7.mytunes.validator.ValidatorSignIn;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Optional;
 
-public class ServiceUserImpl {
+public class ServiceUserImpl implements ServiceUser {
     public static final String ATTRIBUTE_SESSION_DATA = "session_data";
+    private static final String COOKIE_UUID = "uuid";
+    private static final String COOKIE_UID = "uid";
 
-    public boolean login(String login, String password, HttpSession session) throws ServiceException {
+    @Override
+    public boolean login(String login, String password, HttpServletResponse response) throws ServiceException {
         ValidatorSignIn validatorSignIn = new ValidatorSignIn();
 
         if (!validatorSignIn.isValid(login, password)) {
@@ -31,7 +37,7 @@ public class ServiceUserImpl {
         UserDAO userDAO = new UserDAO();
         SessionDataDAO sessionDataDAO = new SessionDataDAO();
 
-        TransactionManager transactionManager = new TransactionManager();
+        TransactionManagerImpl transactionManager = new TransactionManagerImpl();
         try {
             transactionManager.begin(userDAO, sessionDataDAO);
 
@@ -63,10 +69,12 @@ public class ServiceUserImpl {
             sessionDataDAO.delete(sessionData.getId());
             sessionDataDAO.insert(sessionData);
 
-            session.setAttribute(ATTRIBUTE_SESSION_DATA, sessionData);
+            Cookie cookieUUID = new Cookie(COOKIE_UUID, session_hash);
+            Cookie cookieUID = new Cookie(COOKIE_UID, session_hash);
+            response.addCookie(cookieUID);
+            response.addCookie(cookieUUID);
 
             transactionManager.commit();
-            transactionManager.end();
         } catch (DAOException e) {
             transactionManager.rollBack();
             throw new ServiceException(e.getMessage());
@@ -77,6 +85,7 @@ public class ServiceUserImpl {
         return true;
     }
 
+    @Override
     public void logout(HttpSession session) throws ServiceException {
         if (session != null) {
             SessionDataDAO sessionDataDAO = new SessionDataDAO();
@@ -102,7 +111,13 @@ public class ServiceUserImpl {
         }
     }
 
-    public boolean isAuthorized (String command, HttpSession session) throws ServiceException {
+    @Override
+    public boolean register(User user) {
+        return false;
+    }
+
+    @Override
+    public boolean isAuthorized(String command, HttpSession session) throws ServiceException {
 
         if (session == null) {
             return false;
@@ -114,6 +129,21 @@ public class ServiceUserImpl {
 
         SessionDataDAO sessionDataDAO = new SessionDataDAO();
         Optional<SessionData> sessionDataOptional;
+//
+//        Cookie[] cookies = request.();
+//        Optional<Cookie> cookieUUID = Arrays.stream(cookies).filter(s -> s.getName().equals("uuid")).findFirst();
+//        Optional<Cookie> cookieUID = Arrays.stream(cookies).filter(s -> s.getName().equals("uid")).findFirst();
+//
+//        if (!cookieUUID.isPresent()) {
+//            return false;
+//        }
+//
+//        if(!cookieUID.isPresent()) {
+//            return false;
+//        }
+
+
+
         SessionData sessionData = (SessionData) session.getAttribute("session_data");
 
         if (sessionData == null) {
@@ -131,4 +161,5 @@ public class ServiceUserImpl {
 
         return sessionDataOptional.filter(sessionData::equals).isPresent();
     }
+
 }

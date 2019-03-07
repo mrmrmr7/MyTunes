@@ -17,17 +17,7 @@
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="../site/apple-icon.png">
-    <link rel="shortcut icon" href="../../site/favicon.ico">
-
-
-    <link rel="stylesheet" href="../../site/vendors/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../site/vendors/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../site/vendors/themify-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="../../site/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="../../site/vendors/selectFX/css/cs-skin-elastic.css">
-
-    <link rel="stylesheet" href="../../site/assets/css/style.css">
+    <jsp:include page="/static/css/crud.jsp"/>
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -38,7 +28,7 @@
 <body>
     <!-- Left Panel -->
 
-    <jsp:include page="/jsp/leftpanel.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/include/leftpanel.jsp"/>
 
     <!-- Left Panel -->
 
@@ -69,15 +59,15 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <p class="red">You have 3 Notification</p>
-                                <a class="dropdown-item media bg-flat-color-1" href="../../site#">
+                                <a class="dropdown-item media bg-flat-color-1" href="../../../site#">
                                 <i class="fa fa-check"></i>
                                 <p>Server #1 overloaded.</p>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-4" href="../../site#">
+                                <a class="dropdown-item media bg-flat-color-4" href="../../../site#">
                                 <i class="fa fa-info"></i>
                                 <p>Server #2 overloaded.</p>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-5" href="../../site#">
+                                <a class="dropdown-item media bg-flat-color-5" href="../../../site#">
                                 <i class="fa fa-warning"></i>
                                 <p>Server #3 overloaded.</p>
                             </a>
@@ -93,7 +83,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="message">
                                 <p class="red">You have 4 Mails</p>
-                                <a class="dropdown-item media bg-flat-color-1" href="../../site#">
+                                <a class="dropdown-item media bg-flat-color-1" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/1.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Jonathan Smith</span>
@@ -101,7 +91,7 @@
                                         <p>Hello, this is an example msg</p>
                                 </span>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-4" href="../../site#">
+                                <a class="dropdown-item media bg-flat-color-4" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/2.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Jack Sanders</span>
@@ -109,7 +99,7 @@
                                         <p>Lorem ipsum dolor sit amet, consectetur</p>
                                 </span>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-5" href="../../site#">
+                                <a class="dropdown-item media bg-flat-color-5" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/3.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Cheryl Wheeler</span>
@@ -117,7 +107,7 @@
                                         <p>Hello, this is an example msg</p>
                                 </span>
                             </a>
-                                <a class="dropdown-item media bg-flat-color-3" href="../../site#">
+                                <a class="dropdown-item media bg-flat-color-3" href="../../../site#">
                                 <span class="photo media-left"><img alt="avatar" src="${pageContext.request.contextPath}/site/images/avatar/4.jpg"></span>
                                 <span class="message media-body">
                                     <span class="name float-left">Rachel Santos</span>
@@ -132,23 +122,23 @@
 
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
-                        <a href="../../site#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a href="../../../site#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="${pageContext.request.contextPath}/site/images/admin.jpg" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="../../site#"><i class="fa fa-user"></i> My Profile</a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-user"></i> My Profile</a>
 
-                            <a class="nav-link" href="../../site#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
 
-                            <a class="nav-link" href="../../site#"><i class="fa fa-cog"></i> Settings</a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-cog"></i> Settings</a>
 
-                            <a class="nav-link" href="../../site#"><i class="fa fa-power-off"></i> Logout</a>
+                            <a class="nav-link" href="../../../site#"><i class="fa fa-power-off"></i> Logout</a>
                         </div>
                     </div>
 
                     <div class="language-select dropdown" id="language-select">
-                        <a class="dropdown-toggle" href="../../site#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
+                        <a class="dropdown-toggle" href="../../../site#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
                             <i class="flag-icon flag-icon-us"></i>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="language">
@@ -185,8 +175,8 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="../../site#">Dashboard</a></li>
-                            <li><a href="../../site#">Forms</a></li>
+                            <li><a href="../../../site#">Dashboard</a></li>
+                            <li><a href="../../../site#">Forms</a></li>
                             <li class="active">Basic</li>
                         </ol>
                     </div>
@@ -201,23 +191,35 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <strong>Insert</strong> role
+                                <strong>Insert</strong> album
                             </div>
                             <div class="card-body card-block">
 
-                                <form action="${pageContext.request.contextPath}/crud" id="roleInsert" method="post" class="form-horizontal">
+                                <form action="${pageContext.request.contextPath}/crud" id="albumInsert" method="post" class="form-horizontal">
                                     <div class="form-group">
-                                        <label class="pr-1  form-control-label">Role</label>
-                                        <input type="text" id="roleFirstName" name="roleRole" placeholder="1-10" class="form-control">
+                                        <label class="pr-1  form-control-label">Description</label>
+                                        <input type="text" id="albumFirstName1" name="albumDescription" placeholder="1-10" class="form-control">
                                     </div>
-                                    <input type="hidden" name="command" value="roleInsert"/>
+                                    <div class="form-group">
+                                        <label class="pr-1  form-control-label">Price</label>
+                                        <input type="text" id="albumFirstName2" name="albumPrice" placeholder="1-10" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="pr-1  form-control-label">Author_id</label>
+                                        <input type="text" id="albumFirstName3" name="albumAuthor_id" placeholder="1-10" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="pr-1  form-control-label">Genre_id</label>
+                                        <input type="text" id="albumFirstName4" name="albumGenre_id" placeholder="1-10" class="form-control">
+                                    </div>
+                                    <input type="hidden" name="command" value="albumInsert"/>
                                 </form>
                             </div>
 
 
                             <div class="card-footer">
 
-                                <button type="submit" form="roleInsert" class="btn btn-primary btn-sm">
+                                <button type="submit" form="albumInsert" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 
@@ -234,18 +236,18 @@
                                 <strong>Get</strong> by id
                             </div>
                                 <div class="card-body card-block">
-                                    <form action="${pageContext.request.contextPath}/crud" method="post" id="roleGetById" class="form-horizontal">
+                                    <form action="${pageContext.request.contextPath}/crud" method="post" id="albumGetById" class="form-horizontal">
 
                                         <div class="form-group">
                                             <label class="pr-1  form-control-label">User id</label>
                                             <input type="text" id="getUserById" name="id" placeholder="1-10" class="form-control">
                                         </div>
-                                        <input type="hidden" name="command" value="roleGetById"/>
+                                        <input type="hidden" name="command" value="albumGetById"/>
 
                                     </form>
                                 </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" form="roleGetById">
+                                <button type="submit" class="btn btn-primary btn-sm" form="albumGetById">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 
@@ -256,13 +258,13 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <strong>Show all</strong> roles
+                                <strong>Show all</strong> albums
                             </div>
-                            <form action="${pageContext.request.contextPath}/crud" method="post" id="roleGetAllForm" class="form-horizontal">
-                                <input type="hidden" name="command" value="roleGetAll"/>
+                            <form action="${pageContext.request.contextPath}/crud" method="post" id="albumGetAllForm" class="form-horizontal">
+                                <input type="hidden" name="command" value="albumGetAll"/>
                             </form>
                             <div class="card-footer">
-                                <button type="submit" form="roleGetAllForm" class="btn btn-primary btn-sm">
+                                <button type="submit" form="albumGetAllForm" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 
@@ -276,18 +278,18 @@
                                 <strong>Delete</strong> by id
                             </div>
                             <div class="card-body card-block">
-                                <form action="${pageContext.request.contextPath}/crud" method="post" id="roleDeleteForm" class="form-horizontal">
+                                <form action="${pageContext.request.contextPath}/crud" method="post" id="albumDeleteForm" class="form-horizontal">
 
                                     <div class="form-group">
-                                        <label class="pr-1  form-control-label">role id</label>
-                                        <input type="text" id="roleDelete" name="id" placeholder="1-10" class="form-control">
+                                        <label class="pr-1  form-control-label">album id</label>
+                                        <input type="text" id="albumDelete" name="id" placeholder="1-10" class="form-control">
                                     </div>
-                                    <input type="hidden" name="command" value="roleDelete"/>
+                                    <input type="hidden" name="command" value="albumDelete"/>
 
                                 </form>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" form="roleDeleteForm">
+                                <button type="submit" class="btn btn-primary btn-sm" form="albumDeleteForm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
 

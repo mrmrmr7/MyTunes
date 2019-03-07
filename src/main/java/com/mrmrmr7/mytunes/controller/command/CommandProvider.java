@@ -1,7 +1,7 @@
 package com.mrmrmr7.mytunes.controller.command;
 
 import com.mrmrmr7.mytunes.controller.command.impl.CommandSignIn;
-import com.mrmrmr7.mytunes.controller.command.impl.CommandSignUp;
+import com.mrmrmr7.mytunes.controller.command.impl.CommandTrySignUp;
 import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorDelete;
 import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorGetAll;
 import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorGetById;
@@ -33,7 +33,9 @@ public class CommandProvider {
 
     private CommandProvider() {
         commandMap.put(CommandDirector.SIGN_IN.getValue(), new CommandSignIn());
-        commandMap.put(CommandDirector.SIGN_UP.getValue(), new CommandSignUp());
+        commandMap.put(CommandDirector.SIGN_UP.getValue(), new CommandTrySignUp());
+        commandMap.put(CommandDirector.LOG_OUT.getValue(), new CommandTrySignUp());
+        commandMap.put(CommandDirector.MOVE_INSIDE_WEB_INF.getValue(), new CommandMoveInsideWebInf());
 
         commandMap.put(CommandDirector.USER_GET_BY_ID.getValue(), new CommandUserGetById());
         commandMap.put(CommandDirector.USER_GET_ALL.getValue(), new CommandUserGetAll());
@@ -119,7 +121,6 @@ public class CommandProvider {
         commandMap.put(CommandDirector.SESSION_DATA_GET_ALL.getValue(), new CommandBonusGetAll());
         commandMap.put(CommandDirector.SESSION_DATA_INSERT.getValue(), new CommandBonusInsert());
         commandMap.put(CommandDirector.SESSION_DATA_DELETE.getValue(), new CommandBonusDelete());
-
     }
 
     /**

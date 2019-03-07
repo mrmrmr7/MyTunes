@@ -45,21 +45,36 @@
                 <div class="login-form">
                     <script>
                         function formValidation() {
-                            var x = document.forms["signInForm"]["login"].value;
-                            if (x == "") {
+                            var login = document.forms["signInForm"]["login"].value;
+                            var password = document.forms["signInForm"]["password"].value;
+
+                            if ((!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,32}$/.test(password))
+                                || (!/^[0-9a-zA-Z_]{8,32}$/.test(login))) {
+                                document.forms["signInForm"]["login"].value = "";
+                                document.forms["signInForm"]["password"].value ="";
                                 document.getElementById("loginId").className = "is-invalid form-control";
                                 document.getElementById("passwordId").className = "is-invalid form-control";
+                                document.getElementById("loginId").style.color = "red";
+                                document.getElementById("passwordId").style.color = "red";
+                                document.getElementById("loginLabelId").style.color = "red";
+                                document.getElementById("passwordLabelId").style.color = "red";
+                                document.forms["signInForm"]["login"].value = login;
+                                document.forms["signInForm"]["password"].value = password;
                                 return false;
+                            }
+
+                            else {
+                                return true;
                             }
                         }
                     </script>
                     <form action="${pageContext.request.contextPath}/crud"  method="post" id="si" name="signInForm" onsubmit="return formValidation()">
                         <div class="form-group">
-                            <label>Email address</label>
+                            <label id="loginLabelId">Login</label>
                             <input type="text" class="form-control" placeholder="Email" id="loginId" name="login" autofocus>
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
+                            <label id="passwordLabelId">Password</label>
                             <input type="password" class="form-control" placeholder="Password" id="passwordId" name="password" required>
                         </div>
                         <div class="checkbox">
@@ -70,7 +85,7 @@
                                 <a href="${pageContext.request.contextPath}/site#">Forgotten Password?</a>
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
+                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" form="si">Sign in</button>
                         <div class="social-login-content">
                             <div class="social-button">
                                 <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i class="ti-facebook"></i>Sign in with facebook</button>
@@ -80,7 +95,7 @@
                         <div class="register-link m-t-15 text-center">
                             <p>Don't have account ? <a href="${pageContext.request.contextPath}/site#"> Sign Up Here</a></p>
                         </div>
-                        <input type="hidden" name="command" value="signIn">
+                        <input type="hidden" name="command" value="signin">
                     </form>
                 </div>
             </div>

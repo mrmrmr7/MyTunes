@@ -139,7 +139,7 @@ class CompositionDAOTest {
         List<Integer> integerList = new ArrayList<>();
         IntStream.range(1,5).forEach(integerList::add);
 
-        List<Composition> compositionList = compositionDAO.getByPKList(integerList);
+        List<Composition> compositionList = compositionDAO.getListByPK(integerList);
 
         String actual = compositionList.toString();
         String expected = "[" +

@@ -2,8 +2,8 @@ package com.mrmrmr7.mytunes.controller.command.impl.genre;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.controller.command.ResponseContent;
-import com.mrmrmr7.mytunes.controller.command.Router;
+import com.mrmrmr7.mytunes.entity.ResponseContent;
+import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
@@ -15,7 +15,7 @@ import com.mrmrmr7.mytunes.util.PageDirector;
 import javax.servlet.http.HttpServletRequest;
 
 public class CommandGenreGetById implements Command {
-    private final static String VIEW_NAME = "viewName";
+    private final static String ATTRIBUTE_VIEW_NAME = "viewName";
     private final static String INCLUDE_PATH = "genre/getbyid";
     private final static String PARAMETER_ID = "id";
 
@@ -40,14 +40,9 @@ public class CommandGenreGetById implements Command {
         }
 
         request.setAttribute(BeanDirector.GENRE.getValue(), genre);
-        request.setAttribute(VIEW_NAME, INCLUDE_PATH);
+        request.setAttribute(ATTRIBUTE_VIEW_NAME, INCLUDE_PATH);
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(
-                new Router(
-                        PageDirector.VIEW.getValue(),
-                        Router.Type.FORWARD
-                )
-        );
+        responseContent.setRouter(new Router(PageDirector.VIEW,Router.Type.FORWARD));
         return responseContent;
     }
 }

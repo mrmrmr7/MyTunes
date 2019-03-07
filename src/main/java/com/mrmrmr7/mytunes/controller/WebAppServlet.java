@@ -1,11 +1,14 @@
 package com.mrmrmr7.mytunes.controller;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
+import com.mrmrmr7.mytunes.controller.command.CommandDirector;
+import com.mrmrmr7.mytunes.controller.command.CommandExtended;
 import com.mrmrmr7.mytunes.controller.command.CommandProvider;
-import com.mrmrmr7.mytunes.controller.command.ResponseContent;
+import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.dao.exception.PersistException;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,11 +32,17 @@ public class WebAppServlet extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (!response.isCommitted()) {
-            Command command = CommandProvider.getInstance().takeCommand(request.getParameter("command"));
+            String commandName = request.getParameter("command");
+
+            if (commandName == null) {
+                response.sendRedirect("/jsp/error.jsp");
+            }
+
+            CommandExtended command = (CommandExtended) CommandProvider.getInstance().takeCommand(commandName);
             ResponseContent responseContent;
 
             try {
-                responseContent = command.process(request);
+                responseContent = (commandName.equals(CommandDirector.SIGN_IN.getValue()) ? command.process(request, response) : command.process(request));
                 if (responseContent.getRouter().getType().equals("redirect")) {
                     System.out.println(request.getAttribute("viewName"));
                     response.sendRedirect(request.getContextPath() + responseContent.getRouter().getRoute());
@@ -41,18 +50,8 @@ public class WebAppServlet extends HttpServlet {
                     System.out.println("Forward to " + request.getContextPath() + responseContent.getRouter().getRoute());
                     request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request, response);
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (PersistException e) {
-                e.printStackTrace();
-            } catch (DAOException e) {
-                e.printStackTrace();
-                response.sendRedirect("/jsp/error.jsp");
-                //тут должно выводиться сообщение
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                response.sendRedirect("/jsp/error.jsp");
+            } catch (ServletException e) {
+                System.out.println("Trouble");
             }
         }
     }

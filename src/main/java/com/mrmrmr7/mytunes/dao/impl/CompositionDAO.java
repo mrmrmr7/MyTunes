@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CompositionDAO extends AbstractJDBCDAO<Composition, Integer> implements GenericDAO<Composition, Integer> {
+public class CompositionDAO extends AbstractJDBCDAO<Composition, Integer> implements CompositionDAOExtended {
 
     public CompositionDAO() {
     }
@@ -30,7 +30,8 @@ public class CompositionDAO extends AbstractJDBCDAO<Composition, Integer> implem
         }
     }
 
-    public List<Composition> getByPKList(List<Integer> idList) throws DAOException {
+    @Override
+    public List<Composition> getListByPK(List<Integer> idList) throws DAOException {
 
         List<Composition> compositionList = new ArrayList<>();
 

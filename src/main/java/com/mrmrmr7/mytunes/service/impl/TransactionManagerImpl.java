@@ -1,7 +1,8 @@
-package com.mrmrmr7.mytunes.dao.impl;
+package com.mrmrmr7.mytunes.service.impl;
 
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.service.TransactionManager;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -9,11 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionManager {
+public class TransactionManagerImpl implements TransactionManager {
     private Connection singleConnection;
     private List<GenericDAO> genericDAOList = new ArrayList<>();
 
-    public void begin(GenericDAO ... daos) throws DAOException {
+    @Override
+    public void begin(GenericDAO... daos) throws DAOException {
         ConnectionPool connectionPool = ConnectionPoolFactory
                 .getInstance()
                 .getConnectionPool(ConnectionPoolType.MYSQL);
@@ -32,6 +34,7 @@ public class TransactionManager {
         }
     }
 
+    @Override
     public void end() {
         try {
             singleConnection.setAutoCommit(true);
@@ -48,6 +51,7 @@ public class TransactionManager {
         }
     }
 
+    @Override
     public void commit() {
         try {
             singleConnection.commit();
@@ -56,6 +60,7 @@ public class TransactionManager {
         }
     }
 
+    @Override
     public void rollBack() {
         try {
             singleConnection.rollback();
@@ -64,7 +69,8 @@ public class TransactionManager {
         }
     }
 
-    private static void setConnectionWithReflection(Object dao, Connection connection) throws DAOException {
+    @Override
+    public void setConnectionWithReflection(Object dao, Connection connection) throws DAOException {
         if (!(dao instanceof AbstractJDBCDAO)) {
             throw new DAOException("DAO implementation does not extend AbstractJdbcDao.");
         }

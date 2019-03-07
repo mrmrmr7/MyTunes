@@ -83,7 +83,7 @@
                         <div class="register-link m-t-15 text-center">
                             <p>Already have account ? <a href="${pageContext.request.contextPath}/site#"> Sign in</a></p>
                         </div>
-                        <input type="hidden" name="signUp">
+                        <input type="hidden" name="signup">
                     </form>
                 </div>
             </div>

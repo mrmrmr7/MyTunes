@@ -1,16 +1,16 @@
 package com.mrmrmr7.mytunes.controller.command.impl;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
-import com.mrmrmr7.mytunes.controller.command.ResponseContent;
-import com.mrmrmr7.mytunes.controller.command.Router;
+import com.mrmrmr7.mytunes.entity.ResponseContent;
+import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.entity.User;
-import com.mrmrmr7.mytunes.service.ServiceSignUp;
-import com.mrmrmr7.mytunes.service.impl.ServiceSignUpImpl;
+import com.mrmrmr7.mytunes.service.ServiceUser;
+import com.mrmrmr7.mytunes.service.impl.ServiceUserImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandSignUp implements Command {
+public class CommandTrySignUp implements Command {
     private final static String PARAMETER_LOGIN = "login";
     private final static String PARAMETER_PASSWORD = "password";
     private final static String PARAMETER_FIRST_NAME = "first_name";
@@ -19,8 +19,7 @@ public class CommandSignUp implements Command {
 
 
     @Override
-    public ResponseContent process(HttpServletRequest request) throws Exception {
-        ServiceSignUp serviceSignUp = new ServiceSignUpImpl();
+    public ResponseContent process(HttpServletRequest request) {
 
         User user = new User(
                 request.getParameter(PARAMETER_LOGIN),
@@ -30,15 +29,17 @@ public class CommandSignUp implements Command {
                 request.getParameter(PARAMETER_EMAIL)
         );
 
-        serviceSignUp.execute(user);
+        ServiceUser serviceUser = new ServiceUserImpl();
+        boolean isStartSignUp = serviceUser.register(user);
 
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(
-                new Router(
-                        request.getContextPath() + PageDirector.ACCOUNT.getValue(),
-                        Router.Type.FORWARD
-                )
-        );
+
+        if (isStartSignUp) {
+            responseContent.setRouter(new Router(PageDirector.ACCOUNT, Router.Type.FORWARD));
+        } else {
+            responseContent.setRouter(new Router(PageDirector.REGISTRATION, Router.Type.FORWARD));
+        }
+
         return responseContent;
     }
 }

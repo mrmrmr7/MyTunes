@@ -2,8 +2,8 @@ package com.mrmrmr7.mytunes.controller.command.impl.author;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.controller.command.ResponseContent;
-import com.mrmrmr7.mytunes.controller.command.Router;
+import com.mrmrmr7.mytunes.entity.ResponseContent;
+import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
@@ -12,7 +12,6 @@ import com.mrmrmr7.mytunes.entity.Author;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 import java.util.List;
 
 public class CommandAuthorGetAll implements Command {
@@ -44,10 +43,7 @@ public class CommandAuthorGetAll implements Command {
         request.setAttribute(ATTRIBUTE_VIEW_NAME, INSERT_PAGE);
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(
-                new Router(
-                        request.getContextPath() + PageDirector.VIEW.toString(),
-                        Router.Type.FORWARD
-                )
+                new Router(PageDirector.VIEW,Router.Type.FORWARD)
         );
         return responseContent;
     }

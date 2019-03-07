@@ -3,10 +3,11 @@ package com.mrmrmr7.mytunes.controller.command;
 public enum  CommandDirector {
     COMMAND ("command"),
     LOGIN ("login"),
-    LOGOUT ("logout"),
     PASSWORD ("password"),
-    SIGN_UP ("signUp"),
-    SIGN_IN ("signIn"),
+    SIGN_UP ("signup"),
+    SIGN_IN ("signin"),
+    LOG_OUT ("logout"),
+    MOVE_INSIDE_WEB_INF ("move"),
     //CRUD OPERATIONS
     ALBUM_DELETE ("albumDelete"),
     ALBUM_INSERT ("albumInsert"),

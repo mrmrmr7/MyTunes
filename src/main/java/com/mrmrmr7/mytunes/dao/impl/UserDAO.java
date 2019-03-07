@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDAO<User, Integer> {
+public class UserDAO extends AbstractJDBCDAO<User, Integer> implements UserDAOExtended {
 
     public UserDAO() {
     }
@@ -148,6 +148,18 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
                 "STATUS_ID=?, EMAIL=? WHERE ID=?";
     }
 
+    private PreparedStatement prepareStatementForGetByLogin(String login) throws SQLException {
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectByLoginQuery(TableName.USER));
+        preparedStatement.setString(1, login);
+        return preparedStatement;
+    }
+
+    private String getSelectByLoginQuery(TableName tableName) {
+        return "SELECT * FROM " + tableName.getValue() + " WHERE LOGIN=?";
+    }
+
+    @Override
     public Optional<User> getByLogin(String login) throws DAOException {
         try (PreparedStatement preparedStatement = prepareStatementForGetByLogin(login)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -161,16 +173,4 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements GenericDA
             throw new DAOException("4.15.2");
         }
     }
-
-    private PreparedStatement prepareStatementForGetByLogin(String login) throws SQLException {
-        PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectByLoginQuery(TableName.USER));
-        preparedStatement.setString(1, login);
-        return preparedStatement;
-    }
-
-    private String getSelectByLoginQuery(TableName tableName) {
-        return "SELECT * FROM " + tableName.getValue() + " WHERE LOGIN=?";
-    }
-
 }

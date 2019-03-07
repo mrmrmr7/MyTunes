@@ -2,8 +2,8 @@ package com.mrmrmr7.mytunes.controller.command.impl.author;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.controller.command.ResponseContent;
-import com.mrmrmr7.mytunes.controller.command.Router;
+import com.mrmrmr7.mytunes.entity.ResponseContent;
+import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
@@ -43,12 +43,7 @@ public class CommandAuthorGetById implements Command {
         request.setAttribute(BeanDirector.AUTHOR.getValue(), author);
         request.setAttribute(PARAMETER_VIEW_NAME, INCLUDE_PATH);
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(
-                new Router(
-                        request.getContextPath() + PageDirector.VIEW.getValue(),
-                        Router.Type.FORWARD
-                )
-        );
+        responseContent.setRouter(new Router(PageDirector.VIEW, Router.Type.FORWARD));
         return responseContent;
     }
 }

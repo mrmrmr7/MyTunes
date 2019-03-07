@@ -1,10 +1,7 @@
-package com.mrmrmr7.mytunes.validator;
+package com.mrmrmr7.mytunes.filter;
 
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.entity.SessionData;
 import com.mrmrmr7.mytunes.service.ServiceException;
-import com.mrmrmr7.mytunes.service.ServiceSession;
-import com.mrmrmr7.mytunes.service.ServiceUser;
 import com.mrmrmr7.mytunes.service.impl.ServiceUserImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -15,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/jsp/*","/crud"})
+@WebFilter(urlPatterns = {"/crud"})
 public class SessionFilter implements Filter {
     private FilterConfig filterConfig;
 
@@ -32,10 +29,12 @@ public class SessionFilter implements Filter {
             throws IOException, ServletException {
 
         ServiceUserImpl serviceUser = new ServiceUserImpl();
-        boolean isAuthorized;
+        boolean isAuthorized = true;
 
         try {
-            isAuthorized = serviceUser.isAuthorized(servletRequest.getParameter(CommandDirector.COMMAND.getValue()), ((HttpServletRequest) servletRequest).getSession(false));
+            HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+            HttpSession httpSession = httpServletRequest.getSession(false);
+            isAuthorized = serviceUser.isAuthorized(servletRequest.getParameter(CommandDirector.COMMAND.getValue()), httpSession);
         } catch (ServiceException e) {
             isAuthorized = false;
         }

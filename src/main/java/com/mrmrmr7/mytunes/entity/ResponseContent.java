@@ -1,4 +1,6 @@
-package com.mrmrmr7.mytunes.controller.command;
+package com.mrmrmr7.mytunes.entity;
+
+import com.mrmrmr7.mytunes.entity.Router;
 
 /**
  * Provide response content to View layer

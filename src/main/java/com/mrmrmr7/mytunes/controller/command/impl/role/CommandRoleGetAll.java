@@ -2,8 +2,8 @@ package com.mrmrmr7.mytunes.controller.command.impl.role;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.controller.command.ResponseContent;
-import com.mrmrmr7.mytunes.controller.command.Router;
+import com.mrmrmr7.mytunes.entity.ResponseContent;
+import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
@@ -37,14 +37,9 @@ public class CommandRoleGetAll implements Command {
         }
 
         request.setAttribute(ATTRIBUTE_ROLE_LIST, roleList);
-        request.setAttribute(PageDirector.VIEW.getValue(), INCLUDE_PATH);
+        request.setAttribute(PageDirector.VIEW_NAME.getValue(), INCLUDE_PATH);
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(
-                new Router(
-                        PageDirector.VIEW.getValue(),
-                        Router.Type.FORWARD
-                )
-        );
+        responseContent.setRouter(new Router(PageDirector.VIEW,Router.Type.FORWARD));
         return responseContent;
     }
 }
