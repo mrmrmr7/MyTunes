@@ -5,8 +5,9 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-public class CommandMoveInsideWebInf implements Command {
+public class CommandMoveInsideWebInf implements CommandExtended {
 
 
     private static final String PARAMETER_PATH = "path";
@@ -29,5 +30,10 @@ public class CommandMoveInsideWebInf implements Command {
         }
 
         return responseContent;
+    }
+
+    @Override
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) {
+        return null;
     }
 }

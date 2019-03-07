@@ -34,7 +34,7 @@ public class SessionFilter implements Filter {
         try {
             HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
             HttpSession httpSession = httpServletRequest.getSession(false);
-            isAuthorized = serviceUser.isAuthorized(servletRequest.getParameter(CommandDirector.COMMAND.getValue()), httpSession);
+            isAuthorized = serviceUser.isAuthorized(servletRequest.getParameter(CommandDirector.COMMAND.getValue()), (HttpServletRequest) servletRequest);
         } catch (ServiceException e) {
             isAuthorized = false;
         }

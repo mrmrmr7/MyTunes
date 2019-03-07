@@ -6,7 +6,7 @@
 
     <groupId>com.mrmrmr7</groupId>
     <artifactId>mytunes</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.2</version>
     <packaging>war</packaging>
     <build>
         <plugins>
@@ -85,18 +85,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.0.1</version>
@@ -132,12 +120,6 @@
             <version>8.0.15</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.3.2</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>

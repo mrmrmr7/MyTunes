@@ -1,7 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
-import com.mrmrmr7.mytunes.dao.GenericDAO;
 import com.mrmrmr7.mytunes.dao.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Album;
@@ -76,7 +75,6 @@ public class AlbumDAO extends AbstractJDBCDAO<Album, Integer> {
 
     @Override
     public void update(Album object) throws DAOException {
-
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

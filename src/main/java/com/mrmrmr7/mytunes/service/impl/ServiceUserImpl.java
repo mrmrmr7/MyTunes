@@ -70,7 +70,7 @@ public class ServiceUserImpl implements ServiceUser {
             sessionDataDAO.insert(sessionData);
 
             Cookie cookieUUID = new Cookie(COOKIE_UUID, session_hash);
-            Cookie cookieUID = new Cookie(COOKIE_UID, session_hash);
+            Cookie cookieUID = new Cookie(COOKIE_UID, String.valueOf(user.get().getId()));
             response.addCookie(cookieUID);
             response.addCookie(cookieUUID);
 
@@ -117,9 +117,9 @@ public class ServiceUserImpl implements ServiceUser {
     }
 
     @Override
-    public boolean isAuthorized(String command, HttpSession session) throws ServiceException {
+    public boolean isAuthorized(String command, HttpServletRequest httpServletRequest) throws ServiceException {
 
-        if (session == null) {
+        if (httpServletRequest == null) {
             return false;
         }
 
@@ -129,37 +129,38 @@ public class ServiceUserImpl implements ServiceUser {
 
         SessionDataDAO sessionDataDAO = new SessionDataDAO();
         Optional<SessionData> sessionDataOptional;
-//
-//        Cookie[] cookies = request.();
-//        Optional<Cookie> cookieUUID = Arrays.stream(cookies).filter(s -> s.getName().equals("uuid")).findFirst();
-//        Optional<Cookie> cookieUID = Arrays.stream(cookies).filter(s -> s.getName().equals("uid")).findFirst();
-//
-//        if (!cookieUUID.isPresent()) {
-//            return false;
-//        }
-//
-//        if(!cookieUID.isPresent()) {
-//            return false;
-//        }
+
+        Cookie[] cookies = httpServletRequest.getCookies();
+        Optional<Cookie> cookieUUID = Arrays.stream(cookies).filter(s -> s.getName().equals("uuid")).findFirst();
+        Optional<Cookie> cookieUID = Arrays.stream(cookies).filter(s -> s.getName().equals("uid")).findFirst();
 
 
-
-        SessionData sessionData = (SessionData) session.getAttribute("session_data");
-
-        if (sessionData == null) {
+        if (!cookieUUID.isPresent()) {
             return false;
         }
 
+        if(!cookieUID.isPresent()) {
+            return false;
+        }
+
+
+
+//        SessionData sessionData = (SessionData) session.getAttribute("session_data");
+//
+//        if (sessionData == null) {
+//            return false;
+//        }
+
         try {
             sessionDataDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
-            sessionDataOptional = sessionDataDAO.getByPK(sessionData.getId());
+            sessionDataOptional = sessionDataDAO.getByPK(Integer.valueOf(cookieUID.get().getValue()));
         } catch (DAOException e) {
             throw new ServiceException(e.getMessage());
         } finally {
             sessionDataDAO.closeConnection();
         }
 
-        return sessionDataOptional.filter(sessionData::equals).isPresent();
+        return sessionDataOptional.get().getSession_hash().equals(cookieUUID.get().getValue());
     }
 
 }

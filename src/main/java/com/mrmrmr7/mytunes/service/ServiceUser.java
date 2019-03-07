@@ -14,5 +14,5 @@ public interface ServiceUser {
 
     boolean register(User user);
 
-    boolean isAuthorized(String command, HttpSession request) throws ServiceException;
+    boolean isAuthorized(String command, HttpServletRequest httpServletRequest) throws ServiceException;
 }
