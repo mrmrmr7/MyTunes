@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.BonusDAO;
+import com.mrmrmr7.mytunes.dao.impl.BonusDao;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ public class CommandBonusDelete implements Command {
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.BONUS_DELETE.getValue() + " command detected");
 
-        BonusDAO bonusDAO = new BonusDAO();
+        BonusDao bonusDAO = new BonusDao();
 
         try {
             bonusDAO.setConnection(ConnectionPoolFactory

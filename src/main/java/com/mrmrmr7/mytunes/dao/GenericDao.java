@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface GenericDAO<T extends Identified<PK>, PK extends Serializable> {
+public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
     Optional<T> getByPK(PK id) throws DAOException;
 
     List<T> getAll() throws DAOException;

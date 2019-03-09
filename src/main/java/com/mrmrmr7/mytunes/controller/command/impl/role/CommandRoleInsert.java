@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.RoleDAO;
+import com.mrmrmr7.mytunes.dao.impl.RoleDao;
 import com.mrmrmr7.mytunes.entity.Role;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -24,7 +24,7 @@ public class CommandRoleInsert implements Command {
                 request.getParameter(PARAMETER_ROLE)
         );
 
-        RoleDAO roleDAO = new RoleDAO();
+        RoleDao roleDAO = new RoleDao();
         try {
             roleDAO.setConnection(ConnectionPoolFactory
                 .getInstance()

@@ -14,11 +14,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserDAOTest {
-    public static UserDAO userDAO;
+    public static UserDao userDAO;
 
     @BeforeAll
     public static void daoInit() {
-        userDAO = new UserDAO();
+        userDAO = new UserDao();
     }
 
     @AfterAll

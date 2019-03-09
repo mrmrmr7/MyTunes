@@ -7,9 +7,9 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.AuthorDAO;
+import com.mrmrmr7.mytunes.dao.impl.AuthorDao;
 import com.mrmrmr7.mytunes.entity.Author;
-import com.mrmrmr7.mytunes.entity.BeanDirector;
+import com.mrmrmr7.mytunes.util.BeanDirector;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ public class CommandAuthorGetById implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.AUTHOR_GET_BY_ID.getValue() + " command detected");
-        AuthorDAO authorDAO = new AuthorDAO();
+        AuthorDao authorDAO = new AuthorDao();
         Author author = null;
         try {
             authorDAO.setConnection(ConnectionPoolFactory

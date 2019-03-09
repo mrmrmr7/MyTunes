@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.BonusDAO;
+import com.mrmrmr7.mytunes.dao.impl.BonusDao;
 import com.mrmrmr7.mytunes.entity.Bonus;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -24,7 +24,7 @@ public class CommandBonusInsert implements Command {
                 request.getParameter(PARAMETER_BONUS)
         );
 
-        BonusDAO bonusDAO = new BonusDAO();
+        BonusDao bonusDAO = new BonusDao();
 
         try {
             bonusDAO.setConnection(ConnectionPoolFactory

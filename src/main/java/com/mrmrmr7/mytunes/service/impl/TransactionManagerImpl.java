@@ -12,10 +12,10 @@ import java.util.List;
 
 public class TransactionManagerImpl implements TransactionManager {
     private Connection singleConnection;
-    private List<GenericDAO> genericDAOList = new ArrayList<>();
+    private List<GenericDao> genericDaoList = new ArrayList<>();
 
     @Override
-    public void begin(GenericDAO... daos) throws DAOException {
+    public void begin(GenericDao... daos) throws DAOException {
         ConnectionPool connectionPool = ConnectionPoolFactory
                 .getInstance()
                 .getConnectionPool(ConnectionPoolType.MYSQL);
@@ -28,8 +28,8 @@ public class TransactionManagerImpl implements TransactionManager {
             throw new DAOException(e.getMessage());
         }
 
-        for (GenericDAO dao : daos) {
-            genericDAOList.add(dao);
+        for (GenericDao dao : daos) {
+            genericDaoList.add(dao);
             setConnectionWithReflection(dao, singleConnection);
         }
     }
@@ -42,7 +42,7 @@ public class TransactionManagerImpl implements TransactionManager {
             System.out.println("impossible to set autocommit: false");
         }
 
-        for (GenericDAO genericDAO : genericDAOList) {
+        for (GenericDao genericDAO : genericDaoList) {
             try {
                 removeConnectionWithReflection(genericDAO);
             } catch (DAOException e) {
@@ -71,13 +71,13 @@ public class TransactionManagerImpl implements TransactionManager {
 
     @Override
     public void setConnectionWithReflection(Object dao, Connection connection) throws DAOException {
-        if (!(dao instanceof AbstractJDBCDAO)) {
+        if (!(dao instanceof AbstractJdbcDao)) {
             throw new DAOException("DAO implementation does not extend AbstractJdbcDao.");
         }
 
         try {
 
-            Field connectionField = AbstractJDBCDAO.class.getDeclaredField("connection");
+            Field connectionField = AbstractJdbcDao.class.getDeclaredField("connection");
             if (!connectionField.isAccessible()) {
                 connectionField.setAccessible(true);
             }
@@ -90,13 +90,13 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     private static void removeConnectionWithReflection(Object dao) throws DAOException {
-        if (!(dao instanceof AbstractJDBCDAO)) {
+        if (!(dao instanceof AbstractJdbcDao)) {
             throw new DAOException("DAO implementation does not extend AbstractJdbcDao.");
         }
 
         try {
 
-            Field connectionField = AbstractJDBCDAO.class.getDeclaredField("connection");
+            Field connectionField = AbstractJdbcDao.class.getDeclaredField("connection");
             if (!connectionField.isAccessible()) {
                 connectionField.setAccessible(true);
             }

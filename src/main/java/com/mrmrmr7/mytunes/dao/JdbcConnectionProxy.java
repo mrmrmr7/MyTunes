@@ -4,17 +4,17 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 
-public class JDBCConnectionProxy implements InvocationHandler {
+public class JdbcConnectionProxy implements InvocationHandler {
     private final Connection connection;
 
-    public JDBCConnectionProxy(Connection connection) {
+    public JdbcConnectionProxy(Connection connection) {
         this.connection = connection;
     }
 
     @Override
     public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
         if (method.getName().equals("close")) {
-            JDBCConnectionPool.getInstance().releaseConnection(connection);
+            JdbcConnectionPool.getInstance().releaseConnection(connection);
             return null;
         } else {
             return method.invoke(connection, objects);

@@ -1,7 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
-import com.mrmrmr7.mytunes.dao.TableName;
+import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Album;
 
@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AlbumDAO extends AbstractJDBCDAO<Album, Integer> {
+public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
 
-    public AlbumDAO() {
+    public AlbumDao() {
 
     }
 

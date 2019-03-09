@@ -6,22 +6,20 @@ import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
-import java.io.StreamCorruptedException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CompositionDAOTest {
-    private static CompositionDAO compositionDAO;
+    private static CompositionDao compositionDAO;
 
     @BeforeAll
     public static void daoInit() {
-        compositionDAO = new CompositionDAO();
+        compositionDAO = new CompositionDao();
     }
 
     @AfterAll

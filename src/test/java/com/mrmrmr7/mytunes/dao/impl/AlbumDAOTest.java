@@ -15,11 +15,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AlbumDAOTest {
-    public static AlbumDAO albumDAO;
+    public static AlbumDao albumDAO;
 
     @BeforeAll
     public static void daoInit() {
-        albumDAO = new AlbumDAO();
+        albumDAO = new AlbumDao();
         try {
             albumDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
         } catch (DAOException e) {

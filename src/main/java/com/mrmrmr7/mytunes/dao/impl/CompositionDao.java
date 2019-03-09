@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Composition;
+import com.mrmrmr7.mytunes.util.TableName;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CompositionDAO extends AbstractJDBCDAO<Composition, Integer> implements CompositionDAOExtended {
+public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implements CompositionDaoExtended {
 
-    public CompositionDAO() {
+    public CompositionDao() {
     }
 
     @Override

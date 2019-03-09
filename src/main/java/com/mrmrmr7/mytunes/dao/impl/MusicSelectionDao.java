@@ -1,9 +1,10 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
-import com.mrmrmr7.mytunes.dao.TableName;
+import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.entity.UserComposition;
+import com.mrmrmr7.mytunes.entity.MusicSelection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,83 +13,79 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserCompositionDAO extends AbstractJDBCDAO<UserComposition, Integer> {
+public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> implements GenericDao<MusicSelection, Integer> {
 
-    public UserCompositionDAO() {
+    public MusicSelectionDao() {
     }
 
     @Override
-    public Optional<UserComposition> getByPK(Integer id) throws DAOException {
-
+    public Optional<MusicSelection> getByPK(Integer id) throws DAOException {
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setUserComposition(resultSet));
+                return Optional.of(resultSetCompiller.setMusicSelection(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.14.1");
+                throw new DAOException("4.8.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.14.2");
+            throw new DAOException("4.8.2");
         }
     }
 
     @Override
-    public List<UserComposition> getAll() throws DAOException {
+    public List<MusicSelection> getAll() throws DAOException {
 
-        List<UserComposition> userList = new ArrayList<>();
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.USER_COMPOSITION)){
+        List<MusicSelection> userList = new ArrayList<>();
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.MUSIC_SELECTION)){
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setUserComposition(resultSet));
+                            .add(resultSetCompiller.setMusicSelection(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.14.3");
+                throw new DAOException("4.8.3");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.14.4");
+            throw new DAOException("4.8.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(UserComposition object) throws DAOException {
-
+    public void insert(MusicSelection object) throws DAOException {
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DAOException("4.14.5");
+            throw new DAOException("4.8.5");
         }
     }
 
     @Override
     public void delete(Integer id) throws DAOException {
-
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.14.6");
+            throw new DAOException("4.8.6");
         }
     }
 
     @Override
-    public void update(UserComposition object) throws DAOException {
-
+    public void update(MusicSelection object) throws DAOException {
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DAOException("4.14.7");
+            throw new DAOException("4.8.7");
         }
     }
 
     @Override
-    protected PreparedStatement prepareStatementForInsert(UserComposition object) throws SQLException {
+    protected PreparedStatement prepareStatementForInsert(MusicSelection object) throws SQLException {
 
-        List<Integer> userCompositionIdList = object.getCompositionIdList();
+        List<Integer> compositionIdList = object.getCompositionIdList();
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
 
-        for (int i = 0; i < userCompositionIdList.size(); i++) {
+        for (int i = 0; i < compositionIdList.size(); i++) {
             int j = 0;
             preparedStatement.setInt(++j, object.getId());
             preparedStatement.setInt(++j, object.getCompositionId(i));
@@ -99,12 +96,12 @@ public class UserCompositionDAO extends AbstractJDBCDAO<UserComposition, Integer
     }
 
     @Override
-    protected PreparedStatement prepareStatementForUpdate(UserComposition object) throws SQLException {
+    protected PreparedStatement prepareStatementForUpdate(MusicSelection object) throws SQLException {
 
-        List<Integer> userCompositionIdList = object.getCompositionIdList();
+        List<Integer> compositionIdList = object.getCompositionIdList();
         PreparedStatement preparedStatement = connection.prepareStatement(getUpdateQuery());
 
-        for (int i = 0; i < userCompositionIdList.size(); i++) {
+        for (int i = 0; i < compositionIdList.size(); i++) {
             int j = 0;
             preparedStatement.setInt(++j, object.getId());
             preparedStatement.setInt(++j, object.getCompositionId(i));
@@ -118,7 +115,8 @@ public class UserCompositionDAO extends AbstractJDBCDAO<UserComposition, Integer
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.USER_COMPOSITION));
+
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.MUSIC_SELECTION));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -127,7 +125,7 @@ public class UserCompositionDAO extends AbstractJDBCDAO<UserComposition, Integer
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.USER_COMPOSITION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                .prepareStatement(getSelectQuery(TableName.MUSIC_SELECTION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -135,20 +133,19 @@ public class UserCompositionDAO extends AbstractJDBCDAO<UserComposition, Integer
     @Override
     protected String getSelectQuery(TableName tableName) {
 
-        return "SELECT * FROM " + tableName.getValue() + " WHERE USER_ID=?";
+        return "SELECT * FROM " + tableName.getValue() + " WHERE SELECTION_ID=?";
     }
 
     @Override
     protected String getDeleteQuery(TableName tableName) {
-        return "DELETE FROM " + tableName.getValue() + " WHERE USER_ID=?";
+        return "DELETE FROM " + tableName.getValue() + " WHERE SELECTION_ID=?";
     }
-
 
     @Override
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.USER_COMPOSITION.getValue() +
-                "(USER_ID, COMPOSITION_ID) " +
+        return "INSERT INTO " + TableName.MUSIC_SELECTION.getValue() +
+                "(SELECTION_ID, COMPOSITION_ID) " +
                 "VALUES " +
                 "(?,?)";
     }
@@ -156,8 +153,8 @@ public class UserCompositionDAO extends AbstractJDBCDAO<UserComposition, Integer
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.USER_COMPOSITION.getValue() + " SET " +
-                "USER_ID=?, COMPOSITION_ID=? " +
+        return "UPDATE " + TableName.MUSIC_SELECTION.getValue() + " SET " +
+                "SELECTION_ID=?, COMPOSITION_ID=? " +
                 "WHERE ID=?";
 
     }

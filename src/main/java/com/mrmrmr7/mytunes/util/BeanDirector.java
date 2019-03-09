@@ -1,4 +1,4 @@
-package com.mrmrmr7.mytunes.entity;
+package com.mrmrmr7.mytunes.util;
 
 public enum BeanDirector {
     ALBUM ("album"),

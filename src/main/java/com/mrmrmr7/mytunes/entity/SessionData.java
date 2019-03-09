@@ -2,13 +2,14 @@ package com.mrmrmr7.mytunes.entity;
 
 import com.mrmrmr7.mytunes.dao.Identified;
 
+import java.util.Base64;
 import java.util.Objects;
 
 public class SessionData implements Identified<Integer> {
     private int user_id;
-    private String session_hash;
+    private byte[] session_hash;
 
-    public SessionData(int user_id, String session_hash) {
+    public SessionData(int user_id, byte[] session_hash) {
         this.user_id = user_id;
         this.session_hash = session_hash;
     }
@@ -21,11 +22,11 @@ public class SessionData implements Identified<Integer> {
         this.user_id = user_id;
     }
 
-    public String getSession_hash() {
+    public byte[] getSession_hash() {
         return session_hash;
     }
 
-    public void setSession_hash(String session_hash) {
+    public void setSession_hash(byte[] session_hash) {
         this.session_hash = session_hash;
     }
 
@@ -33,7 +34,7 @@ public class SessionData implements Identified<Integer> {
     public String toString() {
         return "SessionData{" +
                 "user_id=" + user_id +
-                ", session_hash='" + session_hash + '\'' +
+                ", session_hash='" + Base64.getDecoder().decode(session_hash) + '\'' +
                 '}';
     }
 

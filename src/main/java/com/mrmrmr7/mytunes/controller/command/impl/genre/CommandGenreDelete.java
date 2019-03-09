@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.GenreDAO;
+import com.mrmrmr7.mytunes.dao.impl.GenreDao;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ public class CommandGenreDelete implements Command {
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.GENRE_DELETE.getValue() + " command detected");
 
-        GenreDAO genreDAO = new GenreDAO();
+        GenreDao genreDAO = new GenreDao();
 
         try {
             genreDAO.setConnection(ConnectionPoolFactory

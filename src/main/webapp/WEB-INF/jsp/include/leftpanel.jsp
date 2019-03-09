@@ -21,7 +21,7 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="${pageContext.request.contextPath}/crud?command=move&path=author" id="id1"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="${pageContext.request.contextPath}/crud?command=move&path=account" id="id1"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                 </li>
                 <li class="menu-item-has-children dropdown">
                     <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->

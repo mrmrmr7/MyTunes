@@ -7,9 +7,9 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.AlbumDAO;
+import com.mrmrmr7.mytunes.dao.impl.AlbumDao;
 import com.mrmrmr7.mytunes.entity.Album;
-import com.mrmrmr7.mytunes.entity.BeanDirector;
+import com.mrmrmr7.mytunes.util.BeanDirector;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ public class CommandAlbumGetById implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.ALBUM_GET_BY_ID.getValue() + " command detected");
-        AlbumDAO albumDAO = new AlbumDAO();
+        AlbumDao albumDAO = new AlbumDao();
         Album album = null;
         try {
             albumDAO.setConnection(ConnectionPoolFactory

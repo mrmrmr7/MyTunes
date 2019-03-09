@@ -1,8 +1,8 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
-import com.mrmrmr7.mytunes.dao.GenericDAO;
-import com.mrmrmr7.mytunes.dao.TableName;
+import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.SessionData;
 
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SessionDataDAO extends AbstractJDBCDAO<SessionData, Integer> implements GenericDAO<SessionData, Integer> {
+public class SessionDataDao extends AbstractJdbcDao<SessionData, Integer> implements GenericDao<SessionData, Integer> {
 
-    public SessionDataDAO() {
+    public SessionDataDao() {
     }
 
     @Override
@@ -89,7 +89,7 @@ public class SessionDataDAO extends AbstractJDBCDAO<SessionData, Integer> implem
 
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
         preparedStatement.setInt(1, object.getUser_id());
-        preparedStatement.setString(2, object.getSession_hash());
+        preparedStatement.setBytes(2, object.getSession_hash());
         return preparedStatement;
     }
 
@@ -99,7 +99,7 @@ public class SessionDataDAO extends AbstractJDBCDAO<SessionData, Integer> implem
         PreparedStatement preparedStatement = connection
                         .prepareStatement(getUpdateQuery());
         preparedStatement.setInt(2,object.getUser_id());
-        preparedStatement.setString(1, object.getSession_hash());
+        preparedStatement.setBytes(1, object.getSession_hash());
         return preparedStatement;
     }
 

@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.User;
+import com.mrmrmr7.mytunes.util.TableName;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDAO extends AbstractJDBCDAO<User, Integer> implements UserDAOExtended {
+public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoExtended {
 
-    public UserDAO() {
+    public UserDao() {
     }
 
     @Override
@@ -85,6 +86,8 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements UserDAOEx
     protected PreparedStatement prepareStatementForInsert(User object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
+        preparedStatement.setString(11, object.getPublicKey());
+        preparedStatement.setString(12, object.getPrivateKey());
         return prepareForUpdate(preparedStatement, object);
     }
 
@@ -92,7 +95,9 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements UserDAOEx
     protected PreparedStatement prepareStatementForUpdate(User object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getUpdateQuery());
-        preparedStatement.setInt(11, object.getId());
+        preparedStatement.setString(11, object.getPublicKey());
+        preparedStatement.setString(12, object.getPrivateKey());
+        preparedStatement.setInt(13, object.getId());
         return prepareForUpdate(preparedStatement, object);
     }
 
@@ -132,9 +137,9 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements UserDAOEx
     protected String getInsertQuery() {
 
         return "INSERT INTO " + TableName.USER.getValue() +
-                "(LOGIN, PASSWORD, FIRST_NAME, SECOND_NAME, REGISTER_DATE, SALE, BALANCE, ROLE_ID, STATUS_ID, EMAIL) " +
+                "(LOGIN, PASSWORD, FIRST_NAME, SECOND_NAME, REGISTER_DATE, SALE, BALANCE, ROLE_ID, STATUS_ID, EMAIL, PUBLIC_KEY, PRIVATE_KEY) " +
                 "VALUES " +
-                "(?,?,?,?,?,?,?,?,?,?)";
+                "(?,?,?,?,?,?,?,?,?,?,?,?)";
     }
 
     @Override
@@ -145,7 +150,7 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements UserDAOEx
                 "FIRST_NAME=?, SECOND_NAME=?, " +
                 "REGISTER_DATE=?, SALE=?, " +
                 "BALANCE=?, ROLE_ID=?, " +
-                "STATUS_ID=?, EMAIL=? WHERE ID=?";
+                "STATUS_ID=?, EMAIL=?, PUBLIC_KEY=?, PRIVATE_KEY=? WHERE ID=?";
     }
 
     private PreparedStatement prepareStatementForGetByLogin(String login) throws SQLException {
@@ -173,4 +178,5 @@ public class UserDAO extends AbstractJDBCDAO<User, Integer> implements UserDAOEx
             throw new DAOException("4.15.2");
         }
     }
+
 }

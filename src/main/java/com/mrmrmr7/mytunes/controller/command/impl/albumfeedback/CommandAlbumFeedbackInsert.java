@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.AlbumFeedbackDAO;
+import com.mrmrmr7.mytunes.dao.impl.AlbumFeedbackDao;
 import com.mrmrmr7.mytunes.entity.AlbumFeedback;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -26,7 +26,7 @@ public class CommandAlbumFeedbackInsert implements Command {
                 request.getParameter(PARAMETER_ALBUM_FEEDBACK)
         );
 
-        AlbumFeedbackDAO albumFeedbackDAO = new AlbumFeedbackDAO();
+        AlbumFeedbackDao albumFeedbackDAO = new AlbumFeedbackDao();
 
         try {
             albumFeedbackDAO.setConnection(ConnectionPoolFactory

@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.Author;
+import com.mrmrmr7.mytunes.util.TableName;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AuthorDAO extends AbstractJDBCDAO<Author, Integer> implements GenericDAO<Author, Integer> {
+public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements GenericDao<Author, Integer> {
 
-    public AuthorDAO() {
+    public AuthorDao() {
     }
 
     @Override

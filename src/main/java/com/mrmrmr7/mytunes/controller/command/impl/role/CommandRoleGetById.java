@@ -7,9 +7,9 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.RoleDAO;
+import com.mrmrmr7.mytunes.dao.impl.RoleDao;
 import com.mrmrmr7.mytunes.entity.Role;
-import com.mrmrmr7.mytunes.entity.BeanDirector;
+import com.mrmrmr7.mytunes.util.BeanDirector;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +23,7 @@ public class CommandRoleGetById implements Command {
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.ROLE_GET_BY_ID.getValue() + " command detected");
 
-        RoleDAO roleDAO = new RoleDAO();
+        RoleDao roleDAO = new RoleDao();
         Role role = null;
         try {
             roleDAO.setConnection(ConnectionPoolFactory

@@ -1,17 +1,11 @@
 package com.mrmrmr7.mytunes.dao;
 
-import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
-import com.mrmrmr7.mytunes.dao.Identified;
 import com.mrmrmr7.mytunes.entity.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ResultSetCompiller {
-
-    public Identified set(Class c, ResultSet resultSet) throws SQLException {
-        return setMusicSelectionFeedback(resultSet);
-    }
 
     public User setUser(ResultSet resultSet) throws SQLException {
         int i = 0;
@@ -25,7 +19,9 @@ public class ResultSetCompiller {
                         resultSet.getLong(++i),
                         resultSet.getByte(++i),
                         resultSet.getByte(++i),
-                        resultSet.getByte(++i));
+                        resultSet.getByte(++i),
+                        resultSet.getString(++i),
+                        resultSet.getString(++i));
     }
 
     public Author setAuthor(ResultSet resultSet) throws SQLException {
@@ -233,7 +229,7 @@ public class ResultSetCompiller {
         int i = 1;
         return new SessionData(
                 resultSet.getInt(++i),
-                resultSet.getString(++i)
+                resultSet.getBytes(++i)
         );
     }
 }

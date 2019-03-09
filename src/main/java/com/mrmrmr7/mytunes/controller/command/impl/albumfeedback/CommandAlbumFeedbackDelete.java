@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.AlbumFeedbackDAO;
+import com.mrmrmr7.mytunes.dao.impl.AlbumFeedbackDao;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +20,7 @@ public class CommandAlbumFeedbackDelete implements Command {
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.ALBUM_FEEDBACK_DELETE.getValue() + " command detected");
 
-        AlbumFeedbackDAO albumFeedbackDAO = new AlbumFeedbackDAO();
+        AlbumFeedbackDao albumFeedbackDAO = new AlbumFeedbackDao();
 
         try {
             albumFeedbackDAO.setConnection(ConnectionPoolFactory

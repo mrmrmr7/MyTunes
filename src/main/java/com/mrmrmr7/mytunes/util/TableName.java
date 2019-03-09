@@ -1,4 +1,4 @@
-package com.mrmrmr7.mytunes.dao;
+package com.mrmrmr7.mytunes.util;
 
 public enum TableName {
     USER ("USERS"),

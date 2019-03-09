@@ -1,10 +1,10 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
-import com.mrmrmr7.mytunes.dao.GenericDAO;
-import com.mrmrmr7.mytunes.dao.TableName;
+import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.entity.Genre;
+import com.mrmrmr7.mytunes.entity.Status;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,53 +13,53 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class GenreDAO extends AbstractJDBCDAO<Genre, Integer> implements GenericDAO<Genre, Integer> {
+public class StatusDao extends AbstractJdbcDao<Status, Integer> implements GenericDao<Status, Integer> {
 
-    public GenreDAO() {
+    public StatusDao() {
     }
 
     @Override
-    public Optional<Genre> getByPK(Integer id) throws DAOException {
+    public Optional<Status> getByPK(Integer id) throws DAOException {
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setGenre(resultSet));
+                return Optional.of(resultSetCompiller.setStatus(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.7.1");
+                throw new DAOException("4.11.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.7.2");
+            throw new DAOException("4.11.2");
         }
     }
 
     @Override
-    public List<Genre> getAll() throws DAOException {
+    public List<Status> getAll() throws DAOException {
 
-        List<Genre> userList = new ArrayList<>();
+        List<Status> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.GENRE)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.STATUS)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setGenre(resultSet));
+                            .add(resultSetCompiller.setStatus(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.7.3");
+                throw new DAOException("4.11.3");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.7.4");
+            throw new DAOException("4.11.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(Genre object) throws DAOException {
+    public void insert(Status object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.7.5");
+            throw new DAOException("4.11.5");
         }
     }
 
@@ -69,30 +69,29 @@ public class GenreDAO extends AbstractJDBCDAO<Genre, Integer> implements Generic
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.7.6");
+            throw new DAOException("4.11.6");
         }
     }
 
     @Override
-    public void update(Genre object) throws DAOException {
+    public void update(Status object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.7.7");
+            throw new DAOException("4.11.7");
         }
     }
 
     @Override
-    protected PreparedStatement prepareStatementForInsert(Genre object) throws SQLException {
+    protected PreparedStatement prepareStatementForInsert(Status object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
-        preparedStatement.setString(1, object.getGenre());
         return prepareForUpdate(preparedStatement, object);
     }
 
     @Override
-    protected PreparedStatement prepareStatementForUpdate(Genre object) throws SQLException {
+    protected PreparedStatement prepareStatementForUpdate(Status object) throws SQLException {
 
         PreparedStatement preparedStatement = prepareForUpdate(connection
                         .prepareStatement(getUpdateQuery()),
@@ -104,7 +103,7 @@ public class GenreDAO extends AbstractJDBCDAO<Genre, Integer> implements Generic
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.GENRE));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.STATUS));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -113,23 +112,23 @@ public class GenreDAO extends AbstractJDBCDAO<Genre, Integer> implements Generic
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.GENRE));
+                .prepareStatement(getSelectQuery(TableName.STATUS));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
 
-    private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Genre object) throws SQLException {
+    private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Status object) throws SQLException {
 
         int i = 0;
-        preparedStatement.setString(++i, object.getGenre());
+        preparedStatement.setString(++i, object.getStatus());
         return preparedStatement;
     }
 
     @Override
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.GENRE.getValue() +
-                "(GENRE) " +
+        return "INSERT INTO " + TableName.STATUS.getValue() +
+                "(STATUS) " +
                 "VALUES " +
                 "(?)";
     }
@@ -137,8 +136,8 @@ public class GenreDAO extends AbstractJDBCDAO<Genre, Integer> implements Generic
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.GENRE.getValue() + " SET " +
-                "GENRE=? " +
+        return "UPDATE " + TableName.STATUS.getValue() + " SET " +
+                "STATUS=? " +
                 "WHERE ID=?";
     }
 }

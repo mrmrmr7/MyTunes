@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.GenreDAO;
+import com.mrmrmr7.mytunes.dao.impl.GenreDao;
 import com.mrmrmr7.mytunes.entity.Genre;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -24,7 +24,7 @@ public class CommandGenreInsert implements Command {
                 request.getParameter(PARAMETER_GENRE)
         );
 
-        GenreDAO genreDAO = new GenreDAO();
+        GenreDao genreDAO = new GenreDao();
 
         try {
             genreDAO.setConnection(ConnectionPoolFactory

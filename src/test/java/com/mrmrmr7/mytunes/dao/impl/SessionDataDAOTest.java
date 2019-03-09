@@ -13,11 +13,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SessionDataDAOTest {
-    public static SessionDataDAO sessionDataDAO;
+    public static SessionDataDao sessionDataDAO;
 
     @BeforeAll
     public static void daoInit() {
-        sessionDataDAO = new SessionDataDAO();
+        sessionDataDAO = new SessionDataDao();
     }
 
     @AfterAll
@@ -66,7 +66,7 @@ class SessionDataDAOTest {
 
         SessionData expected = new SessionData(
                 3,
-                "Some new sessionData"
+                "Some new sessionData".getBytes()
         );
 
         sessionDataDAO.insert(expected);
@@ -98,7 +98,7 @@ class SessionDataDAOTest {
 
         SessionData expected = new SessionData(
                 1,
-                "new sessionData"
+                "new sessionData".getBytes()
         );
 
         sessionDataDAO.update(expected);

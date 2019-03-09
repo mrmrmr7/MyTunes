@@ -9,11 +9,10 @@ import com.mrmrmr7.mytunes.service.ServiceException;
 import com.mrmrmr7.mytunes.service.impl.ServiceUserImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CommandSignIn implements CommandExtended {
+public class CommandSignIn implements Command {
 
     @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) {

@@ -10,7 +10,7 @@ public interface ServiceUser {
 
     boolean login(String login, String password, HttpServletResponse response) throws ServiceException;
 
-    void logout(HttpSession session) throws ServiceException;
+    void logout(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServiceException;
 
     boolean register(User user);
 

@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.UserDAO;
+import com.mrmrmr7.mytunes.dao.impl.UserDao;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -40,7 +40,7 @@ public class CommandUserInsert implements Command {
                 Byte.valueOf(request.getParameter(PARAMETER_STATUS_ID))
         );
 
-        UserDAO userDAO = new UserDAO();
+        UserDao userDAO = new UserDao();
         try {
             userDAO.setConnection(ConnectionPoolFactory
                     .getInstance()

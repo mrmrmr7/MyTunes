@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.GenreDAO;
+import com.mrmrmr7.mytunes.dao.impl.GenreDao;
 import com.mrmrmr7.mytunes.entity.Genre;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -22,7 +22,7 @@ public class CommandGenreGetAll implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.GENRE_GET_ALL.getValue() + " command detected");
-        GenreDAO genreDAO = new GenreDAO();
+        GenreDao genreDAO = new GenreDao();
         List<Genre> genreList = null;
         try {
             genreDAO.setConnection(ConnectionPoolFactory

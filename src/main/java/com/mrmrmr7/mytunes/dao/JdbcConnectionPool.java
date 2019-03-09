@@ -17,9 +17,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class JDBCConnectionPool implements ConnectionPool {
-    private final static Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
-    private final static JDBCConnectionPool INSTANCE = new JDBCConnectionPool();
+public class JdbcConnectionPool implements ConnectionPool {
+    private final static Logger logger = LogManager.getLogger(JdbcConnectionPool.class);
+    private final static JdbcConnectionPool INSTANCE = new JdbcConnectionPool();
     private final String JDBC_URL;
     private final String USER;
     private final String PASSWORD;
@@ -30,11 +30,11 @@ public class JDBCConnectionPool implements ConnectionPool {
     private static Lock lockForClose = new ReentrantLock();
     private Semaphore semaphore;
 
-    public static JDBCConnectionPool getInstance() {
+    public static JdbcConnectionPool getInstance() {
         return INSTANCE;
     }
 
-    private JDBCConnectionPool() {
+    private JdbcConnectionPool() {
         Properties properties = new Properties();
         try {
             properties.load(getClass().getResourceAsStream("/property/db.properties"));
@@ -62,7 +62,7 @@ public class JDBCConnectionPool implements ConnectionPool {
                 Connection connection = (Connection) Proxy.newProxyInstance(
                         JDBCConnection.class.getClassLoader(),
                         JDBCConnection.class.getInterfaces(),
-                        new JDBCConnectionProxy(DriverManager.
+                        new JdbcConnectionProxy(DriverManager.
                                 getConnection(JDBC_URL, USER, PASSWORD)));
                 pool.addLast(connection);
                 createdConnectionCount.incrementAndGet();
@@ -89,10 +89,10 @@ public class JDBCConnectionPool implements ConnectionPool {
 
     public void releaseConnection(Connection connection) {
         lockForClose.lock();
-        JDBCConnectionPool.pool.push((Connection) Proxy.newProxyInstance(
+        JdbcConnectionPool.pool.push((Connection) Proxy.newProxyInstance(
                 JDBCConnection.class.getClassLoader(),
                 JDBCConnection.class.getInterfaces(),
-                new JDBCConnectionProxy(connection)));
+                new JdbcConnectionProxy(connection)));
         semaphore.release();
         lockForClose.unlock();
     }

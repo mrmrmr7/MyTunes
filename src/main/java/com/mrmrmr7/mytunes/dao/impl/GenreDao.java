@@ -1,10 +1,10 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
-import com.mrmrmr7.mytunes.dao.GenericDAO;
-import com.mrmrmr7.mytunes.dao.TableName;
+import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.entity.Bonus;
+import com.mrmrmr7.mytunes.entity.Genre;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,54 +13,53 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BonusDAO extends AbstractJDBCDAO<Bonus, Integer> implements GenericDAO<Bonus, Integer> {
+public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements GenericDao<Genre, Integer> {
 
-    public BonusDAO() {
+    public GenreDao() {
     }
 
     @Override
-    public Optional<Bonus> getByPK(Integer id) throws DAOException {
-
+    public Optional<Genre> getByPK(Integer id) throws DAOException {
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setBonus(resultSet));
+                return Optional.of(resultSetCompiller.setGenre(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.4.1");
+                throw new DAOException("4.7.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.4.2");
+            throw new DAOException("4.7.2");
         }
     }
 
     @Override
-    public List<Bonus> getAll() throws DAOException {
+    public List<Genre> getAll() throws DAOException {
 
-        List<Bonus> userList = new ArrayList<>();
+        List<Genre> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.BONUS)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.GENRE)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setBonus(resultSet));
+                            .add(resultSetCompiller.setGenre(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.4.3");
+                throw new DAOException("4.7.3");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.4.4");
+            throw new DAOException("4.7.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(Bonus object) throws DAOException {
+    public void insert(Genre object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.4.5");
+            throw new DAOException("4.7.5");
         }
     }
 
@@ -70,29 +69,30 @@ public class BonusDAO extends AbstractJDBCDAO<Bonus, Integer> implements Generic
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.4.6");
+            throw new DAOException("4.7.6");
         }
     }
 
     @Override
-    public void update(Bonus object) throws DAOException {
+    public void update(Genre object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.4.6");
+            throw new DAOException("4.7.7");
         }
     }
 
     @Override
-    protected PreparedStatement prepareStatementForInsert(Bonus object) throws SQLException {
+    protected PreparedStatement prepareStatementForInsert(Genre object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
+        preparedStatement.setString(1, object.getGenre());
         return prepareForUpdate(preparedStatement, object);
     }
 
     @Override
-    protected PreparedStatement prepareStatementForUpdate(Bonus object) throws SQLException {
+    protected PreparedStatement prepareStatementForUpdate(Genre object) throws SQLException {
 
         PreparedStatement preparedStatement = prepareForUpdate(connection
                         .prepareStatement(getUpdateQuery()),
@@ -104,7 +104,7 @@ public class BonusDAO extends AbstractJDBCDAO<Bonus, Integer> implements Generic
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.BONUS));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.GENRE));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -113,23 +113,23 @@ public class BonusDAO extends AbstractJDBCDAO<Bonus, Integer> implements Generic
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.BONUS));
+                .prepareStatement(getSelectQuery(TableName.GENRE));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
 
-    private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Bonus object) throws SQLException {
+    private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Genre object) throws SQLException {
 
         int i = 0;
-        preparedStatement.setString(++i, object.getBonus());
+        preparedStatement.setString(++i, object.getGenre());
         return preparedStatement;
     }
 
     @Override
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.BONUS.getValue() +
-                "(BONUS) " +
+        return "INSERT INTO " + TableName.GENRE.getValue() +
+                "(GENRE) " +
                 "VALUES " +
                 "(?)";
     }
@@ -137,8 +137,8 @@ public class BonusDAO extends AbstractJDBCDAO<Bonus, Integer> implements Generic
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.BONUS.getValue() + " SET " +
-                "BONUS=? " +
+        return "UPDATE " + TableName.GENRE.getValue() + " SET " +
+                "GENRE=? " +
                 "WHERE ID=?";
     }
 }

@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.RoleDAO;
+import com.mrmrmr7.mytunes.dao.impl.RoleDao;
 import com.mrmrmr7.mytunes.entity.Role;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -21,7 +21,7 @@ public class CommandRoleGetAll implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.ROLE_GET_ALL.getValue() + " command detected");
-        RoleDAO roleDAO = new RoleDAO();
+        RoleDao roleDAO = new RoleDao();
         List<Role> roleList = null;
         try {
             roleDAO.setConnection(ConnectionPoolFactory

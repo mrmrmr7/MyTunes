@@ -13,11 +13,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserMusicSelectionDAOTest {
-    public static UserMusicSelectionDAO userMusicSelectionDAO;
+    public static UserMusicSelectionDao userMusicSelectionDAO;
 
     @BeforeAll
     public static void daoInit() {
-        userMusicSelectionDAO = new UserMusicSelectionDAO();
+        userMusicSelectionDAO = new UserMusicSelectionDao();
     }
 
     @AfterAll

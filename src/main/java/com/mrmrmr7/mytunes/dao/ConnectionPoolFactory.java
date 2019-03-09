@@ -14,10 +14,8 @@ public class ConnectionPoolFactory {
     public ConnectionPool getConnectionPool(ConnectionPoolType type) throws DAOException {
 
         switch (type) {
-            case MYSQL: return JDBCConnectionPool
-                    .getInstance();
-            default:
-                throw new DAOException("dao.connectionpool.1");
+            case MYSQL: return JdbcConnectionPool.getInstance();
+            default: throw new DAOException("dao.connectionpool.1");
         }
     }
 }

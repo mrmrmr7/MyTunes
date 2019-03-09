@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.AlbumFeedbackDAO;
+import com.mrmrmr7.mytunes.dao.impl.AlbumFeedbackDao;
 import com.mrmrmr7.mytunes.entity.AlbumFeedback;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -23,7 +23,7 @@ public class CommandAlbumFeedbackGetById implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.ALBUM_FEEDBACK_GET_BY_ID.getValue() + " command detected");
-        AlbumFeedbackDAO albumFeedbackDAO = new AlbumFeedbackDAO();
+        AlbumFeedbackDao albumFeedbackDAO = new AlbumFeedbackDao();
         AlbumFeedback albumFeedback = null;
         try {
             albumFeedbackDAO.setConnection(ConnectionPoolFactory

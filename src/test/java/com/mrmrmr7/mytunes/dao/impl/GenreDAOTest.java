@@ -13,11 +13,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GenreDAOTest {
-    public static GenreDAO genreDAO;
+    public static GenreDao genreDAO;
 
     @BeforeAll
     public static void daoInit() {
-        genreDAO = new GenreDAO();
+        genreDAO = new GenreDao();
     }
 
     @AfterAll

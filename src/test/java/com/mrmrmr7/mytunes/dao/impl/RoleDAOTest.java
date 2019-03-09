@@ -13,11 +13,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RoleDAOTest {
-    public static RoleDAO roleDAO;
+    public static RoleDao roleDAO;
 
     @BeforeAll
     public static void daoInit() {
-        roleDAO = new RoleDAO();
+        roleDAO = new RoleDao();
     }
 
     @AfterAll

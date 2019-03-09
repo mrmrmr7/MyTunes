@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.impl.AuthorDAO;
+import com.mrmrmr7.mytunes.dao.impl.AuthorDao;
 import com.mrmrmr7.mytunes.entity.Author;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -28,7 +28,7 @@ public class CommandAuthorInsert implements Command {
                 request.getParameter(PARAMETER_PSEUDONIM)
         );
 
-        AuthorDAO authorDAO = new AuthorDAO();
+        AuthorDao authorDAO = new AuthorDao();
 
         try {
             authorDAO.setConnection(ConnectionPoolFactory

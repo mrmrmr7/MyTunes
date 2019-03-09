@@ -17,6 +17,24 @@ public class User implements Identified<Integer> {
     private byte sale;
     private byte roleId;
     private byte statusId;
+    private String publicKey;
+    private String privateKey;
+
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
 
     public User(int ID, Date registerData,
                 String LOGIN, String password,
@@ -49,6 +67,29 @@ public class User implements Identified<Integer> {
                 String firstName, String secondName,
                 String email) {
         this(0, new Date(Calendar.getInstance().getTime().getTime()), LOGIN, password, firstName, secondName, email, (byte)0,(byte)0,(byte)0,(byte)0);
+    }
+
+    public User(int ID, Date registerData,
+                String LOGIN, String password,
+                String firstName, String secondName,
+                String email,
+                long balance, byte sale,
+                byte roleId, byte statusId,
+                String publicKey,
+                String privateKey) {
+        this.id = ID;
+        this.login = LOGIN;
+        this.registerData = registerData;
+        this.password = password;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.email = email;
+        this.balance = balance;
+        this.sale = sale;
+        this.roleId = roleId;
+        this.statusId = statusId;
+        this.publicKey = publicKey;
+        this.privateKey = privateKey;
     }
 
     public String getLogin() {

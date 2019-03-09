@@ -1,16 +1,18 @@
 package com.mrmrmr7.mytunes.dao;
 
+import com.mrmrmr7.mytunes.util.TableName;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class AbstractJDBCDAO<T extends Identified<PK>, PK extends Number> implements GenericDAO<T, PK> {
+public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Number> implements GenericDao<T, PK> {
     protected Connection connection;
 
     protected ResultSetCompiller resultSetCompiller = new ResultSetCompiller();
 
-    public AbstractJDBCDAO() { }
+    public AbstractJdbcDao() { }
 
     protected abstract PreparedStatement prepareStatementForInsert(T object) throws SQLException;
 

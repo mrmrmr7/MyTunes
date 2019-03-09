@@ -1,10 +1,10 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
-import com.mrmrmr7.mytunes.dao.GenericDAO;
-import com.mrmrmr7.mytunes.dao.TableName;
+import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.entity.Role;
+import com.mrmrmr7.mytunes.entity.Bonus;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,54 +13,54 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class RoleDAO extends AbstractJDBCDAO<Role, Integer> implements GenericDAO<Role, Integer> {
+public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements GenericDao<Bonus, Integer> {
 
-    public RoleDAO() {
+    public BonusDao() {
     }
 
     @Override
-    public Optional<Role> getByPK(Integer id) throws DAOException {
+    public Optional<Bonus> getByPK(Integer id) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setRole(resultSet));
+                return Optional.of(resultSetCompiller.setBonus(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.10.1");
+                throw new DAOException("4.4.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.10.2");
+            throw new DAOException("4.4.2");
         }
     }
 
     @Override
-    public List<Role> getAll() throws DAOException {
+    public List<Bonus> getAll() throws DAOException {
 
-        List<Role> userList = new ArrayList<>();
+        List<Bonus> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.ROLE)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.BONUS)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setRole(resultSet));
+                            .add(resultSetCompiller.setBonus(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.10.3");
+                throw new DAOException("4.4.3");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.10.4");
+            throw new DAOException("4.4.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(Role object) throws DAOException {
+    public void insert(Bonus object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.10.5");
+            throw new DAOException("4.4.5");
         }
     }
 
@@ -70,29 +70,29 @@ public class RoleDAO extends AbstractJDBCDAO<Role, Integer> implements GenericDA
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.10.6");
+            throw new DAOException("4.4.6");
         }
     }
 
     @Override
-    public void update(Role object) throws DAOException {
+    public void update(Bonus object) throws DAOException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.10.7");
+            throw new DAOException("4.4.6");
         }
     }
 
     @Override
-    protected PreparedStatement prepareStatementForInsert(Role object) throws SQLException {
+    protected PreparedStatement prepareStatementForInsert(Bonus object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
         return prepareForUpdate(preparedStatement, object);
     }
 
     @Override
-    protected PreparedStatement prepareStatementForUpdate(Role object) throws SQLException {
+    protected PreparedStatement prepareStatementForUpdate(Bonus object) throws SQLException {
 
         PreparedStatement preparedStatement = prepareForUpdate(connection
                         .prepareStatement(getUpdateQuery()),
@@ -104,7 +104,7 @@ public class RoleDAO extends AbstractJDBCDAO<Role, Integer> implements GenericDA
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.ROLE));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.BONUS));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -113,23 +113,23 @@ public class RoleDAO extends AbstractJDBCDAO<Role, Integer> implements GenericDA
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.ROLE));
+                .prepareStatement(getSelectQuery(TableName.BONUS));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
 
-    private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Role object) throws SQLException {
+    private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Bonus object) throws SQLException {
 
         int i = 0;
-        preparedStatement.setString(++i, object.getRole());
+        preparedStatement.setString(++i, object.getBonus());
         return preparedStatement;
     }
 
     @Override
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.ROLE.getValue() +
-                "(ROLE) " +
+        return "INSERT INTO " + TableName.BONUS.getValue() +
+                "(BONUS) " +
                 "VALUES " +
                 "(?)";
     }
@@ -137,8 +137,8 @@ public class RoleDAO extends AbstractJDBCDAO<Role, Integer> implements GenericDA
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.ROLE.getValue() + " SET " +
-                "ROLE=? " +
+        return "UPDATE " + TableName.BONUS.getValue() + " SET " +
+                "BONUS=? " +
                 "WHERE ID=?";
     }
 }

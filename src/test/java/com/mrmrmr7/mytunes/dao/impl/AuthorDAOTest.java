@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class AuthorDAOTest {
-    private static AuthorDAO authorDAO;
+    private static AuthorDao authorDAO;
 
     @BeforeAll
     public static void daoInit() {
-        authorDAO = new AuthorDAO();
+        authorDAO = new AuthorDao();
     }
 
     @AfterAll

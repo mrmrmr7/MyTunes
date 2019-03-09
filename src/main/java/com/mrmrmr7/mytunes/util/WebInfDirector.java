@@ -1,4 +1,4 @@
-package com.mrmrmr7.mytunes.controller.command;
+package com.mrmrmr7.mytunes.util;
 
 public enum WebInfDirector {
     CRUD_USER ("cruduser"),

@@ -3,7 +3,6 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
 import com.mrmrmr7.mytunes.entity.CompositionFeedback;
 import com.mrmrmr7.mytunes.util.DBFill;
-import org.junit.After;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
@@ -16,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class CompositionFeedbackDAOTest {
-    public static CompositionFeedbackDAO compositionFeedbackDAO;
+    public static CompositionFeedbackDao compositionFeedbackDAO;
 
     @BeforeAll
     public static void daoInit() {
-        compositionFeedbackDAO = new CompositionFeedbackDAO();
+        compositionFeedbackDAO = new CompositionFeedbackDao();
     }
 
     @AfterAll

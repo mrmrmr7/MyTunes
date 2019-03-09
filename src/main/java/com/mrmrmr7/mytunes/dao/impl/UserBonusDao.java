@@ -1,10 +1,9 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.AbstractJDBCDAO;
-import com.mrmrmr7.mytunes.dao.GenericDAO;
-import com.mrmrmr7.mytunes.dao.TableName;
+import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.entity.Bonus;
 import com.mrmrmr7.mytunes.entity.UserBonus;
 
 import java.sql.PreparedStatement;
@@ -14,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserBonusDAO extends AbstractJDBCDAO<UserBonus, Integer> implements GenericDAO<UserBonus, Integer> {
+public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements GenericDao<UserBonus, Integer> {
 
-    public UserBonusDAO() {
+    public UserBonusDao() {
     }
 
     @Override

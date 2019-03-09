@@ -9,7 +9,6 @@ import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,11 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class AlbumFeedbackDAOTest {
-    public static AlbumFeedbackDAO albumFeedbackDAO;
+    public static AlbumFeedbackDao albumFeedbackDAO;
 
     @BeforeAll
     public static void daoInit() {
-        albumFeedbackDAO = new AlbumFeedbackDAO();
+        albumFeedbackDAO = new AlbumFeedbackDao();
 
         try {
             albumFeedbackDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
