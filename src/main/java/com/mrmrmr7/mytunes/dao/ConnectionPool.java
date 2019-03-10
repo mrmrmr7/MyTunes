@@ -1,10 +1,11 @@
 package com.mrmrmr7.mytunes.dao;
 
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public interface ConnectionPool {
-    Connection getConnection() throws DAOException;
+    Connection getConnection() throws DaoException;
+    void releaseConnection(Connection connection) throws DaoException;
+    void destroyConnectionPool() throws DaoException;
 }

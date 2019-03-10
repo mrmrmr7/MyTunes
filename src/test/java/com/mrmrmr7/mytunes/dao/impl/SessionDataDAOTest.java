@@ -1,6 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.SessionData;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
@@ -37,7 +37,7 @@ class SessionDataDAOTest {
     }
 
     @Test
-    void getByPK() throws DAOException {
+    void getByPK() throws DaoException {
 
         Optional<SessionData> sessionData = sessionDataDAO.getByPK(1);
 
@@ -48,7 +48,7 @@ class SessionDataDAOTest {
     }
 
     @Test
-    void getAll() throws DAOException {
+    void getAll() throws DaoException {
 
         List<SessionData> sessionDataList = sessionDataDAO.getAll();
 
@@ -62,7 +62,7 @@ class SessionDataDAOTest {
     }
 
     @Test
-    void insert() throws DAOException {
+    void insert() throws DaoException {
 
         SessionData expected = new SessionData(
                 3,
@@ -77,7 +77,7 @@ class SessionDataDAOTest {
     }
 
     @Test
-    void delete() throws DAOException {
+    void delete() throws DaoException {
 
         int k = 2;
         k *=2 ;
@@ -94,7 +94,7 @@ class SessionDataDAOTest {
     }
 
     @Test
-    void update() throws DAOException {
+    void update() throws DaoException {
 
         SessionData expected = new SessionData(
                 1,

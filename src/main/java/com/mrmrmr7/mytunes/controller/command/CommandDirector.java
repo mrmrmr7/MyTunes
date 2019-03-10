@@ -8,6 +8,7 @@ public enum  CommandDirector {
     SIGN_IN ("signin"),
     LOG_OUT ("logout"),
     MOVE_INSIDE_WEB_INF ("move"),
+    MOVE_TO_ACCOUNT ("move"),
     //CRUD OPERATIONS
     ALBUM_DELETE ("albumDelete"),
     ALBUM_INSERT ("albumInsert"),

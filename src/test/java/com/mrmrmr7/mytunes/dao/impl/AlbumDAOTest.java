@@ -2,7 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Album;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
@@ -22,7 +22,7 @@ class AlbumDAOTest {
         albumDAO = new AlbumDao();
         try {
             albumDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             e.printStackTrace();
         }
     }
@@ -44,7 +44,7 @@ class AlbumDAOTest {
     }
 
     @Test
-    void getByPK() throws DAOException {
+    void getByPK() throws DaoException {
 
         Optional<Album> album = albumDAO.getByPK(1);
 
@@ -55,7 +55,7 @@ class AlbumDAOTest {
     }
 
     @Test
-    void getAll() throws DAOException {
+    void getAll() throws DaoException {
 
         List<Album> albumList = albumDAO.getAll();
 
@@ -77,7 +77,7 @@ class AlbumDAOTest {
     }
 
     @Test //FIXME очень странная реакция. Equals говорит что разные
-    void insert() throws DAOException {
+    void insert() throws DaoException {
 
         Album expected = new Album(
                 11,
@@ -95,7 +95,7 @@ class AlbumDAOTest {
     }
 
     @Test
-    void delete() throws DAOException {
+    void delete() throws DaoException {
 
         albumDAO.delete(1);
 
@@ -118,7 +118,7 @@ class AlbumDAOTest {
     }
 
     @Test
-    void update() throws DAOException {
+    void update() throws DaoException {
 
         Album expected = new Album(
                 1,

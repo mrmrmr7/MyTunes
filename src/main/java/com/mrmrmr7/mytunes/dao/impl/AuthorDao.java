@@ -1,7 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.*;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Author;
 import com.mrmrmr7.mytunes.util.TableName;
 
@@ -18,19 +18,19 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
     }
 
     @Override
-    public Optional<Author> getByPK(Integer id) throws DAOException {
+    public Optional<Author> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             resultSet.next();
             return Optional.of(resultSetCompiller.setAuthor(resultSet));
         } catch (SQLException e) {
-            throw new DAOException("4.3.1");
+            throw new DaoException("4.3.1");
         }
     }
 
     @Override
-    public List<Author> getAll() throws DAOException {
+    public List<Author> getAll() throws DaoException {
 
         List<Author> userList = new ArrayList<>();
 
@@ -41,42 +41,42 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
                             .add(resultSetCompiller.setAuthor(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.3.2");
+                throw new DaoException("4.3.2");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.3.3");
+            throw new DaoException("4.3.3");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(Author object) throws DAOException {
+    public void insert(Author object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.3.4");
+            throw new DaoException("4.3.4");
         }
     }
 
     @Override
-    public void delete(Integer id) throws DAOException {
+    public void delete(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.3.5");
+            throw new DaoException("4.3.5");
         }
     }
 
     @Override
-    public void update(Author object) throws DAOException {
+    public void update(Author object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.3.6");
+            throw new DaoException("4.3.6");
         }
     }
 

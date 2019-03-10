@@ -27,7 +27,7 @@ public class SessionFilter implements Filter {
                          FilterChain filterChain)
             throws IOException, ServletException {
 
-            String command = servletRequest.getParameter(CommandDirector.COMMAND.getValue());
+        String command = servletRequest.getParameter(CommandDirector.COMMAND.getValue());
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         ServiceUserImpl serviceUser = new ServiceUserImpl();
         boolean isAuthorized = false;

@@ -2,11 +2,8 @@ package com.mrmrmr7.mytunes.controller;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.controller.command.CommandExtended;
 import com.mrmrmr7.mytunes.controller.command.CommandProvider;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.exception.PersistException;
 import com.mrmrmr7.mytunes.entity.Router;
 
 import javax.servlet.ServletException;
@@ -15,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 
 @WebServlet(name = "webapp", urlPatterns = "/crud")
 public class WebAppServlet extends HttpServlet {

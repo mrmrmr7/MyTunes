@@ -23,6 +23,7 @@ public class CommandMoveInsideWebInf implements CommandExtended {
         System.out.println(avaliablePath);
 
         ResponseContent responseContent = new ResponseContent();
+
         if (avaliablePath != null) {
             responseContent.setRouter(new Router(PageDirector.getEnum(avaliablePath), Router.Type.FORWARD));
         } else {

@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.TableName;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.SessionData;
 
 import java.sql.PreparedStatement;
@@ -19,22 +19,22 @@ public class SessionDataDao extends AbstractJdbcDao<SessionData, Integer> implem
     }
 
     @Override
-    public Optional<SessionData> getByPK(Integer id) throws DAOException {
+    public Optional<SessionData> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
                 return Optional.of(resultSetCompiller.setSessionData(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.10.1");
+                throw new DaoException("4.10.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.10.2");
+            throw new DaoException("4.10.2");
         }
     }
 
     @Override
-    public List<SessionData> getAll() throws DAOException {
+    public List<SessionData> getAll() throws DaoException {
 
         List<SessionData> userList = new ArrayList<>();
 
@@ -45,42 +45,42 @@ public class SessionDataDao extends AbstractJdbcDao<SessionData, Integer> implem
                             .add(resultSetCompiller.setSessionData(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.10.3");
+                throw new DaoException("4.10.3");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.10.4");
+            throw new DaoException("4.10.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(SessionData object) throws DAOException {
+    public void insert(SessionData object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.10.5");
+            throw new DaoException("4.10.5");
         }
     }
 
     @Override
-    public void delete(Integer id) throws DAOException {
+    public void delete(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.10.6");
+            throw new DaoException("4.10.6");
         }
     }
 
     @Override
-    public void update(SessionData object) throws DAOException {
+    public void update(SessionData object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.10.7");
+            throw new DaoException("4.10.7");
         }
     }
 

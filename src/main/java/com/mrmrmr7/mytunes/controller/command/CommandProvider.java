@@ -36,6 +36,7 @@ public class CommandProvider {
         commandMap.put(CommandDirector.SIGN_IN.getValue(), new CommandSignIn());
         commandMap.put(CommandDirector.SIGN_UP.getValue(), new CommandTrySignUp());
         commandMap.put(CommandDirector.LOG_OUT.getValue(), new CommandLogOut());
+        commandMap.put(CommandDirector.MOVE_TO_ACCOUNT.getValue(), new CommandLogOut());
         commandMap.put(CommandDirector.MOVE_INSIDE_WEB_INF.getValue(), new CommandMoveInsideWebInf());
 
         commandMap.put(CommandDirector.USER_GET_BY_ID.getValue(), new CommandUserGetById());

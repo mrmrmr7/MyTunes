@@ -6,7 +6,7 @@ import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.BonusDao;
 import com.mrmrmr7.mytunes.entity.Bonus;
 import com.mrmrmr7.mytunes.util.PageDirector;
@@ -32,7 +32,7 @@ public class CommandBonusGetById implements Command {
                     .getConnection());
 
             bonus = bonusDAO.getByPK(Integer.valueOf(request.getParameter(PARAMETER_ID))).get();
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             System.out.println("Impossible to find bonus with such id");
         } finally {
             bonusDAO.closeConnection();

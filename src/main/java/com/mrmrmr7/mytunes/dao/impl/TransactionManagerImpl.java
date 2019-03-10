@@ -1,8 +1,8 @@
-package com.mrmrmr7.mytunes.service.impl;
+package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.*;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.service.TransactionManager;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
+import com.mrmrmr7.mytunes.dao.TransactionManager;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -15,7 +15,7 @@ public class TransactionManagerImpl implements TransactionManager {
     private List<GenericDao> genericDaoList = new ArrayList<>();
 
     @Override
-    public void begin(GenericDao... daos) throws DAOException {
+    public void begin(GenericDao... daos) throws DaoException {
         ConnectionPool connectionPool = ConnectionPoolFactory
                 .getInstance()
                 .getConnectionPool(ConnectionPoolType.MYSQL);
@@ -25,7 +25,7 @@ public class TransactionManagerImpl implements TransactionManager {
         try {
             singleConnection.setAutoCommit(false);
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DaoException(e.getMessage());
         }
 
         for (GenericDao dao : daos) {
@@ -45,7 +45,7 @@ public class TransactionManagerImpl implements TransactionManager {
         for (GenericDao genericDAO : genericDaoList) {
             try {
                 removeConnectionWithReflection(genericDAO);
-            } catch (DAOException e) {
+            } catch (DaoException e) {
                 System.out.println("impossible to close connection in: " + genericDAO);
             }
         }
@@ -69,10 +69,9 @@ public class TransactionManagerImpl implements TransactionManager {
         }
     }
 
-    @Override
-    public void setConnectionWithReflection(Object dao, Connection connection) throws DAOException {
+    public static void setConnectionWithReflection(Object dao, Connection connection) throws DaoException {
         if (!(dao instanceof AbstractJdbcDao)) {
-            throw new DAOException("DAO implementation does not extend AbstractJdbcDao.");
+            throw new DaoException("DAO implementation does not extend AbstractJdbcDao.");
         }
 
         try {
@@ -85,13 +84,13 @@ public class TransactionManagerImpl implements TransactionManager {
             connectionField.set(dao, connection);
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new DAOException("Failed to set connection for transactional DAO. ");
+            throw new DaoException("Failed to set connection for transactional DAO. ");
         }
     }
 
-    private static void removeConnectionWithReflection(Object dao) throws DAOException {
+    private static void removeConnectionWithReflection(Object dao) throws DaoException {
         if (!(dao instanceof AbstractJdbcDao)) {
-            throw new DAOException("DAO implementation does not extend AbstractJdbcDao.");
+            throw new DaoException("DAO implementation does not extend AbstractJdbcDao.");
         }
 
         try {
@@ -104,7 +103,7 @@ public class TransactionManagerImpl implements TransactionManager {
             connectionField.set(dao, null);
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new DAOException("Failed to set connection for transactional DAO. ");
+            throw new DaoException("Failed to set connection for transactional DAO. ");
         }
     }
 

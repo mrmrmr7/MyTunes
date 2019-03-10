@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.TableName;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Status;
 
 import java.sql.PreparedStatement;
@@ -19,21 +19,21 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
     }
 
     @Override
-    public Optional<Status> getByPK(Integer id) throws DAOException {
+    public Optional<Status> getByPK(Integer id) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
                 return Optional.of(resultSetCompiller.setStatus(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.11.1");
+                throw new DaoException("4.11.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.11.2");
+            throw new DaoException("4.11.2");
         }
     }
 
     @Override
-    public List<Status> getAll() throws DAOException {
+    public List<Status> getAll() throws DaoException {
 
         List<Status> userList = new ArrayList<>();
 
@@ -44,42 +44,42 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
                             .add(resultSetCompiller.setStatus(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.11.3");
+                throw new DaoException("4.11.3");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.11.4");
+            throw new DaoException("4.11.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(Status object) throws DAOException {
+    public void insert(Status object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.11.5");
+            throw new DaoException("4.11.5");
         }
     }
 
     @Override
-    public void delete(Integer id) throws DAOException {
+    public void delete(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.11.6");
+            throw new DaoException("4.11.6");
         }
     }
 
     @Override
-    public void update(Status object) throws DAOException {
+    public void update(Status object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.11.7");
+            throw new DaoException("4.11.7");
         }
     }
 

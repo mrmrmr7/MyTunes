@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.TableName;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.AlbumFeedback;
 
 import java.sql.PreparedStatement;
@@ -19,22 +19,22 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
     }
 
     @Override
-    public Optional<AlbumFeedback> getByPK(Integer id) throws DAOException {
+    public Optional<AlbumFeedback> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     resultSet.next();
                     return Optional.of(resultSetCompiller.setAlbumFeedback(resultSet));
                 } catch (SQLException e) {
-                    throw new DAOException("4.2.0");
+                    throw new DaoException("4.2.0");
                 }
         } catch (SQLException e) {
-            throw new DAOException("4.2.1");
+            throw new DaoException("4.2.1");
         }
     }
 
     @Override
-    public List<AlbumFeedback> getAll() throws DAOException {
+    public List<AlbumFeedback> getAll() throws DaoException {
 
         List<AlbumFeedback> compositionFeedbackList = new ArrayList<>();
         try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.ALBUM_FEEDBACK)) {
@@ -44,42 +44,42 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
                             .add(resultSetCompiller.setAlbumFeedback(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.2.2");
+                throw new DaoException("4.2.2");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.2.3");
+            throw new DaoException("4.2.3");
         }
 
         return compositionFeedbackList;
     }
 
     @Override
-    public void insert(AlbumFeedback object) throws DAOException {
+    public void insert(AlbumFeedback object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.2.3");
+            throw new DaoException("4.2.3");
         }
     }
 
     @Override
-    public void delete(Integer id) throws DAOException {
+    public void delete(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.2.4");
+            throw new DaoException("4.2.4");
         }
     }
 
     @Override
-    public void update(AlbumFeedback object) throws DAOException {
+    public void update(AlbumFeedback object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.2.5");
+            throw new DaoException("4.2.5");
         }
     }
 

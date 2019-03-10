@@ -1,6 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Composition;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
@@ -44,7 +44,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void getByPK() throws SQLException, DAOException {
+    void getByPK() throws SQLException, DaoException {
 
         Optional<Composition> composition = compositionDAO.getByPK(1);
         String expected = "Composition{id=1, year=2018, price=1, album_id=1, name='Vasilisa'}";
@@ -54,7 +54,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void getAll() throws DAOException {
+    void getAll() throws DaoException {
 
         List<Composition> compositionList = compositionDAO.getAll();
         String expected = "[Composition{id=1, year=2018, price=1, album_id=1, name='Vasilisa'}, " +
@@ -73,7 +73,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void insert() throws SQLException, DAOException {
+    void insert() throws SQLException, DaoException {
 
         Composition composition = new Composition(
                 11,
@@ -93,7 +93,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void delete() throws DAOException {
+    void delete() throws DaoException {
 
         compositionDAO.delete(2);
         List<Composition> compositionList = compositionDAO.getAll();
@@ -114,7 +114,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void update() throws SQLException, DAOException {
+    void update() throws SQLException, DaoException {
 
         Composition composition = new Composition(
                 1,
@@ -132,7 +132,7 @@ class CompositionDAOTest {
     }
 
     @Test
-    void getByPKList() throws SQLException, DAOException {
+    void getByPKList() throws SQLException, DaoException {
 
         List<Integer> integerList = new ArrayList<>();
         IntStream.range(1,5).forEach(integerList::add);

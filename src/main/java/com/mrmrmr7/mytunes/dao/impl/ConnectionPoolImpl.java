@@ -1,7 +1,8 @@
-package com.mrmrmr7.mytunes.dao;
+package com.mrmrmr7.mytunes.dao.impl;
 
-
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.ConnectionPool;
+import com.mrmrmr7.mytunes.dao.JdbcConnectionProxy;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hsqldb.jdbc.JDBCConnection;
@@ -17,9 +18,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class JdbcConnectionPool implements ConnectionPool {
-    private final static Logger logger = LogManager.getLogger(JdbcConnectionPool.class);
-    private final static JdbcConnectionPool INSTANCE = new JdbcConnectionPool();
+public class ConnectionPoolImpl implements ConnectionPool {
+    private final static Logger logger = LogManager.getLogger(ConnectionPoolImpl.class);
+    private final static ConnectionPoolImpl INSTANCE = new ConnectionPoolImpl();
     private final String JDBC_URL;
     private final String USER;
     private final String PASSWORD;
@@ -30,11 +31,11 @@ public class JdbcConnectionPool implements ConnectionPool {
     private static Lock lockForClose = new ReentrantLock();
     private Semaphore semaphore;
 
-    public static JdbcConnectionPool getInstance() {
+    public static ConnectionPoolImpl getInstance() {
         return INSTANCE;
     }
 
-    private JdbcConnectionPool() {
+    private ConnectionPoolImpl() {
         Properties properties = new Properties();
         try {
             properties.load(getClass().getResourceAsStream("/property/db.properties"));
@@ -49,11 +50,11 @@ public class JdbcConnectionPool implements ConnectionPool {
     }
 
     @Override
-    public Connection getConnection() throws DAOException {
+    public Connection getConnection() throws DaoException {
         try {
             semaphore.acquire();
         } catch (InterruptedException e) {
-            throw new DAOException("");
+            throw new DaoException("");
         }
         lockForOpen.lock();
 
@@ -68,7 +69,7 @@ public class JdbcConnectionPool implements ConnectionPool {
                 createdConnectionCount.incrementAndGet();
             }
         } catch (SQLException e) {
-            throw new DAOException(e.getMessage());
+            throw new DaoException(e.getMessage());
         }
 
         Connection connection = pool.pollLast();
@@ -87,13 +88,26 @@ public class JdbcConnectionPool implements ConnectionPool {
         }
     }
 
+    @Override
     public void releaseConnection(Connection connection) {
         lockForClose.lock();
-        JdbcConnectionPool.pool.push((Connection) Proxy.newProxyInstance(
+        ConnectionPoolImpl.pool.push((Connection) Proxy.newProxyInstance(
                 JDBCConnection.class.getClassLoader(),
                 JDBCConnection.class.getInterfaces(),
                 new JdbcConnectionProxy(connection)));
         semaphore.release();
         lockForClose.unlock();
+    }
+
+    @Override
+    public void destroyConnectionPool() throws DaoException {
+        for (Connection connection : pool) {
+            try {
+                connection.close();
+                pool.remove(connection);
+            } catch (SQLException e) {
+                throw new DaoException(e.getMessage());
+            }
+        }
     }
 }

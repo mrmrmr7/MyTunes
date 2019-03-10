@@ -6,7 +6,7 @@ import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.AuthorDao;
 import com.mrmrmr7.mytunes.entity.Author;
 import com.mrmrmr7.mytunes.util.PageDirector;
@@ -37,7 +37,7 @@ public class CommandAuthorInsert implements Command {
                     .getConnection());
 
             authorDAO.insert(author);
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             System.out.println("Impossible to find author with such id");
         } finally {
             authorDAO.closeConnection();

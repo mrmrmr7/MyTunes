@@ -6,7 +6,7 @@ import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.UserDao;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -27,7 +27,7 @@ public class CommandUserDelete implements Command {
                     .getConnection());
 
             userDAO.delete(Integer.valueOf(request.getParameter(PARAMETER_ID)));
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             System.out.println("Impossible to find user with such id");
         } finally {
             userDAO.closeConnection();

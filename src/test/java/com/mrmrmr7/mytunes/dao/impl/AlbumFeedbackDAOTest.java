@@ -2,7 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.AlbumFeedback;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
@@ -24,7 +24,7 @@ class AlbumFeedbackDAOTest {
 
         try {
             albumFeedbackDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             e.printStackTrace();
         }
     }
@@ -51,7 +51,7 @@ class AlbumFeedbackDAOTest {
     }
 
     @Test
-    void getByPK() throws DAOException {
+    void getByPK() throws DaoException {
 
         Optional<AlbumFeedback> albumFeedback;
         albumFeedback = albumFeedbackDAO.getByPK(4);
@@ -63,7 +63,7 @@ class AlbumFeedbackDAOTest {
     }
 
     @Test
-    void getAll() throws DAOException {
+    void getAll() throws DaoException {
 
         List<AlbumFeedback> albumFeedbackList;
         albumFeedbackList = albumFeedbackDAO.getAll();
@@ -85,7 +85,7 @@ class AlbumFeedbackDAOTest {
     }
 
     @Test
-    void insert() throws SQLException, DAOException {
+    void insert() throws SQLException, DaoException {
 
         AlbumFeedback albumFeedback = new AlbumFeedback(
                 1,
@@ -102,7 +102,7 @@ class AlbumFeedbackDAOTest {
     }
 
     @Test
-    void delete() throws DAOException {
+    void delete() throws DaoException {
 
         albumFeedbackDAO.delete(1);
         List<AlbumFeedback> albumFeedbackList = albumFeedbackDAO.getAll();
@@ -123,7 +123,7 @@ class AlbumFeedbackDAOTest {
     }
 
     @Test
-    void update() throws DAOException {
+    void update() throws DaoException {
 
         AlbumFeedback expected = new AlbumFeedback(
                 2,

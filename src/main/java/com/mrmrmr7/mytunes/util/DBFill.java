@@ -2,7 +2,7 @@ package com.mrmrmr7.mytunes.util;
 
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class DBFill {
 
         try {
             connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection();
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             e.printStackTrace();
         }
 
@@ -40,7 +40,7 @@ public class DBFill {
 
         try {
             connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection();
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             e.printStackTrace();
         }
 
@@ -62,7 +62,7 @@ public class DBFill {
         Connection connection = null;
         try {
             connection = ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection();
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             e.printStackTrace();
         }
 

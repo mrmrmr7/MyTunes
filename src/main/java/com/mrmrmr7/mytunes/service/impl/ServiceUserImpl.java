@@ -1,10 +1,12 @@
 package com.mrmrmr7.mytunes.service.impl;
 
-import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.UserDaoExtended;
+import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
+import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.SessionDataDao;
 import com.mrmrmr7.mytunes.service.ServiceUser;
 import com.mrmrmr7.mytunes.dao.impl.UserDao;
@@ -18,6 +20,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,16 +43,12 @@ public class ServiceUserImpl implements ServiceUser {
         if (!validatorSignIn.isValid(login, password)) {
             return false;
         }
+        JdbcDaoFactory jdbcDaoFactory = JdbcDaoFactory.getInstance();
 
-        UserDao userDAO = new UserDao();
-        SessionDataDao sessionDataDAO = new SessionDataDao();
-
-        TransactionManagerImpl transactionManager = new TransactionManagerImpl();
         try {
-            transactionManager.begin(userDAO, sessionDataDAO);
 
             Optional<User> user;
-            user = userDAO.getByLogin(login);
+            user = ((UserDaoExtended) jdbcDaoFactory.getDao(User.class)).getByLogin(login);
 
             if (!user.isPresent()) {
                 return false;
@@ -72,7 +71,7 @@ public class ServiceUserImpl implements ServiceUser {
             String privateEncoded = Base64.getEncoder().encodeToString(privateKey.getEncoded());
             user.get().setPrivateKey(privateEncoded);
 
-            userDAO.update(user.get());
+            jdbcDaoFactory.getDao(User.class).update(user.get());
 
             Map<String, Object> claimMap = new HashMap<>();
 
@@ -86,14 +85,10 @@ public class ServiceUserImpl implements ServiceUser {
             Cookie cookiePublicKey = new Cookie(COOKIE_PUBLIC_KEY, publicEncoded);
             response.addCookie(cookiePublicKey);
 
-            transactionManager.commit();
-        } catch (DAOException e) {
-            transactionManager.rollBack();
+        } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-        } finally {
-            transactionManager.end();
         }
 
         return true;
@@ -101,15 +96,12 @@ public class ServiceUserImpl implements ServiceUser {
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServiceException {
-        SessionDataDao sessionDataDAO = new SessionDataDao();
         try {
-            sessionDataDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
             Cookie[] cookies = request.getCookies();
             Optional<Cookie> cookieUID = Arrays.stream(cookies).filter(s -> s.getName().equals("uid")).findFirst();
             Optional<Cookie> cookieUUID = Arrays.stream(cookies).filter(s -> s.getName().equals("uuid")).findFirst();
 
             if (cookieUID.isPresent()) {
-                sessionDataDAO.delete(Integer.valueOf(cookieUID.get().getValue()));
             }
 
             cookieUID.ifPresent(s -> s.setMaxAge(0));
@@ -119,10 +111,7 @@ public class ServiceUserImpl implements ServiceUser {
             httpServletResponse.addCookie(cookieUUID.get());
 
 
-        } catch (DAOException e) {
-            throw new ServiceException(e.getMessage());
-        } finally {
-            sessionDataDAO.closeConnection();
+        }  finally {
         }
     }
 
@@ -179,12 +168,12 @@ public class ServiceUserImpl implements ServiceUser {
 
             String testToken = null;
 
-            UserDao userDAO = new UserDao();
+
 
             try {
-                userDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
 
-                Optional<User> userOptional = userDAO.getByLogin(claims.get("userLogin").toString());
+
+                Optional<User> userOptional = ((UserDaoExtended)JdbcDaoFactory.getInstance().getDao(User.class)).getByLogin(claims.get("userLogin").toString());
 
                 if (!userOptional.isPresent()) {
                     return false;
@@ -201,14 +190,12 @@ public class ServiceUserImpl implements ServiceUser {
                 claimMap.put("userLogin", user.getLogin());
                 claimMap.put("userRole", user.getRoleId());
                 testToken = Jwts.builder().setClaims(claimMap).signWith(SignatureAlgorithm.RS256, privateKey).compact();
-            } catch (DAOException e) {
+            } catch (DaoException e) {
                 e.printStackTrace();
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             } catch (InvalidKeySpecException e) {
                 return false;
-            } finally {
-                userDAO.closeConnection();
             }
 
             return cookieToken.get().getValue().equals(testToken);

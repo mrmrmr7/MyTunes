@@ -2,7 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.util.TableName;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserAlbum;
 
 import java.sql.PreparedStatement;
@@ -18,22 +18,22 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
     }
 
     @Override
-    public Optional<UserAlbum> getByPK(Integer id) throws DAOException {
+    public Optional<UserAlbum> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
                 return Optional.of(resultSetCompiller.setUserAlbum(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.12.1");
+                throw new DaoException("4.12.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.12.2");
+            throw new DaoException("4.12.2");
         }
     }
 
     @Override
-    public List<UserAlbum> getAll() throws DAOException {
+    public List<UserAlbum> getAll() throws DaoException {
 
         List<UserAlbum> userList = new ArrayList<>();
         try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.USER_ALBUM)){
@@ -43,42 +43,42 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
                             .add(resultSetCompiller.setUserAlbum(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.12.3");
+                throw new DaoException("4.12.3");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.12.4");
+            throw new DaoException("4.12.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(UserAlbum object) throws DAOException {
+    public void insert(UserAlbum object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DAOException("4.12.5");
+            throw new DaoException("4.12.5");
         }
     }
 
     @Override
-    public void delete(Integer id) throws DAOException {
+    public void delete(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.12.6");
+            throw new DaoException("4.12.6");
         }
     }
 
     @Override
-    public void update(UserAlbum object) throws DAOException {
+    public void update(UserAlbum object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DAOException("4.12.7");
+            throw new DaoException("4.12.7");
         }
     }
 

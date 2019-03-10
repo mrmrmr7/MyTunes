@@ -1,6 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.MusicSelectionFeedback;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
@@ -44,7 +44,7 @@ class MusicSelectionFeedbackDAOTest {
     }
 
     @Test
-    void getByPK() throws DAOException {
+    void getByPK() throws DaoException {
 
         Optional<MusicSelectionFeedback> compositionFeedback;
         compositionFeedback = musicSelectionFeedbackDAO.getByPK(4);
@@ -56,7 +56,7 @@ class MusicSelectionFeedbackDAOTest {
     }
 
     @Test
-    void getAll() throws DAOException {
+    void getAll() throws DaoException {
 
         List<MusicSelectionFeedback> compositionFeedbackList;
         compositionFeedbackList = musicSelectionFeedbackDAO.getAll();
@@ -78,7 +78,7 @@ class MusicSelectionFeedbackDAOTest {
     }
 
     @Test
-    void insert() throws SQLException, DAOException {
+    void insert() throws SQLException, DaoException {
 
         MusicSelectionFeedback compositionFeedback = new MusicSelectionFeedback(
                 10,
@@ -96,7 +96,7 @@ class MusicSelectionFeedbackDAOTest {
     }
 
     @Test
-    void delete() throws DAOException {
+    void delete() throws DaoException {
 
         musicSelectionFeedbackDAO.delete(1);
         List<MusicSelectionFeedback> compositionFeedbackList = musicSelectionFeedbackDAO.getAll();
@@ -116,7 +116,7 @@ class MusicSelectionFeedbackDAOTest {
     }
 
     @Test
-    void update() throws SQLException, DAOException {
+    void update() throws SQLException, DaoException {
 
         MusicSelectionFeedback compositionFeedback = new MusicSelectionFeedback(
                 1,

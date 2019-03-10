@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.TableName;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserBonus;
 
 import java.sql.PreparedStatement;
@@ -19,22 +19,22 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
     }
 
     @Override
-    public Optional<UserBonus> getByPK(Integer id) throws DAOException {
+    public Optional<UserBonus> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
                 return Optional.of(resultSetCompiller.setUserBonus(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.13.1");
+                throw new DaoException("4.13.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.13.2");
+            throw new DaoException("4.13.2");
         }
     }
 
     @Override
-    public List<UserBonus> getAll() throws DAOException {
+    public List<UserBonus> getAll() throws DaoException {
 
         List<UserBonus> userList = new ArrayList<>();
 
@@ -45,42 +45,42 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
                             .add(resultSetCompiller.setUserBonus(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.13.3");
+                throw new DaoException("4.13.3");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.13.4");
+            throw new DaoException("4.13.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(UserBonus object) throws DAOException {
+    public void insert(UserBonus object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DAOException("4.13.5");
+            throw new DaoException("4.13.5");
         }
     }
 
     @Override
-    public void delete(Integer id) throws DAOException {
+    public void delete(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.13.6");
+            throw new DaoException("4.13.6");
         }
     }
 
     @Override
-    public void update(UserBonus object) throws DAOException {
+    public void update(UserBonus object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DAOException("4.13.7");
+            throw new DaoException("4.13.7");
         }
     }
 

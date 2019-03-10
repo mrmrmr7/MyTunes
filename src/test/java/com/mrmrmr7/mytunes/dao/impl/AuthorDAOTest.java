@@ -1,6 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Author;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
@@ -43,7 +43,7 @@ public class AuthorDAOTest {
     }
 
     @Test
-    public void getByPK() throws  DAOException {
+    public void getByPK() throws DaoException {
 
         Optional<Author> author = authorDAO.getByPK(1);
         String expected = "Author{id=1, firstName='Unknown', secondName='Unknown', pseudonim='Unknown'}";
@@ -53,7 +53,7 @@ public class AuthorDAOTest {
     }
 
     @Test
-    public void getAll() throws DAOException {
+    public void getAll() throws DaoException {
 
         List<Author> authorList = authorDAO.getAll();
         String expected = "[" +
@@ -74,7 +74,7 @@ public class AuthorDAOTest {
     }
 
     @Test
-    public void insert() throws  DAOException {
+    public void insert() throws DaoException {
 
         Author author = new Author(11,
                 "1",
@@ -91,7 +91,7 @@ public class AuthorDAOTest {
     }
 
     @Test
-    public void delete() throws DAOException {
+    public void delete() throws DaoException {
 
         authorDAO.delete(2);
         List<Author> authorList = authorDAO.getAll();
@@ -111,7 +111,7 @@ public class AuthorDAOTest {
     }
 
     @Test
-    public void update() throws  DAOException {
+    public void update() throws DaoException {
 
         Author author = new Author(2,
                 "Fifa",

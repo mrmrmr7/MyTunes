@@ -6,7 +6,7 @@ import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.AlbumDao;
 import com.mrmrmr7.mytunes.entity.Album;
 import com.mrmrmr7.mytunes.util.PageDirector;
@@ -35,7 +35,7 @@ public class CommandAlbumInsert implements Command {
                     .getConnection());
 
             albumDAO.insert(album);
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             System.out.println("Impossible to find album with such id");
         } finally {
             albumDAO.closeConnection();

@@ -1,22 +1,26 @@
 package com.mrmrmr7.mytunes.dao;
 
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
-import com.mrmrmr7.mytunes.dao.exception.PersistException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 
 import java.io.Serializable;
 import java.util.Optional;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
-    Optional<T> getByPK(PK id) throws DAOException;
 
-    List<T> getAll() throws DAOException;
+    @AutoConnection
+    Optional<T> getByPK(PK id) throws DaoException;
 
-    void insert(T daoObject) throws DAOException;
+    @AutoConnection
+    List<T> getAll() throws DaoException;
 
-    void delete(PK id) throws DAOException;
+    @AutoConnection
+    void insert(T daoObject) throws DaoException;
 
-    void update(T daoObject) throws DAOException;
+    @AutoConnection
+    void delete(PK id) throws DaoException;
+
+    @AutoConnection
+    void update(T daoObject) throws DaoException;
 }

@@ -6,7 +6,7 @@ import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.RoleDao;
 import com.mrmrmr7.mytunes.entity.Role;
 import com.mrmrmr7.mytunes.util.PageDirector;
@@ -32,7 +32,7 @@ public class CommandRoleInsert implements Command {
                 .getConnection());
 
             roleDAO.insert(role);
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             System.out.println("Impossible to find role with such id");
         } finally {
             roleDAO.closeConnection();

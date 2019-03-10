@@ -6,7 +6,7 @@ import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.AlbumFeedbackDao;
 import com.mrmrmr7.mytunes.entity.AlbumFeedback;
 import com.mrmrmr7.mytunes.util.PageDirector;
@@ -34,7 +34,7 @@ public class CommandAlbumFeedbackGetById implements Command {
             albumFeedback = albumFeedbackDAO
                     .getByPK(Integer.valueOf(request.getParameter(PARAMETER_ID)))
                     .get();
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             System.out.println("Impossible to find AlbumFeedback with such id");
         } finally {
             albumFeedbackDAO.closeConnection();

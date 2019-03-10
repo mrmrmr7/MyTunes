@@ -1,6 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserAlbum;
 import com.mrmrmr7.mytunes.util.DBFill;
 import org.junit.jupiter.api.*;
@@ -37,7 +37,7 @@ class UserAlbumDAOTest {
     }
 
     @Test
-    void getByPK() throws DAOException {
+    void getByPK() throws DaoException {
 
         Optional<UserAlbum> userAlbum = userAlbumDAO.getByPK(6);
 
@@ -48,7 +48,7 @@ class UserAlbumDAOTest {
     }
 
     @Test
-    void getAll() throws DAOException {
+    void getAll() throws DaoException {
 
         List<UserAlbum> userAlbumList = userAlbumDAO.getAll();
 
@@ -70,7 +70,7 @@ class UserAlbumDAOTest {
     }
 
     @Test
-    void insert() throws DAOException {
+    void insert() throws DaoException {
 
         UserAlbum toInsert = new UserAlbum(
                 5,
@@ -89,7 +89,7 @@ class UserAlbumDAOTest {
     }
 
     @Test
-    void delete() throws DAOException {
+    void delete() throws DaoException {
 
         userAlbumDAO.delete(2);
 
@@ -112,7 +112,7 @@ class UserAlbumDAOTest {
     }
 
     @Test
-    void update() throws DAOException {
+    void update() throws DaoException {
 
         Optional<UserAlbum> userAlbum = userAlbumDAO.getByPK(4);
 

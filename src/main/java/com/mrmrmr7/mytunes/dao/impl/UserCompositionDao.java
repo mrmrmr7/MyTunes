@@ -2,7 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.util.TableName;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserComposition;
 
 import java.sql.PreparedStatement;
@@ -18,22 +18,22 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
     }
 
     @Override
-    public Optional<UserComposition> getByPK(Integer id) throws DAOException {
+    public Optional<UserComposition> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
                 return Optional.of(resultSetCompiller.setUserComposition(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.14.1");
+                throw new DaoException("4.14.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.14.2");
+            throw new DaoException("4.14.2");
         }
     }
 
     @Override
-    public List<UserComposition> getAll() throws DAOException {
+    public List<UserComposition> getAll() throws DaoException {
 
         List<UserComposition> userList = new ArrayList<>();
         try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.USER_COMPOSITION)){
@@ -43,42 +43,42 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
                             .add(resultSetCompiller.setUserComposition(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.14.3");
+                throw new DaoException("4.14.3");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.14.4");
+            throw new DaoException("4.14.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(UserComposition object) throws DAOException {
+    public void insert(UserComposition object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DAOException("4.14.5");
+            throw new DaoException("4.14.5");
         }
     }
 
     @Override
-    public void delete(Integer id) throws DAOException {
+    public void delete(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.14.6");
+            throw new DaoException("4.14.6");
         }
     }
 
     @Override
-    public void update(UserComposition object) throws DAOException {
+    public void update(UserComposition object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DAOException("4.14.7");
+            throw new DaoException("4.14.7");
         }
     }
 

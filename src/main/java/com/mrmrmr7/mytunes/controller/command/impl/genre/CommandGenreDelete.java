@@ -6,7 +6,7 @@ import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.GenreDao;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -29,7 +29,7 @@ public class CommandGenreDelete implements Command {
                     .getConnection());
 
             genreDAO.delete(Integer.valueOf(request.getParameter(PARAMETER_ID)));
-        } catch (DAOException e) {
+        } catch (DaoException e) {
             System.out.println("Impossible to find genre with such id");
         } finally {
             genreDAO.closeConnection();

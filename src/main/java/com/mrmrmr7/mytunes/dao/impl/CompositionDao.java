@@ -1,7 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.*;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Composition;
 import com.mrmrmr7.mytunes.util.TableName;
 
@@ -18,29 +18,29 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
     }
 
     @Override
-    public Optional<Composition> getByPK(Integer id) throws DAOException {
+    public Optional<Composition> getByPK(Integer id) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
                 return Optional.of(resultSetCompiller.setComposition(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.5.1");
+                throw new DaoException("4.5.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.5.2");
+            throw new DaoException("4.5.2");
         }
     }
 
     @Override
-    public List<Composition> getListByPK(List<Integer> idList) throws DAOException {
+    public List<Composition> getListByPK(List<Integer> idList) throws DaoException {
 
         List<Composition> compositionList = new ArrayList<>();
 
         for (Integer s : idList) {
             try {
                 getByPK(s).ifPresent(compositionList::add);
-            } catch (DAOException e) {
-                throw new DAOException(e.getMessage());
+            } catch (DaoException e) {
+                throw new DaoException(e.getMessage());
             }
         }
 
@@ -48,7 +48,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
     }
 
     @Override
-    public List<Composition> getAll() throws DAOException {
+    public List<Composition> getAll() throws DaoException {
 
         List<Composition> userList = new ArrayList<>();
 
@@ -59,42 +59,42 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
                             .add(resultSetCompiller.setComposition(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.5.3");
+                throw new DaoException("4.5.3");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.5.4");
+            throw new DaoException("4.5.4");
         }
 
         return userList;
     }
 
     @Override
-    public void insert(Composition object) throws DAOException {
+    public void insert(Composition object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.5.5");
+            throw new DaoException("4.5.5");
         }
     }
 
     @Override
-    public void delete(Integer id) throws DAOException {
+    public void delete(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.5.6");
+            throw new DaoException("4.5.6");
         }
     }
 
     @Override
-    public void update(Composition object) throws DAOException {
+    public void update(Composition object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.5.7");
+            throw new DaoException("4.5.7");
         }
     }
 

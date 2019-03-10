@@ -1,7 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.*;
-import com.mrmrmr7.mytunes.dao.exception.DAOException;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.util.TableName;
 
@@ -17,8 +17,9 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
     public UserDao() {
     }
 
+    @AutoConnection
     @Override
-    public Optional<User> getByPK(Integer id) throws DAOException {
+    public Optional<User> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -26,15 +27,16 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
 
                 return Optional.of(resultSetCompiller.setUser(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.15.1");
+                throw new DaoException("4.15.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.15.2");
+            throw new DaoException("4.15.2");
         }
     }
 
+    @AutoConnection
     @Override
-    public List<User> getAll() throws DAOException {
+    public List<User> getAll() throws DaoException {
         List<User> userList = new ArrayList<>();
         try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.USER)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -43,45 +45,49 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
                             .add(resultSetCompiller.setUser(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DAOException("4.15.3");
+                throw new DaoException("4.15.3");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.15.4");
+            throw new DaoException("4.15.4");
         }
 
         return userList;
     }
 
+    @AutoConnection
     @Override
-    public void insert(User object) throws DAOException {
+    public void insert(User object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.15.5");
+            throw new DaoException("4.15.5");
         }
     }
 
+    @AutoConnection
     @Override
-    public void delete(Integer id) throws DAOException {
+    public void delete(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DAOException("4.15.6");
+            throw new DaoException("4.15.6");
         }
     }
 
+    @AutoConnection
     @Override
-    public void update(User object) throws DAOException {
+    public void update(User object) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)) {
                     preparedStatement.executeUpdate();
         } catch (SQLException e){
-            throw new DAOException("4.15.7");
+            throw new DaoException("4.15.7");
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(User object) throws SQLException {
 
@@ -91,6 +97,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(User object) throws SQLException {
 
@@ -101,6 +108,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -109,6 +117,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
         PreparedStatement preparedStatement = connection
@@ -117,6 +126,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, User object) throws SQLException {
 
         int i = 0;
@@ -133,6 +143,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected String getInsertQuery() {
 
@@ -142,6 +153,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
                 "(?,?,?,?,?,?,?,?,?,?,?,?)";
     }
 
+    @AutoConnection
     @Override
     protected String getUpdateQuery() {
 
@@ -153,6 +165,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
                 "STATUS_ID=?, EMAIL=?, PUBLIC_KEY=?, PRIVATE_KEY=? WHERE ID=?";
     }
 
+    @AutoConnection
     private PreparedStatement prepareStatementForGetByLogin(String login) throws SQLException {
         PreparedStatement preparedStatement = connection
                 .prepareStatement(getSelectByLoginQuery(TableName.USER));
@@ -160,22 +173,24 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
         return preparedStatement;
     }
 
+    @AutoConnection
     private String getSelectByLoginQuery(TableName tableName) {
         return "SELECT * FROM " + tableName.getValue() + " WHERE LOGIN=?";
     }
 
+    @AutoConnection
     @Override
-    public Optional<User> getByLogin(String login) throws DAOException {
+    public Optional<User> getByLogin(String login) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForGetByLogin(login)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
 
                 return Optional.of(resultSetCompiller.setUser(resultSet));
             } catch (SQLException e) {
-                throw new DAOException("4.15.1");
+                throw new DaoException("4.15.1");
             }
         } catch (SQLException e) {
-            throw new DAOException("4.15.2");
+            throw new DaoException("4.15.2");
         }
     }
 
