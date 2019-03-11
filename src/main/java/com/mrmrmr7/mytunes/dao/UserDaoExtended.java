@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface UserDaoExtended extends GenericDao<User, Integer> {
 
+    @AutoConnection
     Optional<User> getByLogin(String login) throws DaoException;
 }

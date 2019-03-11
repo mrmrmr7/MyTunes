@@ -1,7 +1,8 @@
-package com.mrmrmr7.mytunes.dao;
+package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.ConnectionPool;
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
-import com.mrmrmr7.mytunes.dao.impl.ConnectionPoolImpl;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

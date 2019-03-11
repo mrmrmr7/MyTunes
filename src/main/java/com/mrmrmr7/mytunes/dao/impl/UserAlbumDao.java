@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserAlbum;
@@ -17,13 +18,14 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
     public UserAlbumDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<UserAlbum> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setUserAlbum(resultSet));
+                return Optional.of(resultSetToBean.toUserAlbum(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.12.1");
             }
@@ -32,6 +34,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
         }
     }
 
+    @AutoConnection
     @Override
     public List<UserAlbum> getAll() throws DaoException {
 
@@ -40,7 +43,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setUserAlbum(resultSet));
+                            .add(resultSetToBean.toUserAlbum(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.12.3");
@@ -52,6 +55,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
         return userList;
     }
 
+    @AutoConnection
     @Override
     public void insert(UserAlbum object) throws DaoException {
 
@@ -62,6 +66,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -72,6 +77,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
         }
     }
 
+    @AutoConnection
     @Override
     public void update(UserAlbum object) throws DaoException {
 
@@ -82,6 +88,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(UserAlbum object) throws SQLException {
 
@@ -98,6 +105,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(UserAlbum object) throws SQLException {
 
@@ -115,6 +123,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -123,6 +132,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -132,18 +142,20 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected String getSelectQuery(TableName tableName) {
 
         return "SELECT * FROM " + tableName.getValue() + " WHERE USER_ID=?";
     }
 
+    @AutoConnection
     @Override
     protected String getDeleteQuery(TableName tableName) {
         return "DELETE FROM " + tableName.getValue() + " WHERE USER_ID=?";
     }
 
-
+    @AutoConnection
     @Override
     public String getInsertQuery() {
 
@@ -153,6 +165,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
                 "(?,?)";
     }
 
+    @AutoConnection
     @Override
     public String getUpdateQuery() {
 

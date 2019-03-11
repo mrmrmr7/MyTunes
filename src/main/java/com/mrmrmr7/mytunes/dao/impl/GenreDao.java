@@ -23,7 +23,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setGenre(resultSet));
+                return Optional.of(resultSetToBean.toGenre(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.7.1");
             }
@@ -41,7 +41,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setGenre(resultSet));
+                            .add(resultSetToBean.toGenre(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.7.3");

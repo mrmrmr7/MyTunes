@@ -10,7 +10,7 @@ import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandTrySignUp implements Command {
+public class CommandSignUp implements Command {
     private final static String PARAMETER_LOGIN = "login";
     private final static String PARAMETER_PASSWORD = "password";
     private final static String PARAMETER_FIRST_NAME = "first_name";

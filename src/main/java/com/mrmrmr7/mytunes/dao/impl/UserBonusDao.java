@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
@@ -18,13 +19,14 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
     public UserBonusDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<UserBonus> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setUserBonus(resultSet));
+                return Optional.of(resultSetToBean.toUserBonus(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.13.1");
             }
@@ -33,6 +35,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
         }
     }
 
+    @AutoConnection
     @Override
     public List<UserBonus> getAll() throws DaoException {
 
@@ -42,7 +45,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setUserBonus(resultSet));
+                            .add(resultSetToBean.toUserBonus(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.13.3");
@@ -54,6 +57,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
         return userList;
     }
 
+    @AutoConnection
     @Override
     public void insert(UserBonus object) throws DaoException {
 
@@ -64,6 +68,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -74,6 +79,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
         }
     }
 
+    @AutoConnection
     @Override
     public void update(UserBonus object) throws DaoException {
 
@@ -84,6 +90,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(UserBonus object) throws SQLException {
 
@@ -98,6 +105,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(UserBonus object) throws SQLException {
 
@@ -115,6 +123,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -123,6 +132,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -132,6 +142,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, UserBonus object) throws SQLException {
 
         int i = 0;
@@ -139,6 +150,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     public String getInsertQuery() {
 
@@ -148,6 +160,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
                 "(?,?)";
     }
 
+    @AutoConnection
     @Override
     public String getUpdateQuery() {
 
@@ -156,6 +169,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
                 "WHERE ID=?";
     }
 
+    @AutoConnection
     @Override
     protected String getSelectQuery(TableName tableName) {
         return "SELECT * FROM " + tableName.getValue() + " WHERE USER_ID=?";

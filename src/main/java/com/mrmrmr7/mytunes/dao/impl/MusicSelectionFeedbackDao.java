@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.MusicSelectionFeedback;
@@ -17,13 +18,14 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
     public MusicSelectionFeedbackDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<MusicSelectionFeedback> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setMusicSelectionFeedback(resultSet));
+                return Optional.of(resultSetToBean.toMusicSelectionFeedback(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.9.1");
             }
@@ -32,6 +34,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         }
     }
 
+    @AutoConnection
     @Override
     public List<MusicSelectionFeedback> getAll() throws DaoException {
 
@@ -40,7 +43,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     musicSelectionFeedbackList
-                            .add(resultSetCompiller.setMusicSelectionFeedback(resultSet));
+                            .add(resultSetToBean.toMusicSelectionFeedback(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.9.3");
@@ -52,6 +55,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         return musicSelectionFeedbackList;
     }
 
+    @AutoConnection
     @Override
     public void insert(MusicSelectionFeedback object) throws DaoException {
 
@@ -62,6 +66,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -72,6 +77,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         }
     }
 
+    @AutoConnection
     @Override
     public void update(MusicSelectionFeedback object) throws DaoException {
 
@@ -82,6 +88,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(MusicSelectionFeedback object) throws SQLException {
 
@@ -89,6 +96,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(MusicSelectionFeedback object) throws SQLException {
 
@@ -99,6 +107,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -107,6 +116,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -116,6 +126,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, MusicSelectionFeedback object) throws SQLException {
 
         int i = 0;
@@ -125,6 +136,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected String getInsertQuery() {
 

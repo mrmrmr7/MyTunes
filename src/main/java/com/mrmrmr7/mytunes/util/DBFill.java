@@ -1,6 +1,6 @@
 package com.mrmrmr7.mytunes.util;
 
-import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
+import com.mrmrmr7.mytunes.dao.impl.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import org.apache.commons.io.FileUtils;

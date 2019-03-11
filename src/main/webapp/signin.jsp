@@ -68,6 +68,7 @@
                             }
                         }
                     </script>
+
                     <form action="${pageContext.request.contextPath}/crud"  method="post" id="si" name="signInForm" onsubmit="return formValidation()">
                         <div class="form-group">
                             <label id="loginLabelId">Login</label>
@@ -93,7 +94,7 @@
                             </div>
                         </div>
                         <div class="register-link m-t-15 text-center">
-                            <p>Don't have account ? <a href="${pageContext.request.contextPath}/site#"> Sign Up Here</a></p>
+                            <p>Don't have account ? <a href="${pageContext.request.contextPath}/signup.jsp"> Sign Up Here</a></p>
                         </div>
                         <input type="hidden" name="command" value="signin">
                     </form>

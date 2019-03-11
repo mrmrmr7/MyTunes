@@ -4,7 +4,7 @@ import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
-import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
+import com.mrmrmr7.mytunes.dao.impl.ConnectionPoolFactory;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.GenreDao;

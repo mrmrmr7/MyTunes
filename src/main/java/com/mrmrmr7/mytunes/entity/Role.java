@@ -1,28 +1,29 @@
 package com.mrmrmr7.mytunes.entity;
 
 import com.mrmrmr7.mytunes.dao.Identified;
+import org.jetbrains.annotations.Contract;
 
 import java.util.Objects;
 
-public class Role implements Identified<Integer> {
-    public Integer id;
+public class Role implements Identified<Byte> {
+    public Byte id;
     public String role;
 
     public Role(String role) {
-        this.role = role;
+        this.role = role.toLowerCase();
     }
 
-    public Role(int id, String role) {
+    public Role(Byte id, String role) {
         this.id = id;
-        this.role = role;
+        this.role = role.toLowerCase();
     }
 
     @Override
-    public Integer getId() {
+    public Byte getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Byte id) {
         this.id = id;
     }
 
@@ -31,7 +32,7 @@ public class Role implements Identified<Integer> {
     }
 
     public void setRole(String role) {
-        this.role = role;
+        this.role = role.toLowerCase();
     }
 
     @Override
@@ -42,6 +43,7 @@ public class Role implements Identified<Integer> {
                 '}';
     }
 
+    @Contract(value = "null -> false", pure = true)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

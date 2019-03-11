@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
@@ -13,18 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDao<Role, Integer> {
+public class RoleDao extends AbstractJdbcDao<Role, Byte> implements GenericDao<Role, Byte> {
 
     public RoleDao() {
     }
 
+    @AutoConnection
     @Override
-    public Optional<Role> getByPK(Integer id) throws DaoException {
+    public Optional<Role> getByPK(Byte id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setRole(resultSet));
+                return Optional.of(resultSetToBean.toRole(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.10.1");
             }
@@ -33,6 +35,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDa
         }
     }
 
+    @AutoConnection
     @Override
     public List<Role> getAll() throws DaoException {
 
@@ -42,7 +45,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDa
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setRole(resultSet));
+                            .add(resultSetToBean.toRole(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.10.3");
@@ -54,6 +57,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDa
         return userList;
     }
 
+    @AutoConnection
     @Override
     public void insert(Role object) throws DaoException {
 
@@ -64,8 +68,9 @@ public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDa
         }
     }
 
+    @AutoConnection
     @Override
-    public void delete(Integer id) throws DaoException {
+    public void delete(Byte id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
@@ -74,6 +79,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDa
         }
     }
 
+    @AutoConnection
     @Override
     public void update(Role object) throws DaoException {
 
@@ -84,6 +90,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDa
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(Role object) throws SQLException {
 
@@ -91,6 +98,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDa
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(Role object) throws SQLException {
 
@@ -101,16 +109,18 @@ public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDa
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
-    protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
+    protected PreparedStatement prepareStatementForDelete(Byte id) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.ROLE));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
-    protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
+    protected PreparedStatement prepareStatementForGet(Byte id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
                 .prepareStatement(getSelectQuery(TableName.ROLE));
@@ -118,6 +128,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDa
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Role object) throws SQLException {
 
         int i = 0;
@@ -126,6 +137,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDa
     }
 
     @Override
+    @AutoConnection
     public String getInsertQuery() {
 
         return "INSERT INTO " + TableName.ROLE.getValue() +
@@ -134,6 +146,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Integer> implements GenericDa
                 "(?)";
     }
 
+    @AutoConnection
     @Override
     public String getUpdateQuery() {
 

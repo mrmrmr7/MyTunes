@@ -29,7 +29,7 @@ create table author
 create table bonus
 (
   id    INTEGER auto_increment primary key,
-  bonus varchar(500) NOT NULL unique
+  bonus varchar(500) NOT NULL
 );
 
 create table genre

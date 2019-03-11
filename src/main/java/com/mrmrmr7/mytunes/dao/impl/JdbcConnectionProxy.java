@@ -1,4 +1,4 @@
-package com.mrmrmr7.mytunes.dao;
+package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.impl.ConnectionPoolImpl;
 

@@ -39,7 +39,7 @@ class RoleDAOTest {
     @Test
     void getByPK() throws DaoException {
 
-        Optional<Role> role = roleDAO.getByPK(1);
+        Optional<Role> role = roleDAO.getByPK((byte)1);
 
         String actual = role.get().toString();
         String expected = "Role{id=1, role='administrator'}";
@@ -65,13 +65,13 @@ class RoleDAOTest {
     void insert() throws DaoException {
 
         Role expected = new Role(
-                3,
+                (byte)3,
                 "Some new role"
         );
 
         roleDAO.insert(expected);
 
-        Optional<Role> actual = roleDAO.getByPK(3);
+        Optional<Role> actual = roleDAO.getByPK((byte)3);
 
         assertEquals(expected, actual.get());
     }
@@ -79,7 +79,7 @@ class RoleDAOTest {
     @Test
     void delete() throws DaoException {
 
-        roleDAO.delete(1);
+        roleDAO.delete((byte)1);
 
         List<Role> roleList = roleDAO.getAll();
 
@@ -95,13 +95,13 @@ class RoleDAOTest {
     void update() throws DaoException {
 
         Role expected = new Role(
-                1,
+                (byte)1,
                 "new role"
         );
 
         roleDAO.update(expected);
 
-        Optional<Role> actual = roleDAO.getByPK(1);
+        Optional<Role> actual = roleDAO.getByPK((byte)1);
 
         assertEquals(expected, actual.get());
     }

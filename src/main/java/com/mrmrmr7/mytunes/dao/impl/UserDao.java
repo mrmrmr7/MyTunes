@@ -25,7 +25,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
 
-                return Optional.of(resultSetCompiller.setUser(resultSet));
+                return Optional.of(resultSetToBean.toUser(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.15.1");
             }
@@ -42,7 +42,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setUser(resultSet));
+                            .add(resultSetToBean.toUser(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.15.3");
@@ -185,7 +185,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
 
-                return Optional.of(resultSetCompiller.setUser(resultSet));
+                return Optional.of(resultSetToBean.toUser(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.15.1");
             }

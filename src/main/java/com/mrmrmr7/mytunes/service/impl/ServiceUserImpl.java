@@ -1,17 +1,13 @@
 package com.mrmrmr7.mytunes.service.impl;
 
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.dao.ConnectionPoolFactory;
-import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.UserDaoExtended;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
-import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
-import com.mrmrmr7.mytunes.dao.impl.SessionDataDao;
 import com.mrmrmr7.mytunes.service.ServiceUser;
-import com.mrmrmr7.mytunes.dao.impl.UserDao;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.util.CookieUtil;
 import com.mrmrmr7.mytunes.validator.AuthorizationValidator;
 import com.mrmrmr7.mytunes.validator.ValidatorSignIn;
 
@@ -20,7 +16,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.mindrot.jbcrypt.BCrypt;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,6 +70,7 @@ public class ServiceUserImpl implements ServiceUser {
 
             Map<String, Object> claimMap = new HashMap<>();
 
+            claimMap.put("userId", user.get().getId());
             claimMap.put("userLogin", user.get().getLogin());
             claimMap.put("userRole", user.get().getRoleId());
 
@@ -98,17 +94,14 @@ public class ServiceUserImpl implements ServiceUser {
     public void logout(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServiceException {
         try {
             Cookie[] cookies = request.getCookies();
-            Optional<Cookie> cookieUID = Arrays.stream(cookies).filter(s -> s.getName().equals("uid")).findFirst();
-            Optional<Cookie> cookieUUID = Arrays.stream(cookies).filter(s -> s.getName().equals("uuid")).findFirst();
+            Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+            Optional<Cookie> cookiePublicKey = Arrays.stream(cookies).filter(s -> s.getName().equals("publicKey")).findFirst();
 
-            if (cookieUID.isPresent()) {
-            }
+            cookieToken.ifPresent(s -> s.setMaxAge(0));
+            cookiePublicKey.ifPresent(s -> s.setMaxAge(0));
 
-            cookieUID.ifPresent(s -> s.setMaxAge(0));
-            cookieUUID.ifPresent(s -> s.setMaxAge(0));
-
-            httpServletResponse.addCookie(cookieUID.get());
-            httpServletResponse.addCookie(cookieUUID.get());
+            httpServletResponse.addCookie(cookieToken.get());
+            httpServletResponse.addCookie(cookiePublicKey.get());
 
 
         }  finally {
@@ -149,7 +142,7 @@ public class ServiceUserImpl implements ServiceUser {
                 return false;
             }
 
-            PublicKey publicKey = cookieToPublicKey(cookiePublicKey.get());
+            PublicKey publicKey = CookieUtil.cookieToPublicKey(cookiePublicKey.get());
 
             Claims claims;
 
@@ -168,8 +161,6 @@ public class ServiceUserImpl implements ServiceUser {
 
             String testToken = null;
 
-
-
             try {
 
 
@@ -187,6 +178,7 @@ public class ServiceUserImpl implements ServiceUser {
 
                 Map<String, Object> claimMap = new HashMap<>();
 
+                claimMap.put("userId", user.getId());
                 claimMap.put("userLogin", user.getLogin());
                 claimMap.put("userRole", user.getRoleId());
                 testToken = Jwts.builder().setClaims(claimMap).signWith(SignatureAlgorithm.RS256, privateKey).compact();
@@ -204,29 +196,4 @@ public class ServiceUserImpl implements ServiceUser {
         }
     }
 
-    private PublicKey cookieToPublicKey(Cookie cookie) {
-        byte[] byteArray = Base64
-                .getDecoder()
-                .decode(cookie
-                        .getValue()
-                        .getBytes());
-
-        X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(byteArray);
-        KeyFactory keyFactory = null;
-
-        try {
-            keyFactory = KeyFactory.getInstance("RSA");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        PublicKey publicKey = null;
-
-        try {
-            publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        }
-        return publicKey;
-    }
 }

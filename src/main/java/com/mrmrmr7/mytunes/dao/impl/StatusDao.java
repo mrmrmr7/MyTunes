@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
@@ -13,17 +14,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class StatusDao extends AbstractJdbcDao<Status, Integer> implements GenericDao<Status, Integer> {
+public class StatusDao extends AbstractJdbcDao<Status, Byte> implements GenericDao<Status, Byte> {
 
     public StatusDao() {
     }
 
+    @AutoConnection
     @Override
-    public Optional<Status> getByPK(Integer id) throws DaoException {
+    public Optional<Status> getByPK(Byte id) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setStatus(resultSet));
+                return Optional.of(resultSetToBean.toStatus(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.11.1");
             }
@@ -32,6 +34,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
         }
     }
 
+    @AutoConnection
     @Override
     public List<Status> getAll() throws DaoException {
 
@@ -41,7 +44,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setStatus(resultSet));
+                            .add(resultSetToBean.toStatus(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.11.3");
@@ -53,6 +56,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
         return userList;
     }
 
+    @AutoConnection
     @Override
     public void insert(Status object) throws DaoException {
 
@@ -63,8 +67,9 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
         }
     }
 
+    @AutoConnection
     @Override
-    public void delete(Integer id) throws DaoException {
+    public void delete(Byte id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
@@ -73,6 +78,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
         }
     }
 
+    @AutoConnection
     @Override
     public void update(Status object) throws DaoException {
 
@@ -83,6 +89,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(Status object) throws SQLException {
 
@@ -90,6 +97,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(Status object) throws SQLException {
 
@@ -100,16 +108,18 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
-    protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
+    protected PreparedStatement prepareStatementForDelete(Byte id) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.STATUS));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
-    protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
+    protected PreparedStatement prepareStatementForGet(Byte id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
                 .prepareStatement(getSelectQuery(TableName.STATUS));
@@ -117,6 +127,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Status object) throws SQLException {
 
         int i = 0;
@@ -124,6 +135,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     public String getInsertQuery() {
 
@@ -133,6 +145,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Integer> implements Gener
                 "(?)";
     }
 
+    @AutoConnection
     @Override
     public String getUpdateQuery() {
 

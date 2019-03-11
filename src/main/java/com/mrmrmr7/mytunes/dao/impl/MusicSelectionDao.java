@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
@@ -18,12 +19,13 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
     public MusicSelectionDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<MusicSelection> getByPK(Integer id) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setMusicSelection(resultSet));
+                return Optional.of(resultSetToBean.toMusicSelection(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.8.1");
             }
@@ -32,6 +34,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         }
     }
 
+    @AutoConnection
     @Override
     public List<MusicSelection> getAll() throws DaoException {
 
@@ -40,7 +43,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setMusicSelection(resultSet));
+                            .add(resultSetToBean.toMusicSelection(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.8.3");
@@ -53,6 +56,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
     }
 
     @Override
+    @AutoConnection
     public void insert(MusicSelection object) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeBatch();
@@ -61,6 +65,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
@@ -70,6 +75,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         }
     }
 
+    @AutoConnection
     @Override
     public void update(MusicSelection object) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
@@ -79,6 +85,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(MusicSelection object) throws SQLException {
 
@@ -95,6 +102,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(MusicSelection object) throws SQLException {
 
@@ -112,6 +120,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -121,6 +130,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -130,17 +140,20 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected String getSelectQuery(TableName tableName) {
 
         return "SELECT * FROM " + tableName.getValue() + " WHERE SELECTION_ID=?";
     }
 
+    @AutoConnection
     @Override
     protected String getDeleteQuery(TableName tableName) {
         return "DELETE FROM " + tableName.getValue() + " WHERE SELECTION_ID=?";
     }
 
+    @AutoConnection
     @Override
     public String getInsertQuery() {
 
@@ -150,6 +163,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
                 "(?,?)";
     }
 
+    @AutoConnection
     @Override
     public String getUpdateQuery() {
 

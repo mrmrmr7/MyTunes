@@ -7,6 +7,7 @@ import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.service.ServiceException;
 import com.mrmrmr7.mytunes.service.impl.ServiceUserImpl;
+import com.mrmrmr7.mytunes.service.impl.UserDtoServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,10 @@ public class CommandSignIn implements Command {
         try {
             ServiceUserImpl serviceUser = new ServiceUserImpl();
             isSignIn = serviceUser.login(login, password, httpServletResponse);//request.getSession(false));
+            if (isSignIn) {
+                UserDtoServiceImpl userDtoServiceImpl = new UserDtoServiceImpl();
+                userDtoServiceImpl.setDtoByLogin(login, request);
+            }
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -33,6 +38,7 @@ public class CommandSignIn implements Command {
         ResponseContent responseContent = new ResponseContent();
 
         if (isSignIn) {
+
             responseContent.setRouter(new Router(PageDirector.ACCOUNT, Router.Type.FORWARD));
         } else {
             responseContent.setRouter(new Router(PageDirector.LANDING, Router.Type.REDIRECT));

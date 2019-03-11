@@ -17,18 +17,20 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
     public AuthorDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<Author> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             resultSet.next();
-            return Optional.of(resultSetCompiller.setAuthor(resultSet));
+            return Optional.of(resultSetToBean.toAuthor(resultSet));
         } catch (SQLException e) {
             throw new DaoException("4.3.1");
         }
     }
 
+    @AutoConnection
     @Override
     public List<Author> getAll() throws DaoException {
 
@@ -38,7 +40,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setAuthor(resultSet));
+                            .add(resultSetToBean.toAuthor(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.3.2");
@@ -50,6 +52,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
         return userList;
     }
 
+    @AutoConnection
     @Override
     public void insert(Author object) throws DaoException {
 
@@ -60,6 +63,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -70,6 +74,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
         }
     }
 
+    @AutoConnection
     @Override
     public void update(Author object) throws DaoException {
 
@@ -80,6 +85,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(Author object) throws SQLException {
 
@@ -87,6 +93,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(Author object) throws SQLException {
 
@@ -96,6 +103,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -104,6 +112,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -113,6 +122,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Author object) throws SQLException {
 
         int i = 0;
@@ -123,6 +133,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
     }
 
     @Override
+    @AutoConnection
     public String getInsertQuery() {
 
         return "INSERT INTO " + TableName.AUTHOR.getValue() +
@@ -132,6 +143,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
     }
 
     @Override
+    @AutoConnection
     public String getUpdateQuery() {
 
         return "UPDATE " + TableName.AUTHOR.getValue() + " SET " +

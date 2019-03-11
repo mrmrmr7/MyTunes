@@ -4,25 +4,25 @@ import com.mrmrmr7.mytunes.dao.Identified;
 
 import java.util.Objects;
 
-public class Status implements Identified<Integer> {
-    private Integer id;
+public class Status implements Identified<Byte> {
+    private Byte id;
     private String status;
 
     public Status(String status) {
         this.status = status;
     }
 
-    public Status(Integer id, String status) {
+    public Status(Byte id, String status) {
         this.id = id;
         this.status = status;
     }
 
-    public void setId(Integer id) {
+    public void setId(Byte id) {
         this.id = id;
     }
 
     @Override
-    public Integer getId() {
+    public Byte getId() {
         return id;
     }
 

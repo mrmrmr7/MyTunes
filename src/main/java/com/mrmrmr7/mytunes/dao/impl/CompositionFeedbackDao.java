@@ -17,13 +17,14 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
     public CompositionFeedbackDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<CompositionFeedback> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setCompositionFeedback(resultSet));
+                return Optional.of(resultSetToBean.toCompositionFeedback(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.6.1");
             }
@@ -32,6 +33,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         }
     }
 
+    @AutoConnection
     @Override
     public List<CompositionFeedback> getAll() throws DaoException {
 
@@ -40,7 +42,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     compositionFeedbackList
-                            .add(resultSetCompiller.setCompositionFeedback(resultSet));
+                            .add(resultSetToBean.toCompositionFeedback(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.6.3");
@@ -52,6 +54,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         return compositionFeedbackList;
     }
 
+    @AutoConnection
     @Override
     public void insert(CompositionFeedback object) throws DaoException {
 
@@ -62,6 +65,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -72,6 +76,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         }
     }
 
+    @AutoConnection
     @Override
     public void update(CompositionFeedback object) throws DaoException {
 
@@ -82,6 +87,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(CompositionFeedback object) throws SQLException {
 
@@ -89,6 +95,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(CompositionFeedback object) throws SQLException {
 
@@ -99,6 +106,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -107,6 +115,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -116,6 +125,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, CompositionFeedback object) throws SQLException {
 
         int i = 0;
@@ -126,6 +136,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
     }
 
     @Override
+    @AutoConnection
     protected String getInsertQuery() {
 
         return "INSERT INTO " + TableName.COMPOSITION_FEEDBACK.getValue() +
@@ -134,6 +145,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
                 "(?,?,?)";
     }
 
+    @AutoConnection
     @Override
     protected String getUpdateQuery() {
 

@@ -1,8 +1,6 @@
 package com.mrmrmr7.mytunes.controller.command;
 
-import com.mrmrmr7.mytunes.controller.command.impl.CommandLogOut;
-import com.mrmrmr7.mytunes.controller.command.impl.CommandSignIn;
-import com.mrmrmr7.mytunes.controller.command.impl.CommandTrySignUp;
+import com.mrmrmr7.mytunes.controller.command.impl.*;
 import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorDelete;
 import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorGetAll;
 import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorGetById;
@@ -34,10 +32,11 @@ public class CommandProvider {
 
     private CommandProvider() {
         commandMap.put(CommandDirector.SIGN_IN.getValue(), new CommandSignIn());
-        commandMap.put(CommandDirector.SIGN_UP.getValue(), new CommandTrySignUp());
+        commandMap.put(CommandDirector.SIGN_UP.getValue(), new CommandSignUp());
         commandMap.put(CommandDirector.LOG_OUT.getValue(), new CommandLogOut());
-        commandMap.put(CommandDirector.MOVE_TO_ACCOUNT.getValue(), new CommandLogOut());
+        commandMap.put(CommandDirector.MOVE_TO_ACCOUNT.getValue(), new ViewProfileCommand());
         commandMap.put(CommandDirector.MOVE_INSIDE_WEB_INF.getValue(), new CommandMoveInsideWebInf());
+        commandMap.put(CommandDirector.SECRET_ACCOUNT.getValue(), new CommandMoveToSecretAccount());
 
         commandMap.put(CommandDirector.USER_GET_BY_ID.getValue(), new CommandUserGetById());
         commandMap.put(CommandDirector.USER_GET_ALL.getValue(), new CommandUserGetAll());

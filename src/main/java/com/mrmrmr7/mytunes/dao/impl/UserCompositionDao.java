@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserComposition;
@@ -17,13 +18,14 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
     public UserCompositionDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<UserComposition> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setUserComposition(resultSet));
+                return Optional.of(resultSetToBean.toUserComposition(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.14.1");
             }
@@ -32,6 +34,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         }
     }
 
+    @AutoConnection
     @Override
     public List<UserComposition> getAll() throws DaoException {
 
@@ -40,7 +43,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setUserComposition(resultSet));
+                            .add(resultSetToBean.toUserComposition(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.14.3");
@@ -52,6 +55,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         return userList;
     }
 
+    @AutoConnection
     @Override
     public void insert(UserComposition object) throws DaoException {
 
@@ -62,6 +66,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -72,6 +77,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         }
     }
 
+    @AutoConnection
     @Override
     public void update(UserComposition object) throws DaoException {
 
@@ -82,6 +88,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(UserComposition object) throws SQLException {
 
@@ -98,6 +105,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(UserComposition object) throws SQLException {
 
@@ -115,6 +123,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -123,6 +132,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -132,18 +142,20 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected String getSelectQuery(TableName tableName) {
 
         return "SELECT * FROM " + tableName.getValue() + " WHERE USER_ID=?";
     }
 
+    @AutoConnection
     @Override
     protected String getDeleteQuery(TableName tableName) {
         return "DELETE FROM " + tableName.getValue() + " WHERE USER_ID=?";
     }
 
-
+    @AutoConnection
     @Override
     public String getInsertQuery() {
 
@@ -153,6 +165,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
                 "(?,?)";
     }
 
+    @AutoConnection
     @Override
     public String getUpdateQuery() {
 

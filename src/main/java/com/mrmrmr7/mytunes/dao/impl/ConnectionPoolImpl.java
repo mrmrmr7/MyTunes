@@ -1,7 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.ConnectionPool;
-import com.mrmrmr7.mytunes.dao.JdbcConnectionProxy;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

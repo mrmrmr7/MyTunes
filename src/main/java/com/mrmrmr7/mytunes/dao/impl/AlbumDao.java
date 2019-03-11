@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Album;
@@ -13,13 +14,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
-    
+
+    @AutoConnection
     @Override
     public Optional<Album> getByPK(Integer id) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setAlbum(resultSet));
+                return Optional.of(resultSetToBean.toAlbum(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.1.1");
             }
@@ -28,6 +30,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
         }
     }
 
+    @AutoConnection
     @Override
     public List<Album> getAll() throws DaoException {
 
@@ -37,7 +40,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setAlbum(resultSet));
+                            .add(resultSetToBean.toAlbum(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.1.3");
@@ -49,6 +52,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
         return userList;
     }
 
+    @AutoConnection
     @Override
     public void insert(Album object) throws DaoException {
 
@@ -59,6 +63,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -69,6 +74,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
         }
     }
 
+    @AutoConnection
     @Override
     public void update(Album object) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
@@ -78,6 +84,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(Album object) throws SQLException {
 
@@ -85,6 +92,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(Album object) throws SQLException {
 
@@ -95,6 +103,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -103,6 +112,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -112,6 +122,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Album object) throws SQLException {
 
         int i = 0;
@@ -123,10 +134,12 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
     }
 
     @Override
+    @AutoConnection
     protected String getSelectQuery(TableName tableName) {
         return "SELECT * FROM " + tableName.getValue() + " WHERE ID=?";
     }
 
+    @AutoConnection
     @Override
     public String getInsertQuery() {
 
@@ -136,6 +149,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
                 "(?,?,?,?)";
     }
 
+    @AutoConnection
     @Override
     public String getUpdateQuery() {
 

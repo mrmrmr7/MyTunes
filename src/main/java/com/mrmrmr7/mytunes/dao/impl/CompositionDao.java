@@ -17,12 +17,13 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
     public CompositionDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<Composition> getByPK(Integer id) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setComposition(resultSet));
+                return Optional.of(resultSetToBean.toComposition(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.5.1");
             }
@@ -31,6 +32,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         }
     }
 
+    @AutoConnection
     @Override
     public List<Composition> getListByPK(List<Integer> idList) throws DaoException {
 
@@ -47,6 +49,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         return compositionList;
     }
 
+    @AutoConnection
     @Override
     public List<Composition> getAll() throws DaoException {
 
@@ -56,7 +59,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setComposition(resultSet));
+                            .add(resultSetToBean.toComposition(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.5.3");
@@ -68,6 +71,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         return userList;
     }
 
+    @AutoConnection
     @Override
     public void insert(Composition object) throws DaoException {
 
@@ -78,6 +82,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -88,6 +93,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         }
     }
 
+    @AutoConnection
     @Override
     public void update(Composition object) throws DaoException {
 
@@ -98,6 +104,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(Composition object) throws SQLException {
 
@@ -105,6 +112,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(Composition object) throws SQLException {
 
@@ -115,6 +123,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -123,6 +132,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -132,6 +142,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Composition object) throws SQLException {
 
         int i = 0;
@@ -142,6 +153,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     public String getInsertQuery() {
 
@@ -151,6 +163,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
                 "(?,?,?,?)";
     }
 
+    @AutoConnection
     @Override
     public String getUpdateQuery() {
 

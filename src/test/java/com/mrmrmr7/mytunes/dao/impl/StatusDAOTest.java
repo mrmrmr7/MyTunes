@@ -39,7 +39,7 @@ class StatusDAOTest {
     @Test
     void getByPK() throws DaoException {
 
-        Optional<Status> status = statusDAO.getByPK(1);
+        Optional<Status> status = statusDAO.getByPK((byte)1);
 
         String actual = status.get().toString();
         String expected = "Status{id=1, status='activated'}";
@@ -66,13 +66,13 @@ class StatusDAOTest {
     void insert() throws DaoException {
 
         Status expected = new Status(
-                4,
+                (byte)4,
                 "Some new status"
         );
 
         statusDAO.insert(expected);
 
-        Optional<Status> actual = statusDAO.getByPK(4);
+        Optional<Status> actual = statusDAO.getByPK((byte)4);
 
         assertEquals(expected, actual.get());
     }
@@ -80,7 +80,7 @@ class StatusDAOTest {
     @Test
     void delete() throws DaoException {
 
-        statusDAO.delete(1);
+        statusDAO.delete((byte)1);
 
         List<Status> statusList = statusDAO.getAll();
 
@@ -97,13 +97,13 @@ class StatusDAOTest {
     void update() throws DaoException {
 
         Status expected = new Status(
-                1,
+                (byte)1,
                 "new status"
         );
 
         statusDAO.update(expected);
 
-        Optional<Status> actual = statusDAO.getByPK(1);
+        Optional<Status> actual = statusDAO.getByPK((byte)1);
 
         assertEquals(expected, actual.get());
     }

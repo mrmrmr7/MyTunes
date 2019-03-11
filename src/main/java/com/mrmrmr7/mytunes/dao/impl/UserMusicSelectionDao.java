@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserMusicSelection;
@@ -17,13 +18,14 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
     public UserMusicSelectionDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<UserMusicSelection> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setUserMusicSelection(resultSet));
+                return Optional.of(resultSetToBean.toUserMusicSelection(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.16.1");
             }
@@ -32,6 +34,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         }
     }
 
+    @AutoConnection
     @Override
     public List<UserMusicSelection> getAll() throws DaoException {
 
@@ -40,7 +43,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setUserMusicSelection(resultSet));
+                            .add(resultSetToBean.toUserMusicSelection(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.16.3");
@@ -52,6 +55,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         return userList;
     }
 
+    @AutoConnection
     @Override
     public void insert(UserMusicSelection object) throws DaoException {
 
@@ -62,6 +66,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -72,6 +77,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         }
     }
 
+    @AutoConnection
     @Override
     public void update(UserMusicSelection object) throws DaoException {
 
@@ -82,6 +88,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(UserMusicSelection object) throws SQLException {
 
@@ -98,6 +105,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(UserMusicSelection object) throws SQLException {
 
@@ -115,6 +123,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -123,6 +132,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -132,22 +142,26 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected String getSelectQuery(TableName tableName) {
 
         return "SELECT * FROM " + tableName.getValue() + " WHERE USER_ID=?";
     }
 
+    @AutoConnection
     @Override
     protected String getSelectAllQuery(TableName tableName) {
         return "SELECT * FROM " + tableName.getValue() + " ORDER BY USER_ID";
     }
 
+    @AutoConnection
     @Override
     protected String getDeleteQuery(TableName tableName) {
         return "DELETE FROM " + tableName.getValue() + " WHERE USER_ID=?";
     }
 
+    @AutoConnection
     @Override
     public String getInsertQuery() {
 
@@ -157,6 +171,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
                 "(?,?)";
     }
 
+    @AutoConnection
     @Override
     public String getUpdateQuery() {
 

@@ -5,9 +5,9 @@ import com.mrmrmr7.mytunes.entity.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ResultSetCompiller {
+public class ResultSetToBean {
 
-    public User setUser(ResultSet resultSet) throws SQLException {
+    public User toUser(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new User(resultSet.getInt(++i),
                         resultSet.getDate(++i),
@@ -15,7 +15,7 @@ public class ResultSetCompiller {
                         resultSet.getString(++i),
                         resultSet.getString(++i),
                         resultSet.getString(++i),
-                        resultSet.getString(++i),
+                        resultSet.getString(++i).toLowerCase(),
                         resultSet.getLong(++i),
                         resultSet.getByte(++i),
                         resultSet.getByte(++i),
@@ -24,7 +24,7 @@ public class ResultSetCompiller {
                         resultSet.getString(++i));
     }
 
-    public Author setAuthor(ResultSet resultSet) throws SQLException {
+    public Author toAuthor(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new Author(resultSet.getInt(++i),
                 resultSet.getString(++i),
@@ -32,7 +32,7 @@ public class ResultSetCompiller {
                 resultSet.getString(++i));
     }
 
-    public Composition setComposition(ResultSet resultSet) throws SQLException {
+    public Composition toComposition(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new Composition(resultSet.getInt(++i),
                 resultSet.getInt(++i),
@@ -41,7 +41,7 @@ public class ResultSetCompiller {
                 resultSet.getInt(++i));
     }
 
-    public CompositionFeedback setCompositionFeedback(ResultSet resultSet) throws SQLException {
+    public CompositionFeedback toCompositionFeedback(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new CompositionFeedback(
                 resultSet.getInt(++i),
@@ -50,7 +50,7 @@ public class ResultSetCompiller {
         );
     }
 
-    public AlbumFeedback setAlbumFeedback(ResultSet resultSet) throws SQLException {
+    public AlbumFeedback toAlbumFeedback(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new AlbumFeedback(
                 resultSet.getInt(++i),
@@ -58,7 +58,7 @@ public class ResultSetCompiller {
         );
     }
 
-    public Bonus setBonus(ResultSet resultSet) throws SQLException {
+    public Bonus toBonus(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new Bonus(
                 resultSet.getInt(++i),
@@ -66,15 +66,15 @@ public class ResultSetCompiller {
         );
     }
 
-    public Status setStatus(ResultSet resultSet) throws SQLException {
+    public Status toStatus(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new Status(
-                resultSet.getInt(++i),
+                resultSet.getByte(++i),
                 resultSet.getString(++i)
         );
     }
 
-    public Genre setGenre(ResultSet resultSet) throws SQLException {
+    public Genre toGenre(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new Genre(
                 resultSet.getInt(++i),
@@ -82,15 +82,15 @@ public class ResultSetCompiller {
         );
     }
 
-    public Role setRole(ResultSet resultSet) throws SQLException {
+    public Role toRole(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new Role(
-                resultSet.getInt(++i),
-                resultSet.getString(++i)
+                resultSet.getByte(++i),
+                resultSet.getString(++i).toLowerCase()
         );
     }
 
-    public Album setAlbum(ResultSet resultSet) throws SQLException {
+    public Album toAlbum(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new Album(
                 resultSet.getInt(++i),
@@ -101,7 +101,7 @@ public class ResultSetCompiller {
         );
     }
 
-    public MusicSelection setMusicSelection(ResultSet resultSet) throws SQLException {
+    public MusicSelection toMusicSelection(ResultSet resultSet) throws SQLException {
 
         final int SELECTION_ID_COL_NUM = 2;
         final int ID_COL_NUM = 1;
@@ -124,7 +124,7 @@ public class ResultSetCompiller {
         return musicSelection;
     }
 
-    public MusicSelectionFeedback setMusicSelectionFeedback(ResultSet resultSet) throws SQLException {
+    public MusicSelectionFeedback toMusicSelectionFeedback(ResultSet resultSet) throws SQLException {
         int i = 0;
         return new MusicSelectionFeedback(
                 resultSet.getInt(++i),
@@ -133,7 +133,7 @@ public class ResultSetCompiller {
         );
     }
 
-    public UserAlbum setUserAlbum(ResultSet resultSet) throws SQLException {
+    public UserAlbum toUserAlbum(ResultSet resultSet) throws SQLException {
 
         final int ALBUM_ID_COL_NUM = 2;
         final int ID_COL_NUM = 1;
@@ -156,7 +156,7 @@ public class ResultSetCompiller {
         return musicSelection;
     }
 
-    public UserBonus setUserBonus(ResultSet resultSet) throws SQLException {
+    public UserBonus toUserBonus(ResultSet resultSet) throws SQLException {
 
         final int USER_ID_COL_NUM = 2;
         final int ID_COL_NUM = 1;
@@ -179,7 +179,7 @@ public class ResultSetCompiller {
         return musicSelection;
     }
 
-    public UserComposition setUserComposition(ResultSet resultSet) throws SQLException {
+    public UserComposition toUserComposition(ResultSet resultSet) throws SQLException {
 
         final int ALBUM_ID_COL_NUM = 2;
         final int ID_COL_NUM = 1;
@@ -202,7 +202,7 @@ public class ResultSetCompiller {
         return musicSelection;
     }
 
-    public UserMusicSelection setUserMusicSelection(ResultSet resultSet) throws SQLException {
+    public UserMusicSelection toUserMusicSelection(ResultSet resultSet) throws SQLException {
 
         final int ALBUM_ID_COL_NUM = 2;
         final int ID_COL_NUM = 1;
@@ -223,14 +223,6 @@ public class ResultSetCompiller {
         resultSet.previous();
 
         return musicSelection;
-    }
-
-    public SessionData setSessionData(ResultSet resultSet) throws SQLException {
-        int i = 1;
-        return new SessionData(
-                resultSet.getInt(++i),
-                resultSet.getBytes(++i)
-        );
     }
 }
 

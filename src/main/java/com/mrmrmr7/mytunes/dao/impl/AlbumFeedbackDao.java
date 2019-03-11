@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
@@ -18,13 +19,14 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
     public AlbumFeedbackDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<AlbumFeedback> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     resultSet.next();
-                    return Optional.of(resultSetCompiller.setAlbumFeedback(resultSet));
+                    return Optional.of(resultSetToBean.toAlbumFeedback(resultSet));
                 } catch (SQLException e) {
                     throw new DaoException("4.2.0");
                 }
@@ -33,6 +35,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         }
     }
 
+    @AutoConnection
     @Override
     public List<AlbumFeedback> getAll() throws DaoException {
 
@@ -41,7 +44,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     compositionFeedbackList
-                            .add(resultSetCompiller.setAlbumFeedback(resultSet));
+                            .add(resultSetToBean.toAlbumFeedback(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.2.2");
@@ -53,6 +56,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         return compositionFeedbackList;
     }
 
+    @AutoConnection
     @Override
     public void insert(AlbumFeedback object) throws DaoException {
 
@@ -63,6 +67,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -73,6 +78,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         }
     }
 
+    @AutoConnection
     @Override
     public void update(AlbumFeedback object) throws DaoException {
 
@@ -83,6 +89,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(AlbumFeedback object) throws SQLException {
 
@@ -91,6 +98,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(AlbumFeedback object) throws SQLException {
 
@@ -103,6 +111,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -111,6 +120,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -120,6 +130,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, AlbumFeedback object) throws SQLException {
 
         int i = 0;
@@ -129,6 +140,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
     }
 
     @Override
+    @AutoConnection
     protected String getInsertQuery() {
 
         return "INSERT INTO " + TableName.ALBUM_FEEDBACK.getValue() +
@@ -138,6 +150,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
     }
 
     @Override
+    @AutoConnection
     protected String getUpdateQuery() {
 
         return "UPDATE " + TableName.ALBUM_FEEDBACK.getValue() + " SET " +

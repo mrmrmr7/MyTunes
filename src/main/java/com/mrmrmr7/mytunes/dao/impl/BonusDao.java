@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
@@ -18,13 +19,14 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
     public BonusDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<Bonus> getByPK(Integer id) throws DaoException {
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
-                return Optional.of(resultSetCompiller.setBonus(resultSet));
+                return Optional.of(resultSetToBean.toBonus(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.4.1");
             }
@@ -33,6 +35,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         }
     }
 
+    @AutoConnection
     @Override
     public List<Bonus> getAll() throws DaoException {
 
@@ -42,7 +45,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
-                            .add(resultSetCompiller.setBonus(resultSet));
+                            .add(resultSetToBean.toBonus(resultSet));
                 }
             } catch (SQLException e) {
                 throw new DaoException("4.4.3");
@@ -54,6 +57,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         return userList;
     }
 
+    @AutoConnection
     @Override
     public void insert(Bonus object) throws DaoException {
 
@@ -64,6 +68,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -74,6 +79,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         }
     }
 
+    @AutoConnection
     @Override
     public void update(Bonus object) throws DaoException {
 
@@ -84,6 +90,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(Bonus object) throws SQLException {
 
@@ -91,6 +98,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(Bonus object) throws SQLException {
 
@@ -101,6 +109,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -109,6 +118,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -118,6 +128,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Bonus object) throws SQLException {
 
         int i = 0;
@@ -126,6 +137,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
     }
 
     @Override
+    @AutoConnection
     public String getInsertQuery() {
 
         return "INSERT INTO " + TableName.BONUS.getValue() +
@@ -134,6 +146,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
                 "(?)";
     }
 
+    @AutoConnection
     @Override
     public String getUpdateQuery() {
 

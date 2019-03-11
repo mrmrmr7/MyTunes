@@ -42,6 +42,15 @@ public class TransactionManagerImpl implements TransactionManager {
             System.out.println("impossible to set autocommit: false");
         }
 
+        try {
+            ConnectionPoolFactory
+                    .getInstance()
+                    .getConnectionPool(ConnectionPoolType.MYSQL)
+                    .releaseConnection(this.singleConnection);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+
         for (GenericDao genericDAO : genericDaoList) {
             try {
                 removeConnectionWithReflection(genericDAO);

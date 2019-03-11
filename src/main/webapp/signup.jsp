@@ -42,48 +42,157 @@
                         <img class="align-content" src="${pageContext.request.contextPath}/site/images/logo.png" alt="">
                     </a>
                 </div>
+
+
+
                 <div class="login-form">
-                    <form action="/crud" method="post">
+                    <script>
+                        function formValidation() {
+                            var login = document.forms["signUpForm"]["login"].value;
+                            var password = document.forms["signUpForm"]["password"].value;
+                            var passwordAgain = document.forms["signUpForm"]["passwordAgain"].value;
+                            var email = document.forms["signUpForm"]["email"].value;
+                            var firstName = document.forms["signUpForm"]["firstName"].value;
+                            var secondName = document.forms["signUpForm"]["secondName"].value;
+
+                            var boolRes = 1;
+
+                            if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
+                                document.forms["signUpForm"]["email"].value = "";
+                                document.getElementById("emailId").className = "is-invalid form-control";
+                                document.getElementById("emailId").style.color = "red";
+                                document.getElementById("emailLabelId").style.color = "red";
+                                document.forms["signUpForm"]["email"].value = email;
+                                boolRes = 0;
+                            } else {
+                                document.forms["signUpForm"]["email"].value = "";
+                                document.getElementById("emailId").className = "form-control";
+                                document.getElementById("emailId").style.color = "";
+                                document.getElementById("emailLabelId").style.color = "";
+                                document.forms["signUpForm"]["email"].value = email;
+                            }
+
+                            if (!/^[0-9a-zA-Z_]{8,32}$/.test(login)) {
+                                document.forms["signUpForm"]["login"].value = "";
+                                document.getElementById("loginId").className = "is-invalid form-control";
+                                document.getElementById("loginId").style.color = "red";
+                                document.getElementById("loginLabelId").style.color = "red";
+                                document.forms["signUpForm"]["login"].value = login;
+                                boolRes = 0;
+                            } else {
+                                document.forms["signUpForm"]["login"].value = "";
+                                document.getElementById("loginId").className = "form-control";
+                                document.getElementById("loginId").style.color = "";
+                                document.getElementById("loginLabelId").style.color = "";
+                                document.forms["signUpForm"]["login"].value = login;
+                            }
+
+                            if (password.localeCompare(passwordAgain) !== 0) {
+                                document.forms["signUpForm"]["password"].value ="";
+                                document.getElementById("passwordId").className = "is-invalid form-control";
+                                document.getElementById("passwordId").style.color = "red";
+                                document.getElementById("passwordLabelId").style.color = "red";
+                                document.forms["signUpForm"]["password"].value = password;
+
+                                document.forms["signUpForm"]["passwordAgain"].value ="";
+                                document.getElementById("passwordAgainId").className = "is-invalid form-control";
+                                document.getElementById("passwordAgainId").style.color = "red";
+                                document.getElementById("passwordAgainLabelId").style.color = "red";
+                                boolRes = 0;
+                            } else {
+                                document.forms["signUpForm"]["password"].value ="";
+                                document.getElementById("passwordId").className = "form-control";
+                                document.getElementById("passwordId").style.color = "";
+                                document.getElementById("passwordLabelId").style.color = "";
+                                document.forms["signUpForm"]["password"].value = password;
+
+                                document.forms["signUpForm"]["passwordAgain"].value ="";
+                                document.getElementById("passwordAgainId").className = "form-control";
+                                document.getElementById("passwordAgainId").style.color = "";
+                                document.getElementById("passwordAgainLabelId").style.color = "";
+                            }
+
+                            if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,32}$/.test(password)) {
+                                document.forms["signUpForm"]["password"].value ="";
+                                document.getElementById("passwordId").className = "is-invalid form-control";
+                                document.getElementById("passwordId").style.color = "red";
+                                document.getElementById("passwordLabelId").style.color = "red";
+                                document.forms["signUpForm"]["password"].value = password;
+                                boolRes = 0;
+                            } else {
+                                document.forms["signUpForm"]["password"].value = "";
+                                document.getElementById("passwordId").className = "form-control";
+                                document.getElementById("passwordId").style.color = "";
+                                document.getElementById("passwordLabelId").style.color = "";
+                                document.forms["signUpForm"]["password"].value = password;
+                            }
+
+                            if (!/^[A-Z][a-z]+$/.test(firstName)) {
+                                document.forms["signUpForm"]["firstName"].value = "";
+                                document.getElementById("firstNameId").className = "is-invalid form-control";
+                                document.getElementById("firstNameId").style.color = "red";
+                                document.getElementById("firstNameLabelId").style.color = "red";
+                                document.forms["signUpForm"]["firstName"].value = firstName;
+                                boolRes = 0;
+                            } else {
+                                document.forms["signUpForm"]["firstName"].value = "";
+                                document.getElementById("firstNameId").className = "form-control";
+                                document.getElementById("firstNameId").style.color = "";
+                                document.getElementById("firstNameLabelId").style.color = "";
+                                document.forms["signUpForm"]["firstName"].value = firstName;
+                            }
+
+                            if (!/^[A-Z][a-z]+$/.test(secondName)) {
+                                document.forms["signUpForm"]["secondName"].value = "";
+                                document.getElementById("secondNameId").className = "is-invalid form-control";
+                                document.getElementById("secondNameId").style.color = "red";
+                                document.getElementById("secondNameLabelId").style.color = "red";
+                                document.forms["signUpForm"]["secondName"].value = secondName;
+                                boolRes = 0;
+                            } else {
+                                document.forms["signUpForm"]["secondName"].value = "";
+                                document.getElementById("secondNameId").className = "form-control";
+                                document.getElementById("secondNameId").style.color = "";
+                                document.getElementById("secondNameLabelId").style.color = "";
+                                document.forms["signUpForm"]["secondName"].value = secondName;
+                            }
+
+                            return Boolean(boolRes);
+                        }
+                    </script>
+                    <form action="${pageContext.request.contextPath}/crud"  method="post" id="si" name="signUpForm" onsubmit="return formValidation()" >
                         <div class="form-group">
-                            <label>Login</label>
-                            <input type="email" class="form-control" placeholder="f.e. mrmrmr7" name="login">
+                            <label id="loginLabelId">Login</label>
+                            <input type="text" class="form-control" placeholder="f.e. mrmrmr7" id="loginId" name="login">
+                        </div>
+
+                        <div class="form-group">
+                            <label id="emailLabelId">Email address</label>
+                            <input type="email" class="form-control" placeholder="f.e. aliex.s@yandex.by" id="emailId" name="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label id="firstNameLabelId">First name</label>
+                            <input type="text" class="form-control" placeholder="f.e. Alexandr" id="firstNameId" name="firstName">
                         </div>
                         <div class="form-group">
-                            <label>Email address</label>
-                            <input type="email" class="form-control" placeholder="f.e. aliex.s@yandex.by" name="email">
+                            <label id="secondNameLabelId">Second name</label>
+                            <input type="text" class="form-control" placeholder="f.e. Zaporozhtsev" id="secondNameId" name="secondName">
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" placeholder="f.e. ********" name="password">
+                            <label id="passwordLabelId">Password</label>
+                            <input type="password" class="form-control" placeholder="f.e. ********" id="passwordId" name="password">
                         </div>
                         <div class="form-group">
-                            <label>Password again</label>
-                            <input type="password" class="form-control" placeholder="f.e. ********" name="password">
-                        </div>
-                        <div class="form-group">
-                            <label>First name</label>
-                            <input type="password" class="form-control" placeholder="f.e. Alexandr" name="first_name">
-                        </div>
-                        <div class="form-group">
-                            <label>Second name</label>
-                            <input type="password" class="form-control" placeholder="f.e. Zaporozhtsev" name="second_name">
-                        </div>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> Agree the terms and policy
-                            </label>
+                            <label id="passwordAgainLabelId">Password again</label>
+                            <input type="password" class="form-control" placeholder="f.e. ********" id="passwordAgainId" name="passwordAgain" >
                         </div>
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
-                        <div class="social-login-content">
-                            <div class="social-button">
-                                <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i class="ti-facebook"></i>Register with facebook</button>
-                                <button type="button" class="btn social twitter btn-flat btn-addon mt-2"><i class="ti-twitter"></i>Register with twitter</button>
-                            </div>
-                        </div>
+
                         <div class="register-link m-t-15 text-center">
-                            <p>Already have account ? <a href="${pageContext.request.contextPath}/site#"> Sign in</a></p>
+                            <p>Already have account? <a href="${pageContext.request.contextPath}/signin.jsp"> Sign in</a></p>
                         </div>
-                        <input type="hidden" name="signup">
+                        <input type="hidden" name="command" value="signin">
                     </form>
                 </div>
             </div>

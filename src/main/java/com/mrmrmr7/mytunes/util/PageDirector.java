@@ -14,7 +14,8 @@ public enum PageDirector {
     REGISTRATION ("/signup.jsp"),
     VIEW ("/WEB-INF/jsp/view.jsp"),
     VIEW_NAME ("viewName"),
-    ACCOUNT ("/WEB-INF/jsp/account.jsp");
+    ACCOUNT ("/WEB-INF/jsp/account.jsp"),
+    SECRET_ACCOUNT ("/WEB-INF/jsp/saveOfAccount.jsp");
 
     private String value;
 

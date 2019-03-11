@@ -9,8 +9,8 @@ import java.util.Objects;
 
 public class UserBonus implements Identified<Integer> {
     Integer id;
-    List<Integer> cortageIdList;
-    List<Integer> bonusIdList;
+    private List<Integer> cortageIdList = new ArrayList<>();
+    private List<Integer> bonusIdList = new ArrayList<>();
 
     public UserBonus(Integer userId, List<Integer> cortageIdList, List<Integer> bonusIdList) {
         this.id = userId;
