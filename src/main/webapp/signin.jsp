@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -69,6 +70,25 @@
                         }
                     </script>
 
+                    <c:if test="${succesRegStart}">
+                        <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
+                            <span class="badge badge-pill badge-dark">Success</span>
+                            We send message for register
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">X</span>
+                            </button>
+                        </div>
+                    </c:if>
+                    <c:if test="${succesRegFinish}">
+
+                        <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
+                            <span class="badge badge-pill badge-dark">Success</span>
+                            You are register!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">X</span>
+                            </button>
+                        </div>
+                    </c:if>
                     <form action="${pageContext.request.contextPath}/crud"  method="post" id="si" name="signInForm" onsubmit="return formValidation()">
                         <div class="form-group">
                             <label id="loginLabelId">Login</label>
@@ -87,12 +107,7 @@
                             </label>
                         </div>
                         <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" form="si">Sign in</button>
-                        <div class="social-login-content">
-                            <div class="social-button">
-                                <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i class="ti-facebook"></i>Sign in with facebook</button>
-                                <button type="button" class="btn social twitter btn-flat btn-addon mt-2"><i class="ti-twitter"></i>Sign in with twitter</button>
-                            </div>
-                        </div>
+
                         <div class="register-link m-t-15 text-center">
                             <p>Don't have account ? <a href="${pageContext.request.contextPath}/signup.jsp"> Sign Up Here</a></p>
                         </div>

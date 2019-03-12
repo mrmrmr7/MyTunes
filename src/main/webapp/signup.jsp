@@ -163,36 +163,36 @@
                     <form action="${pageContext.request.contextPath}/crud"  method="post" id="si" name="signUpForm" onsubmit="return formValidation()" >
                         <div class="form-group">
                             <label id="loginLabelId">Login</label>
-                            <input type="text" class="form-control" placeholder="f.e. mrmrmr7" id="loginId" name="login">
+                            <input type="text" class="form-control" placeholder="f.e. mrmrmr7" id="loginId" name="login" value="LoginXyegin">
                         </div>
 
                         <div class="form-group">
                             <label id="emailLabelId">Email address</label>
-                            <input type="email" class="form-control" placeholder="f.e. aliex.s@yandex.by" id="emailId" name="email">
+                            <input type="email" class="form-control" placeholder="f.e. aliex.s@yandex.by" id="emailId" name="email" value="a@b.cd">
                         </div>
 
                         <div class="form-group">
                             <label id="firstNameLabelId">First name</label>
-                            <input type="text" class="form-control" placeholder="f.e. Alexandr" id="firstNameId" name="firstName">
+                            <input type="text" class="form-control" placeholder="f.e. Alexandr" id="firstNameId" name="firstName" value="Bb">
                         </div>
                         <div class="form-group">
                             <label id="secondNameLabelId">Second name</label>
-                            <input type="text" class="form-control" placeholder="f.e. Zaporozhtsev" id="secondNameId" name="secondName">
+                            <input type="text" class="form-control" placeholder="f.e. Zaporozhtsev" id="secondNameId" name="secondName" value="Aa">
                         </div>
                         <div class="form-group">
                             <label id="passwordLabelId">Password</label>
-                            <input type="password" class="form-control" placeholder="f.e. ********" id="passwordId" name="password">
+                            <input type="text" class="form-control" placeholder="f.e. ********" id="passwordId" name="password" value="EpamClass2019">
                         </div>
                         <div class="form-group">
                             <label id="passwordAgainLabelId">Password again</label>
-                            <input type="password" class="form-control" placeholder="f.e. ********" id="passwordAgainId" name="passwordAgain" >
+                            <input type="password" class="form-control" placeholder="f.e. ********" id="passwordAgainId" name="passwordAgain" value="EpamClass2019">
                         </div>
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
 
                         <div class="register-link m-t-15 text-center">
                             <p>Already have account? <a href="${pageContext.request.contextPath}/signin.jsp"> Sign in</a></p>
                         </div>
-                        <input type="hidden" name="command" value="signin">
+                        <input type="hidden" name="command" value="signup"/>
                     </form>
                 </div>
             </div>

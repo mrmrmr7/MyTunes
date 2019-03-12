@@ -7,7 +7,8 @@ import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.service.ServiceUser;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.service.ServiceException;
-import com.mrmrmr7.mytunes.util.CookieUtil;
+import com.mrmrmr7.mytunes.util.StringToKeyUtil;
+import com.mrmrmr7.mytunes.util.KeyPairUtil;
 import com.mrmrmr7.mytunes.validator.AuthorizationValidator;
 import com.mrmrmr7.mytunes.validator.ValidatorSignIn;
 
@@ -22,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
 import java.util.*;
 
 public class ServiceUserImpl implements ServiceUser {
@@ -38,6 +38,7 @@ public class ServiceUserImpl implements ServiceUser {
         if (!validatorSignIn.isValid(login, password)) {
             return false;
         }
+
         JdbcDaoFactory jdbcDaoFactory = JdbcDaoFactory.getInstance();
 
         try {
@@ -55,16 +56,28 @@ public class ServiceUserImpl implements ServiceUser {
                 return false;
             }
 
-            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-            keyPairGenerator.initialize(2048);
-            KeyPair keyPair = keyPairGenerator.generateKeyPair();
-            PublicKey publicKey = keyPair.getPublic();
-            PrivateKey privateKey = keyPair.getPrivate();
+            KeyPairUtil.setKeysToUser(user.get());
+//            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+//            keyPairGenerator.initialize(2048);
+//            KeyPair keyPair = keyPairGenerator.generateKeyPair();
+//            PublicKey publicKey = keyPair.getPublic();
+//            PrivateKey privateKey = keyPair.getPrivate();
+//
+//            String publicEncoded = Base64.getEncoder().encodeToString(publicKey.getEncoded());
+//            user.get().setPublicKey(publicEncoded);
+//            String privateEncoded = Base64.getEncoder().encodeToString(privateKey.getEncoded());
+//            user.get().setPrivateKey(privateEncoded);
 
-            String publicEncoded = Base64.getEncoder().encodeToString(publicKey.getEncoded());
-            user.get().setPublicKey(publicEncoded);
-            String privateEncoded = Base64.getEncoder().encodeToString(privateKey.getEncoded());
-            user.get().setPrivateKey(privateEncoded);
+
+            Base64.Decoder decoder = Base64.getDecoder();
+            byte[] byteArray = decoder.decode(user.get().getPrivateKey());
+            PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(byteArray);
+            PrivateKey privateKey = null;
+            try {
+                privateKey = KeyFactory.getInstance("RSA").generatePrivate(pkcs8EncodedKeySpec);
+            } catch (InvalidKeySpecException e) {
+                e.printStackTrace();
+            }
 
             jdbcDaoFactory.getDao(User.class).update(user.get());
 
@@ -74,11 +87,15 @@ public class ServiceUserImpl implements ServiceUser {
             claimMap.put("userLogin", user.get().getLogin());
             claimMap.put("userRole", user.get().getRoleId());
 
-            String token = Jwts.builder().setClaims(claimMap).signWith(SignatureAlgorithm.RS256, privateKey).compact();
+            String token = Jwts
+                    .builder()
+                    .setClaims(claimMap)
+                    .signWith(SignatureAlgorithm.RS256, privateKey)
+                    .compact();
 
             Cookie cookieToken = new Cookie(COOKIE_TOKEN, token);
             response.addCookie(cookieToken);
-            Cookie cookiePublicKey = new Cookie(COOKIE_PUBLIC_KEY, publicEncoded);
+            Cookie cookiePublicKey = new Cookie(COOKIE_PUBLIC_KEY, user.get().getPublicKey());
             response.addCookie(cookiePublicKey);
 
         } catch (DaoException e) {
@@ -122,7 +139,7 @@ public class ServiceUserImpl implements ServiceUser {
             return false;
         }
 
-        if (command.equals(CommandDirector.SIGN_IN.getValue())) {
+        if (command.equals(CommandDirector.SIGN_IN.getValue()) || command.equals(CommandDirector.SIGN_UP.getValue()) || command.equals(CommandDirector.FINISH_REGISTRATION.getValue())) {
             return true;
         }
 
@@ -142,7 +159,7 @@ public class ServiceUserImpl implements ServiceUser {
                 return false;
             }
 
-            PublicKey publicKey = CookieUtil.cookieToPublicKey(cookiePublicKey.get());
+            PublicKey publicKey = StringToKeyUtil.toPublicKey(cookiePublicKey.get().getValue());
 
             Claims claims;
 

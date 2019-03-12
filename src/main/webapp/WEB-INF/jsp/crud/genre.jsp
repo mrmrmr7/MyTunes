@@ -28,7 +28,7 @@
 <body>
     <!-- Left Panel -->
 
-    <jsp:include page="/WEB-INF/jsp/include/clientleftpanel.jsp"/>
+    <jsp:include page="/WEB-INF/jsp/include/leftpanel.jsp"/>
 
     <!-- Left Panel -->
 

@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;

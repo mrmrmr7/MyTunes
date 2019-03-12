@@ -52,8 +52,7 @@ public class SessionFilter implements Filter {
             if (isAuthorized) {
                 httpServletRequest.getRequestDispatcher(PageDirector.ACCOUNT.getValue()).forward(servletRequest, servletResponse);
             } else {
-                httpServletRequest.getSession(true
-                );
+                httpServletRequest.getSession(true);
                 clearCookie(servletResponse);
                 filterChain.doFilter(servletRequest, servletResponse);
             }

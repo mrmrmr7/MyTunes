@@ -12,6 +12,7 @@ public enum PageDirector {
     CRUD_ALBUM_FEEDBACK ("/WEB-INF/jsp/crud/albumfeedback.jsp"),
     LANDING ("/index.jsp"),
     REGISTRATION ("/signup.jsp"),
+    LOGIN ("/signin.jsp"),
     VIEW ("/WEB-INF/jsp/view.jsp"),
     VIEW_NAME ("viewName"),
     ACCOUNT ("/WEB-INF/jsp/account.jsp"),

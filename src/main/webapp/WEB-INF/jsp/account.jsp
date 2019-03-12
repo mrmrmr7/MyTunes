@@ -38,12 +38,7 @@
 
 <!-- Left Panel -->
 
-<c:if test="${empty userDto}">
-    <jsp:include page="include/clientleftpanel.jsp"/>
-</c:if>
-<c:if test="${not empty userDto}">
-    <jsp:include page="include/${userDto.role.role}leftpanel.jsp"/>
-</c:if>
+<jsp:include page="include/leftpanel.jsp"/>
 
 <!-- Left Panel -->
 

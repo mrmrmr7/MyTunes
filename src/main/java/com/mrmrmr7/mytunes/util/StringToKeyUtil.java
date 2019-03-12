@@ -8,13 +8,12 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
-public class CookieUtil {
+public class StringToKeyUtil {
 
-    public static PublicKey cookieToPublicKey(Cookie cookie) {
+    public static PublicKey toPublicKey(String data) {
         byte[] byteArray = Base64
                 .getDecoder()
-                .decode(cookie
-                        .getValue()
+                .decode(data
                         .getBytes());
 
         X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(byteArray);

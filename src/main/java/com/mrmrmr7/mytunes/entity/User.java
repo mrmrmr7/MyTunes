@@ -66,7 +66,7 @@ public class User implements Identified<Integer> {
     public User(String LOGIN, String password,
                 String firstName, String secondName,
                 String email) {
-        this(0, new Date(Calendar.getInstance().getTime().getTime()), LOGIN, password, firstName, secondName, email, (byte)0,(byte)0,(byte)0,(byte)0);
+        this(0, new Date(Calendar.getInstance().getTime().getTime()), LOGIN, password, firstName, secondName, email, (byte)0,(byte)0,(byte)2,(byte)2);
     }
 
     public User(int ID, Date registerData,

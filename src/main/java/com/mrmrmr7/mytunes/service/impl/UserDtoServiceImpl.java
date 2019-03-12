@@ -2,24 +2,18 @@ package com.mrmrmr7.mytunes.service.impl;
 
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
-import com.mrmrmr7.mytunes.dao.TransactionalDaoFactory;
 import com.mrmrmr7.mytunes.dao.UserDaoExtended;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
-import com.mrmrmr7.mytunes.dao.impl.RoleDao;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
-import com.mrmrmr7.mytunes.dao.impl.UserDao;
 import com.mrmrmr7.mytunes.dto.UserDto;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.ServiceException;
 import com.mrmrmr7.mytunes.service.UserDtoService;
-import com.mrmrmr7.mytunes.util.CookieUtil;
+import com.mrmrmr7.mytunes.util.StringToKeyUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.omg.CORBA.DATA_CONVERSION;
-import org.omg.CORBA.UserException;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.security.PublicKey;
@@ -182,7 +176,7 @@ public class UserDtoServiceImpl implements UserDtoService {
             throw new ServiceException("no public key");
         }
 
-        PublicKey publicKey = CookieUtil.cookieToPublicKey(cookiePublicKey.get());
+        PublicKey publicKey = StringToKeyUtil.toPublicKey(cookiePublicKey.get().getValue());
 
         Claims claims;
 

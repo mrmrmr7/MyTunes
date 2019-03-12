@@ -101,8 +101,8 @@ create table users
   sale          int           NOT NULL,
   role_id       int,
   status_id     int,
-  public_key    VARCHAR(1624) NOT NULL,
-  private_key   VARCHAR(392)  NOT NULL,
+  public_key    VARCHAR(392) NOT NULL,
+  private_key   VARCHAR(1624)  NOT NULL,
   constraint user_role_fk foreign key (role_id) references role (id) on DELETE cascade,
   constraint user_status_fk foreign key (status_id) references status (id) ON DELETE CASCADE
 );
@@ -170,7 +170,7 @@ create table session_data
 insert into STATUS (STATUS)
 values ('ACTIVE');
 insert into STATUS (STATUS)
-values ('DEACTIVE');
+values ('NOT CONFIRMED');
 insert into STATUS (STATUS)
 values ('DELETE');
 

@@ -6,6 +6,7 @@ public enum  CommandDirector {
     PASSWORD ("password"),
     SIGN_UP ("signup"),
     SIGN_IN ("signin"),
+    FINISH_REGISTRATION ("finishRegistration"),
     LOG_OUT ("logout"),
     MOVE_INSIDE_WEB_INF ("move"),
     MOVE_TO_ACCOUNT ("account"),

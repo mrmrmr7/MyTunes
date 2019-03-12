@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: mrmrmr
@@ -33,6 +34,10 @@
                 <li class="menu-item-has-children dropdown">
                     <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
                 </li>
+
+                <c:if test="${userDto.role.role.equalsIgnoreCase('ADMIN')}">
+                    <jsp:include page="adminPanel.jsp"/>
+                </c:if>
 
             </ul>
         </div><!-- /.navbar-collapse -->
