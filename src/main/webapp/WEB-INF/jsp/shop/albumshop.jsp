@@ -36,30 +36,24 @@
 </head>
 
 <body>
-    <!-- Left Panel -->
+<!-- Left Panel -->
 
-    <jsp:include page="/WEB-INF/jsp/include/leftpanel.jsp"/>
+<jsp:include page="../include/leftpanel.jsp"/>
 
-    <!-- Left Panel -->
+<!-- Left Panel -->
 
-    <!-- Right Panel -->
+<!-- Right Panel -->
 
-    <div id="right-panel" class="right-panel">
+<div id="right-panel" class="right-panel">
 
-        <!-- Header-->
+    <!-- Header-->
 
-        <jsp:include page="include/header.jsp"/>
+    <jsp:include page="../include/header.jsp"/>
 
-        <!-- Header-->
+    <!-- Header-->
 
-        <div class="content mt-3">
-            <div class="animated fadeIn">
-                <div class="row">
-                    <jsp:include page="include/${viewName}.jsp"/>
-                </div>
-            </div><!-- .animated -->
-        </div><!-- .content -->
-    </div><!-- /#right-panel -->
-    <!-- Right Panel -->
+    <jsp:include page="/WEB-INF/jsp/include/include/balance/${balanceType}.jsp"/>
+</div><!-- /#right-panel -->
+<!-- Right Panel -->
 </body>
 </html>

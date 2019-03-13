@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.service.ServiceUser;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.service.ServiceException;
-import com.mrmrmr7.mytunes.util.StringToKeyUtil;
+import com.mrmrmr7.mytunes.util.ProtectionUtil;
 import com.mrmrmr7.mytunes.util.KeyPairUtil;
 import com.mrmrmr7.mytunes.validator.AuthorizationValidator;
 import com.mrmrmr7.mytunes.validator.ValidatorSignIn;
@@ -25,7 +25,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.*;
 
-public class ServiceUserImpl implements ServiceUser {
+public class UserServiceImpl implements ServiceUser {
     private static final String COOKIE_TOKEN = "token";
     private static final String COOKIE_PUBLIC_KEY = "publicKey";
     private static final int COOKIE_COUNT = 2;
@@ -159,7 +159,7 @@ public class ServiceUserImpl implements ServiceUser {
                 return false;
             }
 
-            PublicKey publicKey = StringToKeyUtil.toPublicKey(cookiePublicKey.get().getValue());
+            PublicKey publicKey = ProtectionUtil.stringToPublicKey(cookiePublicKey.get().getValue());
 
             Claims claims;
 

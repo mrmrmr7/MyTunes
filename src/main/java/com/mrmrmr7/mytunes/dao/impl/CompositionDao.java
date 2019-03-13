@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Composition;
+import com.mrmrmr7.mytunes.entity.UserComposition;
 import com.mrmrmr7.mytunes.util.TableName;
 
 import java.sql.PreparedStatement;
@@ -47,6 +48,20 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         }
 
         return compositionList;
+    }
+
+    @Override
+    public Optional<Composition> getByName(String name) throws DaoException {
+        try (PreparedStatement preparedStatement = prepareStatementForGetByName(name)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return Optional.of(resultSetToBean.toComposition(resultSet));
+            } catch (SQLException e) {
+                throw new DaoException("4.5.1");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.5.2");
+        }
     }
 
     @AutoConnection
@@ -140,6 +155,20 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
                 .prepareStatement(getSelectQuery(TableName.COMPOSITION));
         preparedStatement.setInt(1, id);
         return preparedStatement;
+    }
+
+    @AutoConnection
+    protected PreparedStatement prepareStatementForGetByName(String name) throws SQLException {
+
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectByNameQuery(TableName.COMPOSITION));
+        preparedStatement.setString(1, name);
+        return preparedStatement;
+    }
+
+    @AutoConnection
+    protected String getSelectByNameQuery(TableName tableName) {
+        return "SELECT * FROM " + tableName.getValue() + " WHERE NAME=?";
     }
 
     @AutoConnection

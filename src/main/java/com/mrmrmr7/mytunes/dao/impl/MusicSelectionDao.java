@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.dao.MusicSelectionDaoExtended;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.MusicSelection;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> implements GenericDao<MusicSelection, Integer> {
+public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> implements MusicSelectionDaoExtended {
 
     public MusicSelectionDao() {
     }
@@ -32,6 +33,30 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         } catch (SQLException e) {
             throw new DaoException("4.8.2");
         }
+    }
+
+    @AutoConnection
+    @Override
+    public Optional<MusicSelection> getByName(String name) throws DaoException {
+        try (PreparedStatement preparedStatement = prepareStatementForByNameGet(name)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return Optional.of(resultSetToBean.toMusicSelection(resultSet));
+            } catch (SQLException e) {
+                throw new DaoException("4.8.1");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.8.2");
+        }
+    }
+
+    @AutoConnection
+    private PreparedStatement prepareStatementForByNameGet(String name) throws SQLException {
+
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectByNameQuery(TableName.MUSIC_SELECTION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        preparedStatement.setString(1, name);
+        return preparedStatement;
     }
 
     @AutoConnection
@@ -146,6 +171,13 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
 
         return "SELECT * FROM " + tableName.getValue() + " WHERE SELECTION_ID=?";
     }
+
+    @AutoConnection
+    protected String getSelectByNameQuery(TableName tableName) {
+
+        return "SELECT * FROM " + tableName.getValue() + " WHERE NAME=?";
+    }
+
 
     @AutoConnection
     @Override

@@ -3,17 +3,14 @@ package com.mrmrmr7.mytunes.controller.command.impl;
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
-import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.service.ServiceException;
-import com.mrmrmr7.mytunes.service.ServiceUser;
 import com.mrmrmr7.mytunes.service.SignUpService;
-import com.mrmrmr7.mytunes.service.impl.ServiceUserImpl;
 import com.mrmrmr7.mytunes.service.impl.SignUpServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandSignUp implements Command {
+public class SignUpStartCommand implements Command {
     private final static String PARAMETER_LOGIN = "login";
     private final static String PARAMETER_PASSWORD = "password";
     private final static String PARAMETER_FIRST_NAME = "first_name";

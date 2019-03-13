@@ -31,13 +31,21 @@ public class CommandProvider {
     }
 
     private CommandProvider() {
-        commandMap.put(CommandDirector.SIGN_IN.getValue(), new CommandSignIn());
-        commandMap.put(CommandDirector.SIGN_UP.getValue(), new CommandSignUp());
-        commandMap.put(CommandDirector.FINISH_REGISTRATION.getValue(), new FinishRegistrationCommand());
+        commandMap.put(CommandDirector.SIGN_IN.getValue(), new SignInCommand());
+        commandMap.put(CommandDirector.SIGN_UP.getValue(), new SignUpStartCommand());
+        commandMap.put(CommandDirector.FINISH_REGISTRATION.getValue(), new SignUpFinishCommand());
         commandMap.put(CommandDirector.LOG_OUT.getValue(), new CommandLogOut());
         commandMap.put(CommandDirector.MOVE_TO_ACCOUNT.getValue(), new ViewProfileCommand());
         commandMap.put(CommandDirector.MOVE_INSIDE_WEB_INF.getValue(), new CommandMoveInsideWebInf());
         commandMap.put(CommandDirector.SECRET_ACCOUNT.getValue(), new CommandMoveToSecretAccount());
+        commandMap.put(CommandDirector.VIEW_CURRENT_BALANCE.getValue(), new ViewCurrentBalanceCommand());
+        commandMap.put(CommandDirector.VIEW_COMPOSITION_SHOP.getValue(), new ViewShopCompositionCommand());
+        commandMap.put(CommandDirector.VIEW_ALBUM_SHOP.getValue(), new ViewShopAlbumCommand());
+        commandMap.put(CommandDirector.VIEW_MUSIC_SELECTION_SHOP.getValue(), new ViewShopMusicSelectionCommand());
+        commandMap.put(CommandDirector.BUY_COMPOSITION.getValue(), new BuyCompositionCommand());
+        commandMap.put(CommandDirector.BUY_ALBUM.getValue(), new BuyAlbumCommand());
+        commandMap.put(CommandDirector.BUY_MUSIC_SELECTION.getValue(), new BuyMusicSelectionCommand());
+
 
         commandMap.put(CommandDirector.USER_GET_BY_ID.getValue(), new CommandUserGetById());
         commandMap.put(CommandDirector.USER_GET_ALL.getValue(), new CommandUserGetAll());

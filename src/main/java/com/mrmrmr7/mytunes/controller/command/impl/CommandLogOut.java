@@ -5,7 +5,7 @@ import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.service.ServiceException;
-import com.mrmrmr7.mytunes.service.impl.ServiceUserImpl;
+import com.mrmrmr7.mytunes.service.impl.UserServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ public class CommandLogOut implements Command {
 
         ResponseContent responseContent = new ResponseContent();
 
-        ServiceUserImpl serviceUser = new ServiceUserImpl();
+        UserServiceImpl serviceUser = new UserServiceImpl();
 
         try {
             serviceUser.logout(request, httpServletResponse);

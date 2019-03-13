@@ -22,6 +22,10 @@ public class UserComposition implements Identified<Integer> {
         this(userId, new ArrayList<>(Arrays.asList(cortageId)), new ArrayList<>(Arrays.asList(compositionId)));
     }
 
+    public UserComposition(Integer userId, Integer compositionId) {
+        this(0, userId, compositionId);
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -37,14 +41,14 @@ public class UserComposition implements Identified<Integer> {
     public List<Integer> getCompositionIdList() {
         return compositionIdList;
     }
+    public Integer getCompositionId(int id) {
+        return compositionIdList.get(id);
+    }
 
     public Integer getCortageId(int id) {
         return cortageIdList.get(id);
     }
 
-    public Integer getCompositionId(int id) {
-        return compositionIdList.get(id);
-    }
 
     public void setCompositionIdList(List<Integer> compositionIdList) {
         this.compositionIdList = compositionIdList;

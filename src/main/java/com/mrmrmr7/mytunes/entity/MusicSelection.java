@@ -1,7 +1,6 @@
 package com.mrmrmr7.mytunes.entity;
 
 import com.mrmrmr7.mytunes.dao.Identified;
-import org.omg.CORBA.INTERNAL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,12 +8,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class MusicSelection implements Identified<Integer> {
-    private List<Integer> idList;
+    private List<Integer> cortageIdList;
     private List<Integer> compositionIdList;
+    private long price;
     private Integer selection_id;
 
-    public MusicSelection(List<Integer> idList, List<Integer> composition_idList, Integer selection_id) {
-        this.idList = idList;
+    public MusicSelection(List<Integer> cortageIdList, List<Integer> composition_idList, Integer selection_id) {
+        this.cortageIdList = cortageIdList;
         this.compositionIdList = composition_idList;
         this.selection_id = selection_id;
     }
@@ -24,11 +24,11 @@ public class MusicSelection implements Identified<Integer> {
     }
 
     public int getCortageId(int id) {
-        return idList.get(id);
+        return cortageIdList.get(id);
     }
 
     public void addCompositionId(Integer id, Integer compositionIdList) {
-        this.idList.add(id);
+        this.cortageIdList.add(id);
         this.compositionIdList.add(compositionIdList);
     }
 
@@ -45,11 +45,19 @@ public class MusicSelection implements Identified<Integer> {
         return compositionIdList.get(id);
     }
 
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "MusicSelection{" +
                 "selection_id=" + selection_id +
-                ", id=" + idList.toString() +
+                ", id=" + cortageIdList.toString() +
                 ", compositionIdList=" + compositionIdList.toString() +
                 '}';
     }

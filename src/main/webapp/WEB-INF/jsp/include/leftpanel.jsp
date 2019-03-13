@@ -21,22 +21,35 @@
 
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
-                    <a href="${pageContext.request.contextPath}/crud?command=move&path=account" id="id1"> <i class="menu-icon fa fa-dashboard"></i> <b>Account </b></a>
-                </li>
                 <li class="menu-item-has-children dropdown">
-                    <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
+                    <h3 class="menu-title">Menu</h3><!-- /.menu-title -->
+                </li>
+
+                <li class="active">
+                    <a href="${pageContext.request.contextPath}/crud?command=account" id="accountId"> <i class="menu-icon fa fa-dashboard"></i> <b>Account </b></a>
                 </li>
 
                 <li class="menu-item-has-children dropdown">
-                    <h3 class="menu-title">Icons</h3><!-- /.menu-title -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Music shop</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-line-chart"></i><a href="${pageContext.request.contextPath}/crud?command=compositionShop">Composition</a></li>
+                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/crud?command=albumShop">Album</a></li>
+                        <li><i class="menu-icon fa fa-pie-chart"></i><a href="${pageContext.request.contextPath}/crud?command=musicSelectionShop">Music selection</a></li>
+                    </ul>
                 </li>
+
                 <li class="menu-item-has-children dropdown">
-                    <h3 class="menu-title">Extras</h3><!-- /.menu-title -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Balance</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="menu-icon fa fa-line-chart"></i><a href="${pageContext.request.contextPath}/crud?command=currentBalance">Current balance</a></li>
+                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/site/charts-flot.html">Update balance</a></li>
+                        <li><i class="menu-icon fa fa-pie-chart"></i><a href="${pageContext.request.contextPath}/site/charts-peity.html">History</a></li>
+                    </ul>
                 </li>
+
 
                 <c:if test="${userDto.role.role.equalsIgnoreCase('ADMIN')}">
-                    <jsp:include page="adminPanel.jsp"/>
+                    <jsp:include page="/WEB-INF/jsp/include/adminPanel.jsp"/>
                 </c:if>
 
             </ul>

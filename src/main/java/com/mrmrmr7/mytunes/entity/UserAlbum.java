@@ -22,6 +22,10 @@ public class UserAlbum implements Identified<Integer> {
         this(userId, new ArrayList<>(Arrays.asList(cortageId)), new ArrayList<>(Arrays.asList(albumId)));
     }
 
+    public UserAlbum(Integer userId, Integer albumId) {
+        this(0, userId, albumId);
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }

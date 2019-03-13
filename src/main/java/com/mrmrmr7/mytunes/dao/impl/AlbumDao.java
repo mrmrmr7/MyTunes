@@ -1,10 +1,12 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AlbumDaoExtended;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Album;
+import com.mysql.cj.xdevapi.SqlDataResult;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
+public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDaoExtended {
 
     @AutoConnection
     @Override
@@ -28,6 +30,35 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> {
         } catch (SQLException e) {
             throw new DaoException("4.1.2");
         }
+    }
+
+    @AutoConnection
+    @Override
+    public Optional<Album> getByName(String name) throws DaoException {
+        try (PreparedStatement preparedStatement = prepareStatementForGetByName(name)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return Optional.of(resultSetToBean.toAlbum(resultSet));
+            } catch (SQLException e) {
+                throw new DaoException("4.1.1");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.1.2");
+        }
+    }
+
+    @AutoConnection
+    private PreparedStatement prepareStatementForGetByName(String name) throws SQLException {
+
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectByNameQuery(TableName.ALBUM));
+        preparedStatement.setString(1, name);
+        return preparedStatement;
+    }
+
+    @AutoConnection
+    private String getSelectByNameQuery(TableName tableName) {
+        return "SELECT * FROM " + tableName.getValue() + " WHERE NAME=?";
     }
 
     @AutoConnection

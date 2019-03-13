@@ -22,6 +22,10 @@ public class UserMusicSelection implements Identified<Integer> {
         this(userId, new ArrayList<>(Arrays.asList(cortageId)), new ArrayList<>(Arrays.asList(musicSelectionId)));
     }
 
+    public UserMusicSelection(Integer userId, Integer musicSelectionId) {
+        this(0, userId, musicSelectionId);
+    }
+
     public void addMusicSelection(Integer cortageId, Integer musicSelection) {
         cortageIdList.add(cortageId);
         musicSelectionIdList.add(musicSelection);

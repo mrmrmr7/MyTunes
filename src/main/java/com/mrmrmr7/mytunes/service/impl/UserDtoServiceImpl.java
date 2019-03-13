@@ -10,7 +10,7 @@ import com.mrmrmr7.mytunes.dto.UserDto;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.ServiceException;
 import com.mrmrmr7.mytunes.service.UserDtoService;
-import com.mrmrmr7.mytunes.util.StringToKeyUtil;
+import com.mrmrmr7.mytunes.util.ProtectionUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
@@ -176,7 +176,7 @@ public class UserDtoServiceImpl implements UserDtoService {
             throw new ServiceException("no public key");
         }
 
-        PublicKey publicKey = StringToKeyUtil.toPublicKey(cookiePublicKey.get().getValue());
+        PublicKey publicKey = ProtectionUtil.stringToPublicKey(cookiePublicKey.get().getValue());
 
         Claims claims;
 

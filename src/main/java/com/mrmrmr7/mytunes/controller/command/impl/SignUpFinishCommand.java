@@ -10,7 +10,7 @@ import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class FinishRegistrationCommand implements Command {
+public class SignUpFinishCommand implements Command {
     private final static String PARAMETER_TOKEN = "token";
 
     @Override

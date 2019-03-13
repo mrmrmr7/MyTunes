@@ -11,6 +11,18 @@ public enum  CommandDirector {
     MOVE_INSIDE_WEB_INF ("move"),
     MOVE_TO_ACCOUNT ("account"),
     SECRET_ACCOUNT ("secretAccount"),
+
+    //BUY OPERATIONS
+    BUY_COMPOSITION ("buyComposition"),
+    BUY_ALBUM ("buyAlbum"),
+    BUY_MUSIC_SELECTION ("buyMusicSelection"),
+
+    //VIEW OPERATIONS
+    VIEW_CURRENT_BALANCE ("currentBalance"),
+    VIEW_COMPOSITION_SHOP ("compositionShop"),
+    VIEW_ALBUM_SHOP ("albumShop"),
+    VIEW_MUSIC_SELECTION_SHOP ("musicSelectionShop"),
+
     //CRUD OPERATIONS
     ALBUM_DELETE ("albumDelete"),
     ALBUM_INSERT ("albumInsert"),

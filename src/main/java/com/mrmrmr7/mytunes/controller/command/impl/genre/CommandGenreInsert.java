@@ -12,6 +12,8 @@ import com.mrmrmr7.mytunes.entity.Genre;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public class CommandGenreInsert implements Command {
     private final static String PARAMETER_GENRE = "genreGenre";
@@ -20,9 +22,13 @@ public class CommandGenreInsert implements Command {
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.GENRE_INSERT.getValue() + " command detected");
 
-        Genre genre = new Genre(
-                request.getParameter(PARAMETER_GENRE)
-        );
+        Genre genre = null;
+        try {
+            genre = new Genre(
+                    new String(request.getParameter(PARAMETER_GENRE).getBytes(StandardCharsets.ISO_8859_1),"cp1251"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         GenreDao genreDAO = new GenreDao();
 
@@ -41,7 +47,7 @@ public class CommandGenreInsert implements Command {
 
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(
-                new Router(PageDirector.CRUD_GENRE,Router.Type.REDIRECT)
+                new Router(PageDirector.ACCOUNT,Router.Type.FORWARD)
         );
         return responseContent;
     }

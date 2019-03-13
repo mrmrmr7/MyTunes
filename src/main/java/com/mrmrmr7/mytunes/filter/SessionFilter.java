@@ -2,7 +2,7 @@ package com.mrmrmr7.mytunes.filter;
 
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.service.ServiceException;
-import com.mrmrmr7.mytunes.service.impl.ServiceUserImpl;
+import com.mrmrmr7.mytunes.service.impl.UserServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -27,9 +27,11 @@ public class SessionFilter implements Filter {
                          FilterChain filterChain)
             throws IOException, ServletException {
 
+        ((HttpServletResponse)servletResponse).setCharacterEncoding("cp1251");
+        ((HttpServletResponse)servletResponse).setContentType("text/html;charset=cp1251");
         String command = servletRequest.getParameter(CommandDirector.COMMAND.getValue());
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        ServiceUserImpl serviceUser = new ServiceUserImpl();
+        UserServiceImpl serviceUser = new UserServiceImpl();
         boolean isAuthorized = false;
 
         try {

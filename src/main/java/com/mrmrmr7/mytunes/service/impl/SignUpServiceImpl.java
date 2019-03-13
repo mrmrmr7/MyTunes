@@ -46,7 +46,7 @@ public class SignUpServiceImpl implements SignUpService {
 
         String passwordBCrypted = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        User user = new User(login, password, firstName, secondName, email);
+        User user = new User(login, passwordBCrypted, firstName, secondName, email);
 
         return user;
     }
@@ -87,7 +87,7 @@ public class SignUpServiceImpl implements SignUpService {
             message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(mailTo));
-            message.setSubject("Testing Subject");
+            message.setSubject("Mytunes, registration");
             message.setText("Dear " + user.getFirstName() + " " + user.getSecondName() + " ," +
                     "\n\n" +
                     "If you didn't register on site MyTunes, ignore this message! " +
