@@ -13,6 +13,7 @@ import io.jsonwebtoken.Claims;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -21,8 +22,13 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public boolean buyComposition(HttpServletRequest request) throws ServiceException {
-        String token = request.getParameter("token");
-        String publicKey = request.getParameter("publicKey");
+
+        Cookie[] cookies = request.getCookies();
+        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        Optional<Cookie> cookiePublicKey = Arrays.stream(cookies).filter(s -> s.getName().equals("publicKey")).findFirst();
+
+        String token = cookieToken.get().getValue();
+        String publicKey = cookiePublicKey.get().getValue();
         String compositionName = request.getParameter("compositionName");
 
         if (token == null || publicKey == null || compositionName == null) {
@@ -115,8 +121,13 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public boolean buyAlbum(HttpServletRequest request) throws ServiceException {
-        String token = request.getParameter("token");
-        String publicKey = request.getParameter("publicKey");
+
+        Cookie[] cookies = request.getCookies();
+        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        Optional<Cookie> cookiePublicKey = Arrays.stream(cookies).filter(s -> s.getName().equals("publicKey")).findFirst();
+
+        String token = cookieToken.get().getValue();
+        String publicKey = cookiePublicKey.get().getValue();
         String albumName = request.getParameter("albumName");
 
         if (token == null || publicKey == null || albumName == null) {
@@ -173,11 +184,11 @@ public class MusicServiceImpl implements MusicService {
             if (userAlbumOptional.isPresent()) {
                 UserAlbum userAlbumInBase = userAlbumOptional.get();
                 if(!userAlbumInBase.getAlbumIdList().contains(album.getId())) {
-                    UserComposition userComposition = new UserComposition(user.getId(), album.getId());
+                    UserAlbum userAlbum = new UserAlbum(user.getId(), album.getId());
                     try {
                         user.setBalance(user.getBalance() - album.getPrice());
                         userDao.update(user);
-                        userAlbumDao.insert(userComposition);
+                        userAlbumDao.insert(userAlbum);
                     } catch (DaoException e) {
                         throw new ServiceException(e.getMessage());
                     }
@@ -209,11 +220,16 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public boolean buyMusicSelection(HttpServletRequest request) throws ServiceException {
-        String token = request.getParameter("token");
-        String publicKey = request.getParameter("publicKey");
-        String musicSelectionName = request.getParameter("musicSelectionName");
 
-        if (token == null || publicKey == null || musicSelectionName == null) {
+        Cookie[] cookies = request.getCookies();
+        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        Optional<Cookie> cookiePublicKey = Arrays.stream(cookies).filter(s -> s.getName().equals("publicKey")).findFirst();
+
+        String token = cookieToken.get().getValue();
+        String publicKey = cookiePublicKey.get().getValue();
+        String musicSelectionInfoName = request.getParameter("musicSelectionName");
+
+        if (token == null || publicKey == null || musicSelectionInfoName == null) {
             return false;
         }
 
@@ -233,13 +249,13 @@ public class MusicServiceImpl implements MusicService {
             Optional<User> userOptional;
 
             GenericDao userDao;
-            GenericDao musicSelectionDao;
+            GenericDao musicSelectionInfoDao;
             GenericDao userMusicSelectionDao;
             userDao = JdbcDaoFactory.getInstance().getTransactionalDao(User.class);
-            musicSelectionDao = JdbcDaoFactory.getInstance().getTransactionalDao(MusicSelection.class);
+            musicSelectionInfoDao = JdbcDaoFactory.getInstance().getTransactionalDao(MusicSelectionInfo.class);
             userMusicSelectionDao = JdbcDaoFactory.getInstance().getTransactionalDao(UserMusicSelection.class);
 
-            transactionManager.begin(userDao, musicSelectionDao, userMusicSelectionDao);
+            transactionManager.begin(userDao, musicSelectionInfoDao, userMusicSelectionDao);
 
             userOptional = userDao.getByPK(userId);
 
@@ -249,13 +265,13 @@ public class MusicServiceImpl implements MusicService {
 
             User user = userOptional.get();
 
-            Optional<MusicSelection> musicSelectionOptional = ((MusicSelectionDaoExtended) musicSelectionDao).getByName(musicSelectionName);
+            Optional<MusicSelectionInfo> musicSelectionOptional = ((MusicSelectionInfoDaoExtended) musicSelectionInfoDao).getByName(musicSelectionInfoName);
 
             if (!musicSelectionOptional.isPresent()) {
                 throw new ServiceException("no such musicSelection");
             }
 
-            MusicSelection musicSelection = musicSelectionOptional.get();
+            MusicSelectionInfo musicSelection = musicSelectionOptional.get();
 
             if (user.getBalance() < musicSelection.getPrice()) {
                 throw new ServiceException("Тoo enough money");

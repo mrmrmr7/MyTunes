@@ -20,8 +20,9 @@ public class BuyCompositionCommand implements Command {
         MusicService musicService = new MusicServiceImpl();
 
         try {
-            request.setAttribute("musicType", "composition");
             request.setAttribute("success", musicService.buyComposition(request));
+            request.setAttribute("compositionName", request.getParameter("compositionName"));
+
         } catch (ServiceException e) {
             e.printStackTrace();
         }

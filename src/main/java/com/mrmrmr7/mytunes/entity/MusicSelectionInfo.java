@@ -4,26 +4,21 @@ import com.mrmrmr7.mytunes.dao.Identified;
 
 import java.util.Objects;
 
-public class Album implements Identified<Integer> {
+public class MusicSelectionInfo implements Identified<Integer> {
     private Integer id;
+    private long price;
+    private String name;
     private String description;
 
-    private String name;
-    private long price;
-    private int author_id;
-    private int genre_id;
-
-    public Album(int id, long price, String name, String description, int author_id, int genre_id) {
+    public MusicSelectionInfo(int id, long price, String name, String description) {
         this.id = id;
         this.description = description;
         this.name = name;
         this.price = price;
-        this.author_id = author_id;
-        this.genre_id = genre_id;
     }
 
-    public Album(String description, long price, String name, int author_id, int genre_id) {
-        this(0, price, name, description, author_id, genre_id);
+    public MusicSelectionInfo(String description, long price, String name) {
+        this(0, price, name, description);
     }
 
     public String getName() {
@@ -58,37 +53,19 @@ public class Album implements Identified<Integer> {
         this.price = price;
     }
 
-    public int getAuthor_id() {
-        return author_id;
-    }
-
-    public void setAuthor_id(int author_id) {
-        this.author_id = author_id;
-    }
-
-    public int getGenre_id() {
-        return genre_id;
-    }
-
-    public void setGenre_id(int genre_id) {
-        this.genre_id = genre_id;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Album album = (Album) o;
+        MusicSelectionInfo album = (MusicSelectionInfo) o;
         return price == album.price &&
-                author_id == album.author_id &&
-                genre_id == album.genre_id &&
                 Objects.equals(id, album.id) &&
                 Objects.equals(description, album.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, price, author_id, genre_id);
+        return Objects.hash(id, description, price);
     }
 
     @Override
@@ -97,8 +74,6 @@ public class Album implements Identified<Integer> {
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", author_id=" + author_id +
-                ", genre_id=" + genre_id +
                 '}';
     }
 }

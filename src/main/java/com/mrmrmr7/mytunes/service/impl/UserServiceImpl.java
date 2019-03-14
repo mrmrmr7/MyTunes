@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.service.impl;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.dao.UserDaoExtended;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
@@ -16,15 +17,19 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.mindrot.jbcrypt.BCrypt;
+import org.apache.commons.codec.binary.Base64;
 
 import javax.servlet.http.Cookie;
-import javax.xml.bind.DatatypeConverter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+//import java.util.*;
 
 public class UserServiceImpl implements ServiceUser {
     private static final String COOKIE_TOKEN = "token";
@@ -70,8 +75,9 @@ public class UserServiceImpl implements ServiceUser {
 //            user.get().setPrivateKey(privateEncoded);
 
 
-            Base64.Decoder decoder = Base64.getDecoder();
-            byte[] byteArray = decoder.decode(user.get().getPrivateKey());
+//                Base64.Decoder decoder = Base64.getDecoder();
+//            byte[] byteArray = decoder.decode(user.get().getPrivateKey());
+            byte[] byteArray = Base64.decodeBase64(user.get().getPrivateKey());
             PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(byteArray);
             PrivateKey privateKey = null;
             try {
@@ -189,8 +195,8 @@ public class UserServiceImpl implements ServiceUser {
                 }
 
                 User user = userOptional.get();
-                Base64.Decoder decoder = Base64.getDecoder();
-                byte[] byteArray = decoder.decode(user.getPrivateKey());
+//                Base64.Decoder decoder = Base64.getDecoder();
+                byte[] byteArray = Base64.decodeBase64(user.getPrivateKey());
                 PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(byteArray);
                 PrivateKey privateKey = KeyFactory.getInstance("RSA").generatePrivate(pkcs8EncodedKeySpec);
 

@@ -10,7 +10,7 @@ import com.mrmrmr7.mytunes.util.PageDirector;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CommandMoveInsideWebInf implements CommandExtended {
+public class MoveInsideWebInfCommand implements CommandExtended {
 
 
     private static final String PARAMETER_PATH = "path";

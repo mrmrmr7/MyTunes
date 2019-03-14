@@ -1,0 +1,191 @@
+package com.mrmrmr7.mytunes.dao.impl;
+
+import com.mrmrmr7.mytunes.dao.*;
+import com.mrmrmr7.mytunes.dao.exception.DaoException;
+import com.mrmrmr7.mytunes.entity.Album;
+import com.mrmrmr7.mytunes.entity.MusicSelection;
+import com.mrmrmr7.mytunes.entity.MusicSelectionInfo;
+import com.mrmrmr7.mytunes.util.TableName;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+public class MusicSelectionInfoDao extends AbstractJdbcDao<MusicSelectionInfo, Integer> implements MusicSelectionInfoDaoExtended {
+
+    @AutoConnection
+    @Override
+    public Optional<MusicSelectionInfo> getByPK(Integer id) throws DaoException {
+        try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return Optional.of(resultSetToBean.toMusicSelectionInfo(resultSet));
+            } catch (SQLException e) {
+                throw new DaoException("4.1.1");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.1.2");
+        }
+    }
+
+    @AutoConnection
+    @Override
+    public Optional<MusicSelectionInfo> getByName(String name) throws DaoException {
+        try (PreparedStatement preparedStatement = prepareStatementForGetByName(name)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                return Optional.of(resultSetToBean.toMusicSelectionInfo(resultSet));
+            } catch (SQLException e) {
+                throw new DaoException("4.1.1");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.1.2");
+        }
+    }
+
+    @AutoConnection
+    private PreparedStatement prepareStatementForGetByName(String name) throws SQLException {
+
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectByNameQuery(TableName.MUSIC_SELECTION_INFO));
+        preparedStatement.setString(1, name);
+        return preparedStatement;
+    }
+
+    @AutoConnection
+    private String getSelectByNameQuery(TableName tableName) {
+        return "SELECT * FROM " + tableName.getValue() + " WHERE NAME=?";
+    }
+
+    @AutoConnection
+    @Override
+    public List<MusicSelectionInfo> getAll() throws DaoException {
+
+        List<MusicSelectionInfo> userList = new ArrayList<>();
+
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.MUSIC_SELECTION_INFO)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    userList
+                            .add(resultSetToBean.toMusicSelectionInfo(resultSet));
+                }
+            } catch (SQLException e) {
+                throw new DaoException("4.1.3");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.1.4");
+        }
+
+        return userList;
+    }
+
+    @AutoConnection
+    @Override
+    public void insert(MusicSelectionInfo object) throws DaoException {
+
+        try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("4.1.5");
+        }
+    }
+
+    @AutoConnection
+    @Override
+    public void delete(Integer id) throws DaoException {
+
+        try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("4.1.6");
+        }
+    }
+
+    @AutoConnection
+    @Override
+    public void update(MusicSelectionInfo object) throws DaoException {
+        try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException("4.1.7");
+        }
+    }
+
+    @AutoConnection
+    @Override
+    protected PreparedStatement prepareStatementForInsert(MusicSelectionInfo object) throws SQLException {
+
+        PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
+        return prepareForUpdate(preparedStatement, object);
+    }
+
+    @AutoConnection
+    @Override
+    protected PreparedStatement prepareStatementForUpdate(MusicSelectionInfo object) throws SQLException {
+
+        PreparedStatement preparedStatement = prepareForUpdate(
+                connection.prepareStatement(getUpdateQuery()),
+                object);
+        preparedStatement.setInt(5, object.getId());
+        return preparedStatement;
+    }
+
+    @AutoConnection
+    @Override
+    protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
+
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.MUSIC_SELECTION_INFO));
+        preparedStatement.setInt(1, id);
+        return preparedStatement;
+    }
+
+    @AutoConnection
+    @Override
+    protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
+
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectQuery(TableName.MUSIC_SELECTION_INFO));
+        preparedStatement.setInt(1, id);
+        return preparedStatement;
+    }
+
+    @AutoConnection
+    private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, MusicSelectionInfo object) throws SQLException {
+
+        int i = 0;
+        preparedStatement.setLong(++i, object.getPrice());
+        preparedStatement.setString(++i, object.getDescription());
+        preparedStatement.setString(++i, object.getName());
+        return preparedStatement;
+    }
+
+    @Override
+    @AutoConnection
+    protected String getSelectQuery(TableName tableName) {
+        return "SELECT * FROM " + tableName.getValue() + " WHERE ID=?";
+    }
+
+    @AutoConnection
+    @Override
+    public String getInsertQuery() {
+
+        return "INSERT INTO " + TableName.MUSIC_SELECTION_INFO.getValue() +
+                "(PRICE, DESCRIPTION, NAME) " +
+                "VALUES " +
+                "(?,?,?)";
+    }
+
+    @AutoConnection
+    @Override
+    public String getUpdateQuery() {
+
+        return "UPDATE " + TableName.MUSIC_SELECTION_INFO.getValue() + " SET " +
+                "PRICE=?, " +
+                "DESCRIPTION=?, " +
+                "NAME=? " +
+                "WHERE ID=?";
+    }
+}

@@ -50,9 +50,68 @@
 
     <jsp:include page="/WEB-INF/jsp/include/header.jsp"/>
 
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Account information</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li class="active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content mt-3">
+
+        <c:if test="${success}">
+            <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
+                <span class="badge badge-pill badge-dark">Success</span>
+                You buy ${musicSelectionName} music selection!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+        </c:if>
+
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Music selection </strong> buy
+                </div>
+                <div class="card-body card-block">
+                    <form action="${pageContext.request.contextPath}/crud" method="post" class="form-horizontal">
+                        <div class="row form-group">
+                            <div class="col col-md-12">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-primary">
+                                            <i class="fa fa-search"></i> Search
+                                        </button>
+                                    </div>
+                                    <input type="text" id="input1-group2" name="musicSelectionName" placeholder="Composition name" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="command" value="buyMusicSelection">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> <!-- .content -->
+
+
     <!-- Header-->
 
-    <jsp:include page="/WEB-INF/jsp/include/balance/${musicType}.jsp"/>
 </div><!-- /#right-panel -->
 <!-- Right Panel -->
 </body>

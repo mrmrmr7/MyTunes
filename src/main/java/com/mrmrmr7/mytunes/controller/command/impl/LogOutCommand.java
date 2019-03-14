@@ -11,7 +11,7 @@ import com.mrmrmr7.mytunes.util.PageDirector;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CommandLogOut implements Command {
+public class LogOutCommand implements Command {
 
     @Override
     public ResponseContent process(HttpServletRequest request) {

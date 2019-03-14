@@ -19,8 +19,9 @@ public class BuyAlbumCommand implements Command {
         MusicService musicService = new MusicServiceImpl();
 
         try {
-            request.setAttribute("musicType", "album");
             request.setAttribute("success", musicService.buyAlbum(request));
+            request.setAttribute("albumName", request.getParameter("albumName"));
+
         } catch (ServiceException e) {
             e.printStackTrace();
         }

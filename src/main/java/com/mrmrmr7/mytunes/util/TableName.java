@@ -13,6 +13,7 @@ public enum TableName {
     ROLE ("role"),
     SESSION_DATA ("session_data"),
     MUSIC_SELECTION ("music_selection"),
+    MUSIC_SELECTION_INFO ("music_selection_info"),
     MUSIC_SELECTION_FEEDBACK ("music_selection_feedback"),
     USER_ALBUM ("user_album"),
     USER_BONUS ("user_bonus"),

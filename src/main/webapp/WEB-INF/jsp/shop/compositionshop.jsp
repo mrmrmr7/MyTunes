@@ -72,6 +72,17 @@
 
     <div class="content mt-3">
 
+        <c:if test="${success}">
+            <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
+                <span class="badge badge-pill badge-dark">Success</span>
+                You buy ${compositionName} composition!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+        </c:if>
+
+
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
@@ -98,15 +109,6 @@
         </div>
     </div> <!-- .content -->
 
-    <c:if test="${succes}">
-        <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
-            <span class="badge badge-pill badge-dark">Success</span>
-            You buy this composition!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">X</span>
-            </button>
-        </div>
-    </c:if>
 
     <!-- Header-->
 

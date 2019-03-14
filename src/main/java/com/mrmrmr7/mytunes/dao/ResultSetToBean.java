@@ -96,11 +96,11 @@ public class ResultSetToBean {
                 resultSet.getInt(++i),
                 resultSet.getLong(++i),
                 resultSet.getString(++i),
+                resultSet.getString(++i),
                 resultSet.getInt(++i),
                 resultSet.getInt(++i)
         );
     }
-
     public MusicSelection toMusicSelection(ResultSet resultSet) throws SQLException {
 
         final int SELECTION_ID_COL_NUM = 2;
@@ -122,6 +122,16 @@ public class ResultSetToBean {
         resultSet.previous();
 
         return musicSelection;
+    }
+
+    public MusicSelectionInfo toMusicSelectionInfo(ResultSet resultSet) throws SQLException {
+        int i = 0;
+        return new MusicSelectionInfo(
+                resultSet.getInt(++i),
+                resultSet.getLong(++i),
+                resultSet.getString(++i),
+                resultSet.getString(++i)
+        );
     }
 
     public MusicSelectionFeedback toMusicSelectionFeedback(ResultSet resultSet) throws SQLException {

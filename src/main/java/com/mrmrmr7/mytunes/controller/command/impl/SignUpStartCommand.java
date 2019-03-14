@@ -25,7 +25,7 @@ public class SignUpStartCommand implements Command {
         SignUpService signUpService = new SignUpServiceImpl();
 
         try {
-            request.setAttribute("succesRegStart",signUpService.sendSignUpMessage(request));
+            request.setAttribute("succesRegStart", signUpService.sendSignUpMessage(request));
         } catch (ServiceException e) {
             e.printStackTrace();
         }

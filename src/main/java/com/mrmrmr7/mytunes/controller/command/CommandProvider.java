@@ -34,10 +34,10 @@ public class CommandProvider {
         commandMap.put(CommandDirector.SIGN_IN.getValue(), new SignInCommand());
         commandMap.put(CommandDirector.SIGN_UP.getValue(), new SignUpStartCommand());
         commandMap.put(CommandDirector.FINISH_REGISTRATION.getValue(), new SignUpFinishCommand());
-        commandMap.put(CommandDirector.LOG_OUT.getValue(), new CommandLogOut());
+        commandMap.put(CommandDirector.LOG_OUT.getValue(), new LogOutCommand());
         commandMap.put(CommandDirector.MOVE_TO_ACCOUNT.getValue(), new ViewProfileCommand());
-        commandMap.put(CommandDirector.MOVE_INSIDE_WEB_INF.getValue(), new CommandMoveInsideWebInf());
-        commandMap.put(CommandDirector.SECRET_ACCOUNT.getValue(), new CommandMoveToSecretAccount());
+        commandMap.put(CommandDirector.MOVE_INSIDE_WEB_INF.getValue(), new MoveInsideWebInfCommand());
+        commandMap.put(CommandDirector.SECRET_ACCOUNT.getValue(), new MoveToSecretAccountCommand());
         commandMap.put(CommandDirector.VIEW_CURRENT_BALANCE.getValue(), new ViewCurrentBalanceCommand());
         commandMap.put(CommandDirector.VIEW_COMPOSITION_SHOP.getValue(), new ViewShopCompositionCommand());
         commandMap.put(CommandDirector.VIEW_ALBUM_SHOP.getValue(), new ViewShopAlbumCommand());
