@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.MusicSelectionFeedback;
 import com.mrmrmr7.mytunes.util.DBFill;
@@ -20,6 +21,11 @@ class MusicSelectionFeedbackDAOTest {
     @BeforeAll
     public static void daoInit() {
         musicSelectionFeedbackDAO = new MusicSelectionFeedbackDao();
+        try {
+            musicSelectionFeedbackDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterAll
@@ -50,7 +56,7 @@ class MusicSelectionFeedbackDAOTest {
         compositionFeedback = musicSelectionFeedbackDAO.getByPK(4);
 
         String actual = compositionFeedback.get().getFeedback();
-        String expected = "Norm takaya wiborka4";
+        String expected = "NORM TAKAYA WIBORKA4";
 
         assertEquals(expected, actual);
     }
@@ -63,15 +69,15 @@ class MusicSelectionFeedbackDAOTest {
 
         String actual = compositionFeedbackList.toString();
         String expected = "[" +
-                "MusicSelectionFeedback{id=1, feedback='Norm takaya wiborka1', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=2, feedback='Norm takaya wiborka2', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=3, feedback='Norm takaya wiborka3', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=4, feedback='Norm takaya wiborka4', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=5, feedback='Norm takaya wiborka5', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=6, feedback='Norm takaya wiborka6', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=7, feedback='Norm takaya wiborka7', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=8, feedback='Norm takaya wiborka8', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=9, feedback='Norm takaya wiborka9', timestamp=2011-11-11 11:11:11.0}" +
+                "MusicSelectionFeedback{id=1, feedback='NORM TAKAYA WIBORKA1', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=2, feedback='NORM TAKAYA WIBORKA2', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=3, feedback='NORM TAKAYA WIBORKA3', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=4, feedback='NORM TAKAYA WIBORKA4', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=5, feedback='NORM TAKAYA WIBORKA5', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=6, feedback='NORM TAKAYA WIBORKA6', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=7, feedback='NORM TAKAYA WIBORKA7', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=8, feedback='NORM TAKAYA WIBORKA8', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=9, feedback='NORM TAKAYA WIBORKA9', timestamp=2011-11-11 11:11:11.0}" +
                 "]";
 
         assertEquals(expected, actual);
@@ -103,14 +109,15 @@ class MusicSelectionFeedbackDAOTest {
 
         String actual = compositionFeedbackList.toString();
         String expected = "[" +
-                "MusicSelectionFeedback{id=2, feedback='Norm takaya wiborka2', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=3, feedback='Norm takaya wiborka3', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=4, feedback='Norm takaya wiborka4', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=5, feedback='Norm takaya wiborka5', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=6, feedback='Norm takaya wiborka6', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=7, feedback='Norm takaya wiborka7', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=8, feedback='Norm takaya wiborka8', timestamp=2011-11-11 11:11:11.0}, " +
-                "MusicSelectionFeedback{id=9, feedback='Norm takaya wiborka9', timestamp=2011-11-11 11:11:11.0}]";
+                "MusicSelectionFeedback{id=2, feedback='NORM TAKAYA WIBORKA2', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=3, feedback='NORM TAKAYA WIBORKA3', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=4, feedback='NORM TAKAYA WIBORKA4', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=5, feedback='NORM TAKAYA WIBORKA5', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=6, feedback='NORM TAKAYA WIBORKA6', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=7, feedback='NORM TAKAYA WIBORKA7', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=8, feedback='NORM TAKAYA WIBORKA8', timestamp=2011-11-11 11:11:11.0}, " +
+                "MusicSelectionFeedback{id=9, feedback='NORM TAKAYA WIBORKA9', timestamp=2011-11-11 11:11:11.0}" +
+                "]";
 
         assertEquals(expected, actual);
     }

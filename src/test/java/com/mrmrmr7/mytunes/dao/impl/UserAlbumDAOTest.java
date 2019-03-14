@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserAlbum;
 import com.mrmrmr7.mytunes.util.DBFill;
@@ -18,6 +19,11 @@ class UserAlbumDAOTest {
     @BeforeAll
     public static void daoInit() {
         userAlbumDAO = new UserAlbumDao();
+        try {
+            userAlbumDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterAll

@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Status;
 import com.mrmrmr7.mytunes.util.DBFill;
@@ -18,6 +19,11 @@ class StatusDAOTest {
     @BeforeAll
     public static void daoInit() {
         statusDAO = new StatusDao();
+        try {
+            statusDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterAll
@@ -42,7 +48,7 @@ class StatusDAOTest {
         Optional<Status> status = statusDAO.getByPK((byte)1);
 
         String actual = status.get().toString();
-        String expected = "Status{id=1, status='activated'}";
+        String expected = "Status{id=1, status='ACTIVE'}";
 
         assertEquals(expected, actual);
     }
@@ -54,9 +60,9 @@ class StatusDAOTest {
 
         String actual = statusList.toString();
         String expected = "[" +
-                "Status{id=1, status='activated'}, " +
-                "Status{id=2, status='deactivated'}, " +
-                "Status{id=3, status='deleted'}" +
+                "Status{id=1, status='ACTIVE'}, " +
+                "Status{id=2, status='DEACTIVE'}, " +
+                "Status{id=3, status='DELETE'}" +
                 "]";
 
         assertEquals(expected, actual);
@@ -86,8 +92,8 @@ class StatusDAOTest {
 
         String actual = statusList.toString();
         String expected = "[" +
-                "Status{id=2, status='deactivated'}, " +
-                "Status{id=3, status='deleted'}" +
+                "Status{id=2, status='DEACTIVE'}, " +
+                "Status{id=3, status='DELETE'}" +
                 "]";
 
         assertEquals(expected, actual);

@@ -4,6 +4,7 @@ import com.mrmrmr7.mytunes.dao.Identified;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class User implements Identified<Integer> {
     private int id;
@@ -164,7 +165,30 @@ public class User implements Identified<Integer> {
         this.statusId = statusId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                balance == user.balance &&
+                sale == user.sale &&
+                roleId == user.roleId &&
+                statusId == user.statusId &&
+                Objects.equals(registerData, user.registerData) &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(secondName, user.secondName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(publicKey, user.publicKey) &&
+                Objects.equals(privateKey, user.privateKey);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, registerData, login, password, firstName, secondName, email, balance, sale, roleId, statusId, publicKey, privateKey);
+    }
 
     @Override
     public String toString() {

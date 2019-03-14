@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Genre;
 import com.mrmrmr7.mytunes.util.DBFill;
@@ -18,6 +19,11 @@ class GenreDAOTest {
     @BeforeAll
     public static void daoInit() {
         genreDAO = new GenreDao();
+        try {
+            genreDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterAll
@@ -42,7 +48,7 @@ class GenreDAOTest {
         Optional<Genre> genre = genreDAO.getByPK(1);
 
         String actual = genre.get().toString();
-        String expected = "Genre{id=1, genre='Rock'}";
+        String expected = "Genre{id=1, genre='ROCK'}";
 
         assertEquals(expected, actual);
     }
@@ -54,16 +60,16 @@ class GenreDAOTest {
 
         String actual = genreList.toString();
         String expected = "[" +
-                "Genre{id=1, genre='Rock'}, " +
-                "Genre{id=2, genre='Hard Rock'}, " +
-                "Genre{id=3, genre='Dubstep'}, " +
-                "Genre{id=4, genre='Rap'}, " +
-                "Genre{id=5, genre='HipHop'}, " +
-                "Genre{id=6, genre='Squad'}, " +
-                "Genre{id=7, genre='Pop'}, " +
-                "Genre{id=8, genre='K-pop'}, " +
+                "Genre{id=1, genre='ROCK'}, " +
+                "Genre{id=2, genre='HARD ROCK'}, " +
+                "Genre{id=3, genre='DUBSTEP'}, " +
+                "Genre{id=4, genre='RAP'}, " +
+                "Genre{id=5, genre='HIPHOP'}, " +
+                "Genre{id=6, genre='SQUAD'}, " +
+                "Genre{id=7, genre='POP'}, " +
+                "Genre{id=8, genre='K-POP'}, " +
                 "Genre{id=9, genre='DJ'}, " +
-                "Genre{id=10, genre='Metall'}" +
+                "Genre{id=10, genre='METALL'}" +
                 "]";
 
         assertEquals(expected, actual);
@@ -93,15 +99,15 @@ class GenreDAOTest {
 
         String actual = genreList.toString();
         String expected = "[" +
-                "Genre{id=2, genre='Hard Rock'}, " +
-                "Genre{id=3, genre='Dubstep'}, " +
-                "Genre{id=4, genre='Rap'}, " +
-                "Genre{id=5, genre='HipHop'}, " +
-                "Genre{id=6, genre='Squad'}, " +
-                "Genre{id=7, genre='Pop'}, " +
-                "Genre{id=8, genre='K-pop'}, " +
+                "Genre{id=2, genre='HARD ROCK'}, " +
+                "Genre{id=3, genre='DUBSTEP'}, " +
+                "Genre{id=4, genre='RAP'}, " +
+                "Genre{id=5, genre='HIPHOP'}, " +
+                "Genre{id=6, genre='SQUAD'}, " +
+                "Genre{id=7, genre='POP'}, " +
+                "Genre{id=8, genre='K-POP'}, " +
                 "Genre{id=9, genre='DJ'}, " +
-                "Genre{id=10, genre='Metall'}" +
+                "Genre{id=10, genre='METALL'}" +
                 "]";
 
         assertEquals(expected, actual);

@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Role;
 import com.mrmrmr7.mytunes.util.DBFill;
@@ -18,6 +19,11 @@ class RoleDAOTest {
     @BeforeAll
     public static void daoInit() {
         roleDAO = new RoleDao();
+        try {
+            roleDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterAll
@@ -42,7 +48,7 @@ class RoleDAOTest {
         Optional<Role> role = roleDAO.getByPK((byte)1);
 
         String actual = role.get().toString();
-        String expected = "Role{id=1, role='administrator'}";
+        String expected = "Role{id=1, role='admin'}";
 
         assertEquals(expected, actual);
     }
@@ -54,7 +60,7 @@ class RoleDAOTest {
 
         String actual = roleList.toString();
         String expected = "[" +
-                "Role{id=1, role='administrator'}, " +
+                "Role{id=1, role='admin'}, " +
                 "Role{id=2, role='client'}" +
                 "]";
 

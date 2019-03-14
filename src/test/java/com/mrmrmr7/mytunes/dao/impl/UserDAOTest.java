@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.util.DBFill;
@@ -19,6 +20,11 @@ class UserDAOTest {
     @BeforeAll
     public static void daoInit() {
         userDAO = new UserDao();
+        try {
+            userDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterAll
@@ -47,7 +53,7 @@ class UserDAOTest {
 
         Optional<User> user1 = userDAO.getByPK(1);
 
-        String expected = "User{ID=1, LOGIN='mrmrmr1', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.s@yandex.by', balance=100, sale=10, role_id=1, status_id=1}";
+        String expected = "User{ID=1, LOGIN='MRMRMR11', register_data=2008-08-08, password='$2a$10$PyrB3GSKF5wo2zXpTh1SC.GLx7c7f92oy3rxzAmYLeAOriYIzuIy.', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot1@yandex.by', balance=100, sale=10, role_id=1, status_id=1}";
         String actual = user1.get().toString();
 
         assertEquals(expected, actual);
@@ -59,16 +65,17 @@ class UserDAOTest {
         List<User> user = userDAO.getAll();
 
         String expected = "[" +
-                "User{ID=1, LOGIN='mrmrmr1', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.s@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=2, LOGIN='mrmrmr2', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot1@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=3, LOGIN='mrmrmr3', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot2@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=4, LOGIN='mrmrmr4', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot3@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=5, LOGIN='mrmrmr5', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot4@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=6, LOGIN='mrmrmr6', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot5@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=7, LOGIN='mrmrmr7', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot6@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=8, LOGIN='mrmrmr8', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot7@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=9, LOGIN='mrmrmr9', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot8@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=10, LOGIN='mrmrmr10', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot9@yandex.by', balance=100, sale=10, role_id=1, status_id=1}]";
+                "User{ID=1, LOGIN='MRMRMR11', register_data=2008-08-08, password='$2a$10$PyrB3GSKF5wo2zXpTh1SC.GLx7c7f92oy3rxzAmYLeAOriYIzuIy.', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot1@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=2, LOGIN='MRMRMR12', register_data=2008-08-08, password='$2a$10$mlAlOP7Qwq1nEMRdqeU87OjWKjmV7/cxHTdeeJT5OxFBB4eHJ0uGS', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot2@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=3, LOGIN='MRMRMR13', register_data=2008-08-08, password='$2a$10$tfIFXPz6VxdRi5KOGxB9runD0sHVI2dSmrOCvCzcZRZoXH.hZBL8.', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot3@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=4, LOGIN='MRMRMR14', register_data=2008-08-08, password='$2a$10$YCsHtEdLw2djrLQOzhUP.eFzjnFyeyr.9dDr2ePQ.j8gP3OEgH0Uy', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot4@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=5, LOGIN='MRMRMR15', register_data=2008-08-08, password='$2a$10$fxOSMDJhcZc7xEBkAjfmG.Dq1rV04h0qTS4UpoxWrvEDOa8UyFsvG', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot5@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=6, LOGIN='MRMRMR16', register_data=2008-08-08, password='$2a$10$SiA79Eiouun12HvmtoYf7u6c8j/mx/SFHlNm0NOMmVkYI7RV9X5gu', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot6@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=7, LOGIN='MRMRMR17', register_data=2008-08-08, password='$2a$10$kVtSXe2CxB/LxzxFIi4d7OpaTtmv.OjNke9v38NtAI8MgfjiEAnT.', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot7@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=8, LOGIN='MRMRMR18', register_data=2008-08-08, password='$2a$10$Xef0CHEFBJnLaYWrYl2RE.8zGBJqK4pCKxAwirM3ku28vPxvecIFu', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot8@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=9, LOGIN='MRMRMR19', register_data=2008-08-08, password='$2a$10$FdNnLot6QA2mIj/wWFR6uu4a.Fvtrf3Y9VXdIMUOfLq9R5EUFFjxS', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot9@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=10, LOGIN='MRMRMR10', register_data=2008-08-08, password='$2a$10$nJzOa80/gZFdfBjEsgHlq.DlCAuV9gtluYPTkf9bs8XZj2EiIBm1G', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot10@yandex.by', balance=100, sale=10, role_id=1, status_id=1}" +
+                "]";
         String actual = user.toString();
 
         assertEquals(expected, actual);
@@ -78,21 +85,26 @@ class UserDAOTest {
     void insert() throws DaoException {
 
         User user = new User(
+                2,
+                new Date(324234234),
                 "Kotik",
                 "KissMeMeow",
                 "Alex",
                 "Ermakow",
                 "aliex.s@yanedex.kz",
-                (byte) 2,
+                (long) 2,
                 (byte) 1,
                 (byte) 1,
-                (byte) 1);
+                (byte) 1,
+                "asdadasdsadsdsdd",
+                "agfdghdsdfasfasf");
 
         userDAO.insert(user);
 
         Optional<User> user1 = userDAO.getByPK(11);
 
-        String expected = "User{ID=11, LOGIN='Kotsik', register_data=1970-01-01, password='KissMeMeow', first_name='Alex', second_name='Ermakow', email='aliex.s@yanedex.kz', balance=2, sale=1, role_id=1, status_id=1}";
+
+        String expected = "User{ID=11, LOGIN='Kotik', register_data=1970-01-04, password='KissMeMeow', first_name='Alex', second_name='Ermakow', email='aliex.s@yanedex.kz', balance=2, sale=1, role_id=1, status_id=1}";
         String actual = user1.get().toString();
 
         assertEquals(expected, actual);
@@ -105,16 +117,16 @@ class UserDAOTest {
         List<User> userList = userDAO.getAll();
 
         String expected = "[" +
-                "User{ID=2, LOGIN='mrmrmr2', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot1@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=3, LOGIN='mrmrmr3', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot2@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=4, LOGIN='mrmrmr4', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot3@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=5, LOGIN='mrmrmr5', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot4@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=6, LOGIN='mrmrmr6', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot5@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=7, LOGIN='mrmrmr7', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot6@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=8, LOGIN='mrmrmr8', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot7@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=9, LOGIN='mrmrmr9', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot8@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
-                "User{ID=10, LOGIN='mrmrmr10', register_data=2008-08-08, password='EpamClass2019', first_name='First name', second_name='Second name', email='aliex.kot9@yandex.by', balance=100, sale=10, role_id=1, status_id=1}]";
-
+                "User{ID=2, LOGIN='MRMRMR12', register_data=2008-08-08, password='$2a$10$mlAlOP7Qwq1nEMRdqeU87OjWKjmV7/cxHTdeeJT5OxFBB4eHJ0uGS', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot2@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=3, LOGIN='MRMRMR13', register_data=2008-08-08, password='$2a$10$tfIFXPz6VxdRi5KOGxB9runD0sHVI2dSmrOCvCzcZRZoXH.hZBL8.', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot3@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=4, LOGIN='MRMRMR14', register_data=2008-08-08, password='$2a$10$YCsHtEdLw2djrLQOzhUP.eFzjnFyeyr.9dDr2ePQ.j8gP3OEgH0Uy', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot4@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=5, LOGIN='MRMRMR15', register_data=2008-08-08, password='$2a$10$fxOSMDJhcZc7xEBkAjfmG.Dq1rV04h0qTS4UpoxWrvEDOa8UyFsvG', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot5@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=6, LOGIN='MRMRMR16', register_data=2008-08-08, password='$2a$10$SiA79Eiouun12HvmtoYf7u6c8j/mx/SFHlNm0NOMmVkYI7RV9X5gu', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot6@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=7, LOGIN='MRMRMR17', register_data=2008-08-08, password='$2a$10$kVtSXe2CxB/LxzxFIi4d7OpaTtmv.OjNke9v38NtAI8MgfjiEAnT.', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot7@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=8, LOGIN='MRMRMR18', register_data=2008-08-08, password='$2a$10$Xef0CHEFBJnLaYWrYl2RE.8zGBJqK4pCKxAwirM3ku28vPxvecIFu', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot8@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=9, LOGIN='MRMRMR19', register_data=2008-08-08, password='$2a$10$FdNnLot6QA2mIj/wWFR6uu4a.Fvtrf3Y9VXdIMUOfLq9R5EUFFjxS', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot9@yandex.by', balance=100, sale=10, role_id=1, status_id=1}, " +
+                "User{ID=10, LOGIN='MRMRMR10', register_data=2008-08-08, password='$2a$10$nJzOa80/gZFdfBjEsgHlq.DlCAuV9gtluYPTkf9bs8XZj2EiIBm1G', first_name='FIRST NAME', second_name='SECOND NAME', email='aliex.kot10@yandex.by', balance=100, sale=10, role_id=1, status_id=1}" +
+                "]";
         String actual = userList.toString();
 
         assertEquals(expected, actual);
@@ -123,21 +135,24 @@ class UserDAOTest {
     @Test
     void update() throws DaoException {
 
-        userDAO.update(new User(1,
-                new Date(123123),
+        userDAO.update(new User(
+                2,
+                new Date(324234234),
                 "Kotik",
                 "KissMeMeow",
                 "Alex",
                 "Ermakow",
                 "aliex.s@yanedex.kz",
-                (byte) 2,
+                (long) 2,
                 (byte) 1,
                 (byte) 1,
-                (byte) 1));
+                (byte) 1,
+                "asdadasdsadsdsdd",
+                "agfdghdsdfasfasf"));
 
-        Optional<User> userList = userDAO.getByPK(1);
+        Optional<User> userList = userDAO.getByPK(2);
 
-        String expected = "User{ID=1, LOGIN='Kotik', register_data=1970-01-01, password='KissMeMeow', first_name='Alex', second_name='Ermakow', email='aliex.s@yanedex.kz', balance=2, sale=1, role_id=1, status_id=1}";
+        String expected = "User{ID=2, LOGIN='Kotik', register_data=1970-01-04, password='KissMeMeow', first_name='Alex', second_name='Ermakow', email='aliex.s@yanedex.kz', balance=2, sale=1, role_id=1, status_id=1}";
         String actual = userList.get().toString();
 
         assertEquals(expected, actual);

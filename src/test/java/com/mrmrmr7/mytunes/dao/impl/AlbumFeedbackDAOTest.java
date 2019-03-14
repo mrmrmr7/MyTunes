@@ -69,15 +69,14 @@ class AlbumFeedbackDAOTest {
 
         String actual = albumFeedbackList.toString();
         String expected = "[" +
-                "AlbumFeedback{id=1, feedback='NORM TAKOY ALBUM1', date=2019-03-05}, " +
-                "AlbumFeedback{id=2, feedback='NORM TAKOY ALBUM2', date=2019-03-05}, " +
-                "AlbumFeedback{id=3, feedback='NORM TAKOY ALBUM3', date=2019-03-05}, " +
-                "AlbumFeedback{id=4, feedback='NORM TAKOY ALBUM4', date=2019-03-05}, " +
-                "AlbumFeedback{id=5, feedback='NORM TAKOY ALBUM5', date=2019-03-05}, " +
-                "AlbumFeedback{id=6, feedback='NORM TAKOY ALBUM6', date=2019-03-05}, " +
-                "AlbumFeedback{id=7, feedback='NORM TAKOY ALBUM7', date=2019-03-05}, " +
-                "AlbumFeedback{id=8, feedback='NORM TAKOY ALBUM8', date=2019-03-05}, " +
-                "AlbumFeedback{id=9, feedback='NORM TAKOY ALBUM9', date=2019-03-05}" +
+                "AlbumFeedback{id=2, feedback='NORM TAKOY ALBUM2', date=2019-03-14}, " +
+                "AlbumFeedback{id=3, feedback='NORM TAKOY ALBUM3', date=2019-03-14}, " +
+                "AlbumFeedback{id=4, feedback='NORM TAKOY ALBUM4', date=2019-03-14}, " +
+                "AlbumFeedback{id=5, feedback='NORM TAKOY ALBUM5', date=2019-03-14}, " +
+                "AlbumFeedback{id=6, feedback='NORM TAKOY ALBUM6', date=2019-03-14}, " +
+                "AlbumFeedback{id=7, feedback='NORM TAKOY ALBUM7', date=2019-03-14}, " +
+                "AlbumFeedback{id=8, feedback='NORM TAKOY ALBUM8', date=2019-03-14}, " +
+                "AlbumFeedback{id=9, feedback='NORM TAKOY ALBUM9', date=2019-03-14}" +
                 "]";
 
         assertEquals(expected, actual);
@@ -108,14 +107,14 @@ class AlbumFeedbackDAOTest {
 
         String actual = albumFeedbackList.toString();
         String expected = "[" +
-                "AlbumFeedback{id=2, feedback='NORM TAKOY ALBUM2', date=2019-03-05}, " +
-                "AlbumFeedback{id=3, feedback='NORM TAKOY ALBUM3', date=2019-03-05}, " +
-                "AlbumFeedback{id=4, feedback='NORM TAKOY ALBUM4', date=2019-03-05}, " +
-                "AlbumFeedback{id=5, feedback='NORM TAKOY ALBUM5', date=2019-03-05}, " +
-                "AlbumFeedback{id=6, feedback='NORM TAKOY ALBUM6', date=2019-03-05}, " +
-                "AlbumFeedback{id=7, feedback='NORM TAKOY ALBUM7', date=2019-03-05}, " +
-                "AlbumFeedback{id=8, feedback='NORM TAKOY ALBUM8', date=2019-03-05}, " +
-                "AlbumFeedback{id=9, feedback='NORM TAKOY ALBUM9', date=2019-03-05}" +
+                "AlbumFeedback{id=2, feedback='NORM TAKOY ALBUM2', date=2019-03-14}, " +
+                "AlbumFeedback{id=3, feedback='NORM TAKOY ALBUM3', date=2019-03-14}, " +
+                "AlbumFeedback{id=4, feedback='NORM TAKOY ALBUM4', date=2019-03-14}, " +
+                "AlbumFeedback{id=5, feedback='NORM TAKOY ALBUM5', date=2019-03-14}, " +
+                "AlbumFeedback{id=6, feedback='NORM TAKOY ALBUM6', date=2019-03-14}, " +
+                "AlbumFeedback{id=7, feedback='NORM TAKOY ALBUM7', date=2019-03-14}, " +
+                "AlbumFeedback{id=8, feedback='NORM TAKOY ALBUM8', date=2019-03-14}, " +
+                "AlbumFeedback{id=9, feedback='NORM TAKOY ALBUM9', date=2019-03-14}" +
                 "]";
 
         assertEquals(expected, actual);

@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserBonus;
 import com.mrmrmr7.mytunes.util.DBFill;
@@ -18,6 +19,11 @@ class UserBonusDAOTest {
     @BeforeAll
     public static void daoInit() {
         userBonusDAO = new UserBonusDao();
+        try {
+            userBonusDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterAll

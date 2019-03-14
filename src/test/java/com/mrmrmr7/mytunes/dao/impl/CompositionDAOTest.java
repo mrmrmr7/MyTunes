@@ -1,5 +1,6 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
+import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Composition;
 import com.mrmrmr7.mytunes.util.DBFill;
@@ -20,6 +21,12 @@ class CompositionDAOTest {
     @BeforeAll
     public static void daoInit() {
         compositionDAO = new CompositionDao();
+        try {
+            compositionDAO.setConnection(ConnectionPoolFactory.getInstance().getConnectionPool(ConnectionPoolType.MYSQL).getConnection());
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @AfterAll
