@@ -1,22 +1,22 @@
 package com.mrmrmr7.mytunes.util;
 
 public enum TableName {
-    USER ("USERS"),
-    AUTHOR ("AUTHOR"),
-    COMPOSITION ("COMPOSITION"),
-    COMPOSITION_FEEDBACK ("COMPOSITION_FEEDBACK"),
-    ALBUM ("ALBUM"),
-    ALBUM_FEEDBACK ("ALBUM_FEEDBACK"),
-    BONUS ("BONUS"),
-    STATUS ("STATUS"),
-    GENRE ("GENRE"),
-    ROLE ("ROLE"),
-    SESSION_DATA ("SESSION_DATA"),
-    MUSIC_SELECTION ("MUSIC_SELECTION"),
-    MUSIC_SELECTION_FEEDBACK ("MUSIC_SELECTION_FEEDBACK"),
-    USER_ALBUM ("USER_ALBUM"),
-    USER_BONUS ("USER_BONUS"),
-    USER_COMPOSITION ("USER_COMPOSITION"),
+    USER ("users"),
+    AUTHOR ("author"),
+    COMPOSITION ("composition"),
+    COMPOSITION_FEEDBACK ("composition_feedback"),
+    ALBUM ("album"),
+    ALBUM_FEEDBACK ("album_feedback"),
+    BONUS ("bonus"),
+    STATUS ("status"),
+    GENRE ("genre"),
+    ROLE ("role"),
+    SESSION_DATA ("session_data"),
+    MUSIC_SELECTION ("music_selection"),
+    MUSIC_SELECTION_FEEDBACK ("music_selection_feedback"),
+    USER_ALBUM ("user_album"),
+    USER_BONUS ("user_bonus"),
+    USER_COMPOSITION ("user_composition"),
     USER_MUSIC_SELECTION ("user_music_selection");
 
     private String value;

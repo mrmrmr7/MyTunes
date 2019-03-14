@@ -31,16 +31,16 @@ class AlbumDAOTest {
         albumDAO.closeConnection();
     }
 
-    @BeforeEach
-    public void init() throws InterruptedException, SQLException, IOException {
-        DBFill.createDB();
-        DBFill.fill();
-    }
-
-    @AfterEach
-    public void destr() throws InterruptedException, SQLException, IOException {
-        DBFill.drop();
-    }
+//    @BeforeEach
+//    public void init() throws InterruptedException, SQLException, IOException {
+//        DBFill.createDB();
+//        DBFill.fill();
+//    }
+//
+//    @AfterEach
+//    public void destr() throws InterruptedException, SQLException, IOException {
+//        DBFill.drop();
+//    }
 
     @Test
     void getByPK() throws DaoException {
@@ -120,7 +120,7 @@ class AlbumDAOTest {
     void update() throws DaoException {
 
         Album expected = new Album(
-                1,
+                3,
                 4,
                 "Some new album",
                 2,
@@ -129,7 +129,7 @@ class AlbumDAOTest {
 
         albumDAO.update(expected);
 
-        Optional<Album> actual = albumDAO.getByPK(1);
+        Optional<Album> actual = albumDAO.getByPK(3);
 
         assertEquals(expected, actual.get());
     }
