@@ -25,6 +25,7 @@ public class UserDtoServiceImpl implements UserDtoService {
     @Override
     public UserDto getDtoById(int id) throws DaoException {
         TransactionManager transactionManager = new TransactionManagerImpl();
+
         JdbcDaoFactory daoFactory = JdbcDaoFactory.getInstance();
 
         GenericDao userDao = daoFactory.getTransactionalDao(User.class);

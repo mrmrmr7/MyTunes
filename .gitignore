@@ -39,7 +39,6 @@ gen### Example user template template
 out
 gen
 .idea/
-src/main/java/com/mrmrmr7/mytunes/dto/
 src/main/java/com/mrmrmr7/mytunes/view/
 src/main/resources/log/
 target/
