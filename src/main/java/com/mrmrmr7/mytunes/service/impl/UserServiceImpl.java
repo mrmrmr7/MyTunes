@@ -18,6 +18,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.Cookie;
+import javax.xml.bind.DatatypeConverter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.*;
