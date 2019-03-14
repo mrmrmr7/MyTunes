@@ -6,7 +6,7 @@ import com.mrmrmr7.mytunes.dao.UserDaoExtended;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
-import com.mrmrmr7.mytunes.dto.UserDto;
+import com.mrmrmr7.mytunes.dto.*;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.ServiceException;
 import com.mrmrmr7.mytunes.service.UserDtoService;
