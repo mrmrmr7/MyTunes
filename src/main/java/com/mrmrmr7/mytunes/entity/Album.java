@@ -13,17 +13,28 @@ public class Album implements Identified<Integer> {
     private int author_id;
     private int genre_id;
 
-    public Album(int id, long price, String name, String description, int author_id, int genre_id) {
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    private int year;
+
+    public Album(int id, long price, String name, String description, int author_id, int genre_id, int year) {
         this.id = id;
-        this.description = description;
-        this.name = name;
         this.price = price;
+        this.name = name;
+        this.year = year;
+        this.description = description;
         this.author_id = author_id;
         this.genre_id = genre_id;
     }
 
-    public Album(String description, long price, String name, int author_id, int genre_id) {
-        this(0, price, name, description, author_id, genre_id);
+    public Album(String description, long price, String name, int author_id, int genre_id, int year) {
+        this(0, price, name, description, author_id, genre_id, year);
     }
 
     public String getName() {

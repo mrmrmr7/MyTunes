@@ -10,6 +10,8 @@ public class MusicSelectionInfo implements Identified<Integer> {
     private String name;
     private String description;
 
+    public MusicSelectionInfo(){}
+
     public MusicSelectionInfo(int id, long price, String name, String description) {
         this.id = id;
         this.description = description;

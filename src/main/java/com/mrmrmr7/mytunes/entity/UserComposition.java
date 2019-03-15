@@ -8,9 +8,9 @@ package com.mrmrmr7.mytunes.entity;
         import java.util.Objects;
 
 public class UserComposition implements Identified<Integer> {
-    Integer id;
-    List<Integer> cortageIdList;
-    List<Integer> compositionIdList;
+    private Integer id;
+    private List<Integer> cortageIdList = new ArrayList<>();
+    private List<Integer> compositionIdList = new ArrayList<>();
 
     public UserComposition(Integer id, List<Integer> cortageIdList, List<Integer> compositionIdList) {
         this.id = id;
@@ -24,6 +24,9 @@ public class UserComposition implements Identified<Integer> {
 
     public UserComposition(Integer userId, Integer compositionId) {
         this(0, userId, compositionId);
+    }
+
+    public UserComposition() {
     }
 
     public void setId(Integer id) {

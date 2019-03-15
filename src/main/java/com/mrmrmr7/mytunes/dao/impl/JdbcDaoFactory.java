@@ -29,7 +29,8 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory {
         daoSupplier.put(CompositionFeedback.class, CompositionFeedbackDao::new);
         daoSupplier.put(Genre.class, GenreDao::new);
         daoSupplier.put(MusicSelection.class, MusicSelectionDao::new);
-        daoSupplier.put(MusicSelectionFeedback.class, MusicSelectionDao::new);
+        daoSupplier.put(MusicSelectionInfo.class, MusicSelectionInfoDao::new);
+        daoSupplier.put(MusicSelectionFeedback.class, MusicSelectionFeedbackDao::new);
         daoSupplier.put(Role.class, RoleDao::new);
         daoSupplier.put(Status.class, StatusDao::new);
         daoSupplier.put(User.class, UserDao::new);

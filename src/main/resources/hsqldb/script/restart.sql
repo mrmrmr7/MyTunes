@@ -46,6 +46,7 @@ create table album
   description varchar(500)    NOT NULL,
   author_id   int default '1' NOT NULL,
   genre_id    int,
+  year        int             NOT NULL,
   constraint album_author_id_fk foreign key (author_id) references author (id) on DELETE cascade,
   constraint album_genre_fk foreign key (genre_id) references genre (id) on DELETE cascade
 );
@@ -329,26 +330,26 @@ values ('DJ');
 insert into genre (GENRE)
 values ('METALL');
 
-insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID)
-values (123, 'Back side of moon', 'Back side of moon', 1, 1);
-insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID)
-values (123, 'Gorgorod', 'Gorgorod', 2, 2);
-insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID)
-values (123, 'Downtown', 'Downtown', 3, 1);
-insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID)
-values (123, 'Some', 'Some', 2, 4);
-insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID)
-values (123, 'Downtown2', 'Downtown2', 5, 1);
-insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID)
-values (123, 'Back 3oon', 'Back 3oon', 6, 1);
-insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID)
-values (123, 'Gorgorod3', 'Gorgorod3', 7, 2);
-insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID)
-values (123, 'Downtown4', 'Downtown4', 8, 1);
-insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID)
-values (123, 'Downtown5', 'Downtown5', 9, 1);
-insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID)
-values (123, 'Downtown6', 'Downtown6', 1, 1);
+insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR)
+values (123, 'Back side of moon', 'Back side of moon', 1, 1, '1998');
+insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR)
+values (123, 'Gorgorod', 'Gorgorod', 2, 2, '1998');
+insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR)
+values (123, 'Downtown', 'Downtown', 3, 1, '1998');
+insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR)
+values (123, 'Some', 'Some', 2, 4, '1998');
+insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR)
+values (123, 'Downtown2', 'Downtown2', 5, 1, '1998');
+insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR)
+values (123, 'Back 3oon', 'Back 3oon', 6, 1, '1998');
+insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR)
+values (123, 'Gorgorod3', 'Gorgorod3', 7, 2, '1998');
+insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR)
+values (123, 'Downtown4', 'Downtown4', 8, 1, '1998');
+insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR)
+values (123, 'Downtown5', 'Downtown5', 9, 1, '1998');
+insert into album (PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR)
+values (123, 'Downtown6', 'Downtown6', 1, 1, '1998');
 
 insert into user_album (USER_ID, ALBUM_ID)
 values (1, 3);
@@ -417,7 +418,7 @@ values (1, 'Fire', 7, 2018);
 insert into composition (PRICE, NAME, ALBUM_ID, YEAR)
 values (1, 'OLDUST', 5, 2018);
 insert into composition (PRICE, NAME, ALBUM_ID, YEAR)
-values (1, 'OLDUST1', 2, 2018);
+values (1, 'LSDBSD', 7, 2018);
 
 
 insert into user_composition (USER_ID, COMPOSITION_ID)

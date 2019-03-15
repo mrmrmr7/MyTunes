@@ -45,12 +45,12 @@ public class UserServiceImpl implements ServiceUser {
             return false;
         }
 
-        JdbcDaoFactory jdbcDaoFactory = JdbcDaoFactory.getInstance();
 
         try {
 
             Optional<User> user;
-            user = ((UserDaoExtended) jdbcDaoFactory.getDao(User.class)).getByLogin(login);
+
+            user = ((UserDaoExtended) JdbcDaoFactory.getInstance().getDao(User.class)).getByLogin(login);
 
             if (!user.isPresent()) {
                 return false;
@@ -86,7 +86,7 @@ public class UserServiceImpl implements ServiceUser {
                 e.printStackTrace();
             }
 
-            jdbcDaoFactory.getDao(User.class).update(user.get());
+            JdbcDaoFactory.getInstance().getDao(User.class).update(user.get());
 
             Map<String, Object> claimMap = new HashMap<>();
 

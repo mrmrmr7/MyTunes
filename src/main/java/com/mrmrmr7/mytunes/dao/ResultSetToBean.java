@@ -98,9 +98,11 @@ public class ResultSetToBean {
                 resultSet.getString(++i),
                 resultSet.getString(++i),
                 resultSet.getInt(++i),
+                resultSet.getInt(++i),
                 resultSet.getInt(++i)
         );
     }
+
     public MusicSelection toMusicSelection(ResultSet resultSet) throws SQLException {
 
         final int SELECTION_ID_COL_NUM = 2;

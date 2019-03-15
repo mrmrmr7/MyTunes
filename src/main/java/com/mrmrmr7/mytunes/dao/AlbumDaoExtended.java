@@ -11,4 +11,7 @@ public interface AlbumDaoExtended extends GenericDao<Album, Integer> {
 
     @AutoConnection
     Optional<Album> getByName(String name) throws DaoException;
+
+    @AutoConnection
+    List<Album> getByAuthorId(Integer id) throws DaoException;
 }

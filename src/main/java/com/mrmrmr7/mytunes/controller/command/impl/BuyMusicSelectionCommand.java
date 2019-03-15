@@ -4,8 +4,10 @@ import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
+import com.mrmrmr7.mytunes.service.MusicSelectionInfoService;
 import com.mrmrmr7.mytunes.service.MusicService;
 import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.service.impl.MusicSelectionInfoServiceImpl;
 import com.mrmrmr7.mytunes.service.impl.MusicServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -17,9 +19,10 @@ public class BuyMusicSelectionCommand implements Command {
         System.out.println(CommandDirector.BUY_MUSIC_SELECTION.getValue() + " command detected");
 
         MusicService musicService = new MusicServiceImpl();
-
+        MusicSelectionInfoService musicSelectionInfoService = new MusicSelectionInfoServiceImpl();
         try {
             request.setAttribute("success", musicService.buyMusicSelection(request));
+            request.setAttribute("musicSelectionInfoList", musicSelectionInfoService.getAllNotUserMusicSelectionInfo(request));
             request.setAttribute("musicSelectionName", request.getParameter("musicSelectionName"));
 
         } catch (ServiceException e) {
