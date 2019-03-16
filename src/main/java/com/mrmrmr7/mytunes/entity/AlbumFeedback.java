@@ -4,18 +4,19 @@ import com.mrmrmr7.mytunes.dao.Identified;
 
 import java.sql.Date;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Objects;
 
 public class AlbumFeedback implements Identified<Integer> {
     private Integer id;
     private String feedback;
-    private Date date;
+    private Timestamp timestamp;
 
-    public AlbumFeedback(Integer id, String feedback) {
+    public AlbumFeedback(Integer id, String feedback, Timestamp timestamp) {
         this.id = id;
         this.feedback = feedback;
-        this.date = new Date(Calendar.getInstance().getTime().getTime());
+        this.timestamp = timestamp;
     }
 
     @Override
@@ -23,7 +24,7 @@ public class AlbumFeedback implements Identified<Integer> {
         return "AlbumFeedback{" +
                 "id=" + id +
                 ", feedback='" + feedback + '\'' +
-                ", date=" + date +
+                ", timestamp=" + timestamp +
                 '}';
     }
 
@@ -44,12 +45,12 @@ public class AlbumFeedback implements Identified<Integer> {
         this.feedback = feedback;
     }
 
-    public Date getDate() {
-        return date;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
@@ -63,6 +64,6 @@ public class AlbumFeedback implements Identified<Integer> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, feedback, date);
+        return Objects.hash(id, feedback, timestamp);
     }
 }

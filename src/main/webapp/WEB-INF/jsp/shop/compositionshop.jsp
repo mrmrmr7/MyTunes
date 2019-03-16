@@ -95,12 +95,18 @@
                                     <div class="col col-md-12">
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                                <button class="btn btn-primary">
+                                                <button class="btn">
                                                     <i class="fa fa-search"></i> Buy
                                                 </button>
                                             </div>
-                                            <input type="text" id="input1-group2" name="compositionName"
-                                                   placeholder="Composition name" class="form-control">
+                                            <input type="text" id="input" name="albumName"
+                                                   placeholder="Album name" class="form-control">
+                                            <script>
+                                                input.oninput = function() {
+                                                    document.getElementById("btnClass").className = "btn btn-primary";
+                                                    document.getElementById("btnClass").disabled = false;
+                                                };
+                                            </script>
                                         </div>
                                     </div>
                                 </div>

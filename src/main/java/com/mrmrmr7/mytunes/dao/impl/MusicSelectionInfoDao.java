@@ -34,10 +34,13 @@ public class MusicSelectionInfoDao extends AbstractJdbcDao<MusicSelectionInfo, I
     @AutoConnection
     @Override
     public Optional<MusicSelectionInfo> getByName(String name) throws DaoException {
-        try (PreparedStatement preparedStatement = prepareStatementForGetByName(name)) {
+        try (PreparedStatement preparedStatement = this.prepareStatementForGetByName(name)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
-                return Optional.of(resultSetToBean.toMusicSelectionInfo(resultSet));
+                if (!resultSet.next()) {
+                    return Optional.empty();
+                }
+                Optional<MusicSelectionInfo> musicSelectionInfo = Optional.of(resultSetToBean.toMusicSelectionInfo(resultSet));
+                return musicSelectionInfo;
             } catch (SQLException e) {
                 throw new DaoException("4.1.1");
             }

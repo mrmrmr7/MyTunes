@@ -8,6 +8,7 @@ import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,7 +88,8 @@ class AlbumFeedbackDAOTest {
 
         AlbumFeedback albumFeedback = new AlbumFeedback(
                 1,
-                "Fail song"
+                "Fail song",
+                new Timestamp(1232213123)
         );
 
         albumFeedbackDAO.insert(albumFeedback);
@@ -125,7 +127,8 @@ class AlbumFeedbackDAOTest {
 
         AlbumFeedback expected = new AlbumFeedback(
                 2,
-                "Fail song"
+                "Fail song",
+                new Timestamp(12343234)
         );
 
         albumFeedbackDAO.update(expected);

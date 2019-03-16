@@ -32,7 +32,7 @@ public class CompositionFeedbackDtoServiceImpl implements CompositionFeedbackDto
             GenericDao<UserComposition, Integer> userCompositionDao = JdbcDaoFactory.getInstance().getTransactionalDao(UserComposition.class);
             GenericDao<CompositionFeedback, Integer> compositionFeedbackDao = JdbcDaoFactory.getInstance().getTransactionalDao(CompositionFeedback.class);
 
-            transactionManager.begin(compositionDao, userCompositionDao, compositionFeedbackDao);
+            transactionManager.begin(compositionDao, userCompositionDao, compositionFeedbackDao, userDao);
 
             Optional<Composition> compositionOptional = ((CompositionDaoExtended) compositionDao).getByName(compositionName);
             if (compositionOptional.isPresent()) {
@@ -40,15 +40,18 @@ public class CompositionFeedbackDtoServiceImpl implements CompositionFeedbackDto
 
                 for (Integer i : feedbackIdList) {
                     Optional<CompositionFeedback> compositionFeedbackOptional = compositionFeedbackDao.getByPK(i);
-                    Integer userId = userCompositionDao.getByPK(i).get().getId();
-                    if (compositionFeedbackOptional.isPresent()) {
-                        CompositionFeedbackDto compositionFeedbackDto = new CompositionFeedbackDto();
-                        compositionFeedbackDto.setDescription(compositionFeedbackOptional.get().getFeedback());
-                        compositionFeedbackDto.setTimestamp(compositionFeedbackOptional.get().getTimestamp());
+                    Optional<UserComposition> userCompositionOptional = userCompositionDao.getByPK(i);
+                    if (userCompositionOptional.isPresent()) {
+                        Integer userId = userCompositionOptional.get().getId();
+                        if (compositionFeedbackOptional.isPresent()) {
+                            CompositionFeedbackDto compositionFeedbackDto = new CompositionFeedbackDto();
+                            compositionFeedbackDto.setDescription(compositionFeedbackOptional.get().getFeedback());
+                            compositionFeedbackDto.setTimestamp(compositionFeedbackOptional.get().getTimestamp());
 
-                        Optional<User> userOptional = userDao.getByPK(userId);
-                        compositionFeedbackDto.setUserName(userOptional.get().getLogin());
-                        compositionFeedbackDtoList.add(compositionFeedbackDto);
+                            Optional<User> userOptional = userDao.getByPK(userId);
+                            userOptional.ifPresent(user -> compositionFeedbackDto.setUserName(user.getLogin()));
+                            compositionFeedbackDtoList.add(compositionFeedbackDto);
+                        }
                     }
                 }
             }

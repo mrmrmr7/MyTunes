@@ -25,7 +25,9 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    resultSet.next();
+                    if (!resultSet.next()) {
+                        return Optional.empty();
+                    }
                     return Optional.of(resultSetToBean.toAlbumFeedback(resultSet));
                 } catch (SQLException e) {
                     throw new DaoException("4.2.0");
@@ -106,7 +108,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
                         .prepareStatement(getUpdateQuery()),
                 object);
         preparedStatement.setString(1, object.getFeedback());
-        preparedStatement.setDate(2, object.getDate());
+        preparedStatement.setTimestamp(2, object.getTimestamp());
         preparedStatement.setInt(3, object.getId());
         return preparedStatement;
     }
@@ -135,7 +137,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
 
         int i = 0;
         preparedStatement.setString(++i, object.getFeedback());
-        preparedStatement.setDate(++i, object.getDate());
+        preparedStatement.setTimestamp(++i, object.getTimestamp());
         return preparedStatement;
     }
 
@@ -144,7 +146,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
     protected String getInsertQuery() {
 
         return "INSERT INTO " + TableName.ALBUM_FEEDBACK.getValue() +
-                "(FEEDBACK, DATE, ID) " +
+                "(FEEDBACK, TIMESTAMP, ID) " +
                 "VALUES " +
                 "(?,?,?)";
     }
@@ -155,6 +157,6 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
 
         return "UPDATE " + TableName.ALBUM_FEEDBACK.getValue() + " SET " +
                 " FEEDBACK=?, " +
-                "DATE=? WHERE ID=?";
+                "TIMESTAMP=? WHERE ID=?";
     }
 }

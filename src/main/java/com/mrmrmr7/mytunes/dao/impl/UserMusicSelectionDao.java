@@ -2,10 +2,13 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
+import com.mrmrmr7.mytunes.dao.UserMusicSelectionDaoExtended;
+import com.mrmrmr7.mytunes.service.ServiceException;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserMusicSelection;
 
+import javax.xml.ws.Service;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, Integer> {
+public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, Integer> implements UserMusicSelectionDaoExtended {
 
     public UserMusicSelectionDao() {
     }
@@ -179,5 +182,40 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
                 "USER_ID=?, SELECTION_ID=? " +
                 "WHERE ID=?";
 
+    }
+
+    @AutoConnection
+    private PreparedStatement prepareStatementForGetByCompositionId(Integer id) throws SQLException {
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectByCompositionIdQuery(TableName.USER_COMPOSITION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        preparedStatement.setInt(1, id);
+        return preparedStatement;
+    }
+
+    @AutoConnection
+    @Override
+    public List<Integer> getCortageIdByMusicSelectionId(Integer id) throws DaoException {
+
+
+        List<Integer> userList = new ArrayList<>();
+        try (PreparedStatement preparedStatement = prepareStatementForGetByCompositionId(id)){
+            try (ResultSet resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()) {
+                    userList
+                            .add(resultSet.getInt(1));
+                }
+            } catch (SQLException e) {
+                throw new DaoException("4.14.3");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.14.4");
+        }
+
+        return userList;
+    }
+
+    @AutoConnection
+    private String getSelectByCompositionIdQuery(TableName musicSelection) {
+        return "SELECT * FROM " + musicSelection.getValue() + " WHERE MUSIC_SELECTION_ID=?";
     }
 }

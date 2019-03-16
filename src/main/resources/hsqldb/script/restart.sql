@@ -82,7 +82,7 @@ create table music_selection_feedback
 (
   id       int          NOT NULL,
   feedback varchar(500) NOT NULL,
-  date     timestamp    NOT NULL,
+  timestamp     timestamp    NOT NULL,
   constraint music_selection_feedback_music_selection_fk foreign key (id) references music_selection (id) on delete cascade
 );
 
@@ -132,7 +132,7 @@ create table album_feedback
 (
   id       int          NOT NULL,
   feedback varchar(500) NOT NULL,
-  date     date         NOT NULL,
+  timestamp     date         NOT NULL,
   constraint album_feedback_user_album_fk foreign key (id) references user_album (id) on delete cascade
 );
 
@@ -160,7 +160,7 @@ create table composition_feedback
 (
   id       INTEGER      NOT NULL,
   feedback varchar(500) NOT NULL,
-  date     timestamp    NOT NULL,
+  timestamp     timestamp    NOT NULL,
   constraint composition_feedback_user_composition_fk foreign key (id) references user_composition (id) on delete cascade
 );
 
@@ -378,23 +378,23 @@ values (9, 2);
 insert into user_album (USER_ID, ALBUM_ID)
 values (10, 1);
 
-insert into album_feedback (ID, FEEDBACK, DATE)
+insert into album_feedback (ID, FEEDBACK, timestamp)
 values (1, 'NORM TAKOY ALBUM1', '2019-05-03 12:00:03');
-insert into album_feedback (ID, FEEDBACK, DATE)
+insert into album_feedback (ID, FEEDBACK, timestamp)
 values (2, 'NORM TAKOY ALBUM2', '2019-05-03 12:00:03');
-insert into album_feedback (ID, FEEDBACK, DATE)
+insert into album_feedback (ID, FEEDBACK, timestamp)
 values (3, 'NORM TAKOY ALBUM3', '2019-05-03 12:00:03');
-insert into album_feedback (ID, FEEDBACK, DATE)
+insert into album_feedback (ID, FEEDBACK, TIMESTAMP)
 values (4, 'NORM TAKOY ALBUM4', '2019-05-03 12:00:03');
-insert into album_feedback (ID, FEEDBACK, DATE)
+insert into album_feedback (ID, FEEDBACK, TIMESTAMP)
 values (5, 'NORM TAKOY ALBUM5', '2019-05-03 12:00:03');
-insert into album_feedback (ID, FEEDBACK, DATE)
+insert into album_feedback (ID, FEEDBACK, TIMESTAMP)
 values (6, 'NORM TAKOY ALBUM6', '2019-05-03 12:00:03');
-insert into album_feedback (ID, FEEDBACK, DATE)
+insert into album_feedback (ID, FEEDBACK, TIMESTAMP)
 values (7, 'NORM TAKOY ALBUM7', '2019-05-03 12:00:03');
-insert into album_feedback (ID, FEEDBACK, DATE)
+insert into album_feedback (ID, FEEDBACK, TIMESTAMP)
 values (8, 'NORM TAKOY ALBUM8', '2019-05-03 12:00:03');
-insert into album_feedback (ID, FEEDBACK, DATE)
+insert into album_feedback (ID, FEEDBACK, TIMESTAMP)
 values (9, 'NORM TAKOY ALBUM9', '2019-05-03 12:00:03');
 
 insert into composition (PRICE, NAME, ALBUM_ID, YEAR)
@@ -442,23 +442,23 @@ values (9, 1);
 insert into user_composition (USER_ID, COMPOSITION_ID)
 values (10, 3);
 
-insert into composition_feedback (ID, FEEDBACK, DATE)
+insert into composition_feedback (ID, FEEDBACK, TIMESTAMP)
 values (1, 'NORM TAKAYA PESNYA1', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE)
+insert into composition_feedback (ID, FEEDBACK, TIMESTAMP)
 values (2, 'NORM TAKAYA PESNYA2', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE)
+insert into composition_feedback (ID, FEEDBACK, TIMESTAMP)
 values (3, 'NORM TAKAYA PESNYA3', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE)
+insert into composition_feedback (ID, FEEDBACK, TIMESTAMP)
 values (4, 'NORM TAKAYA PESNYA4', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE)
+insert into composition_feedback (ID, FEEDBACK, TIMESTAMP)
 values (5, 'NORM TAKAYA PESNYA5', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE)
+insert into composition_feedback (ID, FEEDBACK, TIMESTAMP)
 values (6, 'NORM TAKAYA PESNYA6', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE)
+insert into composition_feedback (ID, FEEDBACK, TIMESTAMP)
 values (7, 'NORM TAKAYA PESNYA7', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE)
+insert into composition_feedback (ID, FEEDBACK, TIMESTAMP)
 values (8, 'NORM TAKAYA PESNYA8', '2009-06-04 19:14:20');
-insert into composition_feedback (ID, FEEDBACK, DATE)
+insert into composition_feedback (ID, FEEDBACK, TIMESTAMP)
 values (9, 'NORM TAKAYA PESNYA9', '2009-06-04 19:14:20');
 
 insert into music_selection_info (price, name, description)
@@ -733,21 +733,21 @@ values (9, 2);
 insert into user_music_selection (USER_ID, SELECTION_ID)
 values (10, 1);
 
-insert into music_selection_feedback (ID, FEEDBACK, DATE)
+insert into music_selection_feedback (ID, FEEDBACK, TIMESTAMP)
 values (1, 'NORM TAKAYA WIBORKA1', '2011-11-11 11:11:11');
-insert into music_selection_feedback (ID, FEEDBACK, DATE)
+insert into music_selection_feedback (ID, FEEDBACK, TIMESTAMP)
 values (2, 'NORM TAKAYA WIBORKA2', '2011-11-11 11:11:11');
-insert into music_selection_feedback (ID, FEEDBACK, DATE)
+insert into music_selection_feedback (ID, FEEDBACK, TIMESTAMP)
 values (3, 'NORM TAKAYA WIBORKA3', '2011-11-11 11:11:11');
-insert into music_selection_feedback (ID, FEEDBACK, DATE)
+insert into music_selection_feedback (ID, FEEDBACK, TIMESTAMP)
 values (4, 'NORM TAKAYA WIBORKA4', '2011-11-11 11:11:11');
-insert into music_selection_feedback (ID, FEEDBACK, DATE)
+insert into music_selection_feedback (ID, FEEDBACK, TIMESTAMP)
 values (5, 'NORM TAKAYA WIBORKA5', '2011-11-11 11:11:11');
-insert into music_selection_feedback (ID, FEEDBACK, DATE)
+insert into music_selection_feedback (ID, FEEDBACK, TIMESTAMP)
 values (6, 'NORM TAKAYA WIBORKA6', '2011-11-11 11:11:11');
-insert into music_selection_feedback (ID, FEEDBACK, DATE)
+insert into music_selection_feedback (ID, FEEDBACK, TIMESTAMP)
 values (7, 'NORM TAKAYA WIBORKA7', '2011-11-11 11:11:11');
-insert into music_selection_feedback (ID, FEEDBACK, DATE)
+insert into music_selection_feedback (ID, FEEDBACK, TIMESTAMP)
 values (8, 'NORM TAKAYA WIBORKA8', '2011-11-11 11:11:11');
-insert into music_selection_feedback (ID, FEEDBACK, DATE)
+insert into music_selection_feedback (ID, FEEDBACK, TIMESTAMP)
 values (9, 'NORM TAKAYA WIBORKA9', '2011-11-11 11:11:11');

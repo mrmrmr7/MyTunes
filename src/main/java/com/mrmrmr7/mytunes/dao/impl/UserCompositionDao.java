@@ -25,7 +25,9 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
+                if (!resultSet.next()) {
+                    return Optional.empty();
+                }
                 return Optional.of(resultSetToBean.toUserComposition(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.14.1");
@@ -85,6 +87,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         return preparedStatement;
     }
 
+    @AutoConnection
     private String getSelectByCompositionIdQuery(TableName userComposition) {
         return "SELECT * FROM " + userComposition.getValue() + " WHERE COMPOSITION_ID=?";
     }

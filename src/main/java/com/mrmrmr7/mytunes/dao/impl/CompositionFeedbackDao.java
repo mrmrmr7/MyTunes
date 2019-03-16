@@ -23,7 +23,9 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
+                if (!resultSet.next()) {
+                    return Optional.empty();
+                };
                 return Optional.of(resultSetToBean.toCompositionFeedback(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.6.1");
@@ -140,7 +142,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
     protected String getInsertQuery() {
 
         return "INSERT INTO " + TableName.COMPOSITION_FEEDBACK.getValue() +
-                "(ID, FEEDBACK, DATE) " +
+                "(ID, FEEDBACK, TIMESTAMP) " +
                 "VALUES " +
                 "(?,?,?)";
     }
@@ -151,6 +153,6 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
 
         return "UPDATE " + TableName.COMPOSITION_FEEDBACK.getValue() + " SET " +
                 "ID=?, FEEDBACK=?, " +
-                "DATE=? WHERE ID=?";
+                "TIMESTAMP=? WHERE ID=?";
     }
 }

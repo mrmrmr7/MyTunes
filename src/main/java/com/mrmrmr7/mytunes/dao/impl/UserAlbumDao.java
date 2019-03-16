@@ -2,6 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
+import com.mrmrmr7.mytunes.dao.UserAlbumDaoExtended;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserAlbum;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
+public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements UserAlbumDaoExtended {
 
     public UserAlbumDao() {
     }
@@ -173,5 +174,39 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> {
                 "USER_ID=?, ALBUM_ID=? " +
                 "WHERE ID=?";
 
+    }
+
+    @AutoConnection
+    @Override
+    public List<Integer> getCortageIdByAlbumId(Integer id) throws DaoException {
+
+        List<Integer> userList = new ArrayList<>();
+        try (PreparedStatement preparedStatement = prepareStatementForGetByCompositionId(id)){
+            try (ResultSet resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()) {
+                    userList
+                            .add(resultSet.getInt(1));
+                }
+            } catch (SQLException e) {
+                throw new DaoException("4.14.3");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.14.4");
+        }
+
+        return userList;
+    }
+
+    @AutoConnection
+    private PreparedStatement prepareStatementForGetByCompositionId(Integer id) throws SQLException {
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectByCompositionIdQuery(TableName.USER_ALBUM), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        preparedStatement.setInt(1, id);
+        return preparedStatement;
+    }
+
+    @AutoConnection
+    private String getSelectByCompositionIdQuery(TableName album) {
+        return "SELECT * FROM " + album.getValue() + " WHERE album_ID=?";
     }
 }

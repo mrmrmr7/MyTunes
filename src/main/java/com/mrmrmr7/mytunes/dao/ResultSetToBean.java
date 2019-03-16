@@ -54,7 +54,8 @@ public class ResultSetToBean {
         int i = 0;
         return new AlbumFeedback(
                 resultSet.getInt(++i),
-                resultSet.getString(++i)
+                resultSet.getString(++i),
+                resultSet.getTimestamp(++i)
         );
     }
 
@@ -128,12 +129,13 @@ public class ResultSetToBean {
 
     public MusicSelectionInfo toMusicSelectionInfo(ResultSet resultSet) throws SQLException {
         int i = 0;
-        return new MusicSelectionInfo(
+        MusicSelectionInfo musicSelectionInfo = new MusicSelectionInfo(
                 resultSet.getInt(++i),
                 resultSet.getLong(++i),
                 resultSet.getString(++i),
                 resultSet.getString(++i)
         );
+        return musicSelectionInfo;
     }
 
     public MusicSelectionFeedback toMusicSelectionFeedback(ResultSet resultSet) throws SQLException {

@@ -24,10 +24,12 @@ public enum  CommandDirector {
     VIEW_COMPOSITION_SHOP ("compositionShop"),
     VIEW_ALBUM_SHOP ("albumShop"),
     VIEW_MUSIC_SELECTION_SHOP ("musicSelectionShop"),
-    VIEW_FEEDBACK_COMPOSITION ("viewCompositionFeedback"),
-    VIEW_FEEDBACK_ALBUM ("viewAlbumFeedback"),
-    VIEW_FEEDBACK_MUSIC_SELECTION ("viewMusicSelectionFeedback"),
+    VIEW_COMPOSITION_FEEDBACK_TABLE ("viewCompositionFeedback"),
     VIEW_COMPOSITION_FEEDBACK_PAGE ("viewCompositionFeedbackPage"),
+    VIEW_ALBUM_FEEDBACK_TABLE ("viewAlbumFeedback"),
+    VIEW_ALBUM_FEEDBACK_PAGE ("viewAlbumFeedbackPage"),
+    VIEW_MUSIC_SELECTION_FEEDBACK_TABLE ("viewMusicSelectionFeedback"),
+    VIEW_MUSIC_SELECTION_FEEDBACK_PAGE ("viewMusicSelectionFeedbackPage"),
 
     //CRUD OPERATIONS
     ALBUM_DELETE ("albumDelete"),

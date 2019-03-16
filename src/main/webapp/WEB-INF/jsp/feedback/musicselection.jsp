@@ -73,7 +73,7 @@
         <c:if test="${success}">
             <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
                 <span class="badge badge-pill badge-dark">Success</span>
-                You buy ${musicSelectionName} music selection!
+                Feedback table about ${musicSelectionName} is shown!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">X</span>
                 </button>
@@ -86,7 +86,7 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header">
-                            <strong>Music selection</strong> buy
+                            <strong>Music selection</strong> show feedback
                         </div>
                         <div class="card-body card-block">
                             <form action="${pageContext.request.contextPath}/crud" method="post" class="form-horizontal">
@@ -94,16 +94,22 @@
                                     <div class="col col-md-12">
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                                <button class="btn btn-primary">
-                                                    <i class="fa fa-search"></i> Buy
+                                                <button class="btn" id="btnClass" disabled="disabled">
+                                                    <i class="fa fa-search"></i> Show
                                                 </button>
                                             </div>
-                                            <input type="text" id="input1-group2" name="musicSelectionName"
-                                                   placeholder="MusicSelectionInfo name" class="form-control">
+                                            <input type="text" id="input" name="musicSelectionName"
+                                                   placeholder="Music selection name" class="form-control">
+                                            <script>
+                                                input.oninput = function() {
+                                                    document.getElementById("btnClass").className = "btn btn-primary";
+                                                    document.getElementById("btnClass").disabled = false;
+                                                };
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" name="command" value="buyMusicSelection">
+                                <input type="hidden" name="command" value="viewMusicSelectionFeedback">
                             </form>
                         </div>
                     </div>

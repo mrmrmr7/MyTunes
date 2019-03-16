@@ -31,6 +31,7 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
+
 </head>
 
 <body>
@@ -72,13 +73,12 @@
 
         <c:if test="${success}">
             <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
-                <span class="badge badge-pill badge-dark">Success</span>
-                You buy ${albumName} album!
+                <span class="badge badge-pill badge-dark">OK</span>
+                Feedback table about ${albumName} is shown!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">X</span>
                 </button>
             </div>
-
         </c:if>
 
         <div class="animated fadeIn">
@@ -86,7 +86,7 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header">
-                            <strong>Album</strong> buy
+                            <strong>Composition</strong> name
                         </div>
                         <div class="card-body card-block">
                             <form action="${pageContext.request.contextPath}/crud" method="post" class="form-horizontal">
@@ -94,16 +94,22 @@
                                     <div class="col col-md-12">
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                                <button class="btn btn-primary">
-                                                    <i class="fa fa-search"></i> Buy
+                                                <button class="btn" id="btnClass" disabled="disabled">
+                                                    <i class="fa fa-search"></i> Show
                                                 </button>
                                             </div>
-                                            <input type="text" id="input1-group2" name="albumName"
-                                                   placeholder="Album name" class="form-control">
+                                            <input type="text" id="input" name="albumName"
+                                                   placeholder="Composition name" class="form-control">
+                                            <script>
+                                                input.oninput = function() {
+                                                    document.getElementById("btnClass").className = "btn btn-primary";
+                                                    document.getElementById("btnClass").disabled = false;
+                                                };
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" name="command" value="buyAlbum">
+                                <input type="hidden" name="command" value="viewAlbumFeedback">
                             </form>
                         </div>
                     </div>
@@ -114,7 +120,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Table</strong>
+                            <strong class="card-title">Feedback list</strong>
                         </div>
                         <div class="card-body">
                             <div id="bootstrap-data-table-export_wrapper"
@@ -130,38 +136,29 @@
                                                     aria-controls="bootstrap-data-table-export" rowspan="1" colspan="1"
                                                     aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending"
-                                                    style="width: 263px;">Name
-                                                </th>
-                                                <th class="sorting" tabindex="0"
-                                                    aria-controls="bootstrap-data-table-export" rowspan="1" colspan="1"
-                                                    aria-label="Position: activate to sort column ascending"
-                                                    style="width: 432px;">Genre
+                                                    style="width: 263px;">User
                                                 </th>
                                                 <th class="sorting" tabindex="0"
                                                     aria-controls="bootstrap-data-table-export" rowspan="1" colspan="1"
                                                     aria-label="Office: activate to sort column ascending"
-                                                    style="width: 196px;">Author
+                                                    style="width: 196px;">Feedback
                                                 </th>
                                                 <th class="sorting" tabindex="0"
                                                     aria-controls="bootstrap-data-table-export" rowspan="1" colspan="1"
                                                     aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 157px;">Year
-                                                </th>
-                                                <th class="sorting" tabindex="0"
-                                                    aria-controls="bootstrap-data-table-export" rowspan="1" colspan="1"
-                                                    aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 157px;">Price
+                                                    style="width: 157px;">Date
                                                 </th>
                                             </tr>
                                             </thead>
                                             <tbody>
 
-                                            <c:forEach var="feedbackDto" items="${feedbackDtoList}">
+
+                                            <c:forEach var="albumFeedbackDto" items="${albumFeedbackDtoList}">
 
                                                 <tr role="row" class="odd">
-                                                    <td class ="sorting_1"><c:out value="${feedbackDto.login}"/></td>
-                                                    <td><c:out value="${feedbackDto.description}"/></td>
-                                                    <td><c:out value="${feedbackDto.date}"/></td>
+                                                    <td class ="sorting_1"><c:out value="${albumFeedbackDto.userName}"/></td>
+                                                    <td><c:out value="${albumFeedbackDto.description}"/></td>
+                                                    <td><c:out value="${albumFeedbackDto.timestamp}"/></td>
                                                 </tr>
 
                                             </c:forEach>

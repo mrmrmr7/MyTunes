@@ -19,6 +19,8 @@ public enum PageDirector {
     VIEW ("/WEB-INF/jsp/view.jsp"),
     VIEW_NAME ("viewName"),
     VIEW_COMPOSITION_FEEDBACK ("/WEB-INF/jsp/feedback/composition.jsp"),
+    VIEW_ALBUM_FEEDBACK ("/WEB-INF/jsp/feedback/album.jsp"),
+    VIEW_MUSIC_SELECTION_FEEDBACK ("/WEB-INF/jsp/feedback/musicselection.jsp"),
 
     BALANCE_CURRENT ("/WEB-INF/jsp/balance.jsp"),
     CRUD_ALBUM_FEEDBACK ("/WEB-INF/jsp/crud/albumfeedback.jsp"),

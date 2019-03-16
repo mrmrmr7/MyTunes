@@ -9,6 +9,8 @@ public class CompositionFeedback implements Identified<Integer> {
     private String feedback;
     private Timestamp timestamp;
 
+    public CompositionFeedback() {}
+
     public CompositionFeedback(Integer id, String feedback, Timestamp timestamp) {
         this.id = id;
         this.feedback = feedback;
