@@ -12,8 +12,8 @@ public class UserComposition implements Identified<Integer> {
     private List<Integer> cortageIdList = new ArrayList<>();
     private List<Integer> compositionIdList = new ArrayList<>();
 
-    public UserComposition(Integer id, List<Integer> cortageIdList, List<Integer> compositionIdList) {
-        this.id = id;
+    public UserComposition(Integer userId, List<Integer> cortageIdList, List<Integer> compositionIdList) {
+        this.id = userId;
         this.cortageIdList = cortageIdList;
         this.compositionIdList = compositionIdList;
     }
@@ -29,8 +29,8 @@ public class UserComposition implements Identified<Integer> {
     public UserComposition() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(Integer userId) {
+        this.id = userId;
     }
 
     public List<Integer> getCortageIdList() {

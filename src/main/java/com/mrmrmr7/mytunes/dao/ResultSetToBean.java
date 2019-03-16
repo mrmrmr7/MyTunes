@@ -199,19 +199,19 @@ public class ResultSetToBean {
         int thisMusicSelection = resultSet.getInt(ALBUM_ID_COL_NUM);
 
         int i = 0;
-        UserComposition musicSelection = new UserComposition(
+        UserComposition userComposition = new UserComposition(
                 resultSet.getInt(++i),
                 resultSet.getInt(++i),
                 resultSet.getInt(++i)
         );
 
         while (resultSet.next() && (resultSet.getInt(ALBUM_ID_COL_NUM) == thisMusicSelection)) {
-            musicSelection.addCompositionId(resultSet.getInt(ID_COL_NUM),resultSet.getInt(i));
+            userComposition.addCompositionId(resultSet.getInt(ID_COL_NUM),resultSet.getInt(i));
         }
 
         resultSet.previous();
 
-        return musicSelection;
+        return userComposition;
     }
 
     public UserMusicSelection toUserMusicSelection(ResultSet resultSet) throws SQLException {

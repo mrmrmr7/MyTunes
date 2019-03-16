@@ -9,16 +9,22 @@ public enum PageDirector {
     CRUD_AUTHOR ("/WEB-INF/jsp/crud/author.jsp"),
     CRUD_BONUS ("/WEB-INF/jsp/crud/bonus.jsp"),
     CRUD_ALBUM ("/WEB-INF/jsp/crud/album.jsp"),
+
+    //SHOP
     COMPOSITION_SHOP ("/WEB-INF/jsp/shop/compositionshop.jsp"),
     ALBUM_SHOP ("/WEB-INF/jsp/shop/albumshop.jsp"),
     MUSIC_SELECTION_SHOP ("/WEB-INF/jsp/shop/musicselectionshop.jsp"),
+
+    //VIEW
+    VIEW ("/WEB-INF/jsp/view.jsp"),
+    VIEW_NAME ("viewName"),
+    VIEW_COMPOSITION_FEEDBACK ("/WEB-INF/jsp/feedback/composition.jsp"),
+
     BALANCE_CURRENT ("/WEB-INF/jsp/balance.jsp"),
     CRUD_ALBUM_FEEDBACK ("/WEB-INF/jsp/crud/albumfeedback.jsp"),
     LANDING ("/index.jsp"),
     REGISTRATION ("/signup.jsp"),
     LOGIN ("/signin.jsp"),
-    VIEW ("/WEB-INF/jsp/view.jsp"),
-    VIEW_NAME ("viewName"),
     ACCOUNT ("/WEB-INF/jsp/account.jsp"),
     SECRET_ACCOUNT ("/WEB-INF/jsp/saveOfAccount.jsp");
 

@@ -2,15 +2,17 @@ package com.mrmrmr7.mytunes.controller.command;
 
 public enum  CommandDirector {
     COMMAND ("command"),
+    MOVE_INSIDE_WEB_INF ("move"),
+    MOVE_TO_ACCOUNT ("account"),
+    SECRET_ACCOUNT ("secretAccount"),
+
+    //AUTHORIZATION OPERATIONS
     LOGIN ("login"),
     PASSWORD ("password"),
     SIGN_UP ("signup"),
     SIGN_IN ("signin"),
-    FINISH_REGISTRATION ("finishRegistration"),
     LOG_OUT ("logout"),
-    MOVE_INSIDE_WEB_INF ("move"),
-    MOVE_TO_ACCOUNT ("account"),
-    SECRET_ACCOUNT ("secretAccount"),
+    FINISH_REGISTRATION ("finishRegistration"),
 
     //BUY OPERATIONS
     BUY_COMPOSITION ("buyComposition"),
@@ -22,6 +24,10 @@ public enum  CommandDirector {
     VIEW_COMPOSITION_SHOP ("compositionShop"),
     VIEW_ALBUM_SHOP ("albumShop"),
     VIEW_MUSIC_SELECTION_SHOP ("musicSelectionShop"),
+    VIEW_FEEDBACK_COMPOSITION ("viewCompositionFeedback"),
+    VIEW_FEEDBACK_ALBUM ("viewAlbumFeedback"),
+    VIEW_FEEDBACK_MUSIC_SELECTION ("viewMusicSelectionFeedback"),
+    VIEW_COMPOSITION_FEEDBACK_PAGE ("viewCompositionFeedbackPage"),
 
     //CRUD OPERATIONS
     ALBUM_DELETE ("albumDelete"),

@@ -11,7 +11,7 @@ import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ViewCurrentBalanceCommand implements Command {
+public class ViewBalanceCurrentCommand implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.VIEW_CURRENT_BALANCE.getValue() + " command detected");

@@ -38,13 +38,15 @@ public class CommandProvider {
         commandMap.put(CommandDirector.MOVE_TO_ACCOUNT.getValue(), new ViewProfileCommand());
         commandMap.put(CommandDirector.MOVE_INSIDE_WEB_INF.getValue(), new MoveInsideWebInfCommand());
         commandMap.put(CommandDirector.SECRET_ACCOUNT.getValue(), new MoveToSecretAccountCommand());
-        commandMap.put(CommandDirector.VIEW_CURRENT_BALANCE.getValue(), new ViewCurrentBalanceCommand());
+        commandMap.put(CommandDirector.VIEW_CURRENT_BALANCE.getValue(), new ViewBalanceCurrentCommand());
         commandMap.put(CommandDirector.VIEW_COMPOSITION_SHOP.getValue(), new ViewShopCompositionCommand());
         commandMap.put(CommandDirector.VIEW_ALBUM_SHOP.getValue(), new ViewShopAlbumCommand());
         commandMap.put(CommandDirector.VIEW_MUSIC_SELECTION_SHOP.getValue(), new ViewShopMusicSelectionCommand());
         commandMap.put(CommandDirector.BUY_COMPOSITION.getValue(), new BuyCompositionCommand());
         commandMap.put(CommandDirector.BUY_ALBUM.getValue(), new BuyAlbumCommand());
         commandMap.put(CommandDirector.BUY_MUSIC_SELECTION.getValue(), new BuyMusicSelectionCommand());
+        commandMap.put(CommandDirector.VIEW_COMPOSITION_FEEDBACK_PAGE.getValue(), new ViewCompositionFeedbackPageCommand());
+        commandMap.put(CommandDirector.VIEW_FEEDBACK_COMPOSITION.getValue(), new ViewFeedbackCompositionCommand());
 
 
         commandMap.put(CommandDirector.USER_GET_BY_ID.getValue(), new CommandUserGetById());

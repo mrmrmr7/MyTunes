@@ -2,6 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
+import com.mrmrmr7.mytunes.dao.UserCompositionDaoExtended;
 import com.mrmrmr7.mytunes.util.TableName;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserComposition;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer> {
+public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer> implements UserCompositionDaoExtended {
 
     public UserCompositionDao() {
     }
@@ -32,6 +33,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         } catch (SQLException e) {
             throw new DaoException("4.14.2");
         }
+
     }
 
     @AutoConnection
@@ -53,6 +55,38 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         }
 
         return userList;
+    }
+
+    @AutoConnection
+    @Override
+    public List<Integer> getCortageIdByCompositionId(Integer id) throws DaoException {
+
+        List<Integer> userList = new ArrayList<>();
+        try (PreparedStatement preparedStatement = prepareStatementForGetByCompositionId(id)){
+            try (ResultSet resultSet = preparedStatement.executeQuery()){
+                while (resultSet.next()) {
+                    userList
+                            .add(resultSet.getInt(1));
+                }
+            } catch (SQLException e) {
+                throw new DaoException("4.14.3");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.14.4");
+        }
+
+        return userList;
+    }
+
+    private PreparedStatement prepareStatementForGetByCompositionId(Integer id) throws SQLException {
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectByCompositionIdQuery(TableName.USER_COMPOSITION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        preparedStatement.setInt(1, id);
+        return preparedStatement;
+    }
+
+    private String getSelectByCompositionIdQuery(TableName userComposition) {
+        return "SELECT * FROM " + userComposition.getValue() + " WHERE COMPOSITION_ID=?";
     }
 
     @AutoConnection
