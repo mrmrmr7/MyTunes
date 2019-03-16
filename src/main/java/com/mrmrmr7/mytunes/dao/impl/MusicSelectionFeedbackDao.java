@@ -24,7 +24,9 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
+                if (!resultSet.next()) {
+                    return Optional.empty();
+                }
                 return Optional.of(resultSetToBean.toMusicSelectionFeedback(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.9.1");

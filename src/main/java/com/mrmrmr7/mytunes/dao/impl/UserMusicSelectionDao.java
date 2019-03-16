@@ -27,7 +27,9 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
+                if (!resultSet.next()) {
+                    return Optional.empty();
+                }
                 return Optional.of(resultSetToBean.toUserMusicSelection(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.16.1");
@@ -169,7 +171,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
     public String getInsertQuery() {
 
         return "INSERT INTO " + TableName.USER_MUSIC_SELECTION.getValue() +
-                "(USER_ID, SELECTION_ID) " +
+                "(USER_ID, MUSIC_SELECTION_ID) " +
                 "VALUES " +
                 "(?,?)";
     }
@@ -179,7 +181,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
     public String getUpdateQuery() {
 
         return "UPDATE " + TableName.USER_MUSIC_SELECTION.getValue() + " SET " +
-                "USER_ID=?, SELECTION_ID=? " +
+                "USER_ID=?, MUSIC_SELECTION_ID=? " +
                 "WHERE ID=?";
 
     }
@@ -187,8 +189,8 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
     @AutoConnection
     private PreparedStatement prepareStatementForGetByCompositionId(Integer id) throws SQLException {
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectByCompositionIdQuery(TableName.USER_COMPOSITION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        preparedStatement.setInt(1, id);
+                .prepareStatement(getSelectByCompositionIdQuery(TableName.USER_MUSIC_SELECTION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            preparedStatement.setInt(1, id);
         return preparedStatement;
     }
 

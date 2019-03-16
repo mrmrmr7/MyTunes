@@ -10,7 +10,8 @@ public class MusicSelectionInfo implements Identified<Integer> {
     private String name;
     private String description;
 
-    public MusicSelectionInfo(){}
+    public MusicSelectionInfo(){
+    }
 
     public MusicSelectionInfo(int id, long price, String name, String description) {
         this.id = id;
@@ -59,10 +60,10 @@ public class MusicSelectionInfo implements Identified<Integer> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MusicSelectionInfo album = (MusicSelectionInfo) o;
-        return price == album.price &&
-                Objects.equals(id, album.id) &&
-                Objects.equals(description, album.description);
+        MusicSelectionInfo musicSelectionInfo = (MusicSelectionInfo) o;
+        return price == musicSelectionInfo.price &&
+                Objects.equals(id, musicSelectionInfo.id) &&
+                Objects.equals(description, musicSelectionInfo.description);
     }
 
     @Override
@@ -72,7 +73,7 @@ public class MusicSelectionInfo implements Identified<Integer> {
 
     @Override
     public String toString() {
-        return "Album{" +
+        return "musicSelectionInfo{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", price=" + price +

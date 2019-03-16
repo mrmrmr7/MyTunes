@@ -145,13 +145,13 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
     @Override
     protected String getSelectQuery(TableName tableName) {
 
-        return "SELECT * FROM " + tableName.getValue() + " WHERE SELECTION_ID=?";
+        return "SELECT * FROM " + tableName.getValue() + " WHERE MUSIC_SELECTION_ID=?";
     }
 
     @AutoConnection
     @Override
     protected String getDeleteQuery(TableName tableName) {
-        return "DELETE FROM " + tableName.getValue() + " WHERE SELECTION_ID=?";
+        return "DELETE FROM " + tableName.getValue() + " WHERE MUSIC_SELECTION_ID=?";
     }
 
     @AutoConnection
@@ -159,7 +159,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
     public String getInsertQuery() {
 
         return "INSERT INTO " + TableName.MUSIC_SELECTION.getValue() +
-                "(SELECTION_ID, COMPOSITION_ID) " +
+                "(MUSIC_SELECTION_ID, COMPOSITION_ID) " +
                 "VALUES " +
                 "(?,?)";
     }

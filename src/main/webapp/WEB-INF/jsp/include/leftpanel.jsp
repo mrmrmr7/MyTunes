@@ -51,8 +51,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Feedback</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-line-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewCompositionFeedbackPage">Composition</a></li>
-                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewAlbumFeedback">Album</a></li>
-                        <li><i class="menu-icon fa fa-pie-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewMusicSelectionFeedback">Music selection</a></li>
+                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewAlbumFeedbackPage">Album</a></li>
+                        <li><i class="menu-icon fa fa-pie-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewMusicSelectionFeedbackPage">Music selection</a></li>
                     </ul>
                 </li>
 
