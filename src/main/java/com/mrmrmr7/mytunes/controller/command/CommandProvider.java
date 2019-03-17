@@ -45,12 +45,14 @@ public class CommandProvider {
         commandMap.put(CommandDirector.BUY_COMPOSITION.getValue(), new BuyCompositionCommand());
         commandMap.put(CommandDirector.BUY_ALBUM.getValue(), new BuyAlbumCommand());
         commandMap.put(CommandDirector.BUY_MUSIC_SELECTION.getValue(), new BuyMusicSelectionCommand());
+        commandMap.put(CommandDirector.VIEW_USER_MUSIC.getValue(), new ViewUserMusicCommand());
         commandMap.put(CommandDirector.VIEW_COMPOSITION_FEEDBACK_PAGE.getValue(), new ViewCompositionFeedbackPageCommand());
         commandMap.put(CommandDirector.VIEW_COMPOSITION_FEEDBACK_TABLE.getValue(), new ViewCompositionFeedbackCommand());
         commandMap.put(CommandDirector.VIEW_ALBUM_FEEDBACK_PAGE.getValue(), new ViewAlbumFeedbackPageCommand());
         commandMap.put(CommandDirector.VIEW_ALBUM_FEEDBACK_TABLE.getValue(), new ViewAlbumFeedbackCommand());
         commandMap.put(CommandDirector.VIEW_MUSIC_SELECTION_FEEDBACK_PAGE.getValue(), new ViewMusicSelectionFeedbackPageCommand());
         commandMap.put(CommandDirector.VIEW_MUSIC_SELECTION_FEEDBACK_TABLE.getValue(), new ViewMusicSelectionFeedbackCommand());
+        commandMap.put(CommandDirector.ADD_COMPOSITION_FEEDBACK.getValue(), new AddCompositionFeedbackCommand());
 
 
         commandMap.put(CommandDirector.USER_GET_BY_ID.getValue(), new CommandUserGetById());

@@ -6,10 +6,8 @@ import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
 import com.mrmrmr7.mytunes.dto.AlbumDto;
-import com.mrmrmr7.mytunes.dto.CompositionDto;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.AlbumDtoService;
-import com.mrmrmr7.mytunes.service.CompositionDtoService;
 import com.mrmrmr7.mytunes.service.ServiceException;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
 import io.jsonwebtoken.Claims;
@@ -152,6 +150,79 @@ public class AlbumDtoServiceImpl implements AlbumDtoService {
                 transactionManager.end();
             } catch (DaoException e) {
                 throw new ServiceException(e.getMessage());
+            }
+        }
+
+        return albumDtoList;
+    }
+
+    @Override
+    public List<AlbumDto> getAllUserAlbumDto(HttpServletRequest request) throws ServiceException {
+        Cookie[] cookieArray = request.getCookies();
+        Claims claims = ProtectionUtil.getClaimsFromCookies(cookieArray);
+
+        TransactionManager transactionManager = new TransactionManagerImpl();
+
+        List<AlbumDto> albumDtoList = new ArrayList<>();
+
+        try {
+            GenericDao<UserAlbum, Integer> userAlbumDao = JdbcDaoFactory.getInstance().getTransactionalDao(UserAlbum.class);
+            GenericDao<Album, Integer> albumDao = JdbcDaoFactory.getInstance().getTransactionalDao(Album.class);
+            GenericDao<Author, Integer> authorDao = JdbcDaoFactory.getInstance().getTransactionalDao(Author.class);
+            GenericDao<Genre, Integer> genreDao = JdbcDaoFactory.getInstance().getTransactionalDao(Genre.class);
+
+            transactionManager.begin(userAlbumDao, albumDao, authorDao, genreDao);
+
+            Optional<UserAlbum> userAlbumOptional = userAlbumDao.getByPK(claims.get("userId", Integer.class));
+
+            if (userAlbumOptional.isPresent()) {
+                List<Integer> userAlbumIdList = userAlbumOptional.get().getAlbumIdList();
+                for (Integer u : userAlbumIdList) {
+                    try {
+                        Optional<Album> albumOptional = albumDao.getByPK(u);
+                        if (albumOptional.isPresent()) {
+                            try {
+                                Optional<Author> authorOptional = authorDao.getByPK(albumOptional.get().getAuthor_id());
+                                if (authorOptional.isPresent()) {
+                                    try {
+                                        Optional<Genre> genreOptional = genreDao.getByPK(albumOptional.get().getGenre_id());
+                                        if (genreOptional.isPresent()) {
+                                            AlbumDto albumDto = new AlbumDto();
+                                            albumDto.setName(albumOptional.get().getName());
+                                            albumDto.setYear(albumOptional.get().getYear());
+                                            albumDto.setGenre(genreOptional.get().getGenre());
+                                            albumDto.setAuthor(authorOptional.get().getPseudonim());
+
+                                            albumDtoList.add(albumDto);
+                                        }
+                                    } catch (DaoException e) {
+                                        throw new ServiceException(e.getMessage());
+                                    }
+                                }
+                            } catch (DaoException e) {
+                                throw new ServiceException(e.getMessage());
+                            }
+
+                        }
+                    } catch (DaoException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            transactionManager.commit();
+        } catch (DaoException e) {
+            try {
+                transactionManager.rollBack();
+            } catch (DaoException e1) {
+                e1.printStackTrace();
+            }
+            throw new ServiceException(e.getMessage());
+        } finally {
+            try {
+                transactionManager.end();
+            } catch (DaoException e) {
+                e.printStackTrace();
             }
         }
 

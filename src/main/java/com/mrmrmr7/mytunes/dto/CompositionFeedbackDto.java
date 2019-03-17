@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 public class CompositionFeedbackDto {
     private String userName;
     private String description;
+    private Timestamp timestamp;
+    private String compositionName;
 
     public String getUserName() {
         return userName;
@@ -30,5 +32,12 @@ public class CompositionFeedbackDto {
         this.timestamp = timestamp;
     }
 
-    private Timestamp timestamp;
+    public String getCompositionName() {
+        return compositionName;
+    }
+
+    public void setCompositionName(String compositionName) {
+        this.compositionName = compositionName;
+    }
+
 }

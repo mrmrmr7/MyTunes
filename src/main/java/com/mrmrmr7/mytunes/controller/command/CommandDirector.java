@@ -6,6 +6,11 @@ public enum  CommandDirector {
     MOVE_TO_ACCOUNT ("account"),
     SECRET_ACCOUNT ("secretAccount"),
 
+    //ADD
+    ADD_COMPOSITION_FEEDBACK ("addCompositionFeedback"),
+    ADD_ALBUM_FEEDBACK ("addAlbumFeedback"),
+    ADD_MUSIC_SELECTION_FEEDBACK ("addMusicSelectionFeedback"),
+
     //AUTHORIZATION OPERATIONS
     LOGIN ("login"),
     PASSWORD ("password"),
@@ -30,6 +35,7 @@ public enum  CommandDirector {
     VIEW_ALBUM_FEEDBACK_PAGE ("viewAlbumFeedbackPage"),
     VIEW_MUSIC_SELECTION_FEEDBACK_TABLE ("viewMusicSelectionFeedback"),
     VIEW_MUSIC_SELECTION_FEEDBACK_PAGE ("viewMusicSelectionFeedbackPage"),
+    VIEW_USER_MUSIC ("music"),
 
     //CRUD OPERATIONS
     ALBUM_DELETE ("albumDelete"),

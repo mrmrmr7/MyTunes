@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface UserCompositionDaoExtended {
     List<Integer> getCortageIdByCompositionId(Integer id) throws DaoException;
+
+    Optional<UserComposition> getByCortagePK(Integer i) throws DaoException;
 }

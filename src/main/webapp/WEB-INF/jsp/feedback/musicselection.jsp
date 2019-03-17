@@ -82,39 +82,64 @@
         </c:if>
 
         <div class="animated fadeIn">
+
             <div class="row">
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>Music selection</strong> show feedback
-                        </div>
-                        <div class="card-body card-block">
-                            <form action="${pageContext.request.contextPath}/crud" method="post" class="form-horizontal">
-                                <div class="row form-group">
-                                    <div class="col col-md-12">
-                                        <div class="input-group">
-                                            <div class="input-group-btn">
-                                                <button class="btn" id="btnClass" disabled="disabled">
-                                                    <i class="fa fa-search"></i> Show
-                                                </button>
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active show" id="showFeedbackTab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Show feedback</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="addFeedbackTab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Add feedback</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="changeFeedbackTab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Change feedback</a>
+                        </li>
+                    </ul>
+                    <div class="card" style="border-top: none">
+                        <div class="card-body">
+
+                            <div class="tab-content pl-3 p-1" id="myTabContent">
+                                <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="showFeedbackTab">
+                                    <form action="${pageContext.request.contextPath}/crud" method="post" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col col-md-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn" id="btnClass" disabled="disabled">
+                                                            <i class="fa fa-search"></i> Show
+                                                        </button>
+                                                    </div>
+                                                    <input type="text" id="input" name="musicSelectionName"
+                                                           placeholder="Music selection name" class="form-control">
+                                                    <script>
+                                                        input.oninput = function() {
+                                                            document.getElementById("btnClass").className = "btn btn-primary";
+                                                            document.getElementById("btnClass").disabled = false;
+                                                        };
+                                                    </script>
+                                                </div>
                                             </div>
-                                            <input type="text" id="input" name="musicSelectionName"
-                                                   placeholder="Music selection name" class="form-control">
-                                            <script>
-                                                input.oninput = function() {
-                                                    document.getElementById("btnClass").className = "btn btn-primary";
-                                                    document.getElementById("btnClass").disabled = false;
-                                                };
-                                            </script>
                                         </div>
-                                    </div>
+                                        <input type="hidden" name="command" value="viewMusicSelectionFeedback">
+                                    </form>
                                 </div>
-                                <input type="hidden" name="command" value="viewMusicSelectionFeedback">
-                            </form>
+                                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="addFeedbackTab">
+                                    <h3>Home</h3>
+                                    <p>Some content here.</p>
+                                </div>
+                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="changeFeedbackTab">
+                                    <h3>Menu 2</h3>
+                                    <p>Some content here.</p>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="row">
                 <div class="col-md-12">

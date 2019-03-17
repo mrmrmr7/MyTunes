@@ -33,7 +33,6 @@ public class MusicSelectionInfoServiceImpl implements MusicSelectionInfoService 
     @Override
     public List<MusicSelectionInfo> getAllNotUserMusicSelectionInfo(HttpServletRequest request) throws ServiceException {
 
-
         Cookie[] cookieArray = request.getCookies();
         Claims claims = ProtectionUtil.getClaimsFromCookies(cookieArray);
 
@@ -72,5 +71,52 @@ public class MusicSelectionInfoServiceImpl implements MusicSelectionInfoService 
         }
 
         return realMusicSelectionInfoList;
+    }
+
+    @Override
+    public List<MusicSelectionInfo> getAllUserMusicSelectionInfo(HttpServletRequest request) throws ServiceException {
+
+        Cookie[] cookieArray = request.getCookies();
+        Claims claims = ProtectionUtil.getClaimsFromCookies(cookieArray);
+
+        List<MusicSelectionInfo> musicSelectionInfoList = new ArrayList<>();
+        TransactionManager transactionManager = new TransactionManagerImpl();
+        try {
+            GenericDao<UserMusicSelection, Integer> userMusicSelectionDao = JdbcDaoFactory.getInstance().getTransactionalDao(UserMusicSelection.class);
+            GenericDao<MusicSelectionInfo, Integer> musicSelectionInfoDao = JdbcDaoFactory.getInstance().getTransactionalDao(MusicSelectionInfo.class);
+
+            transactionManager.begin(userMusicSelectionDao, musicSelectionInfoDao);
+
+            Optional<UserMusicSelection> userMusicSelectionOptional = userMusicSelectionDao.getByPK(claims.get("userId", Integer.class));
+            if (userMusicSelectionOptional.isPresent()) {
+
+                List<Integer> userMusicSelectionIdList = userMusicSelectionOptional.get().getMusicSelectionIdList();
+                for (Integer each : userMusicSelectionIdList) {
+
+                    Optional<MusicSelectionInfo> musicSelectionInfoOptional = musicSelectionInfoDao.getByPK(each);
+                    if (musicSelectionInfoOptional.isPresent()) {
+
+                        musicSelectionInfoList.add(musicSelectionInfoOptional.get());
+                    }
+                }
+            }
+
+            transactionManager.commit();
+        } catch (DaoException e) {
+            try {
+                transactionManager.rollBack();
+            } catch (DaoException e1) {
+                e1.printStackTrace();
+            }
+            throw new ServiceException(e.getMessage());
+        } finally {
+            try {
+                transactionManager.end();
+            } catch (DaoException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return musicSelectionInfoList;
     }
 }

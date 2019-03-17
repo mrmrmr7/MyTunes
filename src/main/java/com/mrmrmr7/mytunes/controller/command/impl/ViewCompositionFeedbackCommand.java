@@ -2,16 +2,11 @@ package com.mrmrmr7.mytunes.controller.command.impl;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.dto.CompositionFeedbackDto;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
-import com.mrmrmr7.mytunes.service.CompositionDtoService;
-import com.mrmrmr7.mytunes.service.CompositionFeedbackDtoService;
-import com.mrmrmr7.mytunes.service.MusicService;
+import com.mrmrmr7.mytunes.service.CompositionFeedbackService;
 import com.mrmrmr7.mytunes.service.ServiceException;
-import com.mrmrmr7.mytunes.service.impl.CompositionDtoServiceImpl;
-import com.mrmrmr7.mytunes.service.impl.CompositionFeedbackDtoServiceImpl;
-import com.mrmrmr7.mytunes.service.impl.MusicServiceImpl;
+import com.mrmrmr7.mytunes.service.impl.CompositionFeedbackServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +16,12 @@ public class ViewCompositionFeedbackCommand implements Command {
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.VIEW_COMPOSITION_FEEDBACK_TABLE.getValue() + " command detected");
 
-        CompositionFeedbackDtoService compositionFeedbackDtoService = new CompositionFeedbackDtoServiceImpl();
+        CompositionFeedbackService compositionFeedbackDtoService = new CompositionFeedbackServiceImpl();
 
         try {
 
-            request.setAttribute("compositionFeedbackDtoList", compositionFeedbackDtoService.getFeedbackByCompositionId(request));
+            request.setAttribute("compositionFeedbackDtoList", compositionFeedbackDtoService.getFeedbackDtoByCompositionId(request));
+            request.setAttribute("userCompositionFeedbackList", compositionFeedbackDtoService.getUserCompositionFeedbackList(request));
             request.setAttribute("compositionName", request.getParameter("compositionName"));
             request.setAttribute("success", true);
         } catch (ServiceException e) {

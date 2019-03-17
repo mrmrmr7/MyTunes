@@ -4,6 +4,7 @@ import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.dao.Identified;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
+import com.mrmrmr7.mytunes.dao.impl.AlbumDao;
 import com.mrmrmr7.mytunes.dao.impl.AuthorDao;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
@@ -147,6 +148,69 @@ public class CompositionDtoServiceImpl implements CompositionDtoService {
                 transactionManager.end();
             } catch (DaoException e) {
                 throw new ServiceException(e.getMessage());
+            }
+        }
+
+        return compositionDtoList;
+    }
+
+    @Override
+    public List<CompositionDto> getAllUserCompositionDto(HttpServletRequest request) throws ServiceException {
+        Cookie[] cookieArray = request.getCookies();
+        Claims claims = ProtectionUtil.getClaimsFromCookies(cookieArray);
+
+        TransactionManager transactionManager = new TransactionManagerImpl();
+
+        List<CompositionDto> compositionDtoList = new ArrayList<>();
+
+        try {
+            GenericDao<UserComposition, Integer> userCompositionDao = JdbcDaoFactory.getInstance().getTransactionalDao(UserComposition.class);
+            GenericDao<Composition, Integer> compositionDao = JdbcDaoFactory.getInstance().getTransactionalDao(Composition.class);
+            GenericDao<Album, Integer> albumDao = JdbcDaoFactory.getInstance().getTransactionalDao(Album.class);
+            GenericDao<Author, Integer> authorDao = JdbcDaoFactory.getInstance().getTransactionalDao(Author.class);
+
+            transactionManager.begin(userCompositionDao, compositionDao, albumDao, authorDao);
+
+            Optional<UserComposition> userCompositionOptional = userCompositionDao.getByPK(claims.get("userId", Integer.class));
+            if (userCompositionOptional.isPresent()) {
+                List<Integer> userCompositionIdList = userCompositionOptional.get().getCompositionIdList();
+
+                for (Integer each : userCompositionIdList) {
+
+                    Optional<Composition> compositionOptional = compositionDao.getByPK(each);
+                    if (compositionOptional.isPresent()) {
+
+                        Optional<Album> albumOptional = albumDao.getByPK(compositionOptional.get().getAlbum_id());
+                        if (albumOptional.isPresent()) {
+
+                            Optional<Author> authorOptional = authorDao.getByPK(albumOptional.get().getAuthor_id());
+                            if(authorOptional.isPresent()) {
+
+                                CompositionDto compositionDto = new CompositionDto();
+                                compositionDto.setAlbum(albumOptional.get().getName());
+                                compositionDto.setAuthor(authorOptional.get().getPseudonim());
+                                compositionDto.setName(compositionOptional.get().getName());
+
+                                compositionDtoList.add(compositionDto);
+                            }
+                        }
+                    }
+                }
+            }
+
+            transactionManager.commit();
+        } catch (DaoException e) {
+            try {
+                transactionManager.rollBack();
+            } catch (DaoException e1) {
+                e1.printStackTrace();
+            }
+            throw new ServiceException(e.getMessage());
+        } finally {
+            try {
+                transactionManager.end();
+            } catch (DaoException e) {
+                e.printStackTrace();
             }
         }
 

@@ -9,4 +9,5 @@ public interface CompositionDtoService {
 
     List<CompositionDto> getAllCompositionDto() throws ServiceException;
     List<CompositionDto> getAllNotUserCompositionDto(HttpServletRequest request) throws ServiceException;
+    List<CompositionDto> getAllUserCompositionDto(HttpServletRequest request) throws ServiceException;
 }

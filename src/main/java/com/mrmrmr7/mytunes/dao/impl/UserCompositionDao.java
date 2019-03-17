@@ -80,6 +80,38 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         return userList;
     }
 
+    @AutoConnection
+    @Override
+    public Optional<UserComposition> getByCortagePK(Integer id) throws DaoException {
+
+        try (PreparedStatement preparedStatement = prepareStatementForGetByCortageId(id)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (!resultSet.next()) {
+                    return Optional.empty();
+                }
+                return Optional.of(resultSetToBean.toUserComposition(resultSet));
+            } catch (SQLException e) {
+                throw new DaoException("4.14.1");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.14.2");
+        }
+
+    }
+
+    private PreparedStatement prepareStatementForGetByCortageId(Integer id) throws SQLException {
+
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectCortageQuery(TableName.USER_COMPOSITION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        preparedStatement.setInt(1, id);
+
+        return preparedStatement;
+    }
+
+    private String getSelectCortageQuery(TableName userComposition) {
+        return "SELECT * FROM " + userComposition.getValue() + " WHERE ID=?";
+    }
+
     private PreparedStatement prepareStatementForGetByCompositionId(Integer id) throws SQLException {
         PreparedStatement preparedStatement = connection
                 .prepareStatement(getSelectByCompositionIdQuery(TableName.USER_COMPOSITION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);

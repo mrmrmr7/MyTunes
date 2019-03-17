@@ -9,4 +9,5 @@ public interface MusicSelectionInfoService {
 
     List<MusicSelectionInfo> getAllMusicSelectionInfo() throws ServiceException;
     List<MusicSelectionInfo> getAllNotUserMusicSelectionInfo(HttpServletRequest request) throws ServiceException;
+    List<MusicSelectionInfo> getAllUserMusicSelectionInfo(HttpServletRequest request) throws ServiceException;
 }

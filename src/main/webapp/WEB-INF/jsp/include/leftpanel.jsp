@@ -28,6 +28,9 @@
                 <li class="active">
                     <a href="${pageContext.request.contextPath}/crud?command=account" id="accountId"> <i class="menu-icon fa fa-dashboard"></i> <b>Account </b></a>
                 </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/crud?command=music" id="accountId1"> <i class="menu-icon fa fa-bar-chart"></i>Music</a>
+                </li>
 
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Music shop</a>
