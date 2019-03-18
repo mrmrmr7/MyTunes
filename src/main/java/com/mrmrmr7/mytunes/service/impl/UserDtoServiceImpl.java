@@ -207,6 +207,7 @@ public class UserDtoServiceImpl implements UserDtoService {
     public void setDtoByLogin(String login, HttpServletRequest request) throws ServiceException {
         try {
             UserDto userDto = getDtoByLogin(login);
+            request.setAttribute("role", userDto.getRole().getId());
             request.setAttribute("userDto", userDto);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());

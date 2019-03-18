@@ -25,7 +25,7 @@ public class SignInCommand implements Command {
 
         try {
             UserServiceImpl serviceUser = new UserServiceImpl();
-            isSignIn = serviceUser.login(login, password, httpServletResponse);//request.getSession(false));
+            isSignIn = serviceUser.login(login, password, httpServletResponse);
             if (isSignIn) {
                 UserDtoServiceImpl userDtoServiceImpl = new UserDtoServiceImpl();
                 userDtoServiceImpl.setDtoByLogin(login, request);

@@ -33,16 +33,13 @@
 
 </head>
 
-<body>
+<body style="display: block">
 
 
 <!-- Left Panel -->
 
 <jsp:include page="include/leftpanel.jsp"/>
-
-<!-- Left Panel -->
-
-<!-- Right Panel -->
+<%--<jsp:include page="testpanel.jsp"/>--%>
 
 <div id="right-panel" class="right-panel">
 
@@ -162,6 +159,11 @@
 
     </div>
 </div><!-- /#right-panel -->
+
+
+<!-- Left Panel -->
+
+<!-- Right Panel -->
 
 <!-- Right Panel -->
 

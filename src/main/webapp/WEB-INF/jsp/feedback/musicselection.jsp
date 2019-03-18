@@ -33,7 +33,7 @@
 
 </head>
 
-<body>
+<body style="display:block;">
 <!-- Left Panel -->
 
 <jsp:include page="/WEB-INF/jsp/include/leftpanel.jsp"/>

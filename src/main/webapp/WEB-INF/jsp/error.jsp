@@ -10,7 +10,7 @@
 <head>
     <title>Title</title>
 </head>
-<body>
+<body style="display: block">
     lol tiptop
 </body>
 </html>

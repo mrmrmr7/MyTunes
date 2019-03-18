@@ -930,7 +930,7 @@
 
 body {
   background: #f1f2f7;
-  display: table;
+  display: block;
   font-family: 'Open Sans' sans-serif !important;
   font-size: 16px;
   width: 100%; }
@@ -995,7 +995,7 @@ textarea {
 /* Global Styles */
 /* Main Styles */
 .basix-container {
-  display: table;
+  display: block;
   min-height: 100vh;
   position: relative;
   width: 100%; }

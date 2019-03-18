@@ -35,7 +35,7 @@
 
 </head>
 
-<body>
+<body style="display: block">
 <!-- Left Panel -->
 
 <jsp:include page="include/leftpanel.jsp"/>

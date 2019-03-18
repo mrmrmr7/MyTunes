@@ -33,8 +33,7 @@
 
 </head>
 
-<body>
-
+<body style="display: block">
 
 <!-- Left Panel -->
 

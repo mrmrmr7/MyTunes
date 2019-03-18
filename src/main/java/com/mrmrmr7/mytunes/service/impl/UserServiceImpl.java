@@ -1,35 +1,35 @@
 package com.mrmrmr7.mytunes.service.impl;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.dao.UserDaoExtended;
-import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
-import com.mrmrmr7.mytunes.service.ServiceUser;
+import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.service.ServiceException;
-import com.mrmrmr7.mytunes.util.ProtectionUtil;
+import com.mrmrmr7.mytunes.service.ServiceUser;
 import com.mrmrmr7.mytunes.util.KeyPairUtil;
+import com.mrmrmr7.mytunes.util.ProtectionUtil;
 import com.mrmrmr7.mytunes.validator.AuthorizationValidator;
 import com.mrmrmr7.mytunes.validator.ValidatorSignIn;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.mindrot.jbcrypt.BCrypt;
 import org.apache.commons.codec.binary.Base64;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.*;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-//import java.util.*;
 
 public class UserServiceImpl implements ServiceUser {
     private static final String COOKIE_TOKEN = "token";
@@ -63,20 +63,6 @@ public class UserServiceImpl implements ServiceUser {
             }
 
             KeyPairUtil.setKeysToUser(user.get());
-//            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-//            keyPairGenerator.initialize(2048);
-//            KeyPair keyPair = keyPairGenerator.generateKeyPair();
-//            PublicKey publicKey = keyPair.getPublic();
-//            PrivateKey privateKey = keyPair.getPrivate();
-//
-//            String publicEncoded = Base64.getEncoder().encodeToString(publicKey.getEncoded());
-//            user.get().setPublicKey(publicEncoded);
-//            String privateEncoded = Base64.getEncoder().encodeToString(privateKey.getEncoded());
-//            user.get().setPrivateKey(privateEncoded);
-
-
-//                Base64.Decoder decoder = Base64.getDecoder();
-//            byte[] byteArray = decoder.decode(user.get().getPrivateKey());
             byte[] byteArray = Base64.decodeBase64(user.get().getPrivateKey());
             PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(byteArray);
             PrivateKey privateKey = null;
@@ -116,20 +102,15 @@ public class UserServiceImpl implements ServiceUser {
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServiceException {
-        try {
-            Cookie[] cookies = request.getCookies();
-            Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
-            Optional<Cookie> cookiePublicKey = Arrays.stream(cookies).filter(s -> s.getName().equals("publicKey")).findFirst();
+        Cookie[] cookies = request.getCookies();
+        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        Optional<Cookie> cookiePublicKey = Arrays.stream(cookies).filter(s -> s.getName().equals("publicKey")).findFirst();
 
-            cookieToken.ifPresent(s -> s.setMaxAge(0));
-            cookiePublicKey.ifPresent(s -> s.setMaxAge(0));
+        cookieToken.ifPresent(s -> s.setMaxAge(0));
+        cookiePublicKey.ifPresent(s -> s.setMaxAge(0));
 
-            httpServletResponse.addCookie(cookieToken.get());
-            httpServletResponse.addCookie(cookiePublicKey.get());
-
-
-        }  finally {
-        }
+        httpServletResponse.addCookie(cookieToken.get());
+        httpServletResponse.addCookie(cookiePublicKey.get());
     }
 
     @Override
@@ -146,7 +127,9 @@ public class UserServiceImpl implements ServiceUser {
             return false;
         }
 
-        if (command.equals(CommandDirector.SIGN_IN.getValue()) || command.equals(CommandDirector.SIGN_UP.getValue()) || command.equals(CommandDirector.FINISH_REGISTRATION.getValue())) {
+        if (command.equals(CommandDirector.SIGN_IN.getValue()) ||
+                command.equals(CommandDirector.SIGN_UP.getValue()) ||
+                command.equals(CommandDirector.FINISH_REGISTRATION.getValue())) {
             return true;
         }
 
@@ -168,19 +151,19 @@ public class UserServiceImpl implements ServiceUser {
 
             PublicKey publicKey = ProtectionUtil.stringToPublicKey(cookiePublicKey.get().getValue());
 
-            Claims claims;
-
-            try {
-                claims = Jwts
-                        .parser()
-                        .setSigningKey(publicKey)
-                        .parseClaimsJws(cookieToken
-                                .get()
-                                .getValue())
-                        .getBody();
-            } catch (Exception e) {
-                throw new ServiceException(e.getMessage());
-            }
+            Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
+//
+//            try {
+//                claims = Jwts
+//                        .parser()
+//                        .setSigningKey(publicKey)
+//                        .parseClaimsJws(cookieToken
+//                                .get()
+//                                .getValue())
+//                        .getBody();
+//            } catch (Exception e) {
+//                throw new ServiceException(e.getMessage());
+//            }
 
 
             String testToken = null;
@@ -205,6 +188,8 @@ public class UserServiceImpl implements ServiceUser {
                 claimMap.put("userId", user.getId());
                 claimMap.put("userLogin", user.getLogin());
                 claimMap.put("userRole", user.getRoleId());
+
+                httpServletRequest.setAttribute("role", user.getRoleId());
                 testToken = Jwts.builder().setClaims(claimMap).signWith(SignatureAlgorithm.RS256, privateKey).compact();
             } catch (DaoException e) {
                 e.printStackTrace();
