@@ -5,7 +5,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>Transcend</title>
+    <title>MyTunes</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
