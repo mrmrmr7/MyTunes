@@ -1,8 +1,8 @@
 package com.mrmrmr7.mytunes.util;
 
-import com.mrmrmr7.mytunes.service.ServiceException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.apache.commons.codec.binary.Base64;
 
 import javax.servlet.http.Cookie;
 import java.security.KeyFactory;
@@ -11,17 +11,14 @@ import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Optional;
 
 public class ProtectionUtil {
 
 
     public static PublicKey stringToPublicKey(String data) {
-        byte[] byteArray = Base64
-                .getDecoder()
-                .decode(data
-                        .getBytes());
+
+        byte[] byteArray = Base64.decodeBase64(data);
 
         X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(byteArray);
         KeyFactory keyFactory = null;

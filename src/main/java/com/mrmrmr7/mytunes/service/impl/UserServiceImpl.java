@@ -152,18 +152,6 @@ public class UserServiceImpl implements ServiceUser {
             PublicKey publicKey = ProtectionUtil.stringToPublicKey(cookiePublicKey.get().getValue());
 
             Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
-//
-//            try {
-//                claims = Jwts
-//                        .parser()
-//                        .setSigningKey(publicKey)
-//                        .parseClaimsJws(cookieToken
-//                                .get()
-//                                .getValue())
-//                        .getBody();
-//            } catch (Exception e) {
-//                throw new ServiceException(e.getMessage());
-//            }
 
 
             String testToken = null;
@@ -178,7 +166,6 @@ public class UserServiceImpl implements ServiceUser {
                 }
 
                 User user = userOptional.get();
-//                Base64.Decoder decoder = Base64.getDecoder();
                 byte[] byteArray = Base64.decodeBase64(user.getPrivateKey());
                 PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(byteArray);
                 PrivateKey privateKey = KeyFactory.getInstance("RSA").generatePrivate(pkcs8EncodedKeySpec);
