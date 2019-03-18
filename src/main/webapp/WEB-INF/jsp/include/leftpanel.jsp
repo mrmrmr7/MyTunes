@@ -60,9 +60,9 @@
                 </li>
 
 
-                <%--<c:if test="${role == 1}">--%>
-                    <%--<jsp:include page="/WEB-INF/jsp/include/adminPanel.jsp"/>--%>
-                <%--</c:if>--%>
+                <c:if test="${role == 1}">
+                    <jsp:include page="/WEB-INF/jsp/include/adminPanel.jsp"/>
+                </c:if>
 
             </ul>
         </div><!-- /.navbar-collapse -->
