@@ -7,18 +7,30 @@ import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
 import com.mrmrmr7.mytunes.dto.AlbumDto;
 import com.mrmrmr7.mytunes.entity.*;
-import com.mrmrmr7.mytunes.service.AlbumDtoService;
+import com.mrmrmr7.mytunes.service.AlbumService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
 import io.jsonwebtoken.Claims;
 
+import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class AlbumDtoServiceImpl implements AlbumDtoService {
+public class AlbumServiceImpl implements AlbumService {
+
+    @Override
+    public List<Album> getAllAlbum() throws ServiceException {
+        List<Album> albumList = new ArrayList<>();
+        try {
+            albumList = JdbcDaoFactory.getInstance().getDao(Album.class).getAll();
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage());
+        }
+        return albumList;
+    }
 
     @Override
     public List<AlbumDto> getAllAlbumDto() throws ServiceException {
@@ -227,5 +239,26 @@ public class AlbumDtoServiceImpl implements AlbumDtoService {
         }
 
         return albumDtoList;
+    }
+
+    @Override
+    public boolean addAlbum(HttpServletRequest request) throws ServiceException {
+        String albumName = request.getParameter("albumName");
+        String albumDescription = request.getParameter("albumDescription");
+
+        int albumPrice = Integer.valueOf(request.getParameter("albumPrice"));
+        int albumYear = Integer.valueOf(request.getParameter("albumYear"));
+        int authorId = Integer.valueOf(request.getParameter("authorId"));
+        int genreId = Integer.valueOf(request.getParameter("genreId"));
+
+        Album album = new Album(albumDescription, albumPrice, albumName, authorId, genreId, albumYear);
+
+        try {
+            JdbcDaoFactory.getInstance().getDao(Album.class).insert(album);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
+        return true;
     }
 }

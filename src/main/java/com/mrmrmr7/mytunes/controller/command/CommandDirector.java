@@ -24,6 +24,15 @@ public enum  CommandDirector {
     BUY_ALBUM ("buyAlbum"),
     BUY_MUSIC_SELECTION ("buyMusicSelection"),
 
+    //ADMIN
+    ADMIN_ADD_USER_BONUS ("adminAddUserBonus"),
+    ADMIN_UPLOAD_COMPOSITION ("uploadComposition"),
+    ADMIN_VIEW_ADD_USER_BONUS_PAGE ("viewAdminAddUserBonusPage"),
+    ADMIN_VIEW_CREATE_MUSIC_SELECTION_PAGE ("viewAdminCreateMusicSelectionPage"),
+    ADMIN_VIEW_UPLOAD_COMPOSITION_PAGE ("viewUploadCompositionPage"),
+    ADMIN_VIEW_ADD_ALBUM_PAGE ("viewAdminCreateAlbumPage"),
+    ADMIN_ADD_ALBUM ("addAlbum"),
+
     //VIEW OPERATIONS
     VIEW_PROFILE_PAGE ("account"),
     VIEW_COMPOSITION_SHOP ("compositionShop"),
@@ -37,9 +46,7 @@ public enum  CommandDirector {
     VIEW_MUSIC_SELECTION_FEEDBACK_PAGE ("viewMusicSelectionFeedbackPage"),
     VIEW_USER_MUSIC ("music"),
     VIEW_UPDATE_BALANCE_PAGE ("viewUpdateBalancePage"),
-    VIEW_CURRENT_BALANCE_PAGE ("viewCurrentBalancePage"),
-    VIEW_ADMIN_ADD_USER_BONUS_PAGE ("viewAdminAddUserBonusPage"),
-    VIEW_ADMIN_CREATE_MUSIC_SELECTION_PAGE ("viewAdminCreateMusicSelectionPage");
+    VIEW_CURRENT_BALANCE_PAGE ("viewCurrentBalancePage");
 
     private String value;
 

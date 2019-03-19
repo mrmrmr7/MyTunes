@@ -9,6 +9,8 @@ public class Composition  implements Identified<Integer> {
     private int album_id;
     private String name;
 
+    public Composition () {}
+
     public Composition(int price, String name, int album_id, int year) {
         this.year = year;
         this.price = price;

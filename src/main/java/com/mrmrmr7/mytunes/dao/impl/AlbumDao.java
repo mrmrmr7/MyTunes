@@ -189,6 +189,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
         int i = 0;
         preparedStatement.setLong(++i, object.getPrice());
         preparedStatement.setString(++i, object.getDescription());
+        preparedStatement.setString(++i, object.getName());
         preparedStatement.setInt(++i, object.getAuthor_id());
         preparedStatement.setInt(++i, object.getGenre_id());
         preparedStatement.setInt(++i, object.getYear());
@@ -211,9 +212,9 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
     public String getInsertQuery() {
 
         return "INSERT INTO " + Table.ALBUM.getValue() +
-                "(PRICE, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR) " +
+                "(PRICE, NAME, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR) " +
                 "VALUES " +
-                "(?,?,?,?,?)";
+                "(?,?,?,?,?,?)";
     }
 
     @AutoConnection
@@ -222,6 +223,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
 
         return "UPDATE " + Table.ALBUM.getValue() + " SET " +
                 "PRICE=?, " +
+                "NAME=?, " +
                 "DESCRIPTION=?, " +
                 "AUTHOR_ID=?, " +
                 "GENRE_ID=?, " +

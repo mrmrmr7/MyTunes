@@ -1,4 +1,4 @@
-package com.mrmrmr7.mytunes.controller.command.impl;
+package com.mrmrmr7.mytunes.controller.command.impl.view;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;

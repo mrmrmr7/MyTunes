@@ -1,4 +1,4 @@
-package com.mrmrmr7.mytunes.controller.command.impl;
+package com.mrmrmr7.mytunes.controller.command.impl.view;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
@@ -17,7 +17,7 @@ public class ViewAdminAddUserBonusPageCommand implements Command {
 
     @Override
     public ResponseContent process(HttpServletRequest request) {
-        System.out.println(CommandDirector.VIEW_ADMIN_ADD_USER_BONUS_PAGE.getValue() + " command detected");
+        System.out.println(CommandDirector.ADMIN_VIEW_ADD_USER_BONUS_PAGE.getValue() + " command detected");
         BonusService bonusService = new BonusServiceImpl();
         try {
             List<Bonus> bonusList = bonusService.getAll();

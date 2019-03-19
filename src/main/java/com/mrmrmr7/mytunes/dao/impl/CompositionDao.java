@@ -49,6 +49,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         return compositionList;
     }
 
+    @AutoConnection
     @Override
     public Optional<Composition> getByName(String name) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForGetByName(name)) {

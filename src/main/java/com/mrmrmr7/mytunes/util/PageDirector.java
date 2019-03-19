@@ -24,10 +24,8 @@ public enum PageDirector {
     VIEW_ALBUM_FEEDBACK ("/WEB-INF/jsp/user/include/feedback/album.jsp"),
     VIEW_MUSIC_SELECTION_FEEDBACK ("/WEB-INF/jsp/user/include/feedback/musicselection.jsp"),
     VIEW_ADMIN_ADD_USER_BONUS_PAGE ("/WEB-INF/jsp/admin/adduserbonus.jsp"),
-    VIEW_ADMIN_CREATE_MUSIC_SELECTION_PAGE ("/WEB-INF/jsp/admin/createmusicselection.jsp"),
-
-    //ADMIN
-    ADMIN_ADD_USER_BONUS("/WEB-INF/jsp/admin/userbonus.jsp"),
+    VIEW_ADMIN_CREATE_ALBUM_PAGE ("/WEB-INF/jsp/admin/createalbum.jsp"),
+    VIEW_UPLOAD_COMPOSITION_PAGE ("/WEB-INF/jsp/admin/uploadcomposition.jsp"),
 
     BALANCE_CURRENT ("/WEB-INF/jsp/balance.jsp"),
     CRUD_ALBUM_FEEDBACK ("/WEB-INF/jsp/crud/albumfeedback.jsp"),

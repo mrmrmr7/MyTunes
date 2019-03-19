@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
@@ -18,6 +19,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
     public GenreDao() {
     }
 
+    @AutoConnection
     @Override
     public Optional<Genre> getByPK(Integer id) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
@@ -32,6 +34,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         }
     }
 
+    @AutoConnection
     @Override
     public List<Genre> getAll() throws DaoException {
 
@@ -39,7 +42,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
 
         try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.GENRE)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
+                    while (resultSet.next()) {
                     userList
                             .add(resultSetToBean.toGenre(resultSet));
                 }
@@ -53,6 +56,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         return userList;
     }
 
+    @AutoConnection
     @Override
     public void insert(Genre object) throws DaoException {
 
@@ -63,6 +67,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         }
     }
 
+    @AutoConnection
     @Override
     public void delete(Integer id) throws DaoException {
 
@@ -73,6 +78,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         }
     }
 
+    @AutoConnection
     @Override
     public void update(Genre object) throws DaoException {
 
@@ -83,6 +89,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         }
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForInsert(Genre object) throws SQLException {
 
@@ -91,6 +98,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         return prepareForUpdate(preparedStatement, object);
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForUpdate(Genre object) throws SQLException {
 
@@ -101,6 +109,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
@@ -109,6 +118,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
@@ -118,6 +128,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         return preparedStatement;
     }
 
+    @AutoConnection
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, Genre object) throws SQLException {
 
         int i = 0;
@@ -125,6 +136,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         return preparedStatement;
     }
 
+    @AutoConnection
     @Override
     public String getInsertQuery() {
 
@@ -134,6 +146,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
                 "(?)";
     }
 
+    @AutoConnection
     @Override
     public String getUpdateQuery() {
 

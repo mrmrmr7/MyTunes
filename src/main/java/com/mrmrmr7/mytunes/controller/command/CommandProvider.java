@@ -1,6 +1,7 @@
 package com.mrmrmr7.mytunes.controller.command;
 
 import com.mrmrmr7.mytunes.controller.command.impl.*;
+import com.mrmrmr7.mytunes.controller.command.impl.view.*;
 
 
 import java.util.HashMap;
@@ -47,8 +48,12 @@ public class CommandProvider {
         commandMap.put(CommandDirector.VIEW_UPDATE_BALANCE_PAGE.getValue(), new ViewUpdateBalancePageCommand());
         commandMap.put(CommandDirector.UPDATE_BALANCE.getValue(), new UpdateBalanceCommand());
 
-        commandMap.put(CommandDirector.VIEW_ADMIN_ADD_USER_BONUS_PAGE.getValue(), new ViewAdminAddUserBonusPageCommand());
-        commandMap.put(CommandDirector.VIEW_ADMIN_CREATE_MUSIC_SELECTION_PAGE.getValue(), new ViewAdminCreateMusicSelectionPageCommand());
+        commandMap.put(CommandDirector.ADMIN_ADD_USER_BONUS.getValue(), new AdminAddUserBonusCommand());
+        commandMap.put(CommandDirector.ADMIN_ADD_ALBUM.getValue(), new AdminAddAlbumCommand());
+        commandMap.put(CommandDirector.ADMIN_UPLOAD_COMPOSITION.getValue(), new AdminCompositionUploadCommand());
+        commandMap.put(CommandDirector.ADMIN_VIEW_ADD_USER_BONUS_PAGE.getValue(), new ViewAdminAddUserBonusPageCommand());
+        commandMap.put(CommandDirector.ADMIN_VIEW_ADD_ALBUM_PAGE.getValue(), new ViewAdminCreateAlbumPage());
+        commandMap.put(CommandDirector.ADMIN_VIEW_UPLOAD_COMPOSITION_PAGE.getValue(), new ViewCompositionUploadPageCommand());
     }
 
     /**

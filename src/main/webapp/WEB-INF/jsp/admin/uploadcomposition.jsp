@@ -74,7 +74,7 @@
         <c:if test="${success}">
             <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
                 <span class="badge badge-pill badge-dark">Success</span>
-                You successful add bonus to user!
+                You successful add composition!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">X</span>
                 </button>
@@ -91,26 +91,51 @@
                     <div class="card-body">
                         <form action="${pageContext.request.contextPath}/crud" method="post" id="addUserBonusFormId" class="form-horizontal">
                             <div class="row form-group">
-                                <div class="col col-md-3"><label for="email-input" class=" form-control-label">User
-                                    login</label></div>
+                                <div class="col col-md-3"><label for="compositionNameId" class=" form-control-label">Name</label></div>
                                 <div class="col-12 col-md-9">
-                                    <input type="text" id="email-input" name="userLogin" placeholder="Enter login"
+                                    <input type="text" id="compositionNameId" name="compositionName" placeholder="Enter login"
                                            class="form-control">
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col col-md-3"><label for="selectSm"
-                                                                 class=" form-control-label">Bonus</label></div>
+                                <div class="col col-md-3"><label for="compositionPriceId" class=" form-control-label">Price</label></div>
                                 <div class="col-12 col-md-9">
-                                    <select name="bonusId" id="SelectLm" class="form-control-sm form-control">>
+                                    <input type="text" id="compositionPriceId" name="compositionPrice" placeholder="Enter login"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="compositionYearId" class=" form-control-label">Year</label></div>
+                                <div class="col-12 col-md-9">
+                                    <input type="text" id="compositionYearId" name="compositionYear" placeholder="Enter login"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="SelectLm"
+                                                                 class=" form-control-label">Album</label></div>
+                                <div class="col-12 col-md-9">
+                                    <select name="albumId" id="SelectLm" class="form-control-sm form-control">>
                                         <option value="0">Please select</option>
-                                        <c:forEach var="b" items="${bonusList}">
-                                            <option value="${b.id}">${b.bonus}</option>
+                                        <c:forEach var="b" items="${albumList}">
+                                            <option value="${b.id}">${b.name}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
                             </div>
-                            <input type="hidden" name="command" value="adminAddUserBonus">
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="SelectLm1"
+                                                                 class=" form-control-label">Author</label></div>
+                                <div class="col-12 col-md-9">
+                                    <select name="authorId" id="SelectLm1" class="form-control-sm form-control">>
+                                        <option value="0">Please select</option>
+                                        <c:forEach var="b" items="${authorList}">
+                                            <option value="${b.id}">${b.pseudonim}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" name="command" value="uploadComposition">
                         </form>
                     </div>
                     <div class="card-footer">
