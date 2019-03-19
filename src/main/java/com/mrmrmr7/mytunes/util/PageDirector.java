@@ -12,8 +12,8 @@ public enum PageDirector {
 
     //SHOP
     COMPOSITION_SHOP ("/WEB-INF/jsp/user/include/shop/composition.jsp"),
-    ALBUM_SHOP ("/WEB-INF/jsp/user//include/shop/album.jsp"),
-    MUSIC_SELECTION_SHOP ("/WEB-INF/user//include/jsp/shop/musicselection.jsp"),
+    ALBUM_SHOP ("/WEB-INF/jsp/user/include/shop/album.jsp"),
+    MUSIC_SELECTION_SHOP ("/WEB-INF/jsp/user/include/shop/musicselection.jsp"),
 
     //VIEW
     VIEW ("/WEB-INF/jsp/view.jsp"),
@@ -26,6 +26,7 @@ public enum PageDirector {
     VIEW_ADMIN_ADD_USER_BONUS_PAGE ("/WEB-INF/jsp/admin/adduserbonus.jsp"),
     VIEW_ADMIN_CREATE_ALBUM_PAGE ("/WEB-INF/jsp/admin/createalbum.jsp"),
     VIEW_UPLOAD_COMPOSITION_PAGE ("/WEB-INF/jsp/admin/uploadcomposition.jsp"),
+    VIEW_CREATE_MUSIC_SELECTION_PAGE ("/WEB-INF/jsp/admin/createmusicselection.jsp"),
 
     BALANCE_CURRENT ("/WEB-INF/jsp/balance.jsp"),
     CRUD_ALBUM_FEEDBACK ("/WEB-INF/jsp/crud/albumfeedback.jsp"),

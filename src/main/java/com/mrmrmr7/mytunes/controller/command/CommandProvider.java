@@ -50,10 +50,13 @@ public class CommandProvider {
 
         commandMap.put(CommandDirector.ADMIN_ADD_USER_BONUS.getValue(), new AdminAddUserBonusCommand());
         commandMap.put(CommandDirector.ADMIN_ADD_ALBUM.getValue(), new AdminAddAlbumCommand());
+        commandMap.put(CommandDirector.ADMIN_ADD_MUSIC_SELECTION.getValue(), new AdminAddMusicSelectionCommand());
         commandMap.put(CommandDirector.ADMIN_UPLOAD_COMPOSITION.getValue(), new AdminCompositionUploadCommand());
         commandMap.put(CommandDirector.ADMIN_VIEW_ADD_USER_BONUS_PAGE.getValue(), new ViewAdminAddUserBonusPageCommand());
         commandMap.put(CommandDirector.ADMIN_VIEW_ADD_ALBUM_PAGE.getValue(), new ViewAdminCreateAlbumPage());
         commandMap.put(CommandDirector.ADMIN_VIEW_UPLOAD_COMPOSITION_PAGE.getValue(), new ViewCompositionUploadPageCommand());
+        commandMap.put(CommandDirector.ADMIN_VIEW_CREATE_MUSIC_SELECTION_PAGE.getValue(), new ViewCreateMusicSelectionPageCommand());
+
     }
 
     /**

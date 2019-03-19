@@ -28,10 +28,11 @@ public enum  CommandDirector {
     ADMIN_ADD_USER_BONUS ("adminAddUserBonus"),
     ADMIN_UPLOAD_COMPOSITION ("uploadComposition"),
     ADMIN_VIEW_ADD_USER_BONUS_PAGE ("viewAdminAddUserBonusPage"),
-    ADMIN_VIEW_CREATE_MUSIC_SELECTION_PAGE ("viewAdminCreateMusicSelectionPage"),
     ADMIN_VIEW_UPLOAD_COMPOSITION_PAGE ("viewUploadCompositionPage"),
     ADMIN_VIEW_ADD_ALBUM_PAGE ("viewAdminCreateAlbumPage"),
     ADMIN_ADD_ALBUM ("addAlbum"),
+    ADMIN_ADD_MUSIC_SELECTION ("addMusicSelection"),
+    ADMIN_VIEW_CREATE_MUSIC_SELECTION_PAGE ("viewCreateMusicSelectionPage"),
 
     //VIEW OPERATIONS
     VIEW_PROFILE_PAGE ("account"),

@@ -1,9 +1,9 @@
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1" %>
+         pageEncoding="ISO-8859-1"%>
 
-<html class="no-js" lang="en">
+<html>
 <!--<![endif]-->
 
 <head>
@@ -37,7 +37,7 @@
 <jsp:include page="/WEB-INF/jsp/include/leftpanel.jsp"/>
 <%--<jsp:include page="testpanel.jsp"/>--%>
 
-<div id="right-panel" class="right-panel" style="width: 100%;">
+<div id="right-panel" class="right-panel"  style="width: 100%;">
 
     <!-- Header-->
 
@@ -49,7 +49,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>User bonus panel</h1>
+                    <h1>Account information</h1>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
         <c:if test="${success}">
             <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
                 <span class="badge badge-pill badge-dark">Success</span>
-                You successful add bonus to user!
+                You successful add album!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">X</span>
                 </button>
@@ -82,31 +82,31 @@
             <div class="col-lg-8 offset-md-3 mr-auto ml-auto">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Basic Form</strong> Elements
+                        <strong>Music selection</strong> information
                     </div>
                     <div class="card-body">
                         <form action="${pageContext.request.contextPath}/crud" method="post" id="addUserBonusFormId" class="form-horizontal">
                             <div class="row form-group">
-                                <div class="col col-md-3"><label for="email-input" class=" form-control-label">User
-                                    login</label></div>
+                                <div class="col col-md-3"><label for="compositionNameId" class=" form-control-label">Name</label></div>
                                 <div class="col-12 col-md-9">
-                                    <input type="text" id="email-input" name="userLogin" placeholder="Enter login"
+                                    <input type="text" id="compositionNameId" name="musicSelectionName" placeholder="Enter name"
                                            class="form-control">
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col col-md-3"><label for="selectSm"
-                                                                 class=" form-control-label">Bonus</label></div>
+                                <div class="col col-md-3"><label for="compositionPriceId" class=" form-control-label">Price</label></div>
                                 <div class="col-12 col-md-9">
-                                    <select name="bonusId" id="SelectLm" class="form-control-sm form-control">>
-                                        <option value="0">Please select</option>
-                                        <c:forEach var="b" items="${bonusList}">
-                                            <option value="${b.id}">${b.bonus}</option>
-                                        </c:forEach>
-                                    </select>
+                                    <input type="text" id="compositionPriceId" name="musicSelectionPrice" placeholder="Enter price"
+                                           class="form-control">
                                 </div>
                             </div>
-                            <input type="hidden" name="command" value="adminAddUserBonus">
+                            <div class="row form-group">
+                                <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Description</label>
+                                </div>
+                                <div class="col-12 col-md-9"><textarea name="musicSelectionDescription" id="textarea-input" rows="9" placeholder="Content..." class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <input type="hidden" name="command" value="addMusicSelection">
                         </form>
                     </div>
                     <div class="card-footer">
@@ -139,7 +139,7 @@
 <script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/site/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
 <script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/site/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
 <script>
-    (function ($) {
+    (function($) {
         "use strict";
 
         jQuery('#vmap').vectorMap({

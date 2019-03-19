@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface MusicSelectionInfoService {
 
+    boolean insertMusicSelection(HttpServletRequest request) throws ServiceException;
     List<MusicSelectionInfo> getAllMusicSelectionInfo() throws ServiceException;
     List<MusicSelectionInfo> getAllNotUserMusicSelectionInfo(HttpServletRequest request) throws ServiceException;
     List<MusicSelectionInfo> getAllUserMusicSelectionInfo(HttpServletRequest request) throws ServiceException;

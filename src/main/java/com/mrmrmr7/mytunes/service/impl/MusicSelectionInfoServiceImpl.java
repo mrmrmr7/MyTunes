@@ -19,6 +19,26 @@ import java.util.Optional;
 
 public class MusicSelectionInfoServiceImpl implements MusicSelectionInfoService {
     @Override
+    public boolean insertMusicSelection(HttpServletRequest request) throws ServiceException {
+        int musicSelectionPrice = Integer.valueOf(request.getParameter("musicSelectionPrice"));
+        String musicSelectionName = request.getParameter("musicSelectionName");
+        String musicSelectionDescription = request.getParameter("musicSelectionDescription");
+
+        MusicSelectionInfo musicSelectionInfo = new MusicSelectionInfo();
+        musicSelectionInfo.setName(musicSelectionName);
+        musicSelectionInfo.setPrice(musicSelectionPrice);
+        musicSelectionInfo.setDescription(musicSelectionDescription);
+
+        try {
+            JdbcDaoFactory.getInstance().getDao(MusicSelectionInfo.class).insert(musicSelectionInfo);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
+        return true;
+    }
+
+    @Override
     public List<MusicSelectionInfo> getAllMusicSelectionInfo() throws ServiceException {
         List<MusicSelectionInfo> musicSelectionInfoList = null;
         try {
