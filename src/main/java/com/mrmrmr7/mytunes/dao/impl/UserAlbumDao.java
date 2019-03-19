@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.UserAlbumDaoExtended;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserAlbum;
 
@@ -40,7 +40,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
     public List<UserAlbum> getAll() throws DaoException {
 
         List<UserAlbum> userList = new ArrayList<>();
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.USER_ALBUM)){
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.USER_ALBUM)){
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()) {
                     userList
@@ -128,7 +128,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.USER_ALBUM));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.USER_ALBUM));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -138,29 +138,29 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.USER_ALBUM), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                .prepareStatement(getSelectQuery(Table.USER_ALBUM), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
 
     @AutoConnection
     @Override
-    protected String getSelectQuery(TableName tableName) {
+    protected String getSelectQuery(Table table) {
 
-        return "SELECT * FROM " + tableName.getValue() + " WHERE USER_ID=?";
+        return "SELECT * FROM " + table.getValue() + " WHERE USER_ID=?";
     }
 
     @AutoConnection
     @Override
-    protected String getDeleteQuery(TableName tableName) {
-        return "DELETE FROM " + tableName.getValue() + " WHERE USER_ID=?";
+    protected String getDeleteQuery(Table table) {
+        return "DELETE FROM " + table.getValue() + " WHERE USER_ID=?";
     }
 
     @AutoConnection
     @Override
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.USER_ALBUM.getValue() +
+        return "INSERT INTO " + Table.USER_ALBUM.getValue() +
                 "(USER_ID, ALBUM_ID) " +
                 "VALUES " +
                 "(?,?)";
@@ -170,7 +170,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.USER_ALBUM.getValue() + " SET " +
+        return "UPDATE " + Table.USER_ALBUM.getValue() + " SET " +
                 "USER_ID=?, ALBUM_ID=? " +
                 "WHERE ID=?";
 
@@ -200,13 +200,13 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
     @AutoConnection
     private PreparedStatement prepareStatementForGetByCompositionId(Integer id) throws SQLException {
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectByCompositionIdQuery(TableName.USER_ALBUM), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                .prepareStatement(getSelectByCompositionIdQuery(Table.USER_ALBUM), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
 
     @AutoConnection
-    private String getSelectByCompositionIdQuery(TableName album) {
+    private String getSelectByCompositionIdQuery(Table album) {
         return "SELECT * FROM " + album.getValue() + " WHERE album_ID=?";
     }
 }

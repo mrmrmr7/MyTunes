@@ -4,7 +4,7 @@ import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
-import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.impl.UserDtoServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
@@ -16,7 +16,7 @@ public class ViewProfileCommand implements Command {
 
     @Override
     public ResponseContent process(HttpServletRequest request) {
-        System.out.println(CommandDirector.MOVE_TO_ACCOUNT.getValue() + " command detected");
+        System.out.println(CommandDirector.VIEW_PROFILE_PAGE.getValue() + " command detected");
 
         UserDtoServiceImpl userDtoServiceImpl = new UserDtoServiceImpl();
 

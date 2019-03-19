@@ -3,10 +3,9 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AlbumDaoExtended;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Album;
-import com.mysql.cj.xdevapi.SqlDataResult;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -72,7 +71,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
     private PreparedStatement prepareStatementForGetByAuthorId(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectByAuthorIdQuery(TableName.ALBUM));
+                .prepareStatement(getSelectByAuthorIdQuery(Table.ALBUM));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -82,14 +81,14 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
     private PreparedStatement prepareStatementForGetByName(String name) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectByNameQuery(TableName.ALBUM));
+                .prepareStatement(getSelectByNameQuery(Table.ALBUM));
         preparedStatement.setString(1, name);
         return preparedStatement;
     }
 
     @AutoConnection
-    private String getSelectByNameQuery(TableName tableName) {
-        return "SELECT * FROM " + tableName.getValue() + " WHERE NAME=?";
+    private String getSelectByNameQuery(Table table) {
+        return "SELECT * FROM " + table.getValue() + " WHERE NAME=?";
     }
 
     @AutoConnection
@@ -98,7 +97,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
 
         List<Album> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.ALBUM)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.ALBUM)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
@@ -169,7 +168,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.ALBUM));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.ALBUM));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -179,7 +178,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.ALBUM));
+                .prepareStatement(getSelectQuery(Table.ALBUM));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -198,20 +197,20 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
 
     @Override
     @AutoConnection
-    protected String getSelectQuery(TableName tableName) {
-        return "SELECT * FROM " + tableName.getValue() + " WHERE ID=?";
+    protected String getSelectQuery(Table table) {
+        return "SELECT * FROM " + table.getValue() + " WHERE ID=?";
     }
 
     @AutoConnection
-    protected String getSelectByAuthorIdQuery(TableName tableName) {
-        return "SELECT * FROM " + tableName.getValue() + " WHERE AUTHOR_ID=?";
+    protected String getSelectByAuthorIdQuery(Table table) {
+        return "SELECT * FROM " + table.getValue() + " WHERE AUTHOR_ID=?";
     }
 
     @AutoConnection
     @Override
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.ALBUM.getValue() +
+        return "INSERT INTO " + Table.ALBUM.getValue() +
                 "(PRICE, DESCRIPTION, AUTHOR_ID, GENRE_ID, YEAR) " +
                 "VALUES " +
                 "(?,?,?,?,?)";
@@ -221,7 +220,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.ALBUM.getValue() + " SET " +
+        return "UPDATE " + Table.ALBUM.getValue() + " SET " +
                 "PRICE=?, " +
                 "DESCRIPTION=?, " +
                 "AUTHOR_ID=?, " +

@@ -1,7 +1,7 @@
 package com.mrmrmr7.mytunes.filter;
 
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.impl.UserServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 import javax.servlet.*;

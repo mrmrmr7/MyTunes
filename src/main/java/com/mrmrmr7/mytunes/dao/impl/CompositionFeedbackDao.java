@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.CompositionFeedback;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +40,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
     public List<CompositionFeedback> getAll() throws DaoException {
 
         List<CompositionFeedback> compositionFeedbackList = new ArrayList<>();
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.COMPOSITION_FEEDBACK)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.COMPOSITION_FEEDBACK)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     compositionFeedbackList
@@ -112,7 +112,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.COMPOSITION_FEEDBACK));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.COMPOSITION_FEEDBACK));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -122,7 +122,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.COMPOSITION_FEEDBACK));
+                .prepareStatement(getSelectQuery(Table.COMPOSITION_FEEDBACK));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -141,7 +141,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
     @AutoConnection
     protected String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.COMPOSITION_FEEDBACK.getValue() +
+        return "INSERT INTO " + Table.COMPOSITION_FEEDBACK.getValue() +
                 "(ID, FEEDBACK, TIMESTAMP) " +
                 "VALUES " +
                 "(?,?,?)";
@@ -151,7 +151,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
     @Override
     protected String getUpdateQuery() {
 
-        return "UPDATE " + TableName.COMPOSITION_FEEDBACK.getValue() + " SET " +
+        return "UPDATE " + Table.COMPOSITION_FEEDBACK.getValue() + " SET " +
                 "ID=?, FEEDBACK=?, " +
                 "TIMESTAMP=? WHERE ID=?";
     }

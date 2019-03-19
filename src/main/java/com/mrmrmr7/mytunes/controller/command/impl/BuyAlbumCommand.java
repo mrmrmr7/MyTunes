@@ -6,7 +6,7 @@ import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.service.AlbumDtoService;
 import com.mrmrmr7.mytunes.service.MusicService;
-import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.impl.AlbumDtoServiceImpl;
 import com.mrmrmr7.mytunes.service.impl.MusicServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;

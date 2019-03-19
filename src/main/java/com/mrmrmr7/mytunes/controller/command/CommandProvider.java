@@ -1,19 +1,6 @@
 package com.mrmrmr7.mytunes.controller.command;
 
 import com.mrmrmr7.mytunes.controller.command.impl.*;
-import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorDelete;
-import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorGetAll;
-import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorGetById;
-import com.mrmrmr7.mytunes.controller.command.impl.author.CommandAuthorInsert;
-import com.mrmrmr7.mytunes.controller.command.impl.genre.CommandGenreDelete;
-import com.mrmrmr7.mytunes.controller.command.impl.genre.CommandGenreGetAll;
-import com.mrmrmr7.mytunes.controller.command.impl.genre.CommandGenreGetById;
-import com.mrmrmr7.mytunes.controller.command.impl.genre.CommandGenreInsert;
-import com.mrmrmr7.mytunes.controller.command.impl.bonus.CommandBonusDelete;
-import com.mrmrmr7.mytunes.controller.command.impl.bonus.CommandBonusGetAll;
-import com.mrmrmr7.mytunes.controller.command.impl.bonus.CommandBonusGetById;
-import com.mrmrmr7.mytunes.controller.command.impl.bonus.CommandBonusInsert;
-import com.mrmrmr7.mytunes.controller.command.impl.user.*;
 
 
 import java.util.HashMap;
@@ -33,19 +20,21 @@ public class CommandProvider {
     private CommandProvider() {
         commandMap.put(CommandDirector.SIGN_IN.getValue(), new SignInCommand());
         commandMap.put(CommandDirector.SIGN_UP.getValue(), new SignUpStartCommand());
-        commandMap.put(CommandDirector.FINISH_REGISTRATION.getValue(), new SignUpFinishCommand());
         commandMap.put(CommandDirector.LOG_OUT.getValue(), new LogOutCommand());
-        commandMap.put(CommandDirector.MOVE_TO_ACCOUNT.getValue(), new ViewProfileCommand());
-        commandMap.put(CommandDirector.MOVE_INSIDE_WEB_INF.getValue(), new MoveInsideWebInfCommand());
-        commandMap.put(CommandDirector.SECRET_ACCOUNT.getValue(), new MoveToSecretAccountCommand());
-        commandMap.put(CommandDirector.VIEW_CURRENT_BALANCE.getValue(), new ViewBalanceCurrentCommand());
+
+        commandMap.put(CommandDirector.FINISH_REGISTRATION.getValue(), new SignUpFinishCommand());
+
+        commandMap.put(CommandDirector.VIEW_PROFILE_PAGE.getValue(), new ViewProfileCommand());
+
         commandMap.put(CommandDirector.VIEW_COMPOSITION_SHOP.getValue(), new ViewCompositionShopCommand());
         commandMap.put(CommandDirector.VIEW_ALBUM_SHOP.getValue(), new ViewAlbumShopCommand());
         commandMap.put(CommandDirector.VIEW_MUSIC_SELECTION_SHOP.getValue(), new ViewMusicSelectionShopCommand());
+
+        commandMap.put(CommandDirector.VIEW_USER_MUSIC.getValue(), new ViewUserMusicCommand());
         commandMap.put(CommandDirector.BUY_COMPOSITION.getValue(), new BuyCompositionCommand());
         commandMap.put(CommandDirector.BUY_ALBUM.getValue(), new BuyAlbumCommand());
         commandMap.put(CommandDirector.BUY_MUSIC_SELECTION.getValue(), new BuyMusicSelectionCommand());
-        commandMap.put(CommandDirector.VIEW_USER_MUSIC.getValue(), new ViewUserMusicCommand());
+
         commandMap.put(CommandDirector.VIEW_COMPOSITION_FEEDBACK_PAGE.getValue(), new ViewCompositionFeedbackPageCommand());
         commandMap.put(CommandDirector.VIEW_COMPOSITION_FEEDBACK_TABLE.getValue(), new ViewCompositionFeedbackCommand());
         commandMap.put(CommandDirector.VIEW_ALBUM_FEEDBACK_PAGE.getValue(), new ViewAlbumFeedbackPageCommand());
@@ -54,91 +43,12 @@ public class CommandProvider {
         commandMap.put(CommandDirector.VIEW_MUSIC_SELECTION_FEEDBACK_TABLE.getValue(), new ViewMusicSelectionFeedbackCommand());
         commandMap.put(CommandDirector.ADD_COMPOSITION_FEEDBACK.getValue(), new AddCompositionFeedbackCommand());
 
+        commandMap.put(CommandDirector.VIEW_CURRENT_BALANCE_PAGE.getValue(), new ViewCurrentBalanceCommand());
+        commandMap.put(CommandDirector.VIEW_UPDATE_BALANCE_PAGE.getValue(), new ViewUpdateBalancePageCommand());
+        commandMap.put(CommandDirector.UPDATE_BALANCE.getValue(), new UpdateBalanceCommand());
 
-        commandMap.put(CommandDirector.USER_GET_BY_ID.getValue(), new CommandUserGetById());
-        commandMap.put(CommandDirector.USER_GET_ALL.getValue(), new CommandUserGetAll());
-        commandMap.put(CommandDirector.USER_INSERT.getValue(), new CommandUserInsert());
-        commandMap.put(CommandDirector.USER_DELETE.getValue(), new CommandUserDelete());
-
-        commandMap.put(CommandDirector.AUTHOR_GET_BY_ID.getValue(), new CommandAuthorGetById());
-        commandMap.put(CommandDirector.AUTHOR_GET_ALL.getValue(), new CommandAuthorGetAll());
-        commandMap.put(CommandDirector.AUTHOR_INSERT.getValue(), new CommandAuthorInsert());
-        commandMap.put(CommandDirector.AUTHOR_DELETE.getValue(), new CommandAuthorDelete());
-
-        commandMap.put(CommandDirector.GENRE_GET_BY_ID.getValue(), new CommandGenreGetById());
-        commandMap.put(CommandDirector.GENRE_GET_ALL.getValue(), new CommandGenreGetAll());
-        commandMap.put(CommandDirector.GENRE_INSERT.getValue(), new CommandGenreInsert());
-        commandMap.put(CommandDirector.GENRE_DELETE.getValue(), new CommandGenreDelete());
-
-        commandMap.put(CommandDirector.ROLE_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.ROLE_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.ROLE_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.ROLE_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.ALBUM_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.ALBUM_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.ALBUM_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.ALBUM_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.ALBUM_FEEDBACK_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.ALBUM_FEEDBACK_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.ALBUM_FEEDBACK_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.ALBUM_FEEDBACK_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.BONUS_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.BONUS_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.BONUS_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.BONUS_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.COMPOSITION_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.COMPOSITION_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.COMPOSITION_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.COMPOSITION_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.COMPOSITION_FEEDBACK_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.COMPOSITION_FEEDBACK_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.COMPOSITION_FEEDBACK_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.COMPOSITION_FEEDBACK_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.MUSIC_SELECTION_FEEDBACK_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.MUSIC_SELECTION_FEEDBACK_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.MUSIC_SELECTION_FEEDBACK_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.MUSIC_SELECTION_FEEDBACK_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.MUSIC_SELECTION_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.MUSIC_SELECTION_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.MUSIC_SELECTION_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.MUSIC_SELECTION_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.STATUS_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.STATUS_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.STATUS_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.STATUS_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.USER_ALBUM_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.USER_ALBUM_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.USER_ALBUM_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.USER_ALBUM_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.USER_BONUS_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.USER_BONUS_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.USER_BONUS_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.USER_BONUS_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.USER_COMPOSITION_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.USER_COMPOSITION_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.USER_COMPOSITION_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.USER_COMPOSITION_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.USER_MUSIC_SELECTION_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.USER_MUSIC_SELECTION_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.USER_MUSIC_SELECTION_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.USER_MUSIC_SELECTION_DELETE.getValue(), new CommandBonusDelete());
-
-        commandMap.put(CommandDirector.SESSION_DATA_GET_BY_ID.getValue(), new CommandBonusGetById());
-        commandMap.put(CommandDirector.SESSION_DATA_GET_ALL.getValue(), new CommandBonusGetAll());
-        commandMap.put(CommandDirector.SESSION_DATA_INSERT.getValue(), new CommandBonusInsert());
-        commandMap.put(CommandDirector.SESSION_DATA_DELETE.getValue(), new CommandBonusDelete());
+        commandMap.put(CommandDirector.VIEW_ADMIN_ADD_USER_BONUS_PAGE.getValue(), new ViewAdminAddUserBonusPageCommand());
+        commandMap.put(CommandDirector.VIEW_ADMIN_CREATE_MUSIC_SELECTION_PAGE.getValue(), new ViewAdminCreateMusicSelectionPageCommand());
     }
 
     /**

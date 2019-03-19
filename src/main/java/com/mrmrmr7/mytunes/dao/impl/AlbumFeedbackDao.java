@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.AlbumFeedback;
 
@@ -42,7 +42,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
     public List<AlbumFeedback> getAll() throws DaoException {
 
         List<AlbumFeedback> compositionFeedbackList = new ArrayList<>();
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.ALBUM_FEEDBACK)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.ALBUM_FEEDBACK)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     compositionFeedbackList
@@ -117,7 +117,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.ALBUM_FEEDBACK));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.ALBUM_FEEDBACK));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -127,7 +127,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.ALBUM_FEEDBACK));
+                .prepareStatement(getSelectQuery(Table.ALBUM_FEEDBACK));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -145,7 +145,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
     @AutoConnection
     protected String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.ALBUM_FEEDBACK.getValue() +
+        return "INSERT INTO " + Table.ALBUM_FEEDBACK.getValue() +
                 "(FEEDBACK, TIMESTAMP, ID) " +
                 "VALUES " +
                 "(?,?,?)";
@@ -155,7 +155,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
     @AutoConnection
     protected String getUpdateQuery() {
 
-        return "UPDATE " + TableName.ALBUM_FEEDBACK.getValue() + " SET " +
+        return "UPDATE " + Table.ALBUM_FEEDBACK.getValue() + " SET " +
                 " FEEDBACK=?, " +
                 "TIMESTAMP=? WHERE ID=?";
     }

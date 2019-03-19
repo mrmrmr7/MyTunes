@@ -12,7 +12,9 @@ public class Router {
     private Type type;
 
     public enum Type {
-        FORWARD("forward"), REDIRECT ("redirect");
+        FORWARD("forward"),
+        REDIRECT ("redirect");
+
         private String value;
 
         Type(String value) {

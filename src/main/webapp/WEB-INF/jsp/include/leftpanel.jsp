@@ -8,7 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"  %>
 
-<aside id="left-panel" class="left-panel">
+<aside id="left-panel" class="left-panel" style="min-width: 280px;">
     <nav class="navbar navbar-expand-sm navbar-default">
         <div class="navbar-header">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,9 +44,8 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Balance</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-line-chart"></i><a href="${pageContext.request.contextPath}/crud?command=currentBalance">Current balance</a></li>
-                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/site/charts-flot.html">Update balance</a></li>
-                        <li><i class="menu-icon fa fa-pie-chart"></i><a href="${pageContext.request.contextPath}/site/charts-peity.html">History</a></li>
+                        <li><i class="menu-icon fa fa-line-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewCurrentBalancePage">Current balance</a></li>
+                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewUpdateBalancePage">Update balance</a></li>
                     </ul>
                 </li>
 
@@ -61,7 +60,7 @@
 
 
                 <c:if test="${role == 1}">
-                    <jsp:include page="/WEB-INF/jsp/include/adminPanel.jsp"/>
+                    <jsp:include page="/WEB-INF/jsp/admin/adminPanel.jsp"/>
                 </c:if>
 
             </ul>

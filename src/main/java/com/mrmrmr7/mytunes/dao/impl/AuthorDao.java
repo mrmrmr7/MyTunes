@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Author;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,7 +36,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
 
         List<Author> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.AUTHOR)){
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.AUTHOR)){
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()) {
                     userList
@@ -107,7 +107,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.AUTHOR));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.AUTHOR));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -117,7 +117,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.AUTHOR));
+                .prepareStatement(getSelectQuery(Table.AUTHOR));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -136,7 +136,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
     @AutoConnection
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.AUTHOR.getValue() +
+        return "INSERT INTO " + Table.AUTHOR.getValue() +
                 "(FIRST_NAME, SECOND_NAME, PSEUDONIM) " +
                 "VALUES " +
                 "(?,?,?)";
@@ -146,7 +146,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
     @AutoConnection
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.AUTHOR.getValue() + " SET " +
+        return "UPDATE " + Table.AUTHOR.getValue() + " SET " +
                 "FIRST_NAME=?, SECOND_NAME=?, " +
                 "PSEUDONIM=?" +
                 "WHERE ID=?";

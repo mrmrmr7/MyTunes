@@ -13,7 +13,7 @@ import com.mrmrmr7.mytunes.entity.AlbumFeedback;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.entity.UserAlbum;
 import com.mrmrmr7.mytunes.service.AlbumFeedbackDtoService;
-import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;

@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Status;
 
@@ -40,7 +40,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Byte> implements GenericD
 
         List<Status> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.STATUS)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.STATUS)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
@@ -112,7 +112,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Byte> implements GenericD
     @Override
     protected PreparedStatement prepareStatementForDelete(Byte id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.STATUS));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.STATUS));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -122,7 +122,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Byte> implements GenericD
     protected PreparedStatement prepareStatementForGet(Byte id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.STATUS));
+                .prepareStatement(getSelectQuery(Table.STATUS));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -139,7 +139,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Byte> implements GenericD
     @Override
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.STATUS.getValue() +
+        return "INSERT INTO " + Table.STATUS.getValue() +
                 "(STATUS) " +
                 "VALUES " +
                 "(?)";
@@ -149,7 +149,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Byte> implements GenericD
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.STATUS.getValue() + " SET " +
+        return "UPDATE " + Table.STATUS.getValue() + " SET " +
                 "STATUS=? " +
                 "WHERE ID=?";
     }

@@ -7,7 +7,7 @@ import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
 import com.mrmrmr7.mytunes.dto.MusicSelectionFeedbackDto;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.MusicSelectionFeedbackDtoService;
-import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;

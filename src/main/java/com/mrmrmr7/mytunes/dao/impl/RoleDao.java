@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Role;
 
@@ -41,7 +41,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Byte> implements GenericDao<R
 
         List<Role> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.ROLE)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.ROLE)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
@@ -113,7 +113,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Byte> implements GenericDao<R
     @Override
     protected PreparedStatement prepareStatementForDelete(Byte id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.ROLE));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.ROLE));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -123,7 +123,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Byte> implements GenericDao<R
     protected PreparedStatement prepareStatementForGet(Byte id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.ROLE));
+                .prepareStatement(getSelectQuery(Table.ROLE));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -140,7 +140,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Byte> implements GenericDao<R
     @AutoConnection
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.ROLE.getValue() +
+        return "INSERT INTO " + Table.ROLE.getValue() +
                 "(ROLE) " +
                 "VALUES " +
                 "(?)";
@@ -150,7 +150,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Byte> implements GenericDao<R
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.ROLE.getValue() + " SET " +
+        return "UPDATE " + Table.ROLE.getValue() + " SET " +
                 "ROLE=? " +
                 "WHERE ID=?";
     }

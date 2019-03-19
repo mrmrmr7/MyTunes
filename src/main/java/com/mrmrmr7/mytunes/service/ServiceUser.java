@@ -1,10 +1,10 @@
 package com.mrmrmr7.mytunes.service;
 
 import com.mrmrmr7.mytunes.entity.User;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public interface ServiceUser {
 

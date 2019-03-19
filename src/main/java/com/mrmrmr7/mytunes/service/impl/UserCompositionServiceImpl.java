@@ -5,7 +5,7 @@ import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.entity.Composition;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.entity.UserComposition;
-import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.UserCompositionService;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
 import io.jsonwebtoken.Claims;

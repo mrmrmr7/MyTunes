@@ -22,6 +22,10 @@ public class UserBonus implements Identified<Integer> {
         this(userId, new ArrayList<>(Arrays.asList(cortageId)), new ArrayList<>(Arrays.asList(bonusId)));
     }
 
+    public UserBonus(Integer userId, Integer bonusId) {
+        this(0, userId, bonusId);
+    }
+
     public Integer getCortageId(int i) {
         return cortageIdList.get(i);
     }

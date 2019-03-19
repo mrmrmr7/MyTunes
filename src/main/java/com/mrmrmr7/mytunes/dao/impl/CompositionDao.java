@@ -3,8 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Composition;
-import com.mrmrmr7.mytunes.entity.UserComposition;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,7 +69,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
 
         List<Composition> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.COMPOSITION)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.COMPOSITION)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
@@ -142,7 +141,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.COMPOSITION));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.COMPOSITION));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -152,7 +151,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.COMPOSITION));
+                .prepareStatement(getSelectQuery(Table.COMPOSITION));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -161,14 +160,14 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
     protected PreparedStatement prepareStatementForGetByName(String name) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectByNameQuery(TableName.COMPOSITION));
+                .prepareStatement(getSelectByNameQuery(Table.COMPOSITION));
         preparedStatement.setString(1, name);
         return preparedStatement;
     }
 
     @AutoConnection
-    protected String getSelectByNameQuery(TableName tableName) {
-        return "SELECT * FROM " + tableName.getValue() + " WHERE NAME=?";
+    protected String getSelectByNameQuery(Table table) {
+        return "SELECT * FROM " + table.getValue() + " WHERE NAME=?";
     }
 
     @AutoConnection
@@ -186,7 +185,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
     @Override
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.COMPOSITION.getValue() +
+        return "INSERT INTO " + Table.COMPOSITION.getValue() +
                 "(PRICE, NAME, ALBUM_ID, YEAR) " +
                 "VALUES " +
                 "(?,?,?,?)";
@@ -196,7 +195,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.COMPOSITION.getValue() + " SET " +
+        return "UPDATE " + Table.COMPOSITION.getValue() + " SET " +
                 "PRICE=?, NAME=?, " +
                 "ALBUM_ID=? " +
                 "WHERE ID=?";

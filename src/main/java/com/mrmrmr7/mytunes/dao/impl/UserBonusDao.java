@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserBonus;
 
@@ -41,7 +41,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
 
         List<UserBonus> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.USER_BONUS)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.USER_BONUS)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
@@ -127,7 +127,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.USER_BONUS));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.USER_BONUS));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -137,7 +137,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.USER_BONUS), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                .prepareStatement(getSelectQuery(Table.USER_BONUS), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -154,7 +154,7 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
     @Override
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.USER_BONUS.getValue() +
+        return "INSERT INTO " + Table.USER_BONUS.getValue() +
                 "(USER_ID, BONUS_ID) " +
                 "VALUES " +
                 "(?,?)";
@@ -164,14 +164,14 @@ public class UserBonusDao extends AbstractJdbcDao<UserBonus, Integer> implements
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.USER_BONUS.getValue() + " SET " +
+        return "UPDATE " + Table.USER_BONUS.getValue() + " SET " +
                 "USER_ID=?, BONUS_ID=? " +
                 "WHERE ID=?";
     }
 
     @AutoConnection
     @Override
-    protected String getSelectQuery(TableName tableName) {
-        return "SELECT * FROM " + tableName.getValue() + " WHERE USER_ID=?";
+    protected String getSelectQuery(Table table) {
+        return "SELECT * FROM " + table.getValue() + " WHERE USER_ID=?";
     }
 }

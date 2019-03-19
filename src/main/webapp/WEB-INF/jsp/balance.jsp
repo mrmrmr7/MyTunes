@@ -1,7 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -31,20 +31,18 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
-
-
 </head>
 
 <body style="display: block">
+
+
 <!-- Left Panel -->
 
 <jsp:include page="include/leftpanel.jsp"/>
 
-<!-- Left Panel -->
+<%--<jsp:include page="testpanel.jsp"/>--%>
 
-<!-- Right Panel -->
-
-<div id="right-panel" class="right-panel">
+<div id="right-panel" class="right-panel" style="width: 100%;">
 
     <!-- Header-->
 
@@ -52,8 +50,83 @@
 
     <!-- Header-->
 
-    <jsp:include page="include/balance/${balanceType}.jsp"/>
+
+
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Account information</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li class="active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="content mt-3">
+        <c:if test="${not empty newBalance}" >
+            <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
+                <span class="badge badge-pill badge-dark">Success</span>
+                Your balance equals ${newBalance}$
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+        </c:if>
+
+        <div class="animated fadeIn">
+            <jsp:include page="user/include/balance/${balanceType}.jsp"/>
+        </div>
+
+    </div>
+
+
+
 </div><!-- /#right-panel -->
+
+
+<!-- Left Panel -->
+
 <!-- Right Panel -->
+
+<!-- Right Panel -->
+
+<script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/site/vendors/chart.js/dist/Chart.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/site/assets/js/dashboard.js"></script>
+<script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/site/assets/js/widgets.js"></script>
+<script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/site/vendors/jqvmap/dist/jquery.vmap.min.js"></script>
+<script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/site/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+<script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/site/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<script>
+    (function($) {
+        "use strict";
+
+        jQuery('#vmap').vectorMap({
+            map: 'world_en',
+            backgroundColor: null,
+            color: '#ffffff',
+            hoverOpacity: 0.7,
+            selectedColor: '#1de9b6',
+            enableZoom: true,
+            showTooltip: true,
+            values: sample_data,
+            scaleColors: ['#1de9b6', '#03a9f5'],
+            normalizeFunction: 'polynomial'
+        });
+    })(jQuery);
+</script>
+
 </body>
+
 </html>

@@ -6,10 +6,9 @@ import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.service.CompositionDtoService;
 import com.mrmrmr7.mytunes.service.MusicService;
-import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.impl.CompositionDtoServiceImpl;
 import com.mrmrmr7.mytunes.service.impl.MusicServiceImpl;
-import com.mrmrmr7.mytunes.service.impl.UserServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;

@@ -1,5 +1,9 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
+
+<html>
 <head>
 
     <!--- basic page needs
@@ -8,6 +12,8 @@
     <title>MyTunes</title>
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv = "Content-Language" content = "en"/>
+    <meta http-equiv = "Content-Type" content="text/html; charset=utf-8">
 
     <!-- mobile specific metas
     ================================================== -->
@@ -15,9 +21,9 @@
 
     <!-- CSS
     ================================================== -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/transcend/css/base.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/transcend/css/vendor.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/transcend/css/main.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/transcend/css/base.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/transcend/css/vendor.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/transcend/css/main.css">
 
     <!-- script
     ================================================== -->
@@ -38,7 +44,7 @@
 <header class="s-header">
 
     <div class="header-logo">
-        <a class="site-logo" href="${pageContext.request.contextPath}/transcend/account.jsp">
+        <a class="site-logo" href="${pageContext.request.contextPath}/signin.jsp">
             <img src="${pageContext.request.contextPath}/transcend/images/logo.svg" alt="Homepage">
         </a>
     </div> <!-- end header-logo -->

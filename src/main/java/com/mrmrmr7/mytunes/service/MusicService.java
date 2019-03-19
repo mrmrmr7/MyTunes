@@ -1,7 +1,8 @@
 package com.mrmrmr7.mytunes.service;
 
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public interface MusicService {
 

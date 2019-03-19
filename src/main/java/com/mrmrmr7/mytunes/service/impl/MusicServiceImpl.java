@@ -6,17 +6,14 @@ import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.MusicService;
-import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
-import com.sun.corba.se.spi.protocol.RequestDispatcherRegistry;
 import io.jsonwebtoken.Claims;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.OptionalInt;
 
 public class MusicServiceImpl implements MusicService {
 

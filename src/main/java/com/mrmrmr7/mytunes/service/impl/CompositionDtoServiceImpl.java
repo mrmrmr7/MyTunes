@@ -1,11 +1,8 @@
 package com.mrmrmr7.mytunes.service.impl;
 
 import com.mrmrmr7.mytunes.dao.GenericDao;
-import com.mrmrmr7.mytunes.dao.Identified;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
-import com.mrmrmr7.mytunes.dao.impl.AlbumDao;
-import com.mrmrmr7.mytunes.dao.impl.AuthorDao;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
 import com.mrmrmr7.mytunes.dto.CompositionDto;
@@ -13,7 +10,7 @@ import com.mrmrmr7.mytunes.entity.Album;
 import com.mrmrmr7.mytunes.entity.Author;
 import com.mrmrmr7.mytunes.entity.Composition;
 import com.mrmrmr7.mytunes.entity.UserComposition;
-import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.CompositionDtoService;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
 import io.jsonwebtoken.Claims;

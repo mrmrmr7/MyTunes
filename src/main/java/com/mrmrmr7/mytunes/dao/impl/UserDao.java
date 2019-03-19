@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.User;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +38,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
     @Override
     public List<User> getAll() throws DaoException {
         List<User> userList = new ArrayList<>();
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.USER)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.USER)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
@@ -112,7 +112,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.USER));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.USER));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -121,7 +121,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
     @Override
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.USER));
+                .prepareStatement(getSelectQuery(Table.USER));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -147,7 +147,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
     @Override
     protected String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.USER.getValue() +
+        return "INSERT INTO " + Table.USER.getValue() +
                 "(LOGIN, PASSWORD, FIRST_NAME, SECOND_NAME, REGISTER_DATE, SALE, BALANCE, ROLE_ID, STATUS_ID, EMAIL, PUBLIC_KEY, PRIVATE_KEY) " +
                 "VALUES " +
                 "(?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -157,7 +157,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
     @Override
     protected String getUpdateQuery() {
 
-        return "UPDATE " + TableName.USER.getValue() + " SET " +
+        return "UPDATE " + Table.USER.getValue() + " SET " +
                 "LOGIN=?, PASSWORD=?, " +
                 "FIRST_NAME=?, SECOND_NAME=?, " +
                 "REGISTER_DATE=?, SALE=?, " +
@@ -168,14 +168,14 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
     @AutoConnection
     private PreparedStatement prepareStatementForGetByLogin(String login) throws SQLException {
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectByLoginQuery(TableName.USER));
+                .prepareStatement(getSelectByLoginQuery(Table.USER));
         preparedStatement.setString(1, login);
         return preparedStatement;
     }
 
     @AutoConnection
-    private String getSelectByLoginQuery(TableName tableName) {
-        return "SELECT * FROM " + tableName.getValue() + " WHERE LOGIN=?";
+    private String getSelectByLoginQuery(Table table) {
+        return "SELECT * FROM " + table.getValue() + " WHERE LOGIN=?";
     }
 
     @AutoConnection

@@ -2,9 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
-import com.mrmrmr7.mytunes.dao.GenericDao;
-import com.mrmrmr7.mytunes.dao.MusicSelectionDaoExtended;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.MusicSelection;
 
@@ -40,7 +38,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
     public List<MusicSelection> getAll() throws DaoException {
 
         List<MusicSelection> userList = new ArrayList<>();
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.MUSIC_SELECTION)){
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.MUSIC_SELECTION)){
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 while (resultSet.next()) {
                     userList
@@ -126,7 +124,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.MUSIC_SELECTION));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.MUSIC_SELECTION));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -136,29 +134,29 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.MUSIC_SELECTION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                .prepareStatement(getSelectQuery(Table.MUSIC_SELECTION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
 
     @AutoConnection
     @Override
-    protected String getSelectQuery(TableName tableName) {
+    protected String getSelectQuery(Table table) {
 
-        return "SELECT * FROM " + tableName.getValue() + " WHERE MUSIC_SELECTION_ID=?";
+        return "SELECT * FROM " + table.getValue() + " WHERE MUSIC_SELECTION_ID=?";
     }
 
     @AutoConnection
     @Override
-    protected String getDeleteQuery(TableName tableName) {
-        return "DELETE FROM " + tableName.getValue() + " WHERE MUSIC_SELECTION_ID=?";
+    protected String getDeleteQuery(Table table) {
+        return "DELETE FROM " + table.getValue() + " WHERE MUSIC_SELECTION_ID=?";
     }
 
     @AutoConnection
     @Override
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.MUSIC_SELECTION.getValue() +
+        return "INSERT INTO " + Table.MUSIC_SELECTION.getValue() +
                 "(MUSIC_SELECTION_ID, COMPOSITION_ID) " +
                 "VALUES " +
                 "(?,?)";
@@ -168,7 +166,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.MUSIC_SELECTION.getValue() + " SET " +
+        return "UPDATE " + Table.MUSIC_SELECTION.getValue() + " SET " +
                 "SELECTION_ID=?, COMPOSITION_ID=? " +
                 "WHERE ID=?";
 

@@ -2,7 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.MusicSelectionFeedback;
 
@@ -41,7 +41,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
     public List<MusicSelectionFeedback> getAll() throws DaoException {
 
         List<MusicSelectionFeedback> musicSelectionFeedbackList = new ArrayList<>();
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.MUSIC_SELECTION_FEEDBACK)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.MUSIC_SELECTION_FEEDBACK)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     musicSelectionFeedbackList
@@ -113,7 +113,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.MUSIC_SELECTION_FEEDBACK));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.MUSIC_SELECTION_FEEDBACK));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -123,7 +123,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.MUSIC_SELECTION_FEEDBACK));
+                .prepareStatement(getSelectQuery(Table.MUSIC_SELECTION_FEEDBACK));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -142,7 +142,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
     @Override
     protected String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.MUSIC_SELECTION_FEEDBACK.getValue() +
+        return "INSERT INTO " + Table.MUSIC_SELECTION_FEEDBACK.getValue() +
                 "(ID, FEEDBACK, DATE) " +
                 "VALUES " +
                 "(?,?,?)";
@@ -151,7 +151,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
     @Override
     protected String getUpdateQuery() {
 
-        return "UPDATE " + TableName.MUSIC_SELECTION_FEEDBACK.getValue() + " SET " +
+        return "UPDATE " + Table.MUSIC_SELECTION_FEEDBACK.getValue() + " SET " +
                 "ID=?, FEEDBACK=?, " +
                 "DATE=? WHERE ID=?";
     }

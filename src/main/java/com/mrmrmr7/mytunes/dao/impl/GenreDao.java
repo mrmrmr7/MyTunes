@@ -2,7 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.GenericDao;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Genre;
 
@@ -37,7 +37,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
 
         List<Genre> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.GENRE)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.GENRE)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
@@ -104,7 +104,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.GENRE));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.GENRE));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -113,7 +113,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.GENRE));
+                .prepareStatement(getSelectQuery(Table.GENRE));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -128,7 +128,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
     @Override
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.GENRE.getValue() +
+        return "INSERT INTO " + Table.GENRE.getValue() +
                 "(GENRE) " +
                 "VALUES " +
                 "(?)";
@@ -137,7 +137,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.GENRE.getValue() + " SET " +
+        return "UPDATE " + Table.GENRE.getValue() + " SET " +
                 "GENRE=? " +
                 "WHERE ID=?";
     }

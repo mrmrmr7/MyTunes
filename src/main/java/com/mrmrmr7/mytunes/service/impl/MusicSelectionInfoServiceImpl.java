@@ -5,10 +5,9 @@ import com.mrmrmr7.mytunes.dao.TransactionManager;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
-import com.mrmrmr7.mytunes.dao.impl.UserMusicSelectionDao;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.MusicSelectionInfoService;
-import com.mrmrmr7.mytunes.service.ServiceException;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
 import io.jsonwebtoken.Claims;
 

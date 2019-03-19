@@ -3,7 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
-import com.mrmrmr7.mytunes.util.TableName;
+import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Bonus;
 
@@ -41,7 +41,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
 
         List<Bonus> userList = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = prepareStatementForGetAll(TableName.BONUS)) {
+        try (PreparedStatement preparedStatement = prepareStatementForGetAll(Table.BONUS)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     userList
@@ -113,7 +113,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
     @Override
     protected PreparedStatement prepareStatementForDelete(Integer id) throws SQLException {
 
-        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(TableName.BONUS));
+        PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery(Table.BONUS));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -123,7 +123,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
     protected PreparedStatement prepareStatementForGet(Integer id) throws SQLException {
 
         PreparedStatement preparedStatement = connection
-                .prepareStatement(getSelectQuery(TableName.BONUS));
+                .prepareStatement(getSelectQuery(Table.BONUS));
         preparedStatement.setInt(1, id);
         return preparedStatement;
     }
@@ -140,7 +140,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
     @AutoConnection
     public String getInsertQuery() {
 
-        return "INSERT INTO " + TableName.BONUS.getValue() +
+        return "INSERT INTO " + Table.BONUS.getValue() +
                 "(BONUS) " +
                 "VALUES " +
                 "(?)";
@@ -150,7 +150,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
     @Override
     public String getUpdateQuery() {
 
-        return "UPDATE " + TableName.BONUS.getValue() + " SET " +
+        return "UPDATE " + Table.BONUS.getValue() + " SET " +
                 "BONUS=? " +
                 "WHERE ID=?";
     }
