@@ -88,11 +88,11 @@
                                     <div class="col col-md-12">
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                                <button class="btn">
+                                                <button id="btnClass" class="btn">
                                                     <i class="fa fa-search"></i> Buy
                                                 </button>
                                             </div>
-                                            <input type="text" id="input1" name="albumName"
+                                            <input type="text" id="input" name="albumName"
                                                    placeholder="Album name" class="form-control">
                                             <script>
                                                 input.oninput = function() {

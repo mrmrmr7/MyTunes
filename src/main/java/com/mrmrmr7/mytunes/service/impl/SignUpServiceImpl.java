@@ -14,6 +14,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
+import java.io.Serializable;
 import java.util.*;
 
 public class SignUpServiceImpl implements SignUpService {
@@ -79,7 +80,7 @@ public class SignUpServiceImpl implements SignUpService {
                     }
                 });
 
-        String mailTo = "aliex.s@yandex.by";
+        String mailTo = user.getEmail();
         Message message = new MimeMessage(session);
         String confirmPath = user.getPublicKey().substring(228, 300);
         confirmPath = BCrypt.hashpw(confirmPath,BCrypt.gensalt());

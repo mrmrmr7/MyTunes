@@ -88,7 +88,7 @@
                             <th scope="row">Email</th>
                             <td>${userDto.email}</td>
                             <th scope="row">Balance</th>
-                            <td>${userDto.balance}</td>
+                            <td>${userDto.balance}$</td>
                         </tr>
                         </tbody>
                     </table>

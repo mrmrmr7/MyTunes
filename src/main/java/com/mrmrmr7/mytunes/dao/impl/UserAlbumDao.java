@@ -198,6 +198,40 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
     }
 
     @AutoConnection
+    @Override
+    public Optional<UserAlbum> getByCortagePK(Integer id) throws DaoException {
+
+        try (PreparedStatement preparedStatement = prepareStatementForGetByCortageId(id)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (!resultSet.next()) {
+                    return Optional.empty();
+                }
+                return Optional.of(resultSetToBean.toUserAlbum(resultSet));
+            } catch (SQLException e) {
+                throw new DaoException("4.14.1");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.14.2");
+        }
+
+    }
+
+    @AutoConnection
+    private PreparedStatement prepareStatementForGetByCortageId(Integer id) throws SQLException {
+
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectCortageQuery(Table.USER_ALBUM), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        preparedStatement.setInt(1, id);
+
+        return preparedStatement;
+    }
+
+    @AutoConnection
+    private String getSelectCortageQuery(Table userComposition) {
+        return "SELECT * FROM " + userComposition.getValue() + " WHERE ID=?";
+    }
+
+    @AutoConnection
     private PreparedStatement prepareStatementForGetByCompositionId(Integer id) throws SQLException {
         PreparedStatement preparedStatement = connection
                 .prepareStatement(getSelectByCompositionIdQuery(Table.USER_ALBUM), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);

@@ -1,7 +1,7 @@
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
+         pageEncoding="ISO-8859-1" %>
 
 <html>
 <!--<![endif]-->
@@ -37,7 +37,7 @@
 <jsp:include page="/WEB-INF/jsp/include/leftpanel.jsp"/>
 <%--<jsp:include page="testpanel.jsp"/>--%>
 
-<div id="right-panel" class="right-panel"  style="width: 100%;">
+<div id="right-panel" class="right-panel" style="width: 100%;">
 
     <!-- Header-->
 
@@ -49,7 +49,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Account information</h1>
+                    <h1>Update composition panel</h1>
                 </div>
             </div>
         </div>
@@ -70,56 +70,67 @@
         <c:if test="${success}">
             <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
                 <span class="badge badge-pill badge-dark">Success</span>
-                You successful add album!
+                You successful create music selection!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">X</span>
                 </button>
             </div>
         </c:if>
 
-        <div class="row">
 
-            <div class="col-lg-8 offset-md-3 mr-auto ml-auto">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mr-auto ml-auto">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Music selection</strong> information
+                        <strong class="card-title">Composition info</strong>
                     </div>
                     <div class="card-body">
-                        <form action="${pageContext.request.contextPath}/crud" method="post" id="addUserBonusFormId" class="form-horizontal">
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="compositionNameId" class=" form-control-label">Name</label></div>
-                                <div class="col-12 col-md-9">
-                                    <input type="text" id="compositionNameId" name="musicSelectionName" placeholder="Enter name"
-                                           class="form-control">
+                        <!-- Credit Card -->
+                        <div id="pay-invoice">
+                            <form action="${pageContext.request.contextPath}/crud" method="post" id="updateBalanceForm"
+                                  novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="cc-pament" class="control-label mb-1">Name</label>
+                                    <input id="cc-pament" name="musicSelectionName" type="text" class="form-control"
+                                           aria-required="true" aria-invalid="false" value="${musicSelectionInfo.name}">
                                 </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="compositionPriceId" class=" form-control-label">Price</label></div>
-                                <div class="col-12 col-md-9">
-                                    <input type="text" id="compositionPriceId" name="musicSelectionPrice" placeholder="Enter price"
-                                           class="form-control">
+                                <div class="form-group has-success">
+                                    <label for="cc-name" class="control-label mb-1">Price</label>
+                                    <input id="cc-name" name="musicSelectionPrice" type="text"
+                                           value="${musicSelectionInfo.price}" class="form-control cc-name valid"
+                                           data-val="true" data-val-required="Please enter the name on card"
+                                           autocomplete="cc-name" aria-required="true" aria-invalid="false"
+                                           aria-describedby="cc-name-error">
+                                    <span class="help-block field-validation-valid" data-valmsg-for="cc-name"
+                                          data-valmsg-replace="true"></span>
                                 </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Description</label>
+                                <div class="form-group">
+                                    <label for="cc-number" class="control-label mb-1">Description</label>
+                                    <input id="cc-number" name="musicSelectionDescription" type="tel"
+                                           class="form-control cc-number identified visa"
+                                           value="${musicSelectionInfo.description}" data-val="true"
+                                           data-val-required="Please enter the card number"
+                                           data-val-cc-number="Please enter a valid card number"
+                                           autocomplete="cc-number">
+                                    <span class="help-block" data-valmsg-for="cc-number"
+                                          data-valmsg-replace="true"></span>
                                 </div>
-                                <div class="col-12 col-md-9"><textarea name="musicSelectionDescription" id="textarea-input" rows="9" placeholder="Content..." class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <input type="hidden" name="command" value="addMusicSelection">
-                        </form>
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" form="addUserBonusFormId" class="btn btn-primary btn-sm">
-                            <i class="fa fa-dot-circle-o"></i> Submit
-                        </button>
-                        <button type="reset" class="btn btn-danger btn-sm">
-                            <i class="fa fa-ban"></i> Reset
-                        </button>
-                    </div>
-                </div>
-            </div>
 
+
+                                <div>
+                                    <button id="payment-button" type="submit" form="updateBalanceForm"
+                                            class="btn btn-lg btn-info btn-block">
+                                        <span id="payment-button-amount">Update</span>
+                                    </button>
+                                </div>
+                                <input type="hidden" name="musicSelectionId" value="${musicSelectionInfo.id}">
+                                <input type="hidden" name="command" value="createMusicSelection">
+                            </form>
+                        </div>
+                    </div>
+                </div> <!-- .card -->
+
+            </div>
         </div>
     </div> <!-- .content -->
 
@@ -139,7 +150,7 @@
 <script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/site/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
 <script src="${pageContext.request.contextPath}/${pageContext.request.contextPath}/site/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
 <script>
-    (function($) {
+    (function ($) {
         "use strict";
 
         jQuery('#vmap').vectorMap({

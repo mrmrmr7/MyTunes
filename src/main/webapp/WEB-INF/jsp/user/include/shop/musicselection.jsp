@@ -89,7 +89,7 @@
                                     <div class="col col-md-12">
                                         <div class="input-group">
                                             <div class="input-group-btn">
-                                                <button class="btn">
+                                                <button id="btnClass" class="btn">
                                                     <i class="fa fa-search"></i> Buy
                                                 </button>
                                             </div>

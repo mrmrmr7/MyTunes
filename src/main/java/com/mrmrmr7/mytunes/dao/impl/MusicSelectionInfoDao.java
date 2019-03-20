@@ -130,7 +130,7 @@ public class MusicSelectionInfoDao extends AbstractJdbcDao<MusicSelectionInfo, I
         PreparedStatement preparedStatement = prepareForUpdate(
                 connection.prepareStatement(getUpdateQuery()),
                 object);
-        preparedStatement.setInt(5, object.getId());
+        preparedStatement.setInt(4, object.getId());
         return preparedStatement;
     }
 

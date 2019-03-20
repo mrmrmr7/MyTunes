@@ -1,23 +1,86 @@
 package com.mrmrmr7.mytunes.service.impl;
 
 import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.dao.MusicSelectionInfoDaoExtended;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
+import com.mrmrmr7.mytunes.dao.impl.MusicSelectionInfoDao;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
 import com.mrmrmr7.mytunes.entity.*;
-import com.mrmrmr7.mytunes.service.MusicSelectionInfoService;
+import com.mrmrmr7.mytunes.service.MusicSelectionService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
 import io.jsonwebtoken.Claims;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.rowset.serial.SerialException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
-public class MusicSelectionInfoServiceImpl implements MusicSelectionInfoService {
+public class MusicSelectionServiceImpl implements MusicSelectionService {
+    @Override
+    public Optional<MusicSelectionInfo> getMusicSelectionInfoByName(String name) throws ServiceException {
+        Optional<MusicSelectionInfo> musicSelectionInfoOptional = Optional.empty();
+        try {
+            musicSelectionInfoOptional = ((MusicSelectionInfoDaoExtended) JdbcDaoFactory.getInstance().getDao(MusicSelectionInfo.class)).getByName(name);
+
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+        return musicSelectionInfoOptional;
+    }
+
+    @Override
+    public boolean createMusicSelection(HttpServletRequest request) throws ServiceException {
+
+        MusicSelectionInfo musicSelectionInfo = new MusicSelectionInfo();
+
+        int musicSelectionPrice = Integer.valueOf(request.getParameter("musicSelectionPrice"));
+        String musicSelectionName = request.getParameter("musicSelectionName");
+        String musicSelectionDescription = request.getParameter("musicSelectionDescription");
+
+        musicSelectionInfo.setDescription(musicSelectionDescription);
+        musicSelectionInfo.setPrice(musicSelectionPrice);
+        musicSelectionInfo.setName(musicSelectionName);
+
+        try {
+            JdbcDaoFactory.getInstance().getDao(MusicSelectionInfo.class).insert(musicSelectionInfo);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
+
+        return true;
+    }
+
+    @Override
+    public boolean updateMusicSelection(HttpServletRequest request) throws ServiceException {
+
+        MusicSelectionInfo musicSelectionInfo = new MusicSelectionInfo();
+
+        int musicSelectionId = Integer.valueOf(request.getParameter("musicSelectionId"));
+        int musicSelectionPrice = Integer.valueOf(request.getParameter("musicSelectionPrice"));
+        String musicSelectionName = request.getParameter("musicSelectionName");
+        String musicSelectionDescription = request.getParameter("musicSelectionDescription");
+
+        musicSelectionInfo.setDescription(musicSelectionDescription);
+        musicSelectionInfo.setPrice(musicSelectionPrice);
+        musicSelectionInfo.setName(musicSelectionName);
+        musicSelectionInfo.setId(musicSelectionId);
+
+        try {
+            JdbcDaoFactory.getInstance().getDao(MusicSelectionInfo.class).update(musicSelectionInfo);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
+        return true;
+    }
+
     @Override
     public boolean insertMusicSelection(HttpServletRequest request) throws ServiceException {
         int musicSelectionPrice = Integer.valueOf(request.getParameter("musicSelectionPrice"));

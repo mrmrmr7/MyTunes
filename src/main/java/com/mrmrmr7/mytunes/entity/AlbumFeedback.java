@@ -13,6 +13,8 @@ public class AlbumFeedback implements Identified<Integer> {
     private String feedback;
     private Timestamp timestamp;
 
+    public AlbumFeedback() {}
+
     public AlbumFeedback(Integer id, String feedback, Timestamp timestamp) {
         this.id = id;
         this.feedback = feedback;

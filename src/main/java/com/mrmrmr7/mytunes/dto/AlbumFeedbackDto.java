@@ -3,6 +3,15 @@ package com.mrmrmr7.mytunes.dto;
 import java.sql.Timestamp;
 
 public class AlbumFeedbackDto {
+    public String getAlbumName() {
+        return albumName;
+    }
+
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
+    }
+
+    private String albumName;
     private String userName;
     private String description;
 

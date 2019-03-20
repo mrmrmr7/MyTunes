@@ -12,11 +12,11 @@ public class UserMusicDtoServiceImpl implements UserMusicDtoService {
         UserMusicDto userMusicDto = new UserMusicDto();
         AlbumService albumService = new AlbumServiceImpl();
         CompositionService compositionDtoService = new CompositionServiceImpl();
-        MusicSelectionInfoService musicSelectionInfoService = new MusicSelectionInfoServiceImpl();
+        MusicSelectionService musicSelectionService = new MusicSelectionServiceImpl();
 
         userMusicDto.setAlbumDtoList(albumService.getAllUserAlbumDto(request));
         userMusicDto.setCompositionDtoList(compositionDtoService.getAllUserCompositionDto(request));
-        userMusicDto.setMusicSelectionInfoList(musicSelectionInfoService.getAllUserMusicSelectionInfo(request));
+        userMusicDto.setMusicSelectionInfoList(musicSelectionService.getAllUserMusicSelectionInfo(request));
 
         return userMusicDto;
     }

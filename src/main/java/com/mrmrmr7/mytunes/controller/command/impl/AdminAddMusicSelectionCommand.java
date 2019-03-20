@@ -2,32 +2,24 @@ package com.mrmrmr7.mytunes.controller.command.impl;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.entity.Author;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
-import com.mrmrmr7.mytunes.service.AlbumService;
-import com.mrmrmr7.mytunes.service.AuthorService;
-import com.mrmrmr7.mytunes.service.GenreService;
-import com.mrmrmr7.mytunes.service.MusicSelectionInfoService;
+import com.mrmrmr7.mytunes.service.MusicSelectionService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
-import com.mrmrmr7.mytunes.service.impl.AlbumServiceImpl;
-import com.mrmrmr7.mytunes.service.impl.AuthorServiceImpl;
-import com.mrmrmr7.mytunes.service.impl.GenreServiceImpl;
-import com.mrmrmr7.mytunes.service.impl.MusicSelectionInfoServiceImpl;
+import com.mrmrmr7.mytunes.service.impl.MusicSelectionServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 public class AdminAddMusicSelectionCommand implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.ADMIN_ADD_MUSIC_SELECTION.getValue() + " command detected");
 
-        MusicSelectionInfoService musicSelectionInfoService = new MusicSelectionInfoServiceImpl();
+        MusicSelectionService musicSelectionService = new MusicSelectionServiceImpl();
 
         try {
-            request.setAttribute("success", musicSelectionInfoService.insertMusicSelection(request));
+            request.setAttribute("success", musicSelectionService.insertMusicSelection(request));
         } catch (ServiceException e) {
             e.printStackTrace();
         }
