@@ -88,4 +88,8 @@ public class UserMusicSelection implements Identified<Integer> {
     public Integer getId() {
         return this.userId;
     }
+
+    public Integer getMusicSelectionId(int i) {
+        return musicSelectionIdList.get(i);
+    }
 }

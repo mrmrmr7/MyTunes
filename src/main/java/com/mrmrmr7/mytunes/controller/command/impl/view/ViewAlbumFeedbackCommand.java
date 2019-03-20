@@ -5,8 +5,10 @@ import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.service.AlbumFeedbackDtoService;
+import com.mrmrmr7.mytunes.service.AlbumFeedbackService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.impl.AlbumFeedbackDtoServiceImpl;
+import com.mrmrmr7.mytunes.service.impl.AlbumFeedbackServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,11 +18,11 @@ public class ViewAlbumFeedbackCommand implements Command {
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.VIEW_ALBUM_FEEDBACK_TABLE.getValue() + " command detected");
 
-        AlbumFeedbackDtoService albumFeedbackDtoService = new AlbumFeedbackDtoServiceImpl();
+        AlbumFeedbackService albumFeedbackDtoService = new AlbumFeedbackServiceImpl();
 
         try {
 
-            request.setAttribute("albumFeedbackDtoList", albumFeedbackDtoService.getFeedbackByAlbumId(request));
+            request.setAttribute("albumFeedbackDtoList", albumFeedbackDtoService.getFeedbackDtoByAlbumId(request));
             request.setAttribute("albumName", request.getParameter("albumName"));
             request.setAttribute("success", true);
         } catch (ServiceException e) {

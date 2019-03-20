@@ -14,7 +14,9 @@
         <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewAdminCreateAlbumPage">Create album</a></li>
         <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewAdminAddUserBonusPage">Add user bonus</a></li>
         <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUploadCompositionPage">Upload composition</a></li>
-        <%--<li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewCreateMusicSelectionPage">Create music selection</a></li>--%>
-        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUpdateMusicSelectionPage">Update music selection</a></li>
+        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewCreateMusicSelectionPage">Create music selection</a></li>
+        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUpdateMusicSelectionPage">Update music selection</a></li>        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUpdateMusicSelectionPage">Update music selection</a></li>
+        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUploadCompositionToMusicSelectionPage">Add composition to music selection</a></li>
+
     </ul>
 </li>

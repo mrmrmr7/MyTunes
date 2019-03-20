@@ -214,6 +214,37 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         return userList;
     }
 
+    @Override
+    public Optional<UserMusicSelection> getByCortagePK(Integer id) throws DaoException {
+        try (PreparedStatement preparedStatement = prepareStatementForGetByCortageId(id)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (!resultSet.next()) {
+                    return Optional.empty();
+                }
+                return Optional.of(resultSetToBean.toUserMusicSelection(resultSet));
+            } catch (SQLException e) {
+                throw new DaoException("4.14.1");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("4.14.2");
+        }
+
+    }
+
+    private PreparedStatement prepareStatementForGetByCortageId(Integer id) throws SQLException {
+
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectCortageQuery(Table.USER_MUSIC_SELECTION), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        preparedStatement.setInt(1, id);
+
+        return preparedStatement;
+
+    }
+
+    private String getSelectCortageQuery(Table userMusicSelection) {
+        return "SELECT * FROM " + userMusicSelection.getValue() + " WHERE ID=?";
+    }
+
     @AutoConnection
     private String getSelectByCompositionIdQuery(Table musicSelection) {
         return "SELECT * FROM " + musicSelection.getValue() + " WHERE MUSIC_SELECTION_ID=?";

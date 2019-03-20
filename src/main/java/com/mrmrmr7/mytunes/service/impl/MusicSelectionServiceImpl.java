@@ -1,10 +1,12 @@
 package com.mrmrmr7.mytunes.service.impl;
 
+import com.mrmrmr7.mytunes.dao.CompositionDaoExtended;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.dao.MusicSelectionInfoDaoExtended;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
+import com.mrmrmr7.mytunes.dao.impl.MusicSelectionDao;
 import com.mrmrmr7.mytunes.dao.impl.MusicSelectionInfoDao;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
 import com.mrmrmr7.mytunes.entity.*;
@@ -94,6 +96,25 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
 
         try {
             JdbcDaoFactory.getInstance().getDao(MusicSelectionInfo.class).insert(musicSelectionInfo);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean addCompositionToMusicSelection(HttpServletRequest request) throws ServiceException {
+        MusicSelection musicSelection = new MusicSelection();
+        String compositionName = request.getParameter("compositionName");
+        String musicSelectionName = request.getParameter("musicSelectionName");
+
+        try {
+            Optional<Composition> compositionOptional = ((CompositionDaoExtended) JdbcDaoFactory.getInstance().getDao(Composition.class)).getByName(compositionName);
+            musicSelection.setCompositionId(compositionOptional.get().getId());
+            Optional<MusicSelectionInfo> musicSelectionOptional = ((MusicSelectionInfoDaoExtended) JdbcDaoFactory.getInstance().getDao(MusicSelectionInfo.class)).getByName(musicSelectionName);
+            musicSelection.setSelection_id(musicSelectionOptional.get().getId());
+            JdbcDaoFactory.getInstance().getDao(MusicSelection.class).insert(musicSelection);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }

@@ -2,6 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
+import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.MusicSelection;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> {
+public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> implements GenericDao<MusicSelection, Integer> {
 
     public MusicSelectionDao() {
     }

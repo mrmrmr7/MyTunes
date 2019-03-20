@@ -35,7 +35,7 @@ public class MusicSelectionFeedbackDtoServiceImpl implements MusicSelectionFeedb
 
                 for (Integer i : feedbackIdList) {
                     Optional<MusicSelectionFeedback> musicSelectionFeedbackOptional = musicSelectionFeedbackDao.getByPK(i);
-                    Optional<UserMusicSelection> userMusicSelectionOptional = userMusicSelectionDao.getByPK(i);
+                    Optional<UserMusicSelection> userMusicSelectionOptional = ((UserMusicSelectionDaoExtended) userMusicSelectionDao).getByCortagePK(i);
                     if (userMusicSelectionOptional.isPresent()) {
                         Integer userId = userMusicSelectionOptional.get().getId();
                         if (musicSelectionFeedbackOptional.isPresent()) {

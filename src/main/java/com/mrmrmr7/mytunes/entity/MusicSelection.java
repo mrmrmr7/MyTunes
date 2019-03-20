@@ -8,10 +8,28 @@ import java.util.List;
 import java.util.Objects;
 
 public class MusicSelection implements Identified<Integer> {
-    private List<Integer> cortageIdList;
-    private List<Integer> compositionIdList;
+    private List<Integer> cortageIdList = new ArrayList<>();
+    private List<Integer> compositionIdList = new ArrayList<>();
     private long price;
     private Integer selection_id;
+
+    public void setCompositionIdList(List<Integer> compositionIdList) {
+        this.compositionIdList = compositionIdList;
+    }
+
+    public void setCompositionId(Integer id) {
+        this.compositionIdList.add(id);
+    }
+
+    public Integer getSelection_id() {
+        return selection_id;
+    }
+
+    public void setSelection_id(Integer selection_id) {
+        this.selection_id = selection_id;
+    }
+
+    public MusicSelection(){}
 
     public MusicSelection(List<Integer> cortageIdList, List<Integer> composition_idList, Integer selection_id) {
         this.cortageIdList = cortageIdList;

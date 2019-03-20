@@ -38,11 +38,15 @@ public class CommandProvider {
 
         commandMap.put(CommandDirector.VIEW_COMPOSITION_FEEDBACK_PAGE.getValue(), new ViewCompositionFeedbackPageCommand());
         commandMap.put(CommandDirector.VIEW_COMPOSITION_FEEDBACK_TABLE.getValue(), new ViewCompositionFeedbackCommand());
+        commandMap.put(CommandDirector.ADD_COMPOSITION_FEEDBACK.getValue(), new AddCompositionFeedbackCommand());
+
         commandMap.put(CommandDirector.VIEW_ALBUM_FEEDBACK_PAGE.getValue(), new ViewAlbumFeedbackPageCommand());
         commandMap.put(CommandDirector.VIEW_ALBUM_FEEDBACK_TABLE.getValue(), new ViewAlbumFeedbackCommand());
+        commandMap.put(CommandDirector.ADD_ALBUM_FEEDBACK.getValue(), new AddAlbumFeedbackCommand());
+
         commandMap.put(CommandDirector.VIEW_MUSIC_SELECTION_FEEDBACK_PAGE.getValue(), new ViewMusicSelectionFeedbackPageCommand());
         commandMap.put(CommandDirector.VIEW_MUSIC_SELECTION_FEEDBACK_TABLE.getValue(), new ViewMusicSelectionFeedbackCommand());
-        commandMap.put(CommandDirector.ADD_COMPOSITION_FEEDBACK.getValue(), new AddCompositionFeedbackCommand());
+        commandMap.put(CommandDirector.ADD_MUSIC_SELECTION_FEEDBACK.getValue(), new AddMusicSelectionFeedbackCommand());
 
         commandMap.put(CommandDirector.VIEW_CURRENT_BALANCE_PAGE.getValue(), new ViewCurrentBalanceCommand());
         commandMap.put(CommandDirector.VIEW_UPDATE_BALANCE_PAGE.getValue(), new ViewUpdateBalancePageCommand());
@@ -63,7 +67,8 @@ public class CommandProvider {
         commandMap.put(CommandDirector.ADMIN_UPDATE_MUSIC_SELECTION.getValue(), new UpdateMusicSelectionCommand());
         commandMap.put(CommandDirector.ADMIN_VIEW_UPDATE_MUSIC_SELECTION_PAGE.getValue(), new ViewUpdateMusicSelectionPageCommand());
         commandMap.put(CommandDirector.ADMIN_CREATE_MUSIC_SELECTION.getValue(), new AdminCreateMusicSelectionCommand());
-
+        commandMap.put(CommandDirector.ADMIN_VIEW_UPLOAD_COMPOSITION_TO_MUSIC_SELECTION_PAGE.getValue(), new ViewUploadCompositionToMusicSelectionPageCommand());
+        commandMap.put(CommandDirector.ADMIN_UPLOAD_COMPOSITION_TO_MUSIC_SELECTION.getValue(), new AdminUploadCompositionToMusicSelectionCommand());
     }
 
     /**

@@ -3,8 +3,11 @@ package com.mrmrmr7.mytunes.dto;
 import java.sql.Timestamp;
 
 public class MusicSelectionFeedbackDto {
+
+    private String musicSelectionName;
     private String userName;
     private String description;
+    private Timestamp timestamp;
 
     public String getUserName() {
         return userName;
@@ -30,5 +33,12 @@ public class MusicSelectionFeedbackDto {
         this.timestamp = timestamp;
     }
 
-    private Timestamp timestamp;
+    public String getMusicSelectionName() {
+        return musicSelectionName;
+    }
+
+    public void setMusicSelectionName(String musicSelectionName) {
+        this.musicSelectionName = musicSelectionName;
+    }
+
 }

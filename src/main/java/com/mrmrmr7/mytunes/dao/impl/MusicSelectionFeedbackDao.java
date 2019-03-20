@@ -143,7 +143,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
     protected String getInsertQuery() {
 
         return "INSERT INTO " + Table.MUSIC_SELECTION_FEEDBACK.getValue() +
-                "(ID, FEEDBACK, DATE) " +
+                "(ID, FEEDBACK, TIMESTAMP) " +
                 "VALUES " +
                 "(?,?,?)";
     }

@@ -28,6 +28,7 @@ public enum PageDirector {
     VIEW_UPLOAD_COMPOSITION_PAGE ("/WEB-INF/jsp/admin/uploadcomposition.jsp"),
     VIEW_CREATE_MUSIC_SELECTION_PAGE ("/WEB-INF/jsp/admin/createmusicselection.jsp"),
     VIEW_UPDATE_COMPOSITION_PAGE ("/WEB-INF/jsp/admin/updatecomposition.jsp"),
+    VIEW_UPLOAD_COMPOSITION_TO_MUSIC_SELECTION_PAGE ("/WEB-INF/jsp/admin/uploadcompositiontomusicselection.jsp"),
     VIEW_UPDATE_MUSIC_SELECTION_PAGE ("WEB-INF/jsp/admin/updatemusicselection.jsp"),
 
     BALANCE_CURRENT ("/WEB-INF/jsp/balance.jsp"),

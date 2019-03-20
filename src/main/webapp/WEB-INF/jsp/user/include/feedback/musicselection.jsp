@@ -91,9 +91,9 @@
                             <a class="nav-link" id="changeFeedbackTab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Change feedback</a>
                         </li>
                     </ul>
+
                     <div class="card" style="border-top: none">
                         <div class="card-body">
-
                             <div class="tab-content pl-3 p-1" id="myTabContent">
                                 <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="showFeedbackTab">
                                     <form action="${pageContext.request.contextPath}/crud" method="post" class="form-horizontal">
@@ -120,12 +120,104 @@
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="addFeedbackTab">
-                                    <h3>Home</h3>
-                                    <p>Some content here.</p>
+                                    <div class="card-header" style="background: white">
+                                        <strong>Basic Form</strong> Elements
+                                    </div>
+                                    <div class="card-body card-block">
+                                        <form action="${pageContext.request.contextPath}/crud" method="post"
+                                              id="addCompositionFeedbackForm" class="form-horizontal">
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                                                 class=" form-control-label">Music selection
+                                                    name</label></div>
+                                                <div class="col-12 col-md-9"><input type="text" id="text-input"
+                                                                                    name="musicSelectionName"
+                                                                                    placeholder="Text"
+                                                                                    class="form-control"></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="textarea-input"
+                                                                                 class=" form-control-label">Feedback</label>
+                                                </div>
+                                                <div class="col-12 col-md-9"><textarea name="musicSelectionFeedback"
+                                                                                       id="textarea-input" rows="9"
+                                                                                       placeholder="Content..."
+                                                                                       class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="command" value="addMusicSelectionFeedback">
+                                        </form>
+                                    </div>
+                                    <div class="card-footer" style="background: white; margin: auto;">
+                                        <button type="submit" class="btn btn-primary btn-sm" style="margin: auto;"
+                                                form="addCompositionFeedbackForm">
+                                            <i class="fa fa-dot-circle-o"></i> Submit
+                                        </button>
+                                        <button type="reset" class="btn btn-danger btn-sm" style="margin: auto;">
+                                            <i class="fa fa-ban"></i> Reset
+                                        </button>
+                                    </div>
                                 </div>
+
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="changeFeedbackTab">
-                                    <h3>Menu 2</h3>
-                                    <p>Some content here.</p>
+
+                                    <div class="card-header" style="margin-top: 1rem; border-bottom: none;">
+                                        <strong class="card-title">Feedback list</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="bootstrap-data-table-export_wrapper1"
+                                             class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table id="bootstrap-data-table-export1"
+                                                           class="table table-striped table-bordered dataTable no-footer"
+                                                           role="grid"
+                                                           aria-describedby="bootstrap-data-table-export_info">
+                                                        <thead>
+                                                        <tr role="row">
+                                                            <th class="sorting_asc" tabindex="0"
+                                                                aria-controls="bootstrap-data-table-export" rowspan="1"
+                                                                colspan="1"
+                                                                aria-sort="ascending"
+                                                                aria-label="Name: activate to sort column descending"
+                                                                style="width: 263px;">Composition name
+                                                            </th>
+                                                            <th class="sorting" tabindex="0"
+                                                                aria-controls="bootstrap-data-table-export" rowspan="1"
+                                                                colspan="1"
+                                                                aria-label="Office: activate to sort column ascending"
+                                                                style="width: 196px;">Feedback
+                                                            </th>
+                                                            <th class="sorting" tabindex="0"
+                                                                aria-controls="bootstrap-data-table-export" rowspan="1"
+                                                                colspan="1"
+                                                                aria-label="Salary: activate to sort column ascending"
+                                                                style="width: 157px;">Date
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+
+
+                                                        <c:forEach var="musicSelectionFeedbackDto"
+                                                                   items="${userMusicSelectionFeedbackList}">
+
+                                                            <tr role="row" class="odd">
+                                                                <td><c:out
+                                                                        value="${musicSelectionFeedbackDto.musicSelectionName}"/></td>
+                                                                <td><c:out
+                                                                        value="${musicSelectionFeedbackDto.description}"/></td>
+                                                                <td><c:out
+                                                                        value="${musicSelectionFeedbackDto.timestamp}"/></td>
+                                                            </tr>
+
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -136,6 +228,7 @@
             </div>
 
 
+            <c:if test="${success}">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -173,12 +266,12 @@
                                             <tbody>
 
 
-                                            <c:forEach var="feedbackDto" items="${feedbackDtoList}">
+                                            <c:forEach var="musicSelectionFeedbackDto" items="${musicSelectionFeedbackDtoList}">
 
                                                 <tr role="row" class="odd">
-                                                    <td class ="sorting_1"><c:out value="${feedbackDto.login}"/></td>
-                                                    <td><c:out value="${feedbackDto.description}"/></td>
-                                                    <td><c:out value="${feedbackDto.date}"/></td>
+                                                    <td class ="sorting_1"><c:out value="${musicSelectionFeedbackDto.userName}"/></td>
+                                                    <td><c:out value="${musicSelectionFeedbackDto.description}"/></td>
+                                                    <td><c:out value="${musicSelectionFeedbackDto.timestamp}"/></td>
                                                 </tr>
 
                                             </c:forEach>
@@ -188,6 +281,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        </c:if>
                     </div>
                 </div>
             </div>

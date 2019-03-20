@@ -9,6 +9,8 @@ public class MusicSelectionFeedback implements Identified<Integer> {
     private String feedback;
     private Timestamp timestamp;
 
+    public MusicSelectionFeedback() {}
+
     public MusicSelectionFeedback(Integer id, String feedback, Timestamp timestamp) {
         this.id = id;
         this.feedback = feedback;
