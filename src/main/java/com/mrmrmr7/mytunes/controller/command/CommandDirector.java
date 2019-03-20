@@ -33,6 +33,9 @@ public enum  CommandDirector {
     ADMIN_ADD_ALBUM ("addAlbum"),
     ADMIN_ADD_MUSIC_SELECTION ("addMusicSelection"),
     ADMIN_VIEW_CREATE_MUSIC_SELECTION_PAGE ("viewCreateMusicSelectionPage"),
+    ADMIN_VIEW_UPDATE_COMPOSITION_PAGE("viewUpdateCompositionPage"),
+    ADMIN_GET_COMPOSITION_FOR_UPDATE ("getCompositionForUpdate"),
+    ADMIN_UPDATE_COMPOSITION ("updateComposition"),
 
     //VIEW OPERATIONS
     VIEW_PROFILE_PAGE ("account"),

@@ -1,10 +1,18 @@
 package com.mrmrmr7.mytunes.dto;
 
 public class CompositionDto {
+    private String id;
     private String name;
     private String album;
     private String author;
     private int price;
+
+    public CompositionDto(String name, String album, String author, int price) {
+        this.name = name;
+        this.album = album;
+        this.author = author;
+        this.price = price;
+    }
 
     public String getName() {
         return name;
@@ -38,12 +46,14 @@ public class CompositionDto {
         this.price = price;
     }
 
-    public CompositionDto(String name, String album, String author, int price) {
-        this.name = name;
-        this.album = album;
-        this.author = author;
-        this.price = price;
+    public String getId() {
+        return id;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public CompositionDto() {}
 }

@@ -11,7 +11,7 @@ public class UserMusicDtoServiceImpl implements UserMusicDtoService {
     public UserMusicDto getUserMusicDto(HttpServletRequest request) throws ServiceException {
         UserMusicDto userMusicDto = new UserMusicDto();
         AlbumService albumService = new AlbumServiceImpl();
-        CompositionDtoService compositionDtoService = new CompositionDtoServiceImpl();
+        CompositionService compositionDtoService = new CompositionServiceImpl();
         MusicSelectionInfoService musicSelectionInfoService = new MusicSelectionInfoServiceImpl();
 
         userMusicDto.setAlbumDtoList(albumService.getAllUserAlbumDto(request));

@@ -56,6 +56,9 @@ public class CommandProvider {
         commandMap.put(CommandDirector.ADMIN_VIEW_ADD_ALBUM_PAGE.getValue(), new ViewAdminCreateAlbumPage());
         commandMap.put(CommandDirector.ADMIN_VIEW_UPLOAD_COMPOSITION_PAGE.getValue(), new ViewCompositionUploadPageCommand());
         commandMap.put(CommandDirector.ADMIN_VIEW_CREATE_MUSIC_SELECTION_PAGE.getValue(), new ViewCreateMusicSelectionPageCommand());
+        commandMap.put(CommandDirector.ADMIN_VIEW_UPDATE_COMPOSITION_PAGE.getValue(), new ViewUpdateCompositionPageCommand());
+        commandMap.put(CommandDirector.ADMIN_GET_COMPOSITION_FOR_UPDATE.getValue(), new GetCompositionForUpdateCommand());
+        commandMap.put(CommandDirector.ADMIN_UPDATE_COMPOSITION.getValue(), new UpdateCompositionCommand());
 
     }
 

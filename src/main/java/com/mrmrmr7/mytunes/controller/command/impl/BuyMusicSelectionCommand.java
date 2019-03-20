@@ -20,11 +20,11 @@ public class BuyMusicSelectionCommand implements Command {
 
         MusicService musicService = new MusicServiceImpl();
         MusicSelectionInfoService musicSelectionInfoService = new MusicSelectionInfoServiceImpl();
+
         try {
             request.setAttribute("success", musicService.buyMusicSelection(request));
             request.setAttribute("musicSelectionInfoList", musicSelectionInfoService.getAllNotUserMusicSelectionInfo(request));
             request.setAttribute("musicSelectionName", request.getParameter("musicSelectionName"));
-
         } catch (ServiceException e) {
             e.printStackTrace();
         }
