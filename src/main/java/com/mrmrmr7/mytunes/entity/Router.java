@@ -31,6 +31,12 @@ public class Router {
         this.type = type;
     }
 
+
+    public Router(String route, Type type) {
+        this.route = route;
+        this.type = type;
+    }
+
     public String getRoute() {
         return route;
     }

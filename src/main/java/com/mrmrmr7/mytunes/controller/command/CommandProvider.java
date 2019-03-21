@@ -22,6 +22,10 @@ public class CommandProvider {
         commandMap.put(CommandDirector.SIGN_IN.getValue(), new SignInCommand());
         commandMap.put(CommandDirector.SIGN_UP.getValue(), new SignUpStartCommand());
         commandMap.put(CommandDirector.LOG_OUT.getValue(), new LogOutCommand());
+        commandMap.put(CommandDirector.CHANGE_LANGUAGE_COMMAND.getValue(), new ChangeLanguageCommand());
+
+        commandMap.put(CommandDirector.VIEW_SIGN_IN_PAGE.getValue(), new ViewSignInPageCommand());
+        commandMap.put(CommandDirector.VIEW_SIGN_UP_PAGE.getValue(), new ViewSignUpPageCommand());
 
         commandMap.put(CommandDirector.FINISH_REGISTRATION.getValue(), new SignUpFinishCommand());
 

@@ -44,7 +44,7 @@
 <header class="s-header">
 
     <div class="header-logo">
-        <a class="site-logo" href="${pageContext.request.contextPath}/signin.jsp">
+        <a class="site-logo" href="${pageContext.request.contextPath}/index.jsp">
             <img src="${pageContext.request.contextPath}/transcend/images/logo.svg" alt="Homepage">
         </a>
     </div> <!-- end header-logo -->
@@ -62,8 +62,8 @@
                 <li><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#services" title="services">Services</a></li>
                 <li><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#works" title="works">Works</a></li>
                 <li><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#contact" title="contact">Contact</a></li>
-                <li><a href="${pageContext.request.contextPath}/signin.jsp" title="contact">Sign in</a></li>
-                <li><a href="${pageContext.request.contextPath}/signup.jsp" title="contact">Sign up</a></li>
+                <li><a href="${pageContext.request.contextPath}/crud?command=viewSignInPage" title="contact">Sign in</a></li>
+                <li><a href="${pageContext.request.contextPath}/crud?command=viewSignUpPage" title="contact">Sign up</a></li>
             </ul>
 
             <p>Perspiciatis hic praesentium nesciunt. Et neque a dolorum <a href='#0'>voluptatem</a> porro iusto sequi veritatis libero enim. Iusto id suscipit veritatis neque reprehenderit.</p>

@@ -3,12 +3,8 @@ package com.mrmrmr7.mytunes.util;
 import java.util.Arrays;
 
 public enum PageDirector {
-    CRUD_USER ("/WEB-INF/jsp/crud/user.jsp"),
-    CRUD_ROLE ("/WEB-INF/jsp/crud/role.jsp"),
-    CRUD_GENRE ("/WEB-INF/jsp/crud/genre.jsp"),
-    CRUD_AUTHOR ("/WEB-INF/jsp/crud/author.jsp"),
-    CRUD_BONUS ("/WEB-INF/jsp/crud/bonus.jsp"),
-    CRUD_ALBUM ("/WEB-INF/jsp/crud/album.jsp"),
+    SIGN_IN ("/WEB-INF/jsp/signin.jsp"),
+    SIGN_UP ("/WEB-INF/jsp/signup.jsp"),
 
     //SHOP
     COMPOSITION_SHOP ("/WEB-INF/jsp/user/include/shop/composition.jsp"),
@@ -34,8 +30,8 @@ public enum PageDirector {
     BALANCE_CURRENT ("/WEB-INF/jsp/balance.jsp"),
     CRUD_ALBUM_FEEDBACK ("/WEB-INF/jsp/crud/albumfeedback.jsp"),
     LANDING ("/index.jsp"),
-    REGISTRATION ("/signup.jsp"),
-    LOGIN ("/signin.jsp"),
+    REGISTRATION ("/WEB-INF/signup.jsp"),
+    LOGIN ("/WEB-INF/jsp/signin.jsp"),
     ACCOUNT ("/WEB-INF/jsp/account.jsp"),
     SECRET_ACCOUNT ("/WEB-INF/jsp/saveOfAccount.jsp");
 

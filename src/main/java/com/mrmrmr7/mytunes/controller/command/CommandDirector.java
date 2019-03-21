@@ -2,9 +2,14 @@ package com.mrmrmr7.mytunes.controller.command;
 
 public enum  CommandDirector {
     COMMAND ("command"),
+    CHANGE_LANGUAGE_COMMAND ("changeLang"),
+
     MOVE_INSIDE_WEB_INF ("move"),
     SECRET_ACCOUNT ("secretAccount"),
     UPDATE_BALANCE ("updateBalance"),
+
+    VIEW_SIGN_IN_PAGE ("viewSignInPage"),
+    VIEW_SIGN_UP_PAGE ("viewSignUpPage"),
 
     //ADD
     ADD_COMPOSITION_FEEDBACK ("addCompositionFeedback"),

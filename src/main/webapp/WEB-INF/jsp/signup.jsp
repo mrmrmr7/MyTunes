@@ -1,13 +1,25 @@
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:requestEncoding value="UTF-8"/>
 
+
+<c:choose>
+    <c:when test="${not empty requestScope.get('lang')}">
+        <fmt:setLocale value="${requestScope.get('lang')}"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="${cookie['locale'].value}"/>
+    </c:otherwise>
+</c:choose>
+
+<fmt:setBundle basename="language" var="bundle" scope="application"/>
 
 <html>
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8"/>
+    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sufee Admin - HTML5 Admin Template</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
@@ -162,18 +174,18 @@
                       onsubmit="return formValidation()">
                     <div class="form-group">
                         <label id="loginLabelId">Login</label>
-                        <input type="text" class="form-control" placeholder="f.e. mrmrmr7" id="loginId" name="login"
+                        <input type="text" class="form-control" placeholder="<fmt:message key="signup.login" bundle="${bundle}"/> " id="loginId" name="login"
                                value="LoginXyegin">
                     </div>
 
                     <div class="form-group">
-                        <label id="emailLabelId">Email address</label>
+                        <label id="emailLabelId">Email</label>
                         <input type="email" class="form-control" placeholder="f.e. aliex.s@yandex.by" id="emailId"
                                name="email" value="a@b.cd">
                     </div>
 
                     <div class="form-group">
-                        <label id="firstNameLabelId">First name</label>
+                        <label id="firstNameLabelId"></label>
                         <input type="text" class="form-control" placeholder="f.e. Alexandr" id="firstNameId"
                                name="firstName" value="Bb">
                     </div>
@@ -195,7 +207,7 @@
                     <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
 
                     <div class="register-link m-t-15 text-center">
-                        <p>Already have account? <a href="${pageContext.request.contextPath}/signin.jsp"> Sign in</a>
+                        <p>Already have account? <a href="${pageContext.request.contextPath}/WEB-INF/jsp/signin.jsp"> Sign in</a>
                         </p>
                     </div>
                     <input type="hidden" name="command" value="signup"/>
