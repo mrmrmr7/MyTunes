@@ -14,10 +14,11 @@ public class CommandAccessLevel {
     private CommandAccessLevel() {
         commandMap.put(CommandDirector.SIGN_IN.getValue(), AccessLevel.ALL);
         commandMap.put(CommandDirector.SIGN_UP.getValue(), AccessLevel.ALL);
-        commandMap.put(CommandDirector.LOG_OUT.getValue(), AccessLevel.ALL);
+        commandMap.put(CommandDirector.LOG_OUT.getValue(), AccessLevel.USER);
         commandMap.put(CommandDirector.VIEW_SIGN_IN_PAGE.getValue(), AccessLevel.ALL);
         commandMap.put(CommandDirector.VIEW_SIGN_UP_PAGE.getValue(), AccessLevel.ALL);
-        commandMap.put(CommandDirector.CHANGE_LANGUAGE_COMMAND.getValue(), AccessLevel.ALL);
+        commandMap.put(CommandDirector.CHANGE_LANGUAGE_COMMAND.getValue(), AccessLevel.USER);
+        commandMap.put(CommandDirector.CHANGE_LANGUAGE_IN_SIGN_IN_COMMAND.getValue(), AccessLevel.ALL);
 
         commandMap.put(CommandDirector.FINISH_REGISTRATION.getValue(), AccessLevel.USER);
 

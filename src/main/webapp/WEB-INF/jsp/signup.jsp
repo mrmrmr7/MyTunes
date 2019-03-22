@@ -173,46 +173,61 @@
                 <form action="${pageContext.request.contextPath}/crud" method="post" id="si" name="signUpForm"
                       onsubmit="return formValidation()">
                     <div class="form-group">
-                        <label id="loginLabelId">Login</label>
-                        <input type="text" class="form-control" placeholder="<fmt:message key="signup.login" bundle="${bundle}"/> " id="loginId" name="login"
-                               value="LoginXyegin">
+                        <label id="loginLabelId"><fmt:message key="signup.login" bundle="${bundle}"/></label>
+                        <input type="text" class="form-control" placeholder="<fmt:message key="signup.login" bundle="${bundle}"/>" id="loginId" name="login"
+                               >
                     </div>
 
                     <div class="form-group">
                         <label id="emailLabelId">Email</label>
-                        <input type="email" class="form-control" placeholder="f.e. aliex.s@yandex.by" id="emailId"
-                               name="email" value="a@b.cd">
+                        <input type="email" class="form-control" placeholder="Email" id="emailId"
+                               name="email">
                     </div>
 
                     <div class="form-group">
-                        <label id="firstNameLabelId"></label>
+                        <label id="firstNameLabelId"><fmt:message key="signup.firstname" bundle="${bundle}"/></label>
                         <input type="text" class="form-control" placeholder="f.e. Alexandr" id="firstNameId"
-                               name="firstName" value="Bb">
+                               name="firstName">
                     </div>
                     <div class="form-group">
-                        <label id="secondNameLabelId">Second name</label>
+                        <label id="secondNameLabelId"><fmt:message key="signup.secondname" bundle="${bundle}"/></label>
                         <input type="text" class="form-control" placeholder="f.e. Zaporozhtsev" id="secondNameId"
-                               name="secondName" value="Aa">
+                               name="secondName">
                     </div>
                     <div class="form-group">
-                        <label id="passwordLabelId">Password</label>
+                        <label id="passwordLabelId"><fmt:message key="signup.password" bundle="${bundle}"/></label>
                         <input type="text" class="form-control" placeholder="f.e. ********" id="passwordId"
-                               name="password" value="EpamClass2019">
+                               name="password">
                     </div>
                     <div class="form-group">
-                        <label id="passwordAgainLabelId">Password again</label>
+                        <label id="passwordAgainLabelId"><fmt:message key="signup.passwordagain" bundle="${bundle}"/></label>
                         <input type="password" class="form-control" placeholder="f.e. ********" id="passwordAgainId"
-                               name="passwordAgain" value="EpamClass2019">
+                               name="passwordAgain">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
+                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"><fmt:message key="signup.register" bundle="${bundle}"/></button>
 
                     <div class="register-link m-t-15 text-center">
-                        <p>Already have account? <a href="${pageContext.request.contextPath}/WEB-INF/jsp/signin.jsp"> Sign in</a>
+                        <p><fmt:message key="signup.alreadyhaveaccount" bundle="${bundle}"/> <a href="${pageContext.request.contextPath}/crud?command=viewSignInPage"><fmt:message key="signup.sign" bundle="${bundle}"/></a>
                         </p>
                     </div>
                     <input type="hidden" name="command" value="signup"/>
                 </form>
+
+                <div class="card-body">
+                    <form action="${pageContext.request.contextPath}/crud" method="post" id="changeLangForm" name="ChangeLang">
+                        <button type="submit" class="btn btn-secondary" form="changeLangForm" name="lang" value="ru">
+                            <fmt:message key="signin.button.language.russian" bundle="${bundle}"/>
+                        </button>
+                        <button type="submit" class="btn btn-secondary" form="changeLangForm" name="lang" value="en">
+                            <fmt:message key="signin.button.language.english" bundle="${bundle}"/>
+                        </button>
+
+                        <input type="hidden" name="command" value="changeLang" />
+                        <input type="hidden" name="from" value="${pageContext.request.contextPath}/crud?command=viewSignUpPage" />
+                    </form>
+                </div>
             </div>
+
         </div>
     </div>
 </div>

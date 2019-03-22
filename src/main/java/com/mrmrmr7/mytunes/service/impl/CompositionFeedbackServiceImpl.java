@@ -1,5 +1,7 @@
 package com.mrmrmr7.mytunes.service.impl;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
@@ -79,7 +81,8 @@ public class CompositionFeedbackServiceImpl implements CompositionFeedbackServic
         }
 
         Cookie[] cookies = request.getCookies();
-        Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
+        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
         TransactionManager transactionManager = new TransactionManagerImpl();
         try {
@@ -89,7 +92,7 @@ public class CompositionFeedbackServiceImpl implements CompositionFeedbackServic
 
             transactionManager.begin(userCompositionDao, compositionDao, compositionFeedbackDao);
 
-            Optional<UserComposition> userCompositionOptional = userCompositionDao.getByPK(claims.get("userId", Integer.class));
+            Optional<UserComposition> userCompositionOptional = userCompositionDao.getByPK(decodedJWT.getClaim("userId").asInt());
 
             if (userCompositionOptional.isPresent()) {
                 String musicSelectionInfoName = request.getParameter("compositionName");
@@ -143,7 +146,8 @@ public class CompositionFeedbackServiceImpl implements CompositionFeedbackServic
     public List<CompositionFeedbackDto> getUserCompositionFeedbackList(HttpServletRequest request) throws ServiceException {
         Cookie[] cookies = request.getCookies();
 
-        Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
+        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
         List<CompositionFeedbackDto> compositionFeedbackDtoList = new ArrayList<>();
 
@@ -157,7 +161,7 @@ public class CompositionFeedbackServiceImpl implements CompositionFeedbackServic
 
             transactionManager.begin(userCompositionDao, compositionFeedbackDao, compositionDao);
 
-            Optional<UserComposition> userCompositionOptional = userCompositionDao.getByPK(claims.get("userId", Integer.class));
+            Optional<UserComposition> userCompositionOptional = userCompositionDao.getByPK(decodedJWT.getClaim("userId").asInt());
 
             if (userCompositionOptional.isPresent()) {
                 List<Integer> cortageIdList = userCompositionOptional.get().getCortageIdList();

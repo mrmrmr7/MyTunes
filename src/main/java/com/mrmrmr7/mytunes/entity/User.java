@@ -18,16 +18,7 @@ public class User implements Identified<Integer> {
     private byte sale;
     private byte roleId;
     private byte statusId;
-    private String publicKey;
     private String privateKey;
-
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
 
     public String getPrivateKey() {
         return privateKey;
@@ -76,7 +67,6 @@ public class User implements Identified<Integer> {
                 String email,
                 long balance, byte sale,
                 byte roleId, byte statusId,
-                String publicKey,
                 String privateKey) {
         this.id = ID;
         this.login = LOGIN;
@@ -89,7 +79,6 @@ public class User implements Identified<Integer> {
         this.sale = sale;
         this.roleId = roleId;
         this.statusId = statusId;
-        this.publicKey = publicKey;
         this.privateKey = privateKey;
     }
 
@@ -181,13 +170,12 @@ public class User implements Identified<Integer> {
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(secondName, user.secondName) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(publicKey, user.publicKey) &&
                 Objects.equals(privateKey, user.privateKey);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, registerData, login, password, firstName, secondName, email, balance, sale, roleId, statusId, publicKey, privateKey);
+        return Objects.hash(id, registerData, login, password, firstName, secondName, email, balance, sale, roleId, statusId, privateKey);
     }
 
     @Override

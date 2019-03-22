@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.controller.command;
 public enum  CommandDirector {
     COMMAND ("command"),
     CHANGE_LANGUAGE_COMMAND ("changeLang"),
+    CHANGE_LANGUAGE_IN_SIGN_IN_COMMAND("changeLangInSignIn"),
 
     MOVE_INSIDE_WEB_INF ("move"),
     SECRET_ACCOUNT ("secretAccount"),
@@ -23,6 +24,7 @@ public enum  CommandDirector {
     SIGN_IN ("signin"),
     LOG_OUT ("logout"),
     FINISH_REGISTRATION ("finishRegistration"),
+    SKIP_F5_COMMAND ("skipf5command"),
 
     //BUY OPERATIONS
     BUY_COMPOSITION ("buyComposition"),

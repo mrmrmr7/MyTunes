@@ -12,13 +12,13 @@ public class AccesLevelUtil {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         Cookie[] cookies = httpServletRequest.getCookies();
         Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
-        String role = claims.get("userRole", String.class);
+        Integer role = claims.get("userRole", Integer.class);
 
-        if (role.equalsIgnoreCase("admin")) {
+        if (role == 1) {
             return AccessLevel.ADMIN;
         }
 
-        if (role.equalsIgnoreCase("user")) {
+        if (role == 2) {
             return AccessLevel.USER;
         }
 

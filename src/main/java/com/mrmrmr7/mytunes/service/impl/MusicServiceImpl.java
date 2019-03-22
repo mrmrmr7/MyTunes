@@ -1,5 +1,7 @@
 package com.mrmrmr7.mytunes.service.impl;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
@@ -32,24 +34,20 @@ public class MusicServiceImpl implements MusicService {
             return false;
         }
 
-        Cookie[] cookieArray = request.getCookies();
-        Claims claims = ProtectionUtil.getClaimsFromCookies(cookieArray);
+        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
+
         //assert claims != null; FIXME узнать что такое assertClaims
 
-        if(claims == null) {
-            return false;
-        }
-
-        Integer userId = claims.get("userId", Integer.class);
+        Integer userId = decodedJWT.getClaim("uesrId").asInt();
 
         TransactionManager transactionManager = new TransactionManagerImpl();
 
         try {
             Optional<User> userOptional;
 
-            GenericDao userDao;
-            GenericDao compositionDao;
-            GenericDao userCompositionDao;
+            GenericDao<User, Integer> userDao;
+            GenericDao<Composition, Integer> compositionDao;
+            GenericDao<UserComposition, Integer> userCompositionDao;
             userDao = JdbcDaoFactory.getInstance().getTransactionalDao(User.class);
             compositionDao = JdbcDaoFactory.getInstance().getTransactionalDao(Composition.class);
             userCompositionDao = JdbcDaoFactory.getInstance().getTransactionalDao(UserComposition.class);
@@ -131,15 +129,10 @@ public class MusicServiceImpl implements MusicService {
             return false;
         }
 
-        Cookie[] cookieArray = request.getCookies();
-        Claims claims = ProtectionUtil.getClaimsFromCookies(cookieArray);
-        //assert claims != null; FIXME узнать что такое assert claims
+        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
-        if(claims == null) {
-            return false;
-        }
 
-        Integer userId = claims.get("userId", Integer.class);
+        Integer userId = decodedJWT.getClaim("userId").asInt();
 
         TransactionManager transactionManager = new TransactionManagerImpl();
 
@@ -230,15 +223,10 @@ public class MusicServiceImpl implements MusicService {
             return false;
         }
 
-        Cookie[] cookieArray = request.getCookies();
-        Claims claims = ProtectionUtil.getClaimsFromCookies(cookieArray);
+        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
         //assert claims != null; FIXME узнать что такое assertClaims
 
-        if(claims == null) {
-            return false;
-        }
-
-        Integer userId = claims.get("userId", Integer.class);
+        Integer userId = decodedJWT.getClaim("userId").asInt();
 
         TransactionManager transactionManager = new TransactionManagerImpl();
 

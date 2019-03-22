@@ -20,7 +20,6 @@ public class ResultSetToBean {
                         resultSet.getByte(++i),
                         resultSet.getByte(++i),
                         resultSet.getByte(++i),
-                        resultSet.getString(++i),
                         resultSet.getString(++i));
     }
 

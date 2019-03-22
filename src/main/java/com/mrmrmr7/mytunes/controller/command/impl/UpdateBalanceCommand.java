@@ -27,6 +27,7 @@ public class UpdateBalanceCommand implements Command {
 
         ResponseContent responseContent = new ResponseContent();
 
+//        responseContent.setRouter(new Router(PageDirector.SKIP_F5_COMMAND.getValue() + "/WEB-INF/jsp/user/include/balance/update.jsp", Router.Type.REDIRECT));
         responseContent.setRouter(new Router(PageDirector.BALANCE_CURRENT, Router.Type.FORWARD));
 
         return responseContent;

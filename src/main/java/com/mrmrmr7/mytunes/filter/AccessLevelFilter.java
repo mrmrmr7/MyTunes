@@ -38,19 +38,26 @@ public class AccessLevelFilter implements Filter {
             accessLevel = AccessLevel.ALL;
         }
 
+        boolean isAuthorized = false;
+
+        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+        UserServiceImpl serviceUser = new UserServiceImpl();
+
+        try {
+            isAuthorized = serviceUser.isAuthorized(command, httpServletRequest);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+
+
         if (accessLevel == AccessLevel.ALL) {
-            filterChain.doFilter(servletRequest, servletResponse);
-        } else {
-            HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-            UserServiceImpl serviceUser = new UserServiceImpl();
-
-            boolean isAuthorized = false;
-
-            try {
-                isAuthorized = serviceUser.isAuthorized(command, httpServletRequest);
-            } catch (ServiceException e) {
-                e.printStackTrace();
+            if (!isAuthorized) {
+                filterChain.doFilter(servletRequest, servletResponse);
+            } else {
+                HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+                httpServletResponse.sendRedirect(((HttpServletRequest) servletRequest).getContextPath() + "crud?command=" + CommandDirector.VIEW_PROFILE_PAGE.getValue());
             }
+        } else {
 
             if (isAuthorized) {
                 if (accessLevel == AccessLevel.USER) {
@@ -59,31 +66,10 @@ public class AccessLevelFilter implements Filter {
                     if (AccesLevelUtil.showAccessLevelFromReques(servletRequest) == AccessLevel.ADMIN) {
                         filterChain.doFilter(servletRequest, servletResponse);
                     } else {
-                        HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-                        clearCookie(servletResponse);
-                        httpServletResponse.sendRedirect(((HttpServletRequest) servletRequest).getContextPath() + PageDirector.LANDING.getValue());
+                        httpServletRequest.getRequestDispatcher(((HttpServletRequest) servletRequest).getContextPath() + "/crud?command=" + PageDirector.LANDING.getValue()).forward(servletRequest, servletResponse);
                     }
                 }
             }
-//
-//            if (((HttpServletRequest) servletRequest).getRequestURI().contains("crud")) {
-//                if (isAuthorized) {
-//                    filterChain.doFilter(servletRequest, servletResponse);
-//                } else {
-//                    httpServletRequest.getSession(true);
-//                    clearCookie(servletResponse);
-//                    HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-//                    httpServletResponse.sendRedirect(((HttpServletRequest) servletRequest).getContextPath() + PageDirector.LANDING.getValue());
-//                }
-//            } else {
-//                if (isAuthorized) {
-//                    httpServletRequest.getRequestDispatcher(PageDirector.ACCOUNT.getValue()).forward(servletRequest, servletResponse);
-//                } else {
-//                    httpServletRequest.getSession(true);
-//                    clearCookie(servletResponse);
-//                    filterChain.doFilter(servletRequest, servletResponse);
-//                }
-//            }
         }
     }
 

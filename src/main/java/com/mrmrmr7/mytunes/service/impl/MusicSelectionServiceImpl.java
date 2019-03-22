@@ -1,5 +1,7 @@
 package com.mrmrmr7.mytunes.service.impl;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mrmrmr7.mytunes.dao.CompositionDaoExtended;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.dao.MusicSelectionInfoDaoExtended;
@@ -18,10 +20,7 @@ import io.jsonwebtoken.Claims;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.rowset.serial.SerialException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalInt;
+import java.util.*;
 
 public class MusicSelectionServiceImpl implements MusicSelectionService {
     @Override
@@ -136,8 +135,9 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
     @Override
     public List<MusicSelectionInfo> getAllNotUserMusicSelectionInfo(HttpServletRequest request) throws ServiceException {
 
-        Cookie[] cookieArray = request.getCookies();
-        Claims claims = ProtectionUtil.getClaimsFromCookies(cookieArray);
+        Cookie[] cookies = request.getCookies();
+        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
         List<MusicSelectionInfo> realMusicSelectionInfoList = new ArrayList<>();
         TransactionManager transactionManager = new TransactionManagerImpl();
@@ -148,7 +148,7 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
             transactionManager.begin(musicSelectionInfoDao, userMusicSelectionDao);
 
             List<MusicSelectionInfo> musicSelectionInfoList = musicSelectionInfoDao.getAll();
-            Optional<UserMusicSelection> userMusicSelectionOptional = userMusicSelectionDao.getByPK(claims.get("userId", Integer.class));
+            Optional<UserMusicSelection> userMusicSelectionOptional = userMusicSelectionDao.getByPK(decodedJWT.getClaim("userId").asInt());
             userMusicSelectionOptional.ifPresent(
                     u -> {
                         for (MusicSelectionInfo c : musicSelectionInfoList)
@@ -179,8 +179,9 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
     @Override
     public List<MusicSelectionInfo> getAllUserMusicSelectionInfo(HttpServletRequest request) throws ServiceException {
 
-        Cookie[] cookieArray = request.getCookies();
-        Claims claims = ProtectionUtil.getClaimsFromCookies(cookieArray);
+        Cookie[] cookies = request.getCookies();
+        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
         List<MusicSelectionInfo> musicSelectionInfoList = new ArrayList<>();
         TransactionManager transactionManager = new TransactionManagerImpl();
@@ -190,7 +191,7 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
 
             transactionManager.begin(userMusicSelectionDao, musicSelectionInfoDao);
 
-            Optional<UserMusicSelection> userMusicSelectionOptional = userMusicSelectionDao.getByPK(claims.get("userId", Integer.class));
+            Optional<UserMusicSelection> userMusicSelectionOptional = userMusicSelectionDao.getByPK(decodedJWT.getClaim("userId").asInt());
             if (userMusicSelectionOptional.isPresent()) {
 
                 List<Integer> userMusicSelectionIdList = userMusicSelectionOptional.get().getMusicSelectionIdList();

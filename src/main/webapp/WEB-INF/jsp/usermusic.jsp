@@ -10,7 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sufee Admin - HTML5 Admin Template</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/favicon.ico">
 
@@ -42,7 +41,54 @@
 
     <!-- Header-->
 
-    <jsp:include page="/WEB-INF/jsp/include/header.jsp"/>
+    <header id="header" class="header">
+
+        <div class="header-menu">
+
+            <div class="col-sm-7">
+            </div>
+
+            <div class="col-sm-5">
+
+                <div class="user-area dropdown float-right">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+                        <a href="${pageContext.request.contextPath}/#" class="dropdown-toggle" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            <img class="user-avatar rounded-circle"
+                                 src="${pageContext.request.contextPath}/site/images/admin.jpg" alt="User Avatar">
+                        </a>
+
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/#" ><i class="fa fa-user"></i>
+                                My Profile</a>
+
+                            <a class="nav-link" href="${pageContext.request.contextPath}/#"><i class="fa fa-user"></i>
+                                Notifications <span class="count">13</span></a>
+
+                            <a class="nav-link" href="${pageContext.request.contextPath}/#"><i class="fa fa-cog"></i>
+                                Settings</a>
+
+                            <a class="nav-link" href="${pageContext.request.contextPath}/crud?command=logout"><i
+                                    class="fa fa-power-off"></i>Logout</a>
+                        </div>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-home-tab"href="${pageContext.request.contextPath}/crud?command=changeLang&lang=ru&from=${pageContext.request.contextPath}/crud?command=music"
+                               role="tab" aria-controls="pills-home" aria-selected="false">RU</a>
+                        </li>
+                        <li class="nav-item active ">
+                            <a class="nav-link" id="pills-profile-tab" href="${pageContext.request.contextPath}/crud?command=changeLang&lang=en&from=${pageContext.request.contextPath}/crud?command=music"
+                               role="tab" aria-controls="pills-profile" aria-selected="false">EN</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+
+    </header><!-- /header -->
 
 
     <div class="breadcrumbs">

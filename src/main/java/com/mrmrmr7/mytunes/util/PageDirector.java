@@ -33,7 +33,8 @@ public enum PageDirector {
     REGISTRATION ("/WEB-INF/signup.jsp"),
     LOGIN ("/WEB-INF/jsp/signin.jsp"),
     ACCOUNT ("/WEB-INF/jsp/account.jsp"),
-    SECRET_ACCOUNT ("/WEB-INF/jsp/saveOfAccount.jsp");
+    SECRET_ACCOUNT ("/WEB-INF/jsp/saveOfAccount.jsp"),
+    SKIP_F5_COMMAND ("/crud?command=skipf5command&from=");
 
     private String value;
 

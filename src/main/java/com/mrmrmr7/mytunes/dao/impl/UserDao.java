@@ -1,9 +1,11 @@
 package com.mrmrmr7.mytunes.dao.impl;
 
-import com.mrmrmr7.mytunes.dao.*;
+import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
+import com.mrmrmr7.mytunes.dao.UserDaoExtended;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.util.Table;
+import com.mrmrmr7.mytunes.dao.AutoConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -92,8 +94,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
     protected PreparedStatement prepareStatementForInsert(User object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
-        preparedStatement.setString(11, object.getPublicKey());
-        preparedStatement.setString(12, object.getPrivateKey());
+        preparedStatement.setString(11, object.getPrivateKey());
         return prepareForUpdate(preparedStatement, object);
     }
 
@@ -102,9 +103,8 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
     protected PreparedStatement prepareStatementForUpdate(User object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getUpdateQuery());
-        preparedStatement.setString(11, object.getPublicKey());
-        preparedStatement.setString(12, object.getPrivateKey());
-        preparedStatement.setInt(13, object.getId());
+        preparedStatement.setString(11, object.getPrivateKey());
+        preparedStatement.setInt(12, object.getId());
         return prepareForUpdate(preparedStatement, object);
     }
 
@@ -148,9 +148,9 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
     protected String getInsertQuery() {
 
         return "INSERT INTO " + Table.USER.getValue() +
-                "(LOGIN, PASSWORD, FIRST_NAME, SECOND_NAME, REGISTER_DATE, SALE, BALANCE, ROLE_ID, STATUS_ID, EMAIL, PUBLIC_KEY, PRIVATE_KEY) " +
+                "(LOGIN, PASSWORD, FIRST_NAME, SECOND_NAME, REGISTER_DATE, SALE, BALANCE, ROLE_ID, STATUS_ID, EMAIL, PRIVATE_KEY) " +
                 "VALUES " +
-                "(?,?,?,?,?,?,?,?,?,?,?,?)";
+                "(?,?,?,?,?,?,?,?,?,?,?)";
     }
 
     @AutoConnection
@@ -162,7 +162,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
                 "FIRST_NAME=?, SECOND_NAME=?, " +
                 "REGISTER_DATE=?, SALE=?, " +
                 "BALANCE=?, ROLE_ID=?, " +
-                "STATUS_ID=?, EMAIL=?, PUBLIC_KEY=?, PRIVATE_KEY=? WHERE ID=?";
+                "STATUS_ID=?, EMAIL=?, PRIVATE_KEY=? WHERE ID=?";
     }
 
     @AutoConnection

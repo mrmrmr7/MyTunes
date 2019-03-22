@@ -137,7 +137,7 @@
                                 <fmt:message key="signin.button.language.english" bundle="${bundle}"/>
                             </button>
 
-                            <input type="hidden" name="command" value="changeLang" />
+                            <input type="hidden" name="command" value="changeLangInSignIn" />
                             <input type="hidden" name="from" value="${pageContext.request.contextPath}/crud?command=viewSignInPage" />
                         </form>
                     </div>

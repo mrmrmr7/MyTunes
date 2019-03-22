@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: mrmrmr
@@ -22,39 +23,39 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="menu-item-has-children dropdown">
-                    <h3 class="menu-title">Menu</h3><!-- /.menu-title -->
+                    <h3 class="menu-title"><fmt:message key="leftpanel.menu" bundle="${bundle}"/></h3><!-- /.menu-title -->
                 </li>
 
                 <li class="active">
-                    <a href="${pageContext.request.contextPath}/crud?command=account" id="accountId"> <i class="menu-icon fa fa-dashboard"></i> <b>Account </b></a>
+                    <a href="${pageContext.request.contextPath}/crud?command=account" id="accountId"> <i class="menu-icon fa fa-dashboard"></i> <b><fmt:message key="leftpanel.account" bundle="${bundle}"/></b></a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/crud?command=music" id="accountId1"> <i class="menu-icon fa fa-bar-chart"></i>Music</a>
+                    <a href="${pageContext.request.contextPath}/crud?command=music" id="accountId1"> <i class="menu-icon fa fa-bar-chart"></i><fmt:message key="leftpanel.mymusic" bundle="${bundle}"/></a>
                 </li>
 
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Music shop</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i><fmt:message key="leftpanel.musicshop" bundle="${bundle}"/></a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-line-chart"></i><a href="${pageContext.request.contextPath}/crud?command=compositionShop">Composition</a></li>
-                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/crud?command=albumShop">Album</a></li>
-                        <li><i class="menu-icon fa fa-pie-chart"></i><a href="${pageContext.request.contextPath}/crud?command=musicSelectionShop">Music selection</a></li>
+                        <li><i class="menu-icon fa fa-line-chart"></i><a href="${pageContext.request.contextPath}/crud?command=compositionShop"><fmt:message key="leftpanel.compositionshop" bundle="${bundle}"/></a></li>
+                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/crud?command=albumShop"><fmt:message key="leftpanel.albumshop" bundle="${bundle}"/></a></li>
+                        <li><i class="menu-icon fa fa-pie-chart"></i><a href="${pageContext.request.contextPath}/crud?command=musicSelectionShop"><fmt:message key="leftpanel.musicselectionshop" bundle="${bundle}"/></a></li>
                     </ul>
                 </li>
 
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Balance</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i><fmt:message key="leftpanel.balance" bundle="${bundle}"/></a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-line-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewCurrentBalancePage">Current balance</a></li>
-                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewUpdateBalancePage">Update balance</a></li>
+                        <li><i class="menu-icon fa fa-line-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewCurrentBalancePage"><fmt:message key="leftpanel.currentbalance" bundle="${bundle}"/></a></li>
+                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewUpdateBalancePage"><fmt:message key="leftpanel.updatebalance" bundle="${bundle}"/></a></li>
                     </ul>
                 </li>
 
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Feedback</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i><fmt:message key="leftpanel.feedbackpanel" bundle="${bundle}"/></a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-line-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewCompositionFeedbackPage">Composition</a></li>
-                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewAlbumFeedbackPage">Album</a></li>
-                        <li><i class="menu-icon fa fa-pie-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewMusicSelectionFeedbackPage">Music selection</a></li>
+                        <li><i class="menu-icon fa fa-line-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewCompositionFeedbackPage"><fmt:message key="leftpanel.feedback.composition" bundle="${bundle}"/></a></li>
+                        <li><i class="menu-icon fa fa-area-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewAlbumFeedbackPage"><fmt:message key="leftpanel.feedback.album" bundle="${bundle}"/></a></li>
+                        <li><i class="menu-icon fa fa-pie-chart"></i><a href="${pageContext.request.contextPath}/crud?command=viewMusicSelectionFeedbackPage"><fmt:message key="leftpanel.feedback.musicselection" bundle="${bundle}"/></a></li>
                     </ul>
                 </li>
 

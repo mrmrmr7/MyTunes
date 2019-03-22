@@ -1,5 +1,7 @@
 package com.mrmrmr7.mytunes.service.impl;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
@@ -14,10 +16,7 @@ import io.jsonwebtoken.Claims;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class MusicSelectionFeedbackServiceImpl implements MusicSelectionFeedbackService {
     @Override
@@ -82,7 +81,8 @@ public class MusicSelectionFeedbackServiceImpl implements MusicSelectionFeedback
         }
 
         Cookie[] cookies = request.getCookies();
-        Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
+        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
         TransactionManager transactionManager = new TransactionManagerImpl();
         try {
@@ -92,7 +92,7 @@ public class MusicSelectionFeedbackServiceImpl implements MusicSelectionFeedback
 
             transactionManager.begin(userMusicSelectionDao, musicSelectionDao, musicSelectionFeedbackDao);
 
-            Optional<UserMusicSelection> userMusicSelectionOptional = userMusicSelectionDao.getByPK(claims.get("userId", Integer.class));
+            Optional<UserMusicSelection> userMusicSelectionOptional = userMusicSelectionDao.getByPK(decodedJWT.getClaim("userId").asInt());
 
             if (userMusicSelectionOptional.isPresent()) {
                 String musicSelectionInfoName = request.getParameter("musicSelectionName");
@@ -146,7 +146,8 @@ public class MusicSelectionFeedbackServiceImpl implements MusicSelectionFeedback
     public List<MusicSelectionFeedbackDto> getUserMusicSelectionFeedbackList(HttpServletRequest request) throws ServiceException {
         Cookie[] cookies = request.getCookies();
 
-        Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
+        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
         List<MusicSelectionFeedbackDto> musicSelectionFeedbackDtoList = new ArrayList<>();
 
@@ -160,7 +161,7 @@ public class MusicSelectionFeedbackServiceImpl implements MusicSelectionFeedback
 
             transactionManager.begin(userMusicSelectionDao, musicSelectionFeedbackDao, musicSelectionInfoDao);
 
-            Optional<UserMusicSelection> userMusicSelectionOptional = userMusicSelectionDao.getByPK(claims.get("userId", Integer.class));
+            Optional<UserMusicSelection> userMusicSelectionOptional = userMusicSelectionDao.getByPK(decodedJWT.getClaim("userId").asInt());
 
             if (userMusicSelectionOptional.isPresent()) {
                 List<Integer> cortageIdList = userMusicSelectionOptional.get().getCortageIdList();

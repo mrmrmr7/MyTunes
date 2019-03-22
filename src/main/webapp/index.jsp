@@ -107,8 +107,8 @@
 
         <div class="row home-content__main">
             <h1>
-                Hello folks, we are <br>
-                Transcend Studio.
+                The best <br>
+                Musical portal.
             </h1>
 
             <p>

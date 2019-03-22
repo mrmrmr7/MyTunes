@@ -1,3 +1,4 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: mrmrmr
@@ -9,14 +10,13 @@
 
 
 <li class="menu-item-has-children dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-laptop"></i><b>Admin panel</b></a>
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-laptop"></i><b><fmt:message key="adminpanel.title" bundle="${bundle}"/></b></a>
     <ul class="sub-menu children active dropdown-menu">
-        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewAdminCreateAlbumPage">Create album</a></li>
-        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewAdminAddUserBonusPage">Add user bonus</a></li>
-        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUploadCompositionPage">Upload composition</a></li>
-        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewCreateMusicSelectionPage">Create music selection</a></li>
-        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUpdateMusicSelectionPage">Update music selection</a></li>        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUpdateMusicSelectionPage">Update music selection</a></li>
-        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUploadCompositionToMusicSelectionPage">Add composition to music selection</a></li>
-
+        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewAdminCreateAlbumPage"><fmt:message key="adminpanel.createalbum" bundle="${bundle}"/></a></li>
+        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewAdminAddUserBonusPage"><fmt:message key="adminpanel.addbonus" bundle="${bundle}"/></a></li>
+        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUploadCompositionPage"><fmt:message key="adminpanel.downloadcomposition" bundle="${bundle}"/></a></li>
+        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewCreateMusicSelectionPage"><fmt:message key="adminpanel.createmusicselection" bundle="${bundle}"/></a></li>
+        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUpdateMusicSelectionPage"><fmt:message key="adminpanel.updatemusicselection" bundle="${bundle}"/></a></li>
+        <li><i class="fa fa-puzzle-piece"></i><a href="${pageContext.request.contextPath}/crud?command=viewUploadCompositionToMusicSelectionPage"><fmt:message key="adminpanel.addcompositiontomusicselection" bundle="${bundle}"/></a></li>
     </ul>
 </li>

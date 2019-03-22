@@ -1,5 +1,7 @@
 package com.mrmrmr7.mytunes.service.impl;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mrmrmr7.mytunes.dao.AlbumDaoExtended;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
@@ -22,10 +24,7 @@ import io.jsonwebtoken.Claims;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class AlbumFeedbackServiceImpl implements AlbumFeedbackService {
     @Override
@@ -90,7 +89,9 @@ public class AlbumFeedbackServiceImpl implements AlbumFeedbackService {
         }
 
         Cookie[] cookies = request.getCookies();
-        Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
+        Optional<Cookie> cookie = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        DecodedJWT decodedJWT = JWT.decode(cookie.get().getValue());
+//        Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
 
         TransactionManager transactionManager = new TransactionManagerImpl();
         try {
@@ -100,7 +101,7 @@ public class AlbumFeedbackServiceImpl implements AlbumFeedbackService {
 
             transactionManager.begin(userAlbumDao, albumDao, albumFeedbackDao);
 
-            Optional<UserAlbum> userAlbumOptional = userAlbumDao.getByPK(claims.get("userId", Integer.class));
+            Optional<UserAlbum> userAlbumOptional = userAlbumDao.getByPK(decodedJWT.getClaim("userId").asInt());
 
             if (userAlbumOptional.isPresent()) {
                 String musicSelectionInfoName = request.getParameter("albumName");
@@ -153,8 +154,10 @@ public class AlbumFeedbackServiceImpl implements AlbumFeedbackService {
     @Override
     public List<AlbumFeedbackDto> getUserAlbumFeedbackList(HttpServletRequest request) throws ServiceException {
         Cookie[] cookies = request.getCookies();
+        Optional<Cookie> cookie = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        DecodedJWT decodedJWT = JWT.decode(cookie.get().getValue());
 
-        Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
+//        Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
 
         List<AlbumFeedbackDto> albumFeedbackDtoList = new ArrayList<>();
 
@@ -168,7 +171,7 @@ public class AlbumFeedbackServiceImpl implements AlbumFeedbackService {
 
             transactionManager.begin(userAlbumDao, albumFeedbackDao, albumDao);
 
-            Optional<UserAlbum> userAlbumOptional = userAlbumDao.getByPK(claims.get("userId", Integer.class));
+            Optional<UserAlbum> userAlbumOptional = userAlbumDao.getByPK(decodedJWT.getClaim("userId").asInt());
 
             if (userAlbumOptional.isPresent()) {
                 List<Integer> cortageIdList = userAlbumOptional.get().getCortageIdList();

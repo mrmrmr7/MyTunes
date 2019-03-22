@@ -13,32 +13,7 @@
                 <strong class="card-title">Current balance</strong>
             </div>
             <div class="card-body">
-                <p class="card-text">Your current balance in EUR is: <b>${balance}</b></p>
-            </div>
-            <div class="card-body">
-
-                <label class="switch switch-text switch-primary switch-pill"><input type="checkbox" class="switch-input"
-                                                                                    checked="true"> <span data-on="eur"
-                                                                                                          data-off="eur"
-                                                                                                          class="switch-label"
-                                                                                                          style="background-color: black"></span>
-                    <span class="switch-handle"></span></label>
-
-                <label class="switch switch-text switch-secondary switch-pill"><input type="checkbox"
-                                                                                      class="switch-input"> <span
-                        data-on="usd" data-off="usd" class="switch-label" style="background-color: black"></span> <span
-                        class="switch-handle"></span></label>
-
-                <label class="switch switch-text switch-success switch-pill"><input type="checkbox"
-                                                                                    class="switch-input"> <span
-                        data-on="rus" data-off="rus" class="switch-label" style="background-color: black"></span> <span
-                        class="switch-handle"></span></label>
-
-                <label class="switch switch-text switch-warning switch-pill"><input type="checkbox"
-                                                                                    class="switch-input"> <span
-                        data-on="bln" data-off="bln" class="switch-label" style="background-color: black"></span> <span
-                        class="switch-handle"></span></label>
-
+                <p class="card-text">Your current balance is: <b>${balance}$</b></p>
             </div>
         </div>
     </div>

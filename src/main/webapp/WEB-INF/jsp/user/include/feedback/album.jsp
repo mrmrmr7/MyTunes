@@ -38,7 +38,7 @@
 
 <!-- Right Panel -->
 
-<div id="right-panel" class="right-panel">
+<div id="right-panel" class="right-panel" style="width: 100%;">
 
     <!-- Header-->
 

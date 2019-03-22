@@ -82,7 +82,7 @@ public class SignUpServiceImpl implements SignUpService {
 
         String mailTo = user.getEmail();
         Message message = new MimeMessage(session);
-        String confirmPath = user.getPublicKey().substring(228, 300);
+        String confirmPath = user.getPrivateKey().substring(228, 300);
         confirmPath = BCrypt.hashpw(confirmPath,BCrypt.gensalt());
         try {
             message.setFrom(new InternetAddress(USERNAME));
@@ -119,7 +119,7 @@ public class SignUpServiceImpl implements SignUpService {
         }
 
         User user = userOptional.get();
-        String userConfirmString = userOptional.get().getPublicKey().substring(228,300);
+        String userConfirmString = userOptional.get().getPrivateKey().substring(228,300);
         if (BCrypt.checkpw(userConfirmString, confirmString)) {
             user.setStatusId((byte)1);
         } else {
