@@ -19,7 +19,6 @@ public class ViewCurrentBalanceCommand implements Command {
         BalanceService balanceService = new BalanceServiceImpl();
 
         try {
-            request.setAttribute("balanceType", "current");
             request.setAttribute("balance", balanceService.getBalanceById(request));
         } catch (ServiceException e) {
             e.printStackTrace();
@@ -27,7 +26,7 @@ public class ViewCurrentBalanceCommand implements Command {
 
         ResponseContent responseContent = new ResponseContent();
 
-        responseContent.setRouter(new Router(PageDirector.BALANCE_CURRENT, Router.Type.FORWARD));
+        responseContent.setRouter(new Router(PageDirector.VIEW_UPDATE_BALANCE_PAGE, Router.Type.FORWARD));
 
         return responseContent;
     }

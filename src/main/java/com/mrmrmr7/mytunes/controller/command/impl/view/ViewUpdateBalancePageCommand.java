@@ -12,12 +12,11 @@ public class ViewUpdateBalancePageCommand implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request) {
         System.out.println(CommandDirector.VIEW_UPDATE_BALANCE_PAGE.getValue() + " command detected");
-
         request.setAttribute("balanceType", "update");
 
         ResponseContent responseContent = new ResponseContent();
 
-        responseContent.setRouter(new Router(PageDirector.BALANCE_CURRENT, Router.Type.FORWARD));
+        responseContent.setRouter(new Router(PageDirector.VIEW_UPDATE_BALANCE_PAGE, Router.Type.FORWARD));
 
         return responseContent;
     }
