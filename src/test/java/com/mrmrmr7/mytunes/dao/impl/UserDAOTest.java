@@ -96,7 +96,6 @@ class UserDAOTest {
                 (byte) 1,
                 (byte) 1,
                 (byte) 1,
-                "asdadasdsadsdsdd",
                 "agfdghdsdfasfasf");
 
         userDAO.insert(user);
@@ -147,7 +146,6 @@ class UserDAOTest {
                 (byte) 1,
                 (byte) 1,
                 (byte) 1,
-                "asdadasdsadsdsdd",
                 "agfdghdsdfasfasf"));
 
         Optional<User> userList = userDAO.getByPK(2);

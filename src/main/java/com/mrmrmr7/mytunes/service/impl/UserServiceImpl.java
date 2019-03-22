@@ -178,7 +178,9 @@ public class UserServiceImpl implements ServiceUser {
                 User user = userOptional.get();
                 byte[] byteArray = Base64.getDecoder().decode(user.getPrivateKey());
                 PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(byteArray);
-                RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) KeyFactory.getInstance("RSA").generatePrivate(pkcs8EncodedKeySpec);
+                RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) KeyFactory
+                        .getInstance("RSA")
+                        .generatePrivate(pkcs8EncodedKeySpec);
 
                 byteArray = Base64.getDecoder().decode(publiKey);
                 X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(byteArray);

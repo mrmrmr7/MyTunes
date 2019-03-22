@@ -176,7 +176,7 @@ public class CompositionServiceImpl implements CompositionService {
 
             transactionManager.begin(userCompositionDao, compositionDao, albumDao, authorDao);
 
-            Optional<UserComposition> userCompositionOptional = userCompositionDao.getByPK(decodedJWT.getClaim("uesrId").asInt());
+            Optional<UserComposition> userCompositionOptional = userCompositionDao.getByPK(decodedJWT.getClaim("userId").asInt());
             if (userCompositionOptional.isPresent()) {
                 List<Integer> userCompositionIdList = userCompositionOptional.get().getCompositionIdList();
 

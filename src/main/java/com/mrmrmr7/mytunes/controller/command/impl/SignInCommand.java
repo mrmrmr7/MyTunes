@@ -37,7 +37,7 @@ public class SignInCommand implements Command {
         ResponseContent responseContent = new ResponseContent();
 
         if (isSignIn) {
-            responseContent.setRouter(new Router(PageDirector.SKIP_F5_COMMAND + "account", Router.Type.REDIRECT));
+            responseContent.setRouter(new Router(PageDirector.ACCOUNT, Router.Type.FORWARD));
         } else {
             responseContent.setRouter(new Router(PageDirector.LANDING, Router.Type.REDIRECT));
         }
@@ -48,7 +48,7 @@ public class SignInCommand implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request) {
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router(PageDirector.LANDING, Router.Type.REDIRECT));
+        responseContent.setRouter(new Router(PageDirector.LANDING, Router.Type.FORWARD));
         return responseContent;
     }
 }
