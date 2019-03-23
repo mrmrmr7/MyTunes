@@ -34,7 +34,14 @@ public class AccessLevelFilter implements Filter {
 
         AccessLevel accessLevel = CommandAccessLevel.getInstance().showLevel(command);
 
-        if (command == null) {
+        if (command == null && (((HttpServletRequest) servletRequest).getRequestURI().equals("/") || ((HttpServletRequest) servletRequest).getRequestURI().equals("/index.jsp"))) {
+            System.out.println("Request url: " + ((HttpServletRequest) servletRequest).getRequestURL().toString());
+            System.out.println("QueryString: " + ((HttpServletRequest) servletRequest).getQueryString());
+            System.out.println("Context path: " + ((HttpServletRequest) servletRequest).getContextPath());
+            System.out.println("Path info: " + ((HttpServletRequest) servletRequest).getPathInfo());
+            System.out.println("Path tranlated: " + ((HttpServletRequest) servletRequest).getPathTranslated());
+            System.out.println("Servlet path: " + ((HttpServletRequest) servletRequest).getServletPath());
+            System.out.println("Request URI: " + ((HttpServletRequest) servletRequest).getRequestURI());
             accessLevel = AccessLevel.ALL;
         }
 
@@ -69,6 +76,8 @@ public class AccessLevelFilter implements Filter {
                         httpServletRequest.getRequestDispatcher(((HttpServletRequest) servletRequest).getContextPath() + "/crud?command=" + PageDirector.LANDING.getValue()).forward(servletRequest, servletResponse);
                     }
                 }
+            } else {
+                filterChain.doFilter(servletRequest, servletResponse);
             }
         }
     }
