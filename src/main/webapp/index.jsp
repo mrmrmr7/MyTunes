@@ -1,743 +1,969 @@
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:requestEncoding value="UTF-8"/>
 
+
+<c:choose>
+    <c:when test="${not empty requestScope.get('lang')}">
+        <fmt:setLocale value="${requestScope.get('lang')}"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="${cookie['locale'].value}"/>
+    </c:otherwise>
+</c:choose>
+
+<fmt:setBundle basename="language" var="bundle" scope="application"/>
 <html>
+<!--<![endif]-->
+
 <head>
 
-    <!--- basic page needs
-    ================================================== -->
-    <meta charset="utf-8">
-    <title>MyTunes</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta http-equiv = "Content-Language" content = "en"/>
-    <meta http-equiv = "Content-Type" content="text/html; charset=utf-8">
-
-    <!-- mobile specific metas
-    ================================================== -->
+    <title>Sufee Admin - HTML5 Admin Template</title>
+    <meta charset="UTF-8"/>
+    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <!-- CSS
-    ================================================== -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/transcend/css/base.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/transcend/css/vendor.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/transcend/css/main.css">
+    <title>HTML Template</title>
 
-    <!-- script
-    ================================================== -->
-    <script src="${pageContext.request.contextPath}/transcend/js/modernizr.js"></script>
-    <script src="${pageContext.request.contextPath}/transcend/js/pace.min.js"></script>
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
 
-    <!-- favicons
-    ================================================== -->
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/transcend/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="${pageContext.request.contextPath}/transcend/favicon.ico" type="image/x-icon">
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="site/css/bootstrap.min.css" />
 
+    <!-- Owl Carousel -->
+    <link type="text/css" rel="stylesheet" href="site/css/owl.carousel.css" />
+    <link type="text/css" rel="stylesheet" href="site/css/owl.theme.default.css" />
+
+    <!-- Magnific Popup -->
+    <link type="text/css" rel="stylesheet" href="site/css/magnific-popup.css" />
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="site/css/font-awesome.min.css">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="site/css/style.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
-<body id="top">
+<body>
+<!-- Header -->
+<header id="home">
+    <!-- Background Image -->
+    <div class="bg-img" style="background-image: url('site/img/background1.jpg');">
+        <div class="overlay"></div>
+    </div>
+    <!-- /Background Image -->
 
-<!-- header
-================================================== -->
-<header class="s-header">
+    <!-- Nav -->
+    <nav id="nav" class="navbar nav-transparent">
+        <div class="container">
 
-    <div class="header-logo">
-        <a class="site-logo" href="${pageContext.request.contextPath}/index.jsp">
-            <img src="${pageContext.request.contextPath}/transcend/images/logo.svg" alt="Homepage">
-        </a>
-    </div> <!-- end header-logo -->
+            <div class="navbar-header">
+                <!-- Logo -->
+                <div class="navbar-brand">
+                    <a href="${pageContext.request.contextPath}/index.jsp">
+                        <img class="logo" src="site/img/logo.png" alt="logo">
+                        <img class="logo-alt" src="site/img/logo-alt.png" alt="logo">
+                    </a>
+                </div>
+                <!-- /Logo -->
 
-    <nav class="header-nav">
+                <!-- Collapse nav button -->
+                <div class="nav-collapse">
+                    <span></span>
+                </div>
+                <!-- /Collapse nav button -->
+            </div>
 
-        <a href="${pageContext.request.contextPath}/transcend/#0" class="header-nav__close" title="close"><span>Close</span></a>
-
-        <div class="header-nav__content">
-            <h3>Transcend Studio</h3>
-
-            <ul class="header-nav__list">
-                <li class="current"><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#home" title="home">Home</a></li>
-                <li><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#about" title="about">About</a></li>
-                <li><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#services" title="services">Services</a></li>
-                <li><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#works" title="works">Works</a></li>
-                <li><a class="smoothscroll"  href="${pageContext.request.contextPath}/transcend/#contact" title="contact">Contact</a></li>
-                <li><a href="${pageContext.request.contextPath}/crud?command=viewSignInPage" title="contact">Sign in</a></li>
-                <li><a href="${pageContext.request.contextPath}/crud?command=viewSignUpPage" title="contact">Sign up</a></li>
+            <!--  Main navigation  -->
+            <ul class="main-nav nav navbar-nav navbar-right">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#service">Services</a></li>
+                <li><a href="#pricing">Prices</a></li>
+                <li><a href="#team">Team</a></li>
+                <li class="has-dropdown"><a href="#blog">Blog</a>
+                    <ul class="dropdown">
+                        <li><a href="${pageContext.request.contextPath}/site/blog-single.html">blog post</a></li>
+                    </ul>
+                </li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
+            <!-- /Main navigation -->
 
-            <p>Perspiciatis hic praesentium nesciunt. Et neque a dolorum <a href='#0'>voluptatem</a> porro iusto sequi veritatis libero enim. Iusto id suscipit veritatis neque reprehenderit.</p>
-
-            <ul class="header-nav__social">
-                <li>
-                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-facebook"></i></a>
-                </li>
-                <li>
-                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-twitter"></i></a>
-                </li>
-                <li>
-                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-instagram"></i></a>
-                </li>
-                <li>
-                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-behance"></i></a>
-                </li>
-                <li>
-                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-dribbble"></i></a>
-                </li>
-            </ul>
-
-        </div> <!-- end header-nav__content -->
-
-    </nav> <!-- end header-nav -->
-
-    <a class="header-menu-toggle" href="${pageContext.request.contextPath}/transcend/#0">
-        <span class="header-menu-icon"></span>
-    </a>
-
-</header> <!-- end s-header -->
-
-
-<!-- home
-================================================== -->
-<section id="home" class="s-home target-section" data-parallax="scroll" data-image-src="${pageContext.request.contextPath}/transcend/images/hero-bg.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=top>
-
-    <div class="shadow-overlay"></div>
-
-    <div class="home-content">
-
-        <div class="row home-content__main">
-            <h1>
-                The best <br>
-                Musical portal.
-            </h1>
-
-            <p>
-                We create stunning digital experiences <br>
-                that will help your business stand out.
-            </p>
-        </div> <!-- end home-content__main -->
-
-    </div> <!-- end home-content -->
-
-    <ul class="home-sidelinks">
-        <li><a class="smoothscroll" href="${pageContext.request.contextPath}/transcend/#about">About<span>who we are</span></a></li>
-        <li><a class="smoothscroll" href="${pageContext.request.contextPath}/transcend/#services">Services<span>what we do</span></a></li>
-        <li><a  class="smoothscroll" href="${pageContext.request.contextPath}/transcend/#contact">Contact<span>get in touch</span></a></li>
-    </ul> <!-- end home-sidelinks -->
-
-    <ul class="home-social">
-        <li class="home-social-title">Follow Us</li>
-        <li><a href="${pageContext.request.contextPath}/transcend/#0">
-            <i class="fab fa-facebook"></i>
-            <span class="home-social-text">Facebook</span>
-        </a></li>
-        <li><a href="${pageContext.request.contextPath}/transcend/#0">
-            <i class="fab fa-twitter"></i>
-            <span class="home-social-text">Twitter</span>
-        </a></li>
-        <li><a href="${pageContext.request.contextPath}/transcend/#0">
-            <i class="fab fa-linkedin"></i>
-            <span class="home-social-text">LinkedIn</span>
-        </a></li>
-    </ul> <!-- end home-social -->
-
-    <a href="${pageContext.request.contextPath}/transcend/#about" class="home-scroll smoothscroll">
-        <span class="home-scroll__text">Scroll Down</span>
-        <span class="home-scroll__icon"></span>
-    </a> <!-- end home-scroll -->
-
-</section> <!-- end s-home -->
-
-
-<!-- about
-================================================== -->
-<section id='about' class="s-about">
-
-    <div class="row section-header" data-aos="fade-up">
-        <div class="col-full">
-            <h3 class="subhead">Who We Are</h3>
-            <h1 class="display-1">We are a group of design driven individuals passionate about creating beautiful UI designs.</h1>
         </div>
-    </div> <!-- end section-header -->
+    </nav>
+    <!-- /Nav -->
 
-    <div class="row" data-aos="fade-up">
-        <div class="col-full">
-            <p class="lead">
-                Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.
-            </p>
-        </div>
-    </div> <!-- end about-desc -->
+    <!-- home wrapper -->
+    <div class="home-wrapper">
+        <div class="container">
+            <div class="row">
 
-    <div class="row">
-
-        <div class="about-process process block-1-2 block-tab-full">
-
-            <div class="process__vline-left"></div>
-            <div class="process__vline-right"></div>
-
-            <div class="col-block process__col" data-item="1" data-aos="fade-up">
-                <div class="process__text">
-                    <h4>Define</h4>
-
-                    <p>
-                        Quos dolores saepe mollitia deserunt accusamus autem reprehenderit. Voluptas facere animi explicabo non quis magni recusandae.
-                        Numquam debitis pariatur omnis facere unde. Laboriosam minus amet nesciunt est. Et saepe eos maxime tempore quasi deserunt ab.
-                    </p>
+                <!-- home content -->
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="home-content">
+                        <h1 class="white-text">We Are Creative Agency</h1>
+                        <p class="white-text">Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere.
+                        </p>
+                        <form action="${pageContext.request.contextPath}/crud" method="post">
+                            <button class="white-btn" name="command" value="viewSignInPage">Get Started!</button>
+                            <button class="main-btn" name="command" value="viewSignUpPage">Learn more</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="col-block process__col" data-item="2" data-aos="fade-up">
-                <div class="process__text">
-                    <h4>Design</h4>
+                <!-- /home content -->
 
-                    <p>
-                        Quos dolores saepe mollitia deserunt accusamus autem reprehenderit. Voluptas facere animi explicabo non quis magni recusandae.
-                        Numquam debitis pariatur omnis facere unde. Laboriosam minus amet nesciunt est. Et saepe eos maxime tempore quasi deserunt ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-block process__col" data-item="3" data-aos="fade-up">
-                <div class="process__text">
-                    <h4>Build</h4>
-
-                    <p>
-                        Quos dolores saepe mollitia deserunt accusamus autem reprehenderit. Voluptas facere animi explicabo non quis magni recusandae.
-                        Numquam debitis pariatur omnis facere unde. Laboriosam minus amet nesciunt est. Et saepe eos maxime tempore quasi deserunt ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-block process__col" data-item="4" data-aos="fade-up">
-                <div class="process__text">
-                    <h4>Launch</h4>
-
-                    <p>
-                        Quos dolores saepe mollitia deserunt accusamus autem reprehenderit. Voluptas facere animi explicabo non quis magni recusandae.
-                        Numquam debitis pariatur omnis facere unde. Laboriosam minus amet nesciunt est. Et saepe eos maxime tempore quasi deserunt ab.
-                    </p>
-                </div>
-            </div>
-
-        </div> <!-- end process -->
-
-    </div> <!-- end about-stats -->
-
-</section> <!-- end s-about -->
-
-
-<!-- services
-================================================== -->
-<section id='services' class="s-services light-gray">
-
-    <div class="row section-header" data-aos="fade-up">
-        <div class="col-full">
-            <h3 class="subhead">What We Do</h3>
-            <h1 class="display-1">We have everything you need to launch and grow a successful digital business.</h1>
-        </div>
-    </div> <!-- end section-header -->
-
-    <div class="row" data-aos="fade-up">
-        <div class="col-full">
-            <p class="lead">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.
-            </p>
-        </div>
-    </div> <!-- end about-desc -->
-
-    <div class="row services-list block-1-3 block-m-1-2 block-tab-full">
-
-        <div class="col-block service-item " data-aos="fade-up">
-            <div class="service-icon service-icon--brand-identity">
-                <i class="icon-tv"></i>
-            </div>
-            <div class="service-text">
-                <h3 class="h4">Brand Identity</h3>
-                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
-                </p>
             </div>
         </div>
+    </div>
+    <!-- /home wrapper -->
 
-        <div class="col-block service-item" data-aos="fade-up">
-            <div class="service-icon  service-icon--illustration">
-                <i class="icon-group"></i>
-            </div>
-            <div class="service-text">
-                <h3 class="h4">Illustration</h3>
-                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
-                </p>
-            </div>
-        </div>
+</header>
+<!-- /Header -->
 
-        <div class="col-block service-item" data-aos="fade-up">
-            <div class="service-icon  service-icon--web-design">
-                <i class="icon-earth"></i>
-            </div>
-            <div class="service-text">
-                <h3 class="h4">Web Design</h3>
-                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
-                </p>
-            </div>
-        </div>
+<!-- About -->
+<div id="about" class="section md-padding">
 
-        <div class="col-block service-item" data-aos="fade-up">
-            <div class="service-icon service-icon--product-strategy">
-                <i class="icon-cube"></i>
-            </div>
-            <div class="service-text">
-                <h3 class="h4">Product Strategy</h3>
-                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
-                </p>
-            </div>
-        </div>
+    <!-- Container -->
+    <div class="container">
 
-        <div class="col-block service-item" data-aos="fade-up">
-            <div class="service-icon  service-icon--ui-design">
-                <i class="icon-window"></i>
-            </div>
-            <div class="service-text">
-                <h3 class="h4">UI/UX Design</h3>
-                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
-                </p>
-            </div>
-        </div>
-
-        <div class="col-block service-item" data-aos="fade-up">
-            <div class="service-icon service-icon--mobile-dev">
-                <i class="icon-lego-block"></i>
-            </div>
-            <div class="service-text">
-                <h3 class="h4">Mobile Development</h3>
-                <p>Nemo cupiditate ab quibusdam quaerat impedit magni. Earum suscipit ipsum laudantium.
-                    Quo delectus est. Maiores voluptas ab sit natus veritatis ut. Debitis nulla cumque veritatis.
-                    Sunt suscipit voluptas ipsa in tempora esse soluta sint.
-                </p>
-            </div>
-        </div>
-
-    </div> <!-- end services-list -->
-
-</section> <!-- end s-services -->
-
-
-<!-- works
-================================================== -->
-<section id='works' class="s-works">
-
-    <div class="row section-header" data-aos="fade-up">
-        <div class="col-full">
-            <h3 class="subhead">Featured Works</h3>
-            <h1 class="display-1">These are some of our recent design projects and we are so excited to show them to you.</h1>
-        </div>
-    </div> <!-- end section-header -->
-
-    <div class="row masonry-wrap">
-        <div class="masonry">
-
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-lamp.jpg" class="thumb-link" title="Lamp" data-size="1050x700">
-                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/lamp.jpg"
-                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/lamp.jpg 1x, images/portfolio/lamp@2x.jpg 2x" alt="">
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Lamp
-                        </h3>
-                        <p class="item-folio__cat">
-                            Web Design
-                        </p>
-                    </div>
-
-                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Project Link
-                    </a>
-
-                    <div class="item-folio__caption">
-                        <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                    </div>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-salad.jpg" class="thumb-link" title="Salad" data-size="1050x700">
-                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/salad.jpg"
-                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/salad.jpg 1x, images/portfolio/salad@2x.jpg 2x" alt="">
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Salad
-                        </h3>
-                        <p class="item-folio__cat">
-                            Branding
-                        </p>
-                    </div>
-
-                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Project Link
-                    </a>
-
-                    <span class="item-folio__caption">
-                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                        </span>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-woodcraft.jpg" class="thumb-link" title="Woodcraft" data-size="1050x700">
-                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/woodcraft.jpg"
-                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/woodcraft.jpg 1x, images/portfolio/woodcraft@2x.jpg 2x" alt="">
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Woodcraft
-                        </h3>
-                        <p class="item-folio__cat">
-                            Branding
-                        </p>
-                    </div>
-
-                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Project Link
-                    </a>
-
-                    <span class="item-folio__caption">
-                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                        </span>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-liberty.jpg" class="thumb-link" title="Liberty" data-size="1050x700">
-                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/liberty.jpg"
-                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/liberty.jpg 1x, images/portfolio/liberty@2x.jpg 2x" alt="">
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Liberty
-                        </h3>
-                        <p class="item-folio__cat">
-                            Web Development
-                        </p>
-                    </div>
-
-                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Project Link
-                    </a>
-
-                    <span class="item-folio__caption">
-                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                        </span>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-fuji.jpg" class="thumb-link" title="Fuji" data-size="1050x700">
-                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/fuji.jpg"
-                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/fuji.jpg 1x, images/portfolio/fuji@2x.jpg 2x" alt="">
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Fuji
-                        </h3>
-                        <p class="item-folio__cat">
-                            Web Design
-                        </p>
-                    </div>
-
-                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Project Link
-                    </a>
-
-                    <span class="item-folio__caption">
-                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                        </span>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-            <div class="masonry__brick" data-aos="fade-up">
-                <div class="item-folio">
-
-                    <div class="item-folio__thumb">
-                        <a href="${pageContext.request.contextPath}/transcend/images/portfolio/gallery/g-shutterbug.jpg" class="thumb-link" title="Shutterbug" data-size="1050x700">
-                            <img src="${pageContext.request.contextPath}/transcend/images/portfolio/shutterbug.jpg"
-                                 srcset="${pageContext.request.contextPath}/transcend/images/portfolio/shutterbug.jpg 1x, images/portfolio/shutterbug@2x.jpg 2x" alt="">
-                        </a>
-                    </div>
-
-                    <div class="item-folio__text">
-                        <h3 class="item-folio__title">
-                            Lady Shutterbug
-                        </h3>
-                        <p class="item-folio__cat">
-                            Branding
-                        </p>
-                    </div>
-
-                    <a href="${pageContext.request.contextPath}/transcend/https://www.behance.net/" class="item-folio__project-link" title="Project link">
-                        Project Link
-                    </a>
-
-                    <span class="item-folio__caption">
-                            <p>Vero molestiae sed aut natus excepturi. Et tempora numquam. Temporibus iusto quo.Unde dolorem corrupti neque nisi.</p>
-                        </span>
-
-                </div> <!-- end item-folio -->
-            </div> <!-- end masonry__brick -->
-
-        </div> <!-- end masonry -->
-    </div> <!-- end masonry-wrap -->
-
-    <div class="testimonials-wrap" data-aos="fade-up">
-
+        <!-- Row -->
         <div class="row">
-            <div class="col-full testimonials-header">
-                <h2 class="h1">What Clients Are Saying.</h2>
+
+            <!-- Section header -->
+            <div class="section-header text-center">
+                <h2 class="title">Welcome to Website</h2>
             </div>
+            <!-- /Section header -->
+
+            <!-- about -->
+            <div class="col-md-4">
+                <div class="about">
+                    <i class="fa fa-cogs"></i>
+                    <h3>Fully Customizible</h3>
+                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
+                    <a href="#">Read more</a>
+                </div>
+            </div>
+            <!-- /about -->
+
+            <!-- about -->
+            <div class="col-md-4">
+                <div class="about">
+                    <i class="fa fa-magic"></i>
+                    <h3>Awesome Features</h3>
+                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
+                    <a href="#">Read more</a>
+                </div>
+            </div>
+            <!-- /about -->
+
+            <!-- about -->
+            <div class="col-md-4">
+                <div class="about">
+                    <i class="fa fa-mobile"></i>
+                    <h3>Fully Responsive</h3>
+                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
+                    <a href="#">Read more</a>
+                </div>
+            </div>
+            <!-- /about -->
+
         </div>
+        <!-- /Row -->
 
-        <div class="row testimonials">
-
-            <div class="col-full testimonials__slider">
-
-                <div class="testimonials__slide">
-                    <img src="${pageContext.request.contextPath}/transcend/images/avatars/user-01.jpg" alt="Author image" class="testimonials__avatar">
-                    <p>Qui ipsam temporibus quisquam velMaiores eos cumque distinctio nam accusantium ipsum.
-                        Laudantium quia consequatur molestias delectus culpa facere hic dolores aperiam. Accusantium quos qui praesentium corpori.</p>
-                    <div class="testimonials__author">
-                        Tim Cook
-                        <span>CEO, Apple</span>
-                    </div>
-                </div> <!-- end testimonials__slide -->
-
-                <div class="testimonials__slide">
-                    <img src="${pageContext.request.contextPath}/transcend/images/avatars/user-05.jpg" alt="Author image" class="testimonials__avatar">
-                    <p>Excepturi nam cupiditate culpa doloremque deleniti repellat. Veniam quos repellat voluptas animi adipisci.
-                        Nisi eaque consequatur. Quasi voluptas eius distinctio. Atque eos maxime. Qui ipsam temporibus quisquam vel.</p>
-                    <div class="testimonials__author">
-                        Sundar Pichai
-                        <span>CEO, Google</span>
-                    </div>
-                </div> <!-- end testimonials__slide -->
-
-                <div class="testimonials__slide">
-                    <img src="${pageContext.request.contextPath}/transcend/images/avatars/user-02.jpg" alt="Author image" class="testimonials__avatar">
-                    <p>Repellat dignissimos libero. Qui sed at corrupti expedita voluptas odit. Nihil ea quia nesciunt. Ducimus aut sed ipsam.
-                        Autem eaque officia cum exercitationem sunt voluptatum accusamus. Quasi voluptas eius distinctio.</p>
-                    <div class="testimonials__author">
-                        Satya Nadella
-                        <span>CEO, Microsoft</span>
-                    </div>
-                </div> <!-- end testimonials__slide -->
-
-            </div> <!-- end testimonials__slider -->
-
-        </div> <!-- end testimonials -->
-
-    </div> <!-- end testimonials-wrap -->
-
-</section> <!-- end s-works -->
-
-
-<!-- stats
-================================================== -->
-<section id="stats" class="s-stats">
-
-    <div class="row stats block-1-4 block-m-1-2 block-mob-full" data-aos="fade-up">
-
-        <div class="col-block stats__col ">
-            <div class="stats__count">129</div>
-            <h5>Awards Received</h5>
-        </div>
-        <div class="col-block stats__col">
-            <div class="stats__count">1507</div>
-            <h5>Cups of Coffee</h5>
-        </div>
-        <div class="col-block stats__col">
-            <div class="stats__count">108</div>
-            <h5>Projects Completed</h5>
-        </div>
-        <div class="col-block stats__col">
-            <div class="stats__count">103</div>
-            <h5>Happy Clients</h5>
-        </div>
-
-    </div> <!-- end stats -->
-
-</section> <!-- end s-stats -->
-
-
-<!-- contact
-================================================== -->
-<section id="contact" class="s-contact">
-
-    <div class="row section-header" data-aos="fade-up">
-        <div class="col-full">
-            <h3 class="subhead subhead--light">Contact Us</h3>
-            <h1 class="display-1 display-1--light">Get in touch and let's make something great together. Let's turn your idea on an even greater product.</h1>
-        </div>
-    </div> <!-- end section-header -->
-
-    <div class="row">
-
-        <div class="col-full contact-main" data-aos="fade-up">
-            <p>
-                <a href="${pageContext.request.contextPath}/transcend/mailto:#0" class="contact-email">hello@transcend-studio.com</a>
-                <span class="contact-number">+1 (917) 123 456  /  +1 (917) 333 987</span>
-            </p>
-        </div> <!-- end contact-main -->
-
-    </div> <!-- end row -->
-
-    <div class="row">
-
-        <div class="col-five tab-full contact-secondary" data-aos="fade-up">
-            <h3 class="subhead subhead--light">Where To Find Us</h3>
-
-            <p class="contact-address">
-                1600 Amphitheatre Parkway<br>
-                Mountain View, CA<br>
-                94043 US
-            </p>
-        </div> <!-- end contact-secondary -->
-
-        <div class="col-five tab-full contact-secondary" data-aos="fade-up">
-            <h3 class="subhead subhead--light">Follow Us</h3>
-
-            <ul class="contact-social">
-                <li>
-                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-facebook"></i></a>
-                </li>
-                <li>
-                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-twitter"></i></a>
-                </li>
-                <li>
-                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-instagram"></i></a>
-                </li>
-                <li>
-                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-behance"></i></a>
-                </li>
-                <li>
-                    <a href="${pageContext.request.contextPath}/transcend/#0"><i class="fab fa-dribbble"></i></a>
-                </li>
-            </ul> <!-- end contact-social -->
-
-            <div class="contact-subscribe">
-                <form id="mc-form" class="group mc-form" novalidate="true">
-                    <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
-                    <input type="submit" name="subscribe" value="Subscribe">
-                    <label for="mc-email" class="subscribe-message"></label>
-                </form>
-            </div> <!-- end contact-subscribe -->
-        </div> <!-- end contact-secondary -->
-
-    </div> <!-- end row -->
-
-    <div class="row">
-        <div class="col-full cl-copyright">
-                <span><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="${pageContext.request.contextPath}/transcend/https://colorlib.com" target="_blank">Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
-        </div>
     </div>
+    <!-- /Container -->
 
-    <div class="cl-go-top">
-        <a class="smoothscroll" title="Back to Top" href="${pageContext.request.contextPath}/transcend/#top"><i class="icon-arrow-up" aria-hidden="true"></i></a>
-    </div>
-
-</section> <!-- end s-contact -->
+</div>
+<!-- /About -->
 
 
-<!-- photoswipe background
-================================================== -->
-<div aria-hidden="true" class="pswp" role="dialog" tabindex="-1">
+<!-- Portfolio -->
+<div id="portfolio" class="section md-padding bg-grey">
 
-    <div class="pswp__bg"></div>
-    <div class="pswp__scroll-wrap">
+    <!-- Container -->
+    <div class="container">
 
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
+        <!-- Row -->
+        <div class="row">
+
+            <!-- Section header -->
+            <div class="section-header text-center">
+                <h2 class="title">Featured Works</h2>
+            </div>
+            <!-- /Section header -->
+
+            <!-- Work -->
+            <div class="col-md-4 col-xs-6 work">
+                <img class="img-responsive" src="site/img/work1.jpg" alt="">
+                <div class="overlay"></div>
+                <div class="work-content">
+                    <span>Category</span>
+                    <h3>Lorem ipsum dolor</h3>
+                    <div class="work-link">
+                        <a href="#"><i class="fa fa-external-link"></i></a>
+                        <a class="lightbox" href="site/img/work1.jpg"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Work -->
+
+            <!-- Work -->
+            <div class="col-md-4 col-xs-6 work">
+                <img class="img-responsive" src="site/img/work2.jpg" alt="">
+                <div class="overlay"></div>
+                <div class="work-content">
+                    <span>Category</span>
+                    <h3>Lorem ipsum dolor</h3>
+                    <div class="work-link">
+                        <a href="#"><i class="fa fa-external-link"></i></a>
+                        <a class="lightbox" href="site/img/work2.jpg"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Work -->
+
+            <!-- Work -->
+            <div class="col-md-4 col-xs-6 work">
+                <img class="img-responsive" src="site/img/work3.jpg" alt="">
+                <div class="overlay"></div>
+                <div class="work-content">
+                    <span>Category</span>
+                    <h3>Lorem ipsum dolor</h3>
+                    <div class="work-link">
+                        <a href="#"><i class="fa fa-external-link"></i></a>
+                        <a class="lightbox" href="site/img/work3.jpg"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Work -->
+
+            <!-- Work -->
+            <div class="col-md-4 col-xs-6 work">
+                <img class="img-responsive" src="site/img/work4.jpg" alt="">
+                <div class="overlay"></div>
+                <div class="work-content">
+                    <span>Category</span>
+                    <h3>Lorem ipsum dolor</h3>
+                    <div class="work-link">
+                        <a href="#"><i class="fa fa-external-link"></i></a>
+                        <a class="lightbox" href="site/img/work4.jpg"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Work -->
+
+            <!-- Work -->
+            <div class="col-md-4 col-xs-6 work">
+                <img class="img-responsive" src="site/img/work5.jpg" alt="">
+                <div class="overlay"></div>
+                <div class="work-content">
+                    <span>Category</span>
+                    <h3>Lorem ipsum dolor</h3>
+                    <div class="work-link">
+                        <a href="#"><i class="fa fa-external-link"></i></a>
+                        <a class="lightbox" href="site/img/work5.jpg"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Work -->
+
+            <!-- Work -->
+            <div class="col-md-4 col-xs-6 work">
+                <img class="img-responsive" src="site/img/work6.jpg" alt="">
+                <div class="overlay"></div>
+                <div class="work-content">
+                    <span>Category</span>
+                    <h3>Lorem ipsum dolor</h3>
+                    <div class="work-link">
+                        <a href="#"><i class="fa fa-external-link"></i></a>
+                        <a class="lightbox" href="site/img/work6.jpg"><i class="fa fa-search"></i></a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Work -->
+
         </div>
+        <!-- /Row -->
 
-        <div class="pswp__ui pswp__ui--hidden">
-            <div class="pswp__top-bar">
-                <div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title=
-                    "Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title=
-                    "Zoom in/out"></button>
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
+    </div>
+    <!-- /Container -->
+
+</div>
+<!-- /Portfolio -->
+
+<!-- Service -->
+<div id="service" class="section md-padding">
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+            <!-- Section header -->
+            <div class="section-header text-center">
+                <h2 class="title">What we offer</h2>
+            </div>
+            <!-- /Section header -->
+
+            <!-- service -->
+            <div class="col-md-4 col-sm-6">
+                <div class="service">
+                    <i class="fa fa-diamond"></i>
+                    <h3>App Development</h3>
+                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+                </div>
+            </div>
+            <!-- /service -->
+
+            <!-- service -->
+            <div class="col-md-4 col-sm-6">
+                <div class="service">
+                    <i class="fa fa-rocket"></i>
+                    <h3>Graphic Design</h3>
+                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+                </div>
+            </div>
+            <!-- /service -->
+
+            <!-- service -->
+            <div class="col-md-4 col-sm-6">
+                <div class="service">
+                    <i class="fa fa-cogs"></i>
+                    <h3>Creative Idea</h3>
+                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+                </div>
+            </div>
+            <!-- /service -->
+
+            <!-- service -->
+            <div class="col-md-4 col-sm-6">
+                <div class="service">
+                    <i class="fa fa-diamond"></i>
+                    <h3>Marketing</h3>
+                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+                </div>
+            </div>
+            <!-- /service -->
+
+            <!-- service -->
+            <div class="col-md-4 col-sm-6">
+                <div class="service">
+                    <i class="fa fa-pencil"></i>
+                    <h3>Awesome Support</h3>
+                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+                </div>
+            </div>
+            <!-- /service -->
+
+            <!-- service -->
+            <div class="col-md-4 col-sm-6">
+                <div class="service">
+                    <i class="fa fa-flask"></i>
+                    <h3>Brand Design</h3>
+                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+                </div>
+            </div>
+            <!-- /service -->
+
+        </div>
+        <!-- /Row -->
+
+    </div>
+    <!-- /Container -->
+
+</div>
+<!-- /Service -->
+
+
+<!-- Why Choose Us -->
+<div id="features" class="section md-padding bg-grey">
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+            <!-- why choose us content -->
+            <div class="col-md-6">
+                <div class="section-header">
+                    <h2 class="title">Why Choose Us</h2>
+                </div>
+                <p>Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris. Ultrices sagittis orci a scelerisque purus.</p>
+                <div class="feature">
+                    <i class="fa fa-check"></i>
+                    <p>Quis varius quam quisque id diam vel quam elementum.</p>
+                </div>
+                <div class="feature">
+                    <i class="fa fa-check"></i>
+                    <p>Mauris augue neque gravida in fermentum.</p>
+                </div>
+                <div class="feature">
+                    <i class="fa fa-check"></i>
+                    <p>Orci phasellus egestas tellus rutrum.</p>
+                </div>
+                <div class="feature">
+                    <i class="fa fa-check"></i>
+                    <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium.</p>
+                </div>
+            </div>
+            <!-- /why choose us content -->
+
+            <!-- About slider -->
+            <div class="col-md-6">
+                <div id="about-slider" class="owl-carousel owl-theme">
+                    <img class="img-responsive" src="site/img/about1.jpg" alt="">
+                    <img class="img-responsive" src="site/img/about2.jpg" alt="">
+                    <img class="img-responsive" src="site/img/about1.jpg" alt="">
+                    <img class="img-responsive" src="site/img/about2.jpg" alt="">
+                </div>
+            </div>
+            <!-- /About slider -->
+
+        </div>
+        <!-- /Row -->
+
+    </div>
+    <!-- /Container -->
+
+</div>
+<!-- /Why Choose Us -->
+
+
+<!-- Numbers -->
+<div id="numbers" class="section sm-padding">
+
+    <!-- Background Image -->
+    <div class="bg-img" style="background-image: url('${pageContext.request.contextPath}/site/img/background2.jpg');">
+        <div class="overlay"></div>
+    </div>
+    <!-- /Background Image -->
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+            <!-- number -->
+            <div class="col-sm-3 col-xs-6">
+                <div class="number">
+                    <i class="fa fa-users"></i>
+                    <h3 class="white-text"><span class="counter">451</span></h3>
+                    <span class="white-text">Happy clients</span>
+                </div>
+            </div>
+            <!-- /number -->
+
+            <!-- number -->
+            <div class="col-sm-3 col-xs-6">
+                <div class="number">
+                    <i class="fa fa-trophy"></i>
+                    <h3 class="white-text"><span class="counter">12</span></h3>
+                    <span class="white-text">Awards won</span>
+                </div>
+            </div>
+            <!-- /number -->
+
+            <!-- number -->
+            <div class="col-sm-3 col-xs-6">
+                <div class="number">
+                    <i class="fa fa-coffee"></i>
+                    <h3 class="white-text"><span class="counter">154</span>K</h3>
+                    <span class="white-text">Cups of Coffee</span>
+                </div>
+            </div>
+            <!-- /number -->
+
+            <!-- number -->
+            <div class="col-sm-3 col-xs-6">
+                <div class="number">
+                    <i class="fa fa-file"></i>
+                    <h3 class="white-text"><span class="counter">45</span></h3>
+                    <span class="white-text">Projects completed</span>
+                </div>
+            </div>
+            <!-- /number -->
+
+        </div>
+        <!-- /Row -->
+
+    </div>
+    <!-- /Container -->
+
+</div>
+<!-- /Numbers -->
+
+<!-- Pricing -->
+<div id="pricing" class="section md-padding">
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+            <!-- Section header -->
+            <div class="section-header text-center">
+                <h2 class="title">Pricing Table</h2>
+            </div>
+            <!-- /Section header -->
+
+            <!-- pricing -->
+            <div class="col-sm-4">
+                <div class="pricing">
+                    <div class="price-head">
+                        <span class="price-title">Basic plan</span>
+                        <div class="price">
+                            <h3>$9<span class="duration">/ month</span></h3>
                         </div>
                     </div>
+                    <ul class="price-content">
+                        <li>
+                            <p>1GB Disk Space</p>
+                        </li>
+                        <li>
+                            <p>100 Email Account</p>
+                        </li>
+                        <li>
+                            <p>24/24 Support</p>
+                        </li>
+                    </ul>
+                    <div class="price-btn">
+                        <button class="outline-btn">Purchase now</button>
+                    </div>
                 </div>
             </div>
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button> <button class="pswp__button pswp__button--arrow--right" title=
-                "Next (arrow right)"></button>
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
+            <!-- /pricing -->
+
+            <!-- pricing -->
+            <div class="col-sm-4">
+                <div class="pricing">
+                    <div class="price-head">
+                        <span class="price-title">Silver plan</span>
+                        <div class="price">
+                            <h3>$19<span class="duration">/ month</span></h3>
+                        </div>
+                    </div>
+                    <ul class="price-content">
+                        <li>
+                            <p>1GB Disk Space</p>
+                        </li>
+                        <li>
+                            <p>100 Email Account</p>
+                        </li>
+                        <li>
+                            <p>24/24 Support</p>
+                        </li>
+                    </ul>
+                    <div class="price-btn">
+                        <button class="outline-btn">Purchase now</button>
+                    </div>
+                </div>
             </div>
+            <!-- /pricing -->
+
+            <!-- pricing -->
+            <div class="col-sm-4">
+                <div class="pricing">
+                    <div class="price-head">
+                        <span class="price-title">Gold plan</span>
+                        <div class="price">
+                            <h3>$39<span class="duration">/ month</span></h3>
+                        </div>
+                    </div>
+                    <ul class="price-content">
+                        <li>
+                            <p>1GB Disk Space</p>
+                        </li>
+                        <li>
+                            <p>100 Email Account</p>
+                        </li>
+                        <li>
+                            <p>24/24 Support</p>
+                        </li>
+                    </ul>
+                    <div class="price-btn">
+                        <button class="outline-btn">Purchase now</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /pricing -->
+
         </div>
+        <!-- Row -->
 
     </div>
+    <!-- /Container -->
 
-</div> <!-- end photoSwipe background -->
-
-
-<!-- preloader
-================================================== -->
-<div id="preloader">
-    <div id="loader">
-    </div>
 </div>
+<!-- /Pricing -->
 
 
-<!-- Java Script
-================================================== -->
-<script src="${pageContext.request.contextPath}/transcend/js/jquery-3.2.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/transcend/js/plugins.js"></script>
-<script src="${pageContext.request.contextPath}/transcend/js/main.js"></script>
+<!-- Testimonial -->
+<div id="testimonial" class="section md-padding">
+
+    <!-- Background Image -->
+    <div class="bg-img" style="background-image: url('${pageContext.request.contextPath}/site/img/background3.jpg');">
+        <div class="overlay"></div>
+    </div>
+    <!-- /Background Image -->
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+            <!-- Testimonial slider -->
+            <div class="col-md-10 col-md-offset-1">
+                <div id="testimonial-slider" class="owl-carousel owl-theme">
+
+                    <!-- testimonial -->
+                    <div class="testimonial">
+                        <div class="testimonial-meta">
+                            <img src="site/img/perso1.jpg" alt="">
+                            <h3 class="white-text">John Doe</h3>
+                            <span>Web Designer</span>
+                        </div>
+                        <p class="white-text">Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris.</p>
+                    </div>
+                    <!-- /testimonial -->
+
+                    <!-- testimonial -->
+                    <div class="testimonial">
+                        <div class="testimonial-meta">
+                            <img src="site/img/perso2.jpg" alt="">
+                            <h3 class="white-text">John Doe</h3>
+                            <span>Web Designer</span>
+                        </div>
+                        <p class="white-text">Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris.</p>
+                    </div>
+                    <!-- /testimonial -->
+
+                </div>
+            </div>
+            <!-- /Testimonial slider -->
+
+        </div>
+        <!-- /Row -->
+
+    </div>
+    <!-- /Container -->
+
+</div>
+<!-- /Testimonial -->
+
+<!-- Team -->
+<div id="team" class="section md-padding">
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+            <!-- Section header -->
+            <div class="section-header text-center">
+                <h2 class="title">Our Team</h2>
+            </div>
+            <!-- /Section header -->
+
+            <!-- team -->
+            <div class="col-sm-4">
+                <div class="team">
+                    <div class="team-img">
+                        <img class="img-responsive" src="site/img/team1.jpg" alt="">
+                        <div class="overlay">
+                            <div class="team-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-content">
+                        <h3>John Doe</h3>
+                        <span>Web Designer</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /team -->
+
+            <!-- team -->
+            <div class="col-sm-4">
+                <div class="team">
+                    <div class="team-img">
+                        <img class="img-responsive" src="site/img/team2.jpg" alt="">
+                        <div class="overlay">
+                            <div class="team-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-content">
+                        <h3>John Doe</h3>
+                        <span>Web Designer</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /team -->
+
+            <!-- team -->
+            <div class="col-sm-4">
+                <div class="team">
+                    <div class="team-img">
+                        <img class="img-responsive" src="site/img/team3.jpg" alt="">
+                        <div class="overlay">
+                            <div class="team-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-content">
+                        <h3>John Doe</h3>
+                        <span>Web Designer</span>
+                    </div>
+                </div>
+            </div>
+            <!-- /team -->
+
+        </div>
+        <!-- /Row -->
+
+    </div>
+    <!-- /Container -->
+
+</div>
+<!-- /Team -->
+
+<!-- Blog -->
+<div id="blog" class="section md-padding bg-grey">
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+            <!-- Section header -->
+            <div class="section-header text-center">
+                <h2 class="title">Recents news</h2>
+            </div>
+            <!-- /Section header -->
+
+            <!-- blog -->
+            <div class="col-md-4">
+                <div class="blog">
+                    <div class="blog-img">
+                        <img class="img-responsive" src="site/img/blog1.jpg" alt="">
+                    </div>
+                    <div class="blog-content">
+                        <ul class="blog-meta">
+                            <li><i class="fa fa-user"></i>John doe</li>
+                            <li><i class="fa fa-clock-o"></i>18 Oct</li>
+                            <li><i class="fa fa-comments"></i>57</li>
+                        </ul>
+                        <h3>Molestie at elementum eu facilisis sed odio</h3>
+                        <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
+                        <a href="${pageContext.request.contextPath}/site/blog-single.html">Read more</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /blog -->
+
+            <!-- blog -->
+            <div class="col-md-4">
+                <div class="blog">
+                    <div class="blog-img">
+                        <img class="img-responsive" src="site/img/blog2.jpg" alt="">
+                    </div>
+                    <div class="blog-content">
+                        <ul class="blog-meta">
+                            <li><i class="fa fa-user"></i>John doe</li>
+                            <li><i class="fa fa-clock-o"></i>18 Oct</li>
+                            <li><i class="fa fa-comments"></i>57</li>
+                        </ul>
+                        <h3>Molestie at elementum eu facilisis sed odio</h3>
+                        <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
+                        <a href="${pageContext.request.contextPath}/site/blog-single.html">Read more</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /blog -->
+
+            <!-- blog -->
+            <div class="col-md-4">
+                <div class="blog">
+                    <div class="blog-img">
+                        <img class="img-responsive"  src="site/img/blog3.jpg" alt="">
+                    </div>
+                    <div class="blog-content">
+                        <ul class="blog-meta">
+                            <li><i class="fa fa-user"></i>John doe</li>
+                            <li><i class="fa fa-clock-o"></i>18 Oct</li>
+                            <li><i class="fa fa-comments"></i>57</li>
+                        </ul>
+                        <h3>Molestie at elementum eu facilisis sed odio</h3>
+                        <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
+                        <a href="${pageContext.request.contextPath}/site/blog-single.html">Read more</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /blog -->
+
+        </div>
+        <!-- /Row -->
+
+    </div>
+    <!-- /Container -->
+
+</div>
+<!-- /Blog -->
+
+<!-- Contact -->
+<div id="contact" class="section md-padding">
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+            <!-- Section-header -->
+            <div class="section-header text-center">
+                <h2 class="title">Get in touch</h2>
+            </div>
+            <!-- /Section-header -->
+
+            <!-- contact -->
+            <div class="col-sm-4">
+                <div class="contact">
+                    <i class="fa fa-phone"></i>
+                    <h3>Phone</h3>
+                    <p>512-421-3940</p>
+                </div>
+            </div>
+            <!-- /contact -->
+
+            <!-- contact -->
+            <div class="col-sm-4">
+                <div class="contact">
+                    <i class="fa fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>email@support.com</p>
+                </div>
+            </div>
+            <!-- /contact -->
+
+            <!-- contact -->
+            <div class="col-sm-4">
+                <div class="contact">
+                    <i class="fa fa-map-marker"></i>
+                    <h3>Address</h3>
+                    <p>1739 Bubby Drive</p>
+                </div>
+            </div>
+            <!-- /contact -->
+
+            <!-- contact form -->
+            <div class="col-md-8 col-md-offset-2">
+                <form class="contact-form">
+                    <input type="text" class="input" placeholder="Name">
+                    <input type="email" class="input" placeholder="Email">
+                    <input type="text" class="input" placeholder="Subject">
+                    <textarea class="input" placeholder="Message"></textarea>
+                    <button class="main-btn">Send message</button>
+                </form>
+            </div>
+            <!-- /contact form -->
+
+        </div>
+        <!-- /Row -->
+
+    </div>
+    <!-- /Container -->
+
+</div>
+<!-- /Contact -->
+
+
+<!-- Footer -->
+<footer id="footer" class="sm-padding bg-dark">
+
+    <!-- Container -->
+    <div class="container">
+
+        <!-- Row -->
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <!-- footer logo -->
+                <div class="footer-logo">
+                    <a href="${pageContext.request.contextPath}/site/index.html"><img src="site/img/logo-alt.png" alt="logo"></a>
+                </div>
+                <!-- /footer logo -->
+
+                <!-- footer follow -->
+                <ul class="footer-follow">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                </ul>
+                <!-- /footer follow -->
+
+                <!-- footer copyright -->
+                <div class="footer-copyright">
+                    <p>Copyright © 2017. All Rights Reserved. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                </div>
+                <!-- /footer copyright -->
+
+            </div>
+
+        </div>
+        <!-- /Row -->
+
+    </div>
+    <!-- /Container -->
+
+</footer>
+<!-- /Footer -->
+
+<!-- Back to top -->
+<div id="back-to-top"></div>
+<!-- /Back to top -->
+
+<!-- Preloader -->
+
+<!-- /Preloader -->
+
+<!-- jQuery Plugins -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/site/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/site/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/site/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/site/js/jquery.magnific-popup.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/site/js/main.js"></script>
 
 </body>
 
