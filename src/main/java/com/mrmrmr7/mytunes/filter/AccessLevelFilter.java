@@ -30,6 +30,8 @@ public class AccessLevelFilter implements Filter {
                          FilterChain filterChain)
             throws IOException, ServletException {
 
+        ((HttpServletRequest) servletRequest).getSession();
+
         String command = servletRequest.getParameter(CommandDirector.COMMAND.getValue());
 
         AccessLevel accessLevel = CommandAccessLevel.getInstance().showLevel(command);
@@ -55,7 +57,6 @@ public class AccessLevelFilter implements Filter {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-
 
         if (accessLevel == AccessLevel.ALL) {
             if (!isAuthorized) {
