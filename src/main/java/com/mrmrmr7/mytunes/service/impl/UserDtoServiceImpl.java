@@ -1,5 +1,7 @@
 package com.mrmrmr7.mytunes.service.impl;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
 import com.mrmrmr7.mytunes.dao.UserDaoExtended;
@@ -17,6 +19,7 @@ import io.jsonwebtoken.Jwts;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.security.PublicKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -177,26 +180,14 @@ public class UserDtoServiceImpl implements UserDtoService {
             throw new ServiceException("no public key");
         }
 
-        PublicKey publicKey = ProtectionUtil.stringToPublicKey(cookiePublicKey.get().getValue());
+        RSAPublicKey publicKey = (RSAPublicKey)ProtectionUtil.stringToPublicKey(cookiePublicKey.get().getValue());
 
-        Claims claims;
-
-        try {
-            claims = Jwts
-                    .parser()
-                    .setSigningKey(publicKey)
-                    .parseClaimsJws(cookieToken
-                            .get()
-                            .getValue())
-                    .getBody();
-        } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
-        }
+        DecodedJWT decodedJWT = JWT.decode(httpServletRequest.getParameter("token"));
 
         UserDto userDto = new UserDto();
 
         try {
-            userDto = getDtoById(claims.get("userId", Integer.class));
+            userDto = getDtoById(decodedJWT.getClaim("userId").asInt());
         } catch (DaoException e) {
             e.printStackTrace();
         }
