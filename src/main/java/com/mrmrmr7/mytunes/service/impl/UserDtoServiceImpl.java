@@ -13,12 +13,9 @@ import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.UserDtoService;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import java.util.List;
