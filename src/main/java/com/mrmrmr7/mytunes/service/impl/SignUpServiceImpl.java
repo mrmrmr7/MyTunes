@@ -1,5 +1,11 @@
 package com.mrmrmr7.mytunes.service.impl;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mrmrmr7.mytunes.dao.UserDaoExtended;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
@@ -9,12 +15,24 @@ import com.mrmrmr7.mytunes.service.SignUpService;
 import com.mrmrmr7.mytunes.util.KeyPairUtil;
 import org.mindrot.jbcrypt.BCrypt;
 
+import javax.jws.soap.SOAPBinding;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.Serializable;
+import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
+import java.security.interfaces.RSAKey;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.*;
 
 public class SignUpServiceImpl implements SignUpService {
@@ -53,7 +71,7 @@ public class SignUpServiceImpl implements SignUpService {
     }
 
     @Override
-    public boolean sendSignUpMessage(HttpServletRequest request) throws ServiceException {
+    public boolean  sendSignUpMessage(HttpServletRequest request) throws ServiceException {
         Properties mailProperties = getProperties();
 
         User user = buildUser(request);
@@ -62,7 +80,25 @@ public class SignUpServiceImpl implements SignUpService {
             return false;
         }
 
-        KeyPairUtil.setKeysToUser(user);
+        KeyPair keyPair = KeyPairUtil.getKeyPair();
+
+        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();
+        RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
+
+        String rsaPrivateKeyStr = Base64.getEncoder().encodeToString(rsaPrivateKey.getEncoded());
+        String rsaPublicKeyStr = Base64.getEncoder().encodeToString(rsaPublicKey.getEncoded());
+
+
+        System.out.println(rsaPublicKeyStr);
+        user.setPrivateKey(rsaPrivateKeyStr);
+
+        Algorithm algorithm = Algorithm.RSA256(rsaPublicKey, rsaPrivateKey);
+
+        String token = JWT
+                .create()
+                .withClaim("userLogin", user.getLogin())
+                .withExpiresAt(new Date(Calendar.getInstance().getTime().getTime()))
+                .sign(algorithm);
 
         try {
             JdbcDaoFactory
@@ -82,8 +118,7 @@ public class SignUpServiceImpl implements SignUpService {
 
         String mailTo = user.getEmail();
         Message message = new MimeMessage(session);
-        String confirmPath = user.getPrivateKey().substring(228, 300);
-        confirmPath = BCrypt.hashpw(confirmPath,BCrypt.gensalt());
+
         try {
             message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO,
@@ -95,7 +130,8 @@ public class SignUpServiceImpl implements SignUpService {
                     "\n\n" +
                     "Please, confirm your registration by this link: " +
                     "\n\n" +
-                    "http://localhost:8080/crud?command=finishRegistration&login=" + user.getLogin() + "&confirm=" + confirmPath.substring(7));
+                    "http://localhost:8080/crud?command=finishRegistration&token=" + token + "&publicKey=" + rsaPublicKeyStr);
+
             Transport.send(message);
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -107,28 +143,38 @@ public class SignUpServiceImpl implements SignUpService {
 
     @Override
     public boolean finishSignUp(HttpServletRequest request) throws ServiceException {
-        String userLogin = request.getParameter("login");
-        String confirmString = "$2a$10$" + request.getParameter("confirm");
+        Cookie[] cookies = request.getCookies();
 
-        Optional<User> userOptional;
-
-        try {
-            userOptional = ((UserDaoExtended)JdbcDaoFactory.getInstance().getDao(User.class)).getByLogin(userLogin);
-        } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
-        }
-
-        User user = userOptional.get();
-        String userConfirmString = userOptional.get().getPrivateKey().substring(228,300);
-        if (BCrypt.checkpw(userConfirmString, confirmString)) {
-            user.setStatusId((byte)1);
-        } else {
-            return false;
-        }
+        DecodedJWT decodedJWT = JWT.decode(request.getParameter("token"));
 
         try {
-            JdbcDaoFactory.getInstance().getDao(User.class).update(user);
-        } catch (DaoException e) {
+            Optional<User> userOptional = ((UserDaoExtended)JdbcDaoFactory.getInstance().getDao(User.class))
+                    .getByLogin(decodedJWT.getClaim("userLogin").asString());
+            String publicKey = request.getParameter("publicKey");
+
+            String rightPublic = publicKey.replace(" ", "+");
+            byte[] arr = Base64
+                    .getDecoder()
+                    .decode(rightPublic);
+            X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(arr);
+
+            arr = Base64.getDecoder().decode(userOptional.get().getPrivateKey());
+            PKCS8EncodedKeySpec pkcs8EncodedKeySpec1 = new PKCS8EncodedKeySpec(arr);
+
+            RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) KeyFactory.getInstance("RSA").generatePrivate(pkcs8EncodedKeySpec1);
+            RSAPublicKey rsaPublicKey = (RSAPublicKey) KeyFactory.getInstance("RSA").generatePublic(x509EncodedKeySpec);
+
+            Algorithm algorithm = Algorithm.RSA256(rsaPublicKey, rsaPrivateKey);
+
+            JWTVerifier jwtVerifier = JWT.require(algorithm).withClaim("userLogin", userOptional.get().getLogin()).acceptExpiresAt(1800).build();
+            jwtVerifier.verify(request.getParameter("token"));
+
+            userOptional.ifPresent(s -> s.setStatusId((byte)1));
+
+            JdbcDaoFactory.getInstance().getDao(User.class).update(userOptional.get());
+        } catch (DaoException | NoSuchAlgorithmException | InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (JWTVerificationException e) {
             throw new ServiceException(e.getMessage());
         }
 

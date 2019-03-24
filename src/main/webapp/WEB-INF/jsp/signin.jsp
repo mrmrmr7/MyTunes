@@ -81,7 +81,7 @@
                         }
                     </script>
 
-                    <c:if test="${succesRegStart}">
+                    <c:if test="${successRegStart}">
                         <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
                             <span class="badge badge-pill badge-dark">Success</span>
                             <fmt:message key="signin.signinmessage" bundle="${bundle}"/>
@@ -90,7 +90,7 @@
                             </button>
                         </div>
                     </c:if>
-                    <c:if test="${succesRegFinish}">
+                    <c:if test="${successRegFinish}">
 
                         <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
                             <span class="badge badge-pill badge-dark">Success</span>

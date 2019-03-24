@@ -20,7 +20,7 @@ public class SignUpFinishCommand implements Command {
         SignUpService signUpService = new SignUpServiceImpl();
 
         try {
-            request.setAttribute("succesRegFinish", signUpService.finishSignUp(request));
+            request.setAttribute("successRegFinish", signUpService.finishSignUp(request));
         } catch (ServiceException e) {
             e.printStackTrace();
         }
