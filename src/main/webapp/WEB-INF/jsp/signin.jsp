@@ -119,7 +119,7 @@
                         <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" form="si"><fmt:message key="signin.button.language.sign" bundle="${bundle}"/></button>
 
                         <div class="register-link m-t-15 text-center">
-                            <p> <fmt:message key="signin.advicetosignin" bundle="${bundle}"/><a href="${pageContext.request.contextPath}/crud?command=viewSignUpPage">
+                            <p> <fmt:message key="signin.advicetosignin" bundle="${bundle}"/><a href="crud?command=viewSignUpPage">
                                 <fmt:message key="signin.linktosign" bundle="${bundle}"/>
                             </a></p>
                         </div>
@@ -137,7 +137,7 @@
                             </button>
 
                             <input type="hidden" name="command" value="changeLangInSignIn" />
-                            <input type="hidden" name="from" value="${pageContext.request.contextPath}/crud?command=viewSignInPage" />
+                            <input type="hidden" name="from" value="crud?command=viewSignInPage" />
                         </form>
                     </div>
                 </div>
