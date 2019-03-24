@@ -179,7 +179,7 @@ public class UserDtoServiceImpl implements UserDtoService {
 
         RSAPublicKey publicKey = (RSAPublicKey)ProtectionUtil.stringToPublicKey(cookiePublicKey.get().getValue());
 
-        DecodedJWT decodedJWT = JWT.decode(httpServletRequest.getParameter("token"));
+        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
         UserDto userDto = new UserDto();
 
