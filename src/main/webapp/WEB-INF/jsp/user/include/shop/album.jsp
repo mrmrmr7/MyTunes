@@ -81,11 +81,11 @@
                                     class="fa fa-power-off"></i>Logout</a>
                         </div>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-home-tab"href="${pageContext.request.contextPath}/crud?command=changeLang&from=${pageContext.request.contextPath}/crud?command=albumShop&lang=ru"
+                            <a class="nav-link" id="pills-home-tab"href="${pageContext.request.contextPath}/crud?command=changeLang&from=/crud?command=albumShop&lang=ru"
                                role="tab" aria-controls="pills-home" aria-selected="false">RU</a>
                         </li>
                         <li class="nav-item active ">
-                            <a class="nav-link" id="pills-profile-tab" href="${pageContext.request.contextPath}/crud?command=changeLang&from=${pageContext.request.contextPath}/crud?command=albumShop&lang=en"
+                            <a class="nav-link" id="pills-profile-tab" href="${pageContext.request.contextPath}/crud?command=changeLang&from=/crud?command=albumShop&lang=en"
                                role="tab" aria-controls="pills-profile" aria-selected="false">EN</a>
                         </li>
 

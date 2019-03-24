@@ -222,7 +222,7 @@
                         </button>
 
                         <input type="hidden" name="command" value="changeLang" />
-                        <input type="hidden" name="from" value="${pageContext.request.contextPath}/crud?command=viewSignUpPage" />
+                        <input type="hidden" name="from" value="/crud?command=viewSignUpPage" />
                     </form>
                 </div>
             </div>

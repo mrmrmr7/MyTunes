@@ -150,7 +150,7 @@
                             </button>
 
                             <input type="hidden" name="command" value="changeLangInSignIn" />
-                            <input type="hidden" name="from" value="crud?command=viewSignInPage" />
+                            <input type="hidden" name="from" value="/crud?command=viewSignInPage" />
                         </form>
                     </div>
                 </div>
