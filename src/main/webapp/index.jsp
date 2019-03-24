@@ -116,8 +116,8 @@
                         <p class="white-text">Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere.
                         </p>
                         <form action="${pageContext.request.contextPath}/crud" method="post">
-                            <button class="white-btn" name="command" value="viewSignInPage">Get Started!</button>
-                            <button class="main-btn" name="command" value="viewSignUpPage">Learn more</button>
+                            <button class="white-btn" name="command" value="viewSignInPage">Log in</button>
+                            <button class="main-btn" name="command" value="viewSignUpPage">Register</button>
                         </form>
                     </div>
                 </div>

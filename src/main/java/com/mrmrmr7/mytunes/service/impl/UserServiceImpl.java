@@ -12,6 +12,7 @@ import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.service.ServiceUser;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.KeyPairUtil;
 import com.mrmrmr7.mytunes.validator.ValidatorSignIn;
 import org.mindrot.jbcrypt.BCrypt;
@@ -27,9 +28,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Optional;
+import java.util.*;
 
 public class UserServiceImpl implements ServiceUser {
     private static final String COOKIE_TOKEN = "token";
@@ -37,84 +36,48 @@ public class UserServiceImpl implements ServiceUser {
     private static final int COOKIE_COUNT = 2;
 
     @Override
-    public boolean login(String login, String password, HttpServletResponse response) throws ServiceException {
-
-        ValidatorSignIn validatorSignIn = new ValidatorSignIn();
-
-        if (!validatorSignIn.isValid(login, password)) {
-            return false;
-        }
+    public boolean isRightUser(String login, String password) throws ServiceException {
 
         try {
             Optional<User> user;
-
             user = ((UserDaoExtended) JdbcDaoFactory.getInstance().getDao(User.class)).getByLogin(login);
+            return user.filter(user1 -> BCrypt.checkpw(password, user1.getPassword())).isPresent();
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage()+":"+ ExceptionDirector.SRV_USR_IRU.getValue());
+        }
+    }
 
-            if (!user.isPresent()) {
-                return false;
-            }
+    @Override
+    public Map<String, Cookie> getCookies (String login) throws ServiceException {
+        Map<String, Cookie> cookieMap = new HashMap<>();
 
-            boolean isRightPassword = BCrypt.checkpw(password, user.get().getPassword());
+        KeyPair kp = KeyPairUtil.getKeyPair();
+        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) kp.getPrivate();
+        RSAPublicKey rsaPublicKey = (RSAPublicKey) kp.getPublic();
 
-            if (!isRightPassword) {
-                return false;
-            }
-
-//            KeyPairUtil.setKeysToUser(user.get());
-
-            KeyPair kp = KeyPairUtil.getKeyPair();
-
-//            byte[] byteArray = Base64.decodeBase64(user.get().getPrivateKey());
-//            PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(byteArray);
-//            PrivateKey privateKey = kp.getPrivate();
-
-            RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) kp.getPrivate();
-            RSAPublicKey rsaPublicKey = (RSAPublicKey) kp.getPublic();
-
-            String publicKey = Base64.getEncoder().encodeToString(rsaPublicKey.getEncoded());
-
-//            try {
-//                privateKey = KeyFactory.getInstance("RSA").generatePrivate(pkcs8EncodedKeySpec);
-//            } catch (InvalidKeySpecException e) {
-//                e.printStackTrace();
-//            }
-
-//            RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) KeyFactory.getInstance("RSA").generatePrivate(pkcs8EncodedKeySpec);
-
-            user.get().setPrivateKey(Base64.getEncoder().encodeToString(rsaPrivateKey.getEncoded()));
-            JdbcDaoFactory.getInstance().getDao(User.class).update(user.get());
-
+        String token = null;
+        try {
+            Optional<User> userOptional = ((UserDaoExtended) JdbcDaoFactory.getInstance().getDao(User.class)).getByLogin(login);
+            JdbcDaoFactory.getInstance().getDao(User.class).update(userOptional.get());
+            userOptional.get().setPrivateKey(Base64.getEncoder().encodeToString(rsaPrivateKey.getEncoded()));
             Algorithm algorithm = Algorithm.RSA256(rsaPublicKey, rsaPrivateKey);
-
-            String token = JWT
+            token = JWT
                     .create()
-                    .withClaim("userId", user.get().getId())
-                    .withClaim("userLogin", user.get().getLogin())
-                    .withClaim("userRole", (int)user.get().getRoleId())
+                    .withClaim("userId", userOptional.get().getId())
+                    .withClaim("userLogin", userOptional.get().getLogin())
+                    .withClaim("userRole", (int)userOptional.get().getRoleId())
                     .sign(algorithm);
-//
-//            Map<String, Object> claimMap = new HashMap<>();
-//
-//            claimMap.put("userId", user.get().getId());
-//            claimMap.put("userLogin", user.get().getLogin());
-//            claimMap.put("userRole", user.get().getRoleId());
-//
-//            String tokentoken = Jwts
-//                    .builder()
-//                    .setClaims(claimMap)
-//                    .signWith(SignatureAlgorithm.RS256, privateKey)
-//                    .compact();
-
-            Cookie cookieToken = new Cookie(COOKIE_TOKEN, token);
-            response.addCookie(cookieToken);
-            Cookie cookiePublicKey = new Cookie(COOKIE_PUBLIC_KEY, publicKey);
-            response.addCookie(cookiePublicKey);
-
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
 
-        return true;
+        Cookie cookieToken = new Cookie(COOKIE_TOKEN, token);
+        String publicKey = Base64.getEncoder().encodeToString(rsaPublicKey.getEncoded());
+        Cookie cookiePublicKey = new Cookie(COOKIE_PUBLIC_KEY, publicKey);
+        cookieMap.put(COOKIE_TOKEN, cookieToken);
+        cookieMap.put(COOKIE_PUBLIC_KEY, cookiePublicKey);
+
+        return cookieMap;
     }
 
     @Override

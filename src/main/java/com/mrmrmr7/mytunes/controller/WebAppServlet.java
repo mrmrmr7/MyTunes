@@ -3,8 +3,13 @@ package com.mrmrmr7.mytunes.controller;
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.controller.command.CommandProvider;
+import com.mrmrmr7.mytunes.controller.command.exception.CommandException;
+import com.mrmrmr7.mytunes.entity.ExceptionDescription;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
+import com.mrmrmr7.mytunes.util.ExceptionHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +20,7 @@ import java.io.IOException;
 
 @WebServlet(name = "webapp", urlPatterns = "/crud")
 public class WebAppServlet extends HttpServlet {
+    private final static Logger logger = LogManager.getLogger(WebAppServlet.class);
 
     private static final String ATTRIBUTE_VIEW_NAME = "viewName";
 
@@ -53,7 +59,17 @@ public class WebAppServlet extends HttpServlet {
                     request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request, response);
                 }
             } catch (ServletException e) {
-                System.out.println("Trouble");
+                logger.error("Servlet exception found");
+            } catch (CommandException e) {
+                ExceptionDescription exceptionDescription = ExceptionHandler.getDescription(e.getMessage());
+                request.setAttribute("errorCode", exceptionDescription.getErrorCode());
+                logger.error(exceptionDescription.getMessage());
+                try {
+                    request.getRequestDispatcher(exceptionDescription.getResponseContent().getRouter().getRoute()).forward(request,response);
+                } catch (ServletException e1) {
+                    logger.error("Impossible to redirect");
+                    response.sendRedirect(request.getContextPath());
+                }
             }
         }
     }

@@ -81,17 +81,27 @@
                         }
                     </script>
 
+                    <c:if test="${failSignIn}">
+                        <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
+                            <span class="badge badge-pill badge-red">XXX<br></span>
+                            <fmt:message key="signin.failsignin" bundle="${bundle}"/>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">X</span>
+                            </button>
+                        </div>
+                    </c:if>
+
                     <c:if test="${successRegStart}">
                         <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
-                            <span class="badge badge-pill badge-dark">Success</span>
+                            <span class="badge badge-pill badge-dark"><fmt:message key="signin.success" bundle="${bundle}"/> </span>
                             <fmt:message key="signin.signinmessage" bundle="${bundle}"/>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">X</span>
                             </button>
                         </div>
                     </c:if>
-                    <c:if test="${successRegFinish}">
 
+                    <c:if test="${successRegFinish}">
                         <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
                             <span class="badge badge-pill badge-dark">Success</span>
                             <fmt:message key="signin.signinfinishmessage" bundle="${bundle}"/>
@@ -100,15 +110,18 @@
                             </button>
                         </div>
                     </c:if>
+
                     <form action="${pageContext.request.contextPath}/crud"  method="post" id="si" name="signInForm" onsubmit="return formValidation()">
                         <div class="form-group">
                             <label id="loginLabelId"><fmt:message key="signin.login" bundle="${bundle}" /></label>
-                            <input type="text" class="form-control" placeholder="Email" id="loginId" name="login" autofocus>
+                            <input type="text" class="form-control" placeholder="Email" id="loginId" name="login" autofocus required>
                         </div>
+
                         <div class="form-group">
                             <label id="passwordLabelId"><fmt:message key="signin.password" bundle="${bundle}" /></label>
                             <input type="password" class="form-control" placeholder="<fmt:message key="signin.password" bundle="${bundle}" />" id="passwordId" name="password" required>
                         </div>
+
                         <div class="checkbox">
                             <label class="pull-right">
                                 <a href="${pageContext.request.contextPath}/site#">

@@ -3,12 +3,16 @@ package com.mrmrmr7.mytunes.service;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 public interface ServiceUser {
 
-    boolean login(String login, String password, HttpServletResponse response) throws ServiceException;
+    boolean isRightUser(String login, String password) throws ServiceException;
+
+    Map<String, Cookie> getCookies(String login) throws ServiceException;
 
     void logout(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServiceException;
 

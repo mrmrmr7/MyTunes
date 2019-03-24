@@ -4,6 +4,7 @@ import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.UserDaoExtended;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.User;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 
@@ -25,8 +26,9 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
 
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
-
+                if (!resultSet.next()) {
+                    return Optional.empty();
+                }
                 return Optional.of(resultSetToBean.toUser(resultSet));
             } catch (SQLException e) {
                 throw new DaoException("4.15.1");
@@ -182,15 +184,13 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
     @Override
     public Optional<User> getByLogin(String login) throws DaoException {
         try (PreparedStatement preparedStatement = prepareStatementForGetByLogin(login)) {
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                resultSet.next();
-
-                return Optional.of(resultSetToBean.toUser(resultSet));
-            } catch (SQLException e) {
-                throw new DaoException("4.15.1");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                return Optional.empty();
             }
+            return Optional.of(resultSetToBean.toUser(resultSet));
         } catch (SQLException e) {
-            throw new DaoException("4.15.2");
+            throw new DaoException(ExceptionDirector.DAO_USR_GBL.getValue());
         }
     }
 
