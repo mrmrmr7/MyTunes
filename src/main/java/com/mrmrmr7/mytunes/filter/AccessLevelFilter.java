@@ -63,7 +63,7 @@ public class AccessLevelFilter implements Filter {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-                httpServletResponse.sendRedirect(((HttpServletRequest) servletRequest).getContextPath() + "crud?command=" + CommandDirector.VIEW_PROFILE_PAGE.getValue());
+                httpServletResponse.sendRedirect(((HttpServletRequest) servletRequest).getContextPath() + "/crud?command=" + CommandDirector.VIEW_PROFILE_PAGE.getValue());
             }
         } else {
 
