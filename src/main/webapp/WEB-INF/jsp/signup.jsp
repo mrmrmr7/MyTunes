@@ -136,7 +136,7 @@
                             document.forms["signUpForm"]["password"].value = password;
                         }
 
-                        if (!/^[A-Z][a-z]+$/.test(firstName)) {
+                        if (!/^[A-Z][a-z][а-я][А-Я]+$/.test(firstName)) {
                             document.forms["signUpForm"]["firstName"].value = "";
                             document.getElementById("firstNameId").className = "is-invalid form-control";
                             document.getElementById("firstNameId").style.color = "red";
@@ -151,7 +151,7 @@
                             document.forms["signUpForm"]["firstName"].value = firstName;
                         }
 
-                        if (!/^[A-Z][a-z]+$/.test(secondName)) {
+                        if (!/^[A-Z][a-z][а-я][А-Я]+$/.test(secondName)) {
                             document.forms["signUpForm"]["secondName"].value = "";
                             document.getElementById("secondNameId").className = "is-invalid form-control";
                             document.getElementById("secondNameId").style.color = "red";
@@ -185,22 +185,22 @@
 
                     <div class="form-group">
                         <label id="firstNameLabelId"><fmt:message key="signup.firstname" bundle="${bundle}"/></label>
-                        <input type="text" class="form-control" placeholder="f.e. Alexandr" id="firstNameId"
+                        <input type="text" class="form-control" placeholder="<fmt:message key="signup.fe.name" bundle="${bundle}"/>" id="firstNameId"
                                name="firstName">
                     </div>
                     <div class="form-group">
                         <label id="secondNameLabelId"><fmt:message key="signup.secondname" bundle="${bundle}"/></label>
-                        <input type="text" class="form-control" placeholder="f.e. Zaporozhtsev" id="secondNameId"
+                        <input type="text" class="form-control" placeholder="<fmt:message key="signup.fe.secondname" bundle="${bundle}"/>" id="secondNameId"
                                name="secondName">
                     </div>
                     <div class="form-group">
                         <label id="passwordLabelId"><fmt:message key="signup.password" bundle="${bundle}"/></label>
-                        <input type="text" class="form-control" placeholder="f.e. ********" id="passwordId"
+                        <input type="text" class="form-control" placeholder="<fmt:message key="signup.fe.password" bundle="${bundle}"/>" id="passwordId"
                                name="password">
                     </div>
                     <div class="form-group">
                         <label id="passwordAgainLabelId"><fmt:message key="signup.passwordagain" bundle="${bundle}"/></label>
-                        <input type="password" class="form-control" placeholder="f.e. ********" id="passwordAgainId"
+                        <input type="password" class="form-control" placeholder="<fmt:message key="signup.fe.password" bundle="${bundle}"/>" id="passwordAgainId"
                                name="passwordAgain">
                     </div>
                     <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"><fmt:message key="signup.register" bundle="${bundle}"/></button>
