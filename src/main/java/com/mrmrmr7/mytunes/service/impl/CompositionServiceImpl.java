@@ -16,7 +16,6 @@ import com.mrmrmr7.mytunes.entity.UserComposition;
 import com.mrmrmr7.mytunes.service.CompositionService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
-import io.jsonwebtoken.Claims;
 import sun.rmi.server.InactiveGroupException;
 
 import javax.servlet.RequestDispatcher;

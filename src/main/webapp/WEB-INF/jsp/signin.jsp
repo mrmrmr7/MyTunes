@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="/WEB-INF/messagetag.tld" prefix="my" %>
 <fmt:requestEncoding value="UTF-8"/>
 
 
@@ -13,6 +14,9 @@
 </c:choose>
 
 <fmt:setBundle basename="language" var="bundle" scope="application"/>
+
+
+
 <html>
 <!--<![endif]-->
 
@@ -83,7 +87,7 @@
 
                     <c:if test="${failSignIn}">
                         <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
-                            <span class="badge badge-pill badge-red">XXX<br></span>
+                            <span class="badge badge-pill badge-dark">XXX</span>
                             <fmt:message key="signin.failsignin" bundle="${bundle}"/>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">X</span>
@@ -91,15 +95,19 @@
                         </div>
                     </c:if>
 
+                    <my:msg label="signin.fail" message="signin.failsignin" showFlag="${true}" bundle="${bundle}"/>
+
                     <c:if test="${successRegStart}">
                         <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
                             <span class="badge badge-pill badge-dark"><fmt:message key="signin.success" bundle="${bundle}"/> </span>
-                            <fmt:message key="signin.signinmessage" bundle="${bundle}"/>
+                            <fmt:message key="signin.signup.startmessage" bundle="${bundle}"/>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">X</span>
                             </button>
                         </div>
                     </c:if>
+
+
 
                     <c:if test="${successRegFinish}">
                         <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">

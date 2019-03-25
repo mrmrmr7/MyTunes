@@ -3,6 +3,9 @@ package com.mrmrmr7.mytunes.controller.command;
 public enum  RequestDirector {
     LOGIN ("login"),
     PASSWORD ("password"),
+    EMAIL ("email"),
+    FIRST_NAME ("firstName"),
+    SECOND_NAME ("secondName"),
     TOKEN ("token"),
     PUBLIC_KEY("publicKey");
 

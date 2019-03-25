@@ -1,4 +1,4 @@
-package com.mrmrmr7.mytunes.validator;
+package com.mrmrmr7.mytunes.validator.impl;
 
 import javax.servlet.http.HttpServletRequest;
 

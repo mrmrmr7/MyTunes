@@ -19,7 +19,6 @@ import com.mrmrmr7.mytunes.service.AlbumFeedbackService;
 import com.mrmrmr7.mytunes.service.AlbumService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
-import io.jsonwebtoken.Claims;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

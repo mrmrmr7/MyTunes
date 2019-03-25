@@ -52,33 +52,10 @@ public class SignUpServiceImpl implements SignUpService {
         return properties;
     }
 
-    private User buildUser(HttpServletRequest request) {
-        String login = request.getParameter("login");
-        String email = request.getParameter("email");
-        String firstName = request.getParameter("firstName");
-        String secondName = request.getParameter("secondName");
-        String password = request.getParameter("password");
-
-        if (login == null || email == null || firstName == null || secondName == null || password == null) {
-            return null;
-        }
-
-        String passwordBCrypted = BCrypt.hashpw(password, BCrypt.gensalt());
-
-        User user = new User(login, passwordBCrypted, firstName, secondName, email);
-
-        return user;
-    }
 
     @Override
-    public boolean  sendSignUpMessage(HttpServletRequest request) throws ServiceException {
+    public boolean  sendSignUpMessage(User user) throws ServiceException {
         Properties mailProperties = getProperties();
-
-        User user = buildUser(request);
-
-        if (user == null) {
-            return false;
-        }
 
         KeyPair keyPair = KeyPairUtil.getKeyPair();
 
@@ -88,8 +65,6 @@ public class SignUpServiceImpl implements SignUpService {
         String rsaPrivateKeyStr = Base64.getEncoder().encodeToString(rsaPrivateKey.getEncoded());
         String rsaPublicKeyStr = Base64.getEncoder().encodeToString(rsaPublicKey.getEncoded());
 
-
-        System.out.println(rsaPublicKeyStr);
         user.setPrivateKey(rsaPrivateKeyStr);
 
         Algorithm algorithm = Algorithm.RSA256(rsaPublicKey, rsaPrivateKey);
@@ -124,7 +99,7 @@ public class SignUpServiceImpl implements SignUpService {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(mailTo));
             message.setSubject("Mytunes, registration");
-            message.setText("Dear " + user.getFirstName() + " " + user.getSecondName() + " ," +
+            message.setText("Dear " + user.getLogin() + " ," +
                     "\n\n" +
                     "If you didn't register on site MyTunes, ignore this message! " +
                     "\n\n" +

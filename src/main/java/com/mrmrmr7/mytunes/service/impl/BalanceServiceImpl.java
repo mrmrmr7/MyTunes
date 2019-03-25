@@ -9,7 +9,6 @@ import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.service.BalanceService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
-import io.jsonwebtoken.Claims;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
