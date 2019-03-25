@@ -14,7 +14,6 @@ import com.mrmrmr7.mytunes.service.ServiceUser;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.KeyPairUtil;
-import com.mrmrmr7.mytunes.validator.ValidatorSignIn;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.http.Cookie;

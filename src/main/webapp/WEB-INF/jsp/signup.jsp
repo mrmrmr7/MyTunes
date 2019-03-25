@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:requestEncoding value="UTF-8"/>
 
@@ -19,7 +19,6 @@
 <head>
     <meta charset="UTF-8"/>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sufee Admin - HTML5 Admin Template</title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,6 +54,15 @@
 
 
             <div class="login-form">
+                <c:if test="${invalidData}">
+                    <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
+                        <span class="badge badge-pill badge-dark">XXX</span>
+                        <fmt:message key="signup.invalidData" bundle="${bundle}"/>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">X</span>
+                        </button>
+                    </div>
+                </c:if>
                 <script>
                     function formValidation() {
                         var login = document.forms["signUpForm"]["login"].value;
@@ -64,7 +72,7 @@
                         var firstName = document.forms["signUpForm"]["firstName"].value;
                         var secondName = document.forms["signUpForm"]["secondName"].value;
 
-                        var boolRes = 1;
+                        var res = true;
 
                         if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
                             document.forms["signUpForm"]["email"].value = "";
@@ -72,7 +80,7 @@
                             document.getElementById("emailId").style.color = "red";
                             document.getElementById("emailLabelId").style.color = "red";
                             document.forms["signUpForm"]["email"].value = email;
-                            boolRes = 0;
+                            res = false;
                         } else {
                             document.forms["signUpForm"]["email"].value = "";
                             document.getElementById("emailId").className = "form-control";
@@ -87,7 +95,7 @@
                             document.getElementById("loginId").style.color = "red";
                             document.getElementById("loginLabelId").style.color = "red";
                             document.forms["signUpForm"]["login"].value = login;
-                            boolRes = 0;
+                            res = false;
                         } else {
                             document.forms["signUpForm"]["login"].value = "";
                             document.getElementById("loginId").className = "form-control";
@@ -107,7 +115,7 @@
                             document.getElementById("passwordAgainId").className = "is-invalid form-control";
                             document.getElementById("passwordAgainId").style.color = "red";
                             document.getElementById("passwordAgainLabelId").style.color = "red";
-                            boolRes = 0;
+                            res = false;
                         } else {
                             document.forms["signUpForm"]["password"].value = "";
                             document.getElementById("passwordId").className = "form-control";
@@ -127,7 +135,7 @@
                             document.getElementById("passwordId").style.color = "red";
                             document.getElementById("passwordLabelId").style.color = "red";
                             document.forms["signUpForm"]["password"].value = password;
-                            boolRes = 0;
+                            res = false;
                         } else {
                             document.forms["signUpForm"]["password"].value = "";
                             document.getElementById("passwordId").className = "form-control";
@@ -136,13 +144,13 @@
                             document.forms["signUpForm"]["password"].value = password;
                         }
 
-                        if (!/^[A-Z][a-z]+$/.test(firstName)) {
+                        if (!/^([A-Z]|[А-Я])([a-z]|[а-я]){2,32}$/.test(firstName)) {
                             document.forms["signUpForm"]["firstName"].value = "";
                             document.getElementById("firstNameId").className = "is-invalid form-control";
                             document.getElementById("firstNameId").style.color = "red";
                             document.getElementById("firstNameLabelId").style.color = "red";
                             document.forms["signUpForm"]["firstName"].value = firstName;
-                            boolRes = 0;
+                            res = false;
                         } else {
                             document.forms["signUpForm"]["firstName"].value = "";
                             document.getElementById("firstNameId").className = "form-control";
@@ -151,13 +159,13 @@
                             document.forms["signUpForm"]["firstName"].value = firstName;
                         }
 
-                        if (!/^[A-Z][a-z]+$/.test(secondName)) {
+                        if (!/^([A-Z]|[А-Я])([a-z]|[а-я]){2,32}$/.test(secondName)) {
                             document.forms["signUpForm"]["secondName"].value = "";
                             document.getElementById("secondNameId").className = "is-invalid form-control";
                             document.getElementById("secondNameId").style.color = "red";
                             document.getElementById("secondNameLabelId").style.color = "red";
                             document.forms["signUpForm"]["secondName"].value = secondName;
-                            boolRes = 0;
+                            res = false;
                         } else {
                             document.forms["signUpForm"]["secondName"].value = "";
                             document.getElementById("secondNameId").className = "form-control";
@@ -166,42 +174,40 @@
                             document.forms["signUpForm"]["secondName"].value = secondName;
                         }
 
-                        return Boolean(boolRes);
+                        return Boolean(res);
                     }
                 </script>
-                <form action="${pageContext.request.contextPath}/crud" method="post" id="si" name="signUpForm"
-                      onsubmit="return formValidation()">
+                <form action="${pageContext.request.contextPath}/crud" onsubmit="return formValidation()"  method="post" id="si" name="signUpForm">
                     <div class="form-group">
                         <label id="loginLabelId"><fmt:message key="signup.login" bundle="${bundle}"/></label>
-                        <input type="text" class="form-control" placeholder="<fmt:message key="signup.login" bundle="${bundle}"/>" id="loginId" name="login"
-                               >
+                        <input type="text" class="form-control" placeholder="<fmt:message key="signup.login" bundle="${bundle}"/>" id="loginId" name="login">
                     </div>
 
                     <div class="form-group">
                         <label id="emailLabelId">Email</label>
                         <input type="email" class="form-control" placeholder="Email" id="emailId"
-                               name="email">
+                               name="email" >
                     </div>
 
                     <div class="form-group">
                         <label id="firstNameLabelId"><fmt:message key="signup.firstname" bundle="${bundle}"/></label>
-                        <input type="text" class="form-control" placeholder="f.e. Alexandr" id="firstNameId"
+                        <input type="text" class="form-control" id="firstNameId"
                                name="firstName">
                     </div>
                     <div class="form-group">
                         <label id="secondNameLabelId"><fmt:message key="signup.secondname" bundle="${bundle}"/></label>
-                        <input type="text" class="form-control" placeholder="f.e. Zaporozhtsev" id="secondNameId"
-                               name="secondName">
+                        <input type="text" class="form-control" placeholder="<fmt:message key="signup.fe.secondname" bundle="${bundle}"/>" id="secondNameId"
+                               name="secondName" >
                     </div>
                     <div class="form-group">
                         <label id="passwordLabelId"><fmt:message key="signup.password" bundle="${bundle}"/></label>
-                        <input type="text" class="form-control" placeholder="f.e. ********" id="passwordId"
-                               name="password">
+                        <input type="password" class="form-control" placeholder="<fmt:message key="signup.fe.password" bundle="${bundle}"/>" id="passwordId"
+                               name="password" >
                     </div>
                     <div class="form-group">
                         <label id="passwordAgainLabelId"><fmt:message key="signup.passwordagain" bundle="${bundle}"/></label>
-                        <input type="password" class="form-control" placeholder="f.e. ********" id="passwordAgainId"
-                               name="passwordAgain">
+                        <input type="password" class="form-control" placeholder="<fmt:message key="signup.fe.password" bundle="${bundle}"/>" id="passwordAgainId"
+                               name="passwordAgain" >
                     </div>
                     <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30"><fmt:message key="signup.register" bundle="${bundle}"/></button>
 

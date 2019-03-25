@@ -3,7 +3,6 @@ package com.mrmrmr7.mytunes.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mrmrmr7.mytunes.controller.command.AccessLevel;
-import io.jsonwebtoken.Claims;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;

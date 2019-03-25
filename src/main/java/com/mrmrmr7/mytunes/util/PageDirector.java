@@ -13,7 +13,6 @@ public enum PageDirector {
     MUSIC_SELECTION_SHOP ("/WEB-INF/jsp/user/include/shop/musicselection.jsp"),
 
     //VIEW
-    VIEW ("/WEB-INF/jsp/view.jsp"),
     VIEW_NAME ("viewName"),
     VIEW_UPDATE_BALANCE_PAGE("/WEB-INF/jsp/user/include/balance/update.jsp"),
     VIEW_USER_MUSIC ("/WEB-INF/jsp/usermusic.jsp"),

@@ -133,12 +133,16 @@
                         <tr>
                             <th scope="row"><fmt:message key="account.firstname" bundle="${bundle}"/></th>
                             <td>${userDto.first_name}</td>
+                        </tr>
+                        <tr>
                             <th scope="row"><fmt:message key="account.secondname" bundle="${bundle}"/></th>
                             <td>${userDto.second_name}</td>
                         </tr>
                         <tr>
                             <th scope="row">Email</th>
                             <td>${userDto.email}</td>
+                        </tr>
+                        <tr>
                             <th scope="row"><fmt:message key="account.balance" bundle="${bundle}"/></th>
                             <td>${userDto.balance}$</td>
                         </tr>

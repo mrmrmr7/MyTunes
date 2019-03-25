@@ -1,5 +1,7 @@
 package com.mrmrmr7.mytunes.service.impl;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
 import com.mrmrmr7.mytunes.dao.UserDaoExtended;
@@ -11,54 +13,52 @@ import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.UserDtoService;
 import com.mrmrmr7.mytunes.util.ProtectionUtil;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.security.PublicKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 public class UserDtoServiceImpl implements UserDtoService {
     @Override
-    public UserDto getDtoById(int id) throws DaoException {
+    public UserDto getDtoById(int id) throws ServiceException {
         TransactionManager transactionManager = new TransactionManagerImpl();
 
         JdbcDaoFactory daoFactory = JdbcDaoFactory.getInstance();
 
-        GenericDao userDao = daoFactory.getTransactionalDao(User.class);
-        GenericDao userBonusDao = daoFactory.getTransactionalDao(UserBonus.class);
-        GenericDao userAlbumDao = daoFactory.getTransactionalDao(UserAlbum.class);
-        GenericDao userCompositionDao = daoFactory.getTransactionalDao(UserComposition.class);
-        GenericDao userMusicSelectionDao = daoFactory.getTransactionalDao(UserMusicSelection.class);
-        GenericDao statusDao = daoFactory.getTransactionalDao(Status.class);
-        GenericDao roleDao = daoFactory.getTransactionalDao(Role.class);
-        GenericDao bonusDao = daoFactory.getTransactionalDao(Bonus.class);
-        GenericDao compositionDao = daoFactory.getTransactionalDao(Composition.class);
-        GenericDao musicSelectionDao = daoFactory.getTransactionalDao(MusicSelection.class);
-        GenericDao albumDao = daoFactory.getTransactionalDao(Album.class);
-
-        transactionManager.begin(userDao,
-                userAlbumDao,
-                userCompositionDao,
-                userMusicSelectionDao,
-                statusDao,
-                roleDao,
-                compositionDao,
-                musicSelectionDao,
-                albumDao,
-                userBonusDao,
-                bonusDao);
-
-        UserDto userDto;
         try {
+            GenericDao userDao = daoFactory.getTransactionalDao(User.class);
+            GenericDao userBonusDao = daoFactory.getTransactionalDao(UserBonus.class);
+            GenericDao userAlbumDao = daoFactory.getTransactionalDao(UserAlbum.class);
+            GenericDao userCompositionDao = daoFactory.getTransactionalDao(UserComposition.class);
+            GenericDao userMusicSelectionDao = daoFactory.getTransactionalDao(UserMusicSelection.class);
+            GenericDao statusDao = daoFactory.getTransactionalDao(Status.class);
+            GenericDao roleDao = daoFactory.getTransactionalDao(Role.class);
+            GenericDao bonusDao = daoFactory.getTransactionalDao(Bonus.class);
+            GenericDao compositionDao = daoFactory.getTransactionalDao(Composition.class);
+            GenericDao musicSelectionDao = daoFactory.getTransactionalDao(MusicSelection.class);
+            GenericDao albumDao = daoFactory.getTransactionalDao(Album.class);
+
+            transactionManager.begin(userDao,
+                    userAlbumDao,
+                    userCompositionDao,
+                    userMusicSelectionDao,
+                    statusDao,
+                    roleDao,
+                    compositionDao,
+                    musicSelectionDao,
+                    albumDao,
+                    userBonusDao,
+                    bonusDao);
+
+            UserDto userDto;
 
             Optional<User> userOptional = userDao.getByPK(id);
 
             if (!userOptional.isPresent()) {
-                throw new DaoException("lol");
+                throw new ServiceException("lol");
             }
 
             User user = userOptional.get();
@@ -72,7 +72,7 @@ public class UserDtoServiceImpl implements UserDtoService {
             Optional<Status> statusOptional = statusDao.getByPK(user.getStatusId());
 
             if (!statusOptional.isPresent()) {
-                throw new DaoException("kek");
+                throw new ServiceException("kek");
             }
 
             Status status = statusOptional.get();
@@ -81,7 +81,7 @@ public class UserDtoServiceImpl implements UserDtoService {
             Optional<Role> roleOptional = roleDao.getByPK(user.getRoleId());
 
             if (!roleOptional.isPresent()) {
-                throw new DaoException("omg");
+                throw new ServiceException("omg");
             }
 
             Role role = roleOptional.get();
@@ -142,20 +142,32 @@ public class UserDtoServiceImpl implements UserDtoService {
                     }
                 });
             });
+            return userDto;
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage());
         } finally {
-            transactionManager.commit();
-            transactionManager.end();
+            try {
+                transactionManager.commit();
+            } catch (DaoException e) {
+                throw new ServiceException(e.getMessage());
+            }
+            try {
+                transactionManager.end();
+            } catch (DaoException e) {
+                throw new ServiceException(e.getMessage());
+            }
         }
-        return userDto;
     }
 
     @Override
-    public UserDto getDtoByLogin(String login) throws DaoException {
-        Optional<User> userOptional = ((UserDaoExtended) JdbcDaoFactory.getInstance().getDao(User.class)).getByLogin(login);
-
-        if (!userOptional.isPresent()) {
-            throw new DaoException("ke");
+    public UserDto getDtoByLogin(String login) throws ServiceException {
+        Optional<User> userOptional = null;
+        try {
+            userOptional = ((UserDaoExtended) JdbcDaoFactory.getInstance().getDao(User.class)).getByLogin(login);
+        } catch (DaoException e) {
+            e.printStackTrace();
         }
+
 
         return getDtoById(userOptional.get().getId());
     }
@@ -177,40 +189,16 @@ public class UserDtoServiceImpl implements UserDtoService {
             throw new ServiceException("no public key");
         }
 
-        PublicKey publicKey = ProtectionUtil.stringToPublicKey(cookiePublicKey.get().getValue());
+        RSAPublicKey publicKey = (RSAPublicKey)ProtectionUtil.stringToPublicKey(cookiePublicKey.get().getValue());
 
-        Claims claims;
-
-        try {
-            claims = Jwts
-                    .parser()
-                    .setSigningKey(publicKey)
-                    .parseClaimsJws(cookieToken
-                            .get()
-                            .getValue())
-                    .getBody();
-        } catch (Exception e) {
-            throw new ServiceException(e.getMessage());
-        }
+        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
         UserDto userDto = new UserDto();
 
-        try {
-            userDto = getDtoById(claims.get("userId", Integer.class));
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
+        userDto = getDtoById(decodedJWT.getClaim("userId").asInt());
+
 
         httpServletRequest.setAttribute("userDto", userDto);
     }
 
-    public void setDtoByLogin(String login, HttpServletRequest request) throws ServiceException {
-        try {
-            UserDto userDto = getDtoByLogin(login);
-            request.setAttribute("role", userDto.getRole().getId());
-            request.setAttribute("userDto", userDto);
-        } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
-        }
-    }
 }
