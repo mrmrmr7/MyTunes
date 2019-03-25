@@ -1,6 +1,6 @@
-package com.mrmrmr7.mytunes.controller.command;
+package com.mrmrmr7.mytunes.controller;
 
-public enum RequestDirector {
+public enum  RequestDirector {
     LOGIN ("login"),
     PASSWORD ("password"),
     EMAIL ("email"),
