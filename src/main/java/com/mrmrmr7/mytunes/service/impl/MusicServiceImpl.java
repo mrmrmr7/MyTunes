@@ -34,9 +34,7 @@ public class MusicServiceImpl implements MusicService {
 
         DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
-        //assert claims != null; FIXME узнать что такое assertClaims
-
-        Integer userId = decodedJWT.getClaim("uesrId").asInt();
+        Integer userId = decodedJWT.getClaim("userId").asInt();
 
         TransactionManager transactionManager = new TransactionManagerImpl();
 

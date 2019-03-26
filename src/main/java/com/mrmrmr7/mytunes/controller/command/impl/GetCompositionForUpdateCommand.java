@@ -14,12 +14,13 @@ import com.mrmrmr7.mytunes.service.impl.CompositionServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
 public class GetCompositionForUpdateCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.ADMIN_GET_COMPOSITION_FOR_UPDATE.getValue() + " command detected");
 
         CompositionService compositionService = new CompositionServiceImpl();

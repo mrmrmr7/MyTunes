@@ -9,12 +9,13 @@ import com.mrmrmr7.mytunes.service.impl.SignUpServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class SignUpFinishCommand implements Command {
     private final static String PARAMETER_TOKEN = "token";
 
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("SignUp command detected");
 
         SignUpService signUpService = new SignUpServiceImpl();

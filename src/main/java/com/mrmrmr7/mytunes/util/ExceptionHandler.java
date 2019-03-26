@@ -17,12 +17,11 @@ public class ExceptionHandler {
 
         for (String msg : splitedMessage) {
             String[] parts = msg.split(".");
-            message.append("Layer: " + parts[2] + "\n");
             message.append("Class: " + parts[1] + "\n");
             message.append("Method: " + parts[0] + "\n");
         }
 
-        String commandName = splitedMessage[2].split(".")[1];
+        String commandName = splitedMessage[0].split(".")[1];
         String code = CommandDirector.getCodeByValue(commandName);
         ResponseContent responseContent = new ResponseContent();
 

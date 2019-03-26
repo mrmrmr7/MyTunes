@@ -3,13 +3,14 @@ package com.mrmrmr7.mytunes.validator.impl;
 import com.mrmrmr7.mytunes.controller.command.RequestDirector;
 import com.mrmrmr7.mytunes.validator.Validator;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 public class SignInValidator implements Validator {
     @Override
-    public boolean validate(Map<String,String> map) {
-        String login = map.get(RequestDirector.LOGIN.getValue());
-        String password = map.get(RequestDirector.PASSWORD.getValue());
+    public boolean validate(HttpServletRequest request) {
+        String login = request.getParameter(RequestDirector.LOGIN.getValue());
+        String password = request.getParameter(RequestDirector.PASSWORD.getValue());
 
         if (login == null || password == null) {
             return false;

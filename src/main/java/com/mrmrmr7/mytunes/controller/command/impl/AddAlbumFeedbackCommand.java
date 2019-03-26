@@ -10,11 +10,12 @@ import com.mrmrmr7.mytunes.service.impl.AlbumFeedbackServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class AddAlbumFeedbackCommand implements Command {
 
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.ADD_ALBUM_FEEDBACK.getValue() + " command detected");
 
         AlbumFeedbackService albumFeedbackDtoService = new AlbumFeedbackServiceImpl();

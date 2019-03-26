@@ -7,10 +7,11 @@ import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class ViewUpdateBalancePageCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.VIEW_UPDATE_BALANCE_PAGE.getValue() + " command detected");
         request.setAttribute("balanceType", "update");
 

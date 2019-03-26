@@ -16,12 +16,13 @@ import com.mrmrmr7.mytunes.service.impl.CompositionServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class AdminCompositionUploadCommand implements Command {
 
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.ADMIN_UPLOAD_COMPOSITION.getValue() + " command detected");
 
         CompositionService compositionService = new CompositionServiceImpl();

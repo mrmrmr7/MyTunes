@@ -12,10 +12,5 @@ import javax.servlet.http.HttpServletResponse;
 
 @FunctionalInterface
 public interface Command {
-    ResponseContent process(HttpServletRequest request);
-    default ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) throws CommandException {
-        ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router(PageDirector.LANDING, Router.Type.REDIRECT));
-        return responseContent;
-    };
+    ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) throws CommandException;
 }

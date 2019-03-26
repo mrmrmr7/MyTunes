@@ -1,6 +1,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
 
 <c:choose>
@@ -126,15 +127,9 @@
 
 
     <div class="content mt-3">
-        <c:if test="${not empty newBalance}" >
-            <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
-                <span class="badge badge-pill badge-dark">Success</span>
-                Your balance equals ${newBalance}$
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">X</span>
-                </button>
-            </div>
-        </c:if>
+        <my:alert needShow="${notVaidCount}" label="updatebalance.fail" message="updatebalance.notvalidcount"/>
+        <my:alert needShow="${success}" label="updatebalance.success" message="updatebalance.succesupdate"/>
+
 
         <div class="animated fadeIn">
             <div class="row">

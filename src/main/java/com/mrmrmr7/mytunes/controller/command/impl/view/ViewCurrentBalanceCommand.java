@@ -10,10 +10,11 @@ import com.mrmrmr7.mytunes.service.impl.BalanceServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class ViewCurrentBalanceCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.VIEW_CURRENT_BALANCE_PAGE.getValue() + " command detected");
 
         BalanceService balanceService = new BalanceServiceImpl();
@@ -26,7 +27,7 @@ public class ViewCurrentBalanceCommand implements Command {
 
         ResponseContent responseContent = new ResponseContent();
 
-        responseContent.setRouter(new Router(PageDirector.VIEW_UPDATE_BALANCE_PAGE, Router.Type.FORWARD));
+        responseContent.setRouter(new Router(PageDirector.VIEW_CURRENT_BALANCE_PAGE, Router.Type.FORWARD));
 
         return responseContent;
     }

@@ -37,11 +37,7 @@ public class SignInCommand implements Command {
 
             Validator validator = new SignInValidator();
 
-            Map<String , String> map = new HashMap<>();
-            map.put(RequestDirector.LOGIN.getValue(), login);
-            map.put(RequestDirector.PASSWORD.getValue(), password);
-
-            if (validator.validate(map)) {
+            if (validator.validate(request)) {
                 UserServiceImpl userService = new UserServiceImpl();
                 boolean isSignIn = userService.isRightUser(login, password);
                 if (isSignIn) {
@@ -70,13 +66,6 @@ public class SignInCommand implements Command {
             throw new CommandException(e.getMessage() + ":" + ExceptionDirector.CMD_SIN_PRC.getValue());
         }
 
-        return responseContent;
-    }
-
-    @Override
-    public ResponseContent process(HttpServletRequest request) {
-        ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router(PageDirector.LANDING, Router.Type.FORWARD));
         return responseContent;
     }
 }

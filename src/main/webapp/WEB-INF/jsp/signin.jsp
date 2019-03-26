@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 <%--<%@ taglib uri="/WEB-INF/messagetag.tld" prefix="my" %>--%>
 <fmt:requestEncoding value="UTF-8"/>
 
@@ -51,6 +52,8 @@
 
 <div class="sufee-login d-flex align-content-center flex-wrap">
 
+    <%--<my:msg label="signin.failsignin" message="signin.failsignin" showFlag="${true}" bundle="${bundle}"/>--%>
+
     <div class="container">
         <div class="login-content">
             <div class="login-logo" style="width: 100%">
@@ -85,17 +88,17 @@
                     }
                 </script>
 
-                <c:if test="${failSignIn}">
-                    <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
-                        <span class="badge badge-pill badge-dark">XXX</span>
-                        <fmt:message key="signin.failsignin" bundle="${bundle}"/>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">X</span>
-                        </button>
-                    </div>
-                </c:if>
+                <%--<c:if test="${failSignIn}">--%>
+                    <%--<div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">--%>
+                        <%--<span class="badge badge-pill badge-dark">XXX</span>--%>
+                        <%--<fmt:message key="signin.failsignin" bundle="${bundle}"/>--%>
+                        <%--<button type="button" class="close" data-dismiss="alert" aria-label="Close">--%>
+                            <%--<span aria-hidden="true">X</span>--%>
+                        <%--</button>--%>
+                    <%--</div>--%>
+                <%--</c:if>--%>
 
-                <%--<my:msg label="signin.fail" message="signin.failsignin" showFlag="${true}" bundle="${bundle}"/>--%>
+                <tag:alert needShow="${failSignIn}" label="signin.fail" message="signin.failsignin"/>
 
                 <c:if test="${successRegStart}">
                     <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">

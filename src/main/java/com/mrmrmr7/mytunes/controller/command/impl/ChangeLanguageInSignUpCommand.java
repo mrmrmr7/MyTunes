@@ -12,14 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ChangeLanguageInSignUpCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request) {
-        System.out.println(CommandDirector.CHANGE_LANGUAGE_COMMAND.getValue() + " command detected");
-        ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router(PageDirector.LANDING, Router.Type.FORWARD));
-        return responseContent;
-    }
-
-    @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.CHANGE_LANGUAGE_COMMAND.getValue() + " command detected");
         ResponseContent responseContent = new ResponseContent();

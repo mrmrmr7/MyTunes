@@ -11,12 +11,13 @@ import com.mrmrmr7.mytunes.service.impl.BonusServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class ViewCreateMusicSelectionPageCommand implements Command {
 
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.ADMIN_VIEW_CREATE_MUSIC_SELECTION_PAGE.getValue() + " command detected");
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.VIEW_CREATE_MUSIC_SELECTION_PAGE, Router.Type.FORWARD));

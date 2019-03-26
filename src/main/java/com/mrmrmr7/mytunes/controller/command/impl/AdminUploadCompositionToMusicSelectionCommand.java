@@ -15,12 +15,13 @@ import com.mrmrmr7.mytunes.service.impl.MusicSelectionServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class AdminUploadCompositionToMusicSelectionCommand implements Command {
 
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.ADMIN_UPLOAD_COMPOSITION_TO_MUSIC_SELECTION.getValue() + " command detected");
 
         MusicSelectionService musicSelectionService = new MusicSelectionServiceImpl();

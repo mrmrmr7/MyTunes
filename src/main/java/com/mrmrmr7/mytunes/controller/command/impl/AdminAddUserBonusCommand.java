@@ -10,10 +10,11 @@ import com.mrmrmr7.mytunes.service.impl.UserBonusServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class AdminAddUserBonusCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) {
         System.out.println(CommandDirector.ADMIN_ADD_USER_BONUS.getValue() + " command detected");
         int bonusId = Integer.valueOf(request.getParameter("bonusId"));
         String userLogin = request.getParameter("userLogin");

@@ -15,12 +15,13 @@ import com.mrmrmr7.mytunes.service.impl.MusicSelectionServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
 public class GetMusicSelectionForUpdateCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.ADMIN_GET_MUSIC_SELECTION_FOR_UPDATE.getValue() + " command detected");
 
         MusicSelectionService musicSelectionService = new MusicSelectionServiceImpl();

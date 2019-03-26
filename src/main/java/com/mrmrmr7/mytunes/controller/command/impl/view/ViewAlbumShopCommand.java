@@ -10,10 +10,11 @@ import com.mrmrmr7.mytunes.service.impl.AlbumServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class ViewAlbumShopCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.VIEW_ALBUM_SHOP.getValue() + " command detected");
         AlbumService albumService = new AlbumServiceImpl();
         try {

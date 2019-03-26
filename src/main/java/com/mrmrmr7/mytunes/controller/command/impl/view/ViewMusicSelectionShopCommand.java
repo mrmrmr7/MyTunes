@@ -10,10 +10,11 @@ import com.mrmrmr7.mytunes.service.impl.MusicSelectionServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class ViewMusicSelectionShopCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) {
         System.out.println(CommandDirector.VIEW_MUSIC_SELECTION_SHOP.getValue() + " command detected");
         MusicSelectionService musicSelectionService = new MusicSelectionServiceImpl();
         try {

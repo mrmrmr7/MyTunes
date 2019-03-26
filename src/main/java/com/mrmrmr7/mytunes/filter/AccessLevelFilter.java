@@ -15,17 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/*"}, filterName = "AccessLevelFilter")
+@WebFilter(filterName = "AccessLevelFilter")
 public class AccessLevelFilter implements Filter {
     private FilterConfig filterConfig;
 
-    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
         System.out.println("Filter of [" + "/jsp/*, " + "crud] init successfully");
     }
 
-    @Override
     public void doFilter(ServletRequest servletRequest,
                          ServletResponse servletResponse,
                          FilterChain filterChain)
@@ -33,13 +31,14 @@ public class AccessLevelFilter implements Filter {
         String command = servletRequest.getParameter(CommandDirector.COMMAND.getValue());
 
         AccessLevel accessLevel = null;
-        System.out.println("Request url: " + ((HttpServletRequest) servletRequest).getRequestURL().toString());
-        System.out.println("QueryString: " + ((HttpServletRequest) servletRequest).getQueryString());
-        System.out.println("Context path: " + ((HttpServletRequest) servletRequest).getContextPath());
-        System.out.println("Path info: " + ((HttpServletRequest) servletRequest).getPathInfo());
-        System.out.println("Path tranlated: " + ((HttpServletRequest) servletRequest).getPathTranslated());
-        System.out.println("Servlet path: " + ((HttpServletRequest) servletRequest).getServletPath());
-        System.out.println("Request URI: " + ((HttpServletRequest) servletRequest).getRequestURI());
+
+//        System.out.println("Request url: " + ((HttpServletRequest) servletRequest).getRequestURL().toString());
+//        System.out.println("QueryString: " + ((HttpServletRequest) servletRequest).getQueryString());
+//        System.out.println("Context path: " + ((HttpServletRequest) servletRequest).getContextPath());
+//        System.out.println("Path info: " + ((HttpServletRequest) servletRequest).getPathInfo());
+//        System.out.println("Path tranlated: " + ((HttpServletRequest) servletRequest).getPathTranslated());
+//        System.out.println("Servlet path: " + ((HttpServletRequest) servletRequest).getServletPath());
+//        System.out.println("Request URI: " + ((HttpServletRequest) servletRequest).getRequestURI());
 
         if (command == null && (((HttpServletRequest) servletRequest).getRequestURI().equals("/") || ((HttpServletRequest) servletRequest).getRequestURI().equals("/index.jsp"))) {
             accessLevel = AccessLevel.ALL;
@@ -93,7 +92,6 @@ public class AccessLevelFilter implements Filter {
         httpServletResponse.addCookie(cookieToken);
     }
 
-    @Override
     public void destroy() {
         System.out.println("Destroyed");
     }

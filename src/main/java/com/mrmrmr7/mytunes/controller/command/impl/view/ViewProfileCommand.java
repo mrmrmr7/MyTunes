@@ -9,13 +9,14 @@ import com.mrmrmr7.mytunes.service.impl.UserDtoServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class ViewProfileCommand implements Command {
 
     private static final String PATH_ACCOUNT = "account";
 
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.VIEW_PROFILE_PAGE.getValue() + " command detected");
 
         UserDtoServiceImpl userDtoServiceImpl = new UserDtoServiceImpl();
