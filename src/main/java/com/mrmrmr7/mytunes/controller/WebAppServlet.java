@@ -42,14 +42,7 @@ public class WebAppServlet extends HttpServlet {
             ResponseContent responseContent;
 
             try {
-                if (commandName.equals(CommandDirector.SIGN_IN.getValue()) ||
-                    commandName.equals(CommandDirector.LOG_OUT.getValue()) ||
-                    commandName.equals(CommandDirector.CHANGE_LANGUAGE_COMMAND.getValue()) ||
-                        commandName.equals(CommandDirector.CHANGE_LANGUAGE_IN_SIGN_IN_COMMAND.getValue())) {
-                    responseContent = command.process(request, response);
-                } else {
-                    responseContent = command.process(request);
-                }
+                responseContent = command.process(request, response);
 
                 if (responseContent.getRouter().getType().equals(Router.Type.REDIRECT.getValue())) {
                     System.out.println(request.getAttribute(ATTRIBUTE_VIEW_NAME));

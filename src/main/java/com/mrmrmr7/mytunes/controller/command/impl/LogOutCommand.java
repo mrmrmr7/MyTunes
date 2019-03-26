@@ -12,13 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class LogOutCommand implements Command {
-
-    @Override
-    public ResponseContent process(HttpServletRequest request) {
-        ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router(PageDirector.LANDING, Router.Type.REDIRECT));
-        return responseContent;
-    }
     @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) {
         System.out.println(CommandDirector.LOG_OUT.getValue() + " command in detected");

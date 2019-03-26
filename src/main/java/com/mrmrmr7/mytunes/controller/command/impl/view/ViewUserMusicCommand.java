@@ -10,11 +10,12 @@ import com.mrmrmr7.mytunes.service.impl.UserMusicDtoServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class ViewUserMusicCommand implements Command {
 
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.VIEW_USER_MUSIC.getValue() + " command detected");
 
         UserMusicDtoService userDtoServiceImpl = new UserMusicDtoServiceImpl();

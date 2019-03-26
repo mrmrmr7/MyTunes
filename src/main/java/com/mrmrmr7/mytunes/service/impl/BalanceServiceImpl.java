@@ -19,30 +19,20 @@ public class BalanceServiceImpl implements BalanceService {
 
 
     @Override
-    public long updateBalance(HttpServletRequest request) throws ServiceException {
-        Cookie[] cookies = request.getCookies();
-        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
-        DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
-
-
+    public boolean updateBalance(int userId, int paymentCount) throws ServiceException {
         Optional<User> user;
-
         try {
-            user = JdbcDaoFactory.getInstance().getDao(User.class).getByPK(decodedJWT.getClaim("userId").asInt());
-
+            user = JdbcDaoFactory.getInstance().getDao(User.class).getByPK(userId);
             if (!user.isPresent()) {
                 throw new ServiceException("No such user");
             }
-
-            long  paymentCount = Long.valueOf(request.getParameter("paymentCount"));
-
             user.get().setBalance(user.get().getBalance() + paymentCount);
             JdbcDaoFactory.getInstance().getDao(User.class).update(user.get());
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage());
         }
 
-        return user.get().getBalance();
+        return true;
 
     }
 

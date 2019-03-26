@@ -15,6 +15,7 @@ import com.mrmrmr7.mytunes.service.impl.SignUpServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 public class SignUpStartCommand implements Command {
@@ -26,7 +27,7 @@ public class SignUpStartCommand implements Command {
 
 
     @Override
-    public ResponseContent process(HttpServletRequest request) {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
         System.out.println(CommandDirector.SIGN_UP.getValue() + " command detected");
         ResponseContent responseContent = new ResponseContent();
 
