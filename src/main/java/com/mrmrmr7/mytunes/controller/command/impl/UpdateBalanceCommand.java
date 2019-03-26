@@ -34,29 +34,26 @@ public class UpdateBalanceCommand implements Command {
         BalanceService balanceService = new BalanceServiceImpl();
 
         Validator validator = new PaymentValidator();
-        boolean success = false;
         if(validator.validate(request)) {
             try {
                 Builder userIdBuilder = new UserIdBuilder();
                 int userId = (int) userIdBuilder.build(request);
                 int paymentCount = Integer.valueOf(request.getParameter(PAYMENT_COUNT));
-                success =  balanceService.updateBalance(userId, paymentCount);
+                boolean success = balanceService.updateBalance(userId, paymentCount);
+
+                httpServletResponse.addCookie(new Cookie("success", String.valueOf(success)));
+
             } catch (ServiceException e) {
                 throw new CommandException(e.getMessage() + ":" + CommandDirector.UPDATE_BALANCE.getCode());
             } catch (BuilderException e) {
                 e.printStackTrace();
             }
         } else {
-            request.setAttribute("notValidCount", true);
+            httpServletResponse.addCookie(new Cookie("notValidData", String.valueOf(false)));
         }
 
         ResponseContent responseContent = new ResponseContent();
-
-        if (success) {
-            Cookie cookie = new Cookie("success", "true");
-            responseContent.setRouter(new Router(PageDirector.REDIRECT_PATH.getValue() + CommandDirector.VIEW_UPDATE_BALANCE_PAGE.getValue(), Router.Type.REDIRECT));
-        }
-
+        responseContent.setRouter(new Router(PageDirector.REDIRECT_PATH.getValue() + CommandDirector.VIEW_UPDATE_BALANCE_PAGE.getValue(), Router.Type.REDIRECT));
         return responseContent;
     }
 }

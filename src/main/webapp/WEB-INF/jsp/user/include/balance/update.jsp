@@ -127,7 +127,7 @@
 
 
     <div class="content mt-3">
-        <my:alert needShow="${notVaidCount}" label="updatebalance.fail" message="updatebalance.notvalidcount"/>
+        <my:alert needShow="${notValidData}" label="updatebalance.fail" message="updatebalance.notvalidcount"/>
         <my:alert needShow="${success}" label="updatebalance.success" message="updatebalance.succesupdate"/>
 
 
