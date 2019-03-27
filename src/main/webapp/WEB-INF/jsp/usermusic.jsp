@@ -23,7 +23,7 @@
     <title><fmt:message key="title.usermusic" bundle="${bundle}" /></title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
 
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/images/logo_icon.png">
+    <link rel="shortcut icon" href="/site/images/logo_icon.png">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/font-awesome/css/font-awesome.min.css">

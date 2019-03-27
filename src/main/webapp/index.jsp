@@ -28,7 +28,7 @@
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
 
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/images/logo_icon.png">
+    <link rel="shortcut icon" href="site/images/logo_icon.png">
 
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="site/css/bootstrap.min.css" />
