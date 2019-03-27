@@ -29,30 +29,27 @@ public class RedirectFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-        AccessLevel accessLevel = null;
-
-        boolean isAuthorized = false;
-
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         UserServiceImpl serviceUser = new UserServiceImpl();
 
         String command = httpServletRequest.getParameter("to");
 
+        boolean isAuthorized = false;
         try {
             isAuthorized = serviceUser.isAuthorized(command, httpServletRequest);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
 
-        accessLevel = CommandAccessLevel.getInstance().showLevel(command);
+        AccessLevel accessLevel = CommandAccessLevel.getInstance().showLevel(command);
 
         if (accessLevel == AccessLevel.ALL) {
             if (!isAuthorized) {
                 httpServletRequest.getRequestDispatcher(httpServletRequest.getContextPath() + "/crud?command=" + command).forward(servletRequest, servletResponse);
             } else {
                 HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-                httpServletResponse.sendRedirect(((HttpServletRequest) servletRequest).getContextPath() + "/crud?command=" + CommandDirector.VIEW_PROFILE_PAGE.getValue());
+                httpServletResponse.sendRedirect("/crud?command=" + CommandDirector.VIEW_PROFILE_PAGE.getValue());
             }
         } else {
 
