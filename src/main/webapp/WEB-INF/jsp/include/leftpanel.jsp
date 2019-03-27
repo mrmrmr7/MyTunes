@@ -15,9 +15,9 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/crud?command=account"><img src="${pageContext.request.contextPath}/static/images/logo.png" alt="Logo"></a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/crud?command=account"><img src="${pageContext.request.contextPath}/site/images/logo_name.png" style="margin-top: 10px" alt="Logo"></a>
 
-            <a class="navbar-brand hidden" href="${pageContext.request.contextPath}/site"><img src="${pageContext.request.contextPath}/static/images/logo2.png" alt="Logo"></a>
+            <a class="navbar-brand hidden" href="${pageContext.request.contextPath}/site"><img src="${pageContext.request.contextPath}/site/images/logo_icon.png" alt="Logo"></a>
         </div>
 
         <div id="main-menu" class="main-menu collapse navbar-collapse">

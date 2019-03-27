@@ -6,6 +6,7 @@ public enum  CommandDirector {
     COMMAND ( "command","01"),
     CHANGE_LANGUAGE_COMMAND ("changeLang","02"),
     CHANGE_LANGUAGE_IN_SIGN_IN_COMMAND("changeLangInSignIn", "03"),
+    START_RESTART_PASSWORD ("restartPassword", "54"),
 
     MOVE_INSIDE_WEB_INF ("move","04"),
     SECRET_ACCOUNT ("secretAccount", "05"),
@@ -66,7 +67,10 @@ public enum  CommandDirector {
     VIEW_MUSIC_SELECTION_FEEDBACK_PAGE ("viewMusicSelectionFeedbackPage", "48"),
     VIEW_USER_MUSIC ("music", "49"),
     VIEW_UPDATE_BALANCE_PAGE ("viewUpdateBalancePage", "50"),
-    VIEW_CURRENT_BALANCE_PAGE ("viewCurrentBalancePage", "51");
+    VIEW_CURRENT_BALANCE_PAGE ("viewCurrentBalancePage", "51"),
+    VIEW_FORGET_PASSWORD_PAGE ("viewForgetPasswordPage", "52"),
+    VIEW_RESTART_PASSWORD_PAGE ("viewRestartPasswordPage", "53"),
+    FINISH_RESTART_PASSWORD ("finishRestartPassword", "55");
 
     private String value;
     private String code;

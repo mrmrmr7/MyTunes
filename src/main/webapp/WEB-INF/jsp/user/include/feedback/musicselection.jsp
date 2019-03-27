@@ -18,14 +18,13 @@
 
 <head>
 
-    <title>Sufee Admin - HTML5 Admin Template</title>
     <meta charset="UTF-8"/>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title><fmt:message key="title.feedback" bundle="${bundle}" /></title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/images/logo_icon.png">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/font-awesome/css/font-awesome.min.css">
@@ -65,13 +64,10 @@
 
                 <div class="user-area dropdown float-right">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-
-                        <a href="${pageContext.request.contextPath}/#" class="dropdown-toggle" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle"
-                                 src="${pageContext.request.contextPath}/site/images/admin.jpg" alt="User Avatar">
-                        </a>
-
+                        <li class="nav-item">
+                            <a class="nav-link active show" id="showFeedbackTab1" data-toggle="tab" href="#profile"
+                               role="tab" aria-controls="profile" aria-selected="true"><fmt:message key="feedback.musicselection.show" bundle="${bundle}"/></a>
+                        </li>
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="${pageContext.request.contextPath}/#" ><i class="fa fa-user"></i>
                                 My Profile</a>
@@ -108,7 +104,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Account information</h1>
+                    <h1><fmt:message key="feedback.musicselection.info" bundle="${bundle}"/></h1>
                 </div>
             </div>
         </div>
@@ -116,7 +112,7 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Dashboard</li>
+                        <li class="active"><fmt:message key="feedback.musicselection.dashboard" bundle="${bundle}"/></li>
                     </ol>
                 </div>
             </div>
@@ -128,7 +124,7 @@
         <c:if test="${success}">
             <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
                 <span class="badge badge-pill badge-dark">Success</span>
-                Feedback table about ${musicSelectionName} is shown!
+                ${musicSelectionName} <fmt:message key="feedback.musicselection.areshown" bundle="${bundle}"/>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">X</span>
                 </button>

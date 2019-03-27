@@ -194,4 +194,31 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
         }
     }
 
+    @AutoConnection
+    private PreparedStatement prepareStatementForGetByEmail(String email) throws SQLException {
+        PreparedStatement preparedStatement = connection
+                .prepareStatement(getSelectByEmailQuery(Table.USER));
+        preparedStatement.setString(1, email);
+        return preparedStatement;
+    }
+
+    @AutoConnection
+    private String getSelectByEmailQuery(Table table) {
+        return "SELECT * FROM " + table.getValue() + " WHERE email=?";
+    }
+
+    @AutoConnection
+    @Override
+    public Optional<User> getByEmail(String email) throws DaoException {
+        try (PreparedStatement preparedStatement = prepareStatementForGetByEmail(email)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                return Optional.empty();
+            }
+            return Optional.of(resultSetToBean.toUser(resultSet));
+        } catch (SQLException e) {
+            throw new DaoException(ExceptionDirector.DAO_USR_GBL.getValue());
+        }
+    }
+
 }

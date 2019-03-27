@@ -17,7 +17,7 @@
 
 <head>
 
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title><fmt:message key="title.index" bundle="${bundle}" /></title>
     <meta charset="UTF-8"/>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,6 +27,8 @@
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
+
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/images/logo_icon.png">
 
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="site/css/bootstrap.min.css" />
@@ -69,8 +71,7 @@
                 <!-- Logo -->
                 <div class="navbar-brand">
                     <a href="${pageContext.request.contextPath}/index.jsp">
-                        <img class="logo" src="site/img/logo.png" alt="logo">
-                        <img class="logo-alt" src="site/img/logo-alt.png" alt="logo">
+                        <img src="${pageContext.request.contextPath}/site/img/mt-logo.png" alt="mytunes">
                     </a>
                 </div>
                 <!-- /Logo -->
@@ -84,18 +85,22 @@
 
             <!--  Main navigation  -->
             <ul class="main-nav nav navbar-nav navbar-right">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#service">Services</a></li>
-                <li><a href="#pricing">Prices</a></li>
-                <li><a href="#team">Team</a></li>
-                <li class="has-dropdown"><a href="#blog">Blog</a>
+                <li><a href="#about"><fmt:message key="index.about" bundle="${bundle}" /></a></li>
+                <li><a href="#service"><fmt:message key="index.service" bundle="${bundle}" /></a></li>
+                <li><a href="#pricing"><fmt:message key="index.price" bundle="${bundle}" /></a></li>
+                <%--<li class="has-dropdown"><a href="#blog"><fmt:message key="index.news" bundle="${bundle}" /></a>--%>
+                    <%--<ul class="dropdown">--%>
+                        <%--<li><a href="${pageContext.request.contextPath}/site/blog-single.html"><fmt:message key="index.post" bundle="${bundle}" /></a></li>--%>
+                    <%--</ul>--%>
+                <%--</li>--%>
+                <li><a href="#contact"><fmt:message key="index.contact" bundle="${bundle}" /></a></li>
+
+                <li class="has-dropdown"><a href="#blog"><fmt:message key="index.language" bundle="${bundle}" /></a>
                     <ul class="dropdown">
-                        <li><a href="${pageContext.request.contextPath}/site/blog-single.html">blog post</a></li>
+                        <li><a href="${pageContext.request.contextPath}/crud?command=changeLang&from=/&lang=ru">Русский</a></li>
+                        <li><a href="${pageContext.request.contextPath}/crud?command=changeLang&from=/&lang=en">English</a></li>
                     </ul>
                 </li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
             <!-- /Main navigation -->
 
@@ -111,12 +116,12 @@
                 <!-- home content -->
                 <div class="col-md-10 col-md-offset-1">
                     <div class="home-content">
-                        <h1 class="white-text">We Are Creative Agency</h1>
-                        <p class="white-text">Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere.
+                        <h1 class="white-text">MyTunes - <fmt:message key="index.musicalportal" bundle="${bundle}" /> </h1>
+                        <p class="white-text"><fmt:message key="index.wemademusic" bundle="${bundle}" />
                         </p>
                         <form action="${pageContext.request.contextPath}/crud" method="post">
-                            <button class="white-btn" name="command" value="viewSignInPage">Log in</button>
-                            <button class="main-btn" name="command" value="viewSignUpPage">Register</button>
+                            <button class="white-btn" name="command" value="viewSignInPage"><fmt:message key="index.login" bundle="${bundle}" /></button>
+                            <button class="main-btn" name="command" value="viewSignUpPage"><fmt:message key="index.register" bundle="${bundle}" /></button>
                         </form>
                     </div>
                 </div>
@@ -141,7 +146,7 @@
 
             <!-- Section header -->
             <div class="section-header text-center">
-                <h2 class="title">Welcome to Website</h2>
+                <h2 class="title"><fmt:message key="index.welcome" bundle="${bundle}" /></h2>
             </div>
             <!-- /Section header -->
 
@@ -149,9 +154,8 @@
             <div class="col-md-4">
                 <div class="about">
                     <i class="fa fa-cogs"></i>
-                    <h3>Fully Customizible</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
-                    <a href="#">Read more</a>
+                    <h3><fmt:message key="index.flexibility" bundle="${bundle}" /></h3>
+                    <p><fmt:message key="index.msg.flexibility" bundle="${bundle}" /></p>
                 </div>
             </div>
             <!-- /about -->
@@ -160,9 +164,8 @@
             <div class="col-md-4">
                 <div class="about">
                     <i class="fa fa-magic"></i>
-                    <h3>Awesome Features</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
-                    <a href="#">Read more</a>
+                    <h3><fmt:message key="index.features" bundle="${bundle}" /></h3>
+                    <p><fmt:message key="index.msg.features" bundle="${bundle}" /></p>
                 </div>
             </div>
             <!-- /about -->
@@ -171,9 +174,8 @@
             <div class="col-md-4">
                 <div class="about">
                     <i class="fa fa-mobile"></i>
-                    <h3>Fully Responsive</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
-                    <a href="#">Read more</a>
+                    <h3><fmt:message key="index.support" bundle="${bundle}" /></h3>
+                    <p><fmt:message key="index.msg.support" bundle="${bundle}" /></p>
                 </div>
             </div>
             <!-- /about -->
@@ -187,121 +189,6 @@
 </div>
 <!-- /About -->
 
-
-<!-- Portfolio -->
-<div id="portfolio" class="section md-padding bg-grey">
-
-    <!-- Container -->
-    <div class="container">
-
-        <!-- Row -->
-        <div class="row">
-
-            <!-- Section header -->
-            <div class="section-header text-center">
-                <h2 class="title">Featured Works</h2>
-            </div>
-            <!-- /Section header -->
-
-            <!-- Work -->
-            <div class="col-md-4 col-xs-6 work">
-                <img class="img-responsive" src="site/img/work1.jpg" alt="">
-                <div class="overlay"></div>
-                <div class="work-content">
-                    <span>Category</span>
-                    <h3>Lorem ipsum dolor</h3>
-                    <div class="work-link">
-                        <a href="#"><i class="fa fa-external-link"></i></a>
-                        <a class="lightbox" href="site/img/work1.jpg"><i class="fa fa-search"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- /Work -->
-
-            <!-- Work -->
-            <div class="col-md-4 col-xs-6 work">
-                <img class="img-responsive" src="site/img/work2.jpg" alt="">
-                <div class="overlay"></div>
-                <div class="work-content">
-                    <span>Category</span>
-                    <h3>Lorem ipsum dolor</h3>
-                    <div class="work-link">
-                        <a href="#"><i class="fa fa-external-link"></i></a>
-                        <a class="lightbox" href="site/img/work2.jpg"><i class="fa fa-search"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- /Work -->
-
-            <!-- Work -->
-            <div class="col-md-4 col-xs-6 work">
-                <img class="img-responsive" src="site/img/work3.jpg" alt="">
-                <div class="overlay"></div>
-                <div class="work-content">
-                    <span>Category</span>
-                    <h3>Lorem ipsum dolor</h3>
-                    <div class="work-link">
-                        <a href="#"><i class="fa fa-external-link"></i></a>
-                        <a class="lightbox" href="site/img/work3.jpg"><i class="fa fa-search"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- /Work -->
-
-            <!-- Work -->
-            <div class="col-md-4 col-xs-6 work">
-                <img class="img-responsive" src="site/img/work4.jpg" alt="">
-                <div class="overlay"></div>
-                <div class="work-content">
-                    <span>Category</span>
-                    <h3>Lorem ipsum dolor</h3>
-                    <div class="work-link">
-                        <a href="#"><i class="fa fa-external-link"></i></a>
-                        <a class="lightbox" href="site/img/work4.jpg"><i class="fa fa-search"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- /Work -->
-
-            <!-- Work -->
-            <div class="col-md-4 col-xs-6 work">
-                <img class="img-responsive" src="site/img/work5.jpg" alt="">
-                <div class="overlay"></div>
-                <div class="work-content">
-                    <span>Category</span>
-                    <h3>Lorem ipsum dolor</h3>
-                    <div class="work-link">
-                        <a href="#"><i class="fa fa-external-link"></i></a>
-                        <a class="lightbox" href="site/img/work5.jpg"><i class="fa fa-search"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- /Work -->
-
-            <!-- Work -->
-            <div class="col-md-4 col-xs-6 work">
-                <img class="img-responsive" src="site/img/work6.jpg" alt="">
-                <div class="overlay"></div>
-                <div class="work-content">
-                    <span>Category</span>
-                    <h3>Lorem ipsum dolor</h3>
-                    <div class="work-link">
-                        <a href="#"><i class="fa fa-external-link"></i></a>
-                        <a class="lightbox" href="site/img/work6.jpg"><i class="fa fa-search"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- /Work -->
-
-        </div>
-        <!-- /Row -->
-
-    </div>
-    <!-- /Container -->
-
-</div>
-<!-- /Portfolio -->
-
 <!-- Service -->
 <div id="service" class="section md-padding">
 
@@ -313,7 +200,7 @@
 
             <!-- Section header -->
             <div class="section-header text-center">
-                <h2 class="title">What we offer</h2>
+                <h2 class="title"><fmt:message key="index.offers" bundle="${bundle}" /></h2>
             </div>
             <!-- /Section header -->
 
@@ -321,18 +208,8 @@
             <div class="col-md-4 col-sm-6">
                 <div class="service">
                     <i class="fa fa-diamond"></i>
-                    <h3>App Development</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
-                </div>
-            </div>
-            <!-- /service -->
-
-            <!-- service -->
-            <div class="col-md-4 col-sm-6">
-                <div class="service">
-                    <i class="fa fa-rocket"></i>
-                    <h3>Graphic Design</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+                    <h3><fmt:message key="index.composition" bundle="${bundle}" /></h3>
+                    <p><fmt:message key="inde.msg.composition" bundle="${bundle}" /></p>
                 </div>
             </div>
             <!-- /service -->
@@ -341,8 +218,8 @@
             <div class="col-md-4 col-sm-6">
                 <div class="service">
                     <i class="fa fa-cogs"></i>
-                    <h3>Creative Idea</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+                    <h3><fmt:message key="index.album" bundle="${bundle}" /></h3>
+                    <p><fmt:message key="index.msg.album" bundle="${bundle}" /></p>
                 </div>
             </div>
             <!-- /service -->
@@ -351,8 +228,18 @@
             <div class="col-md-4 col-sm-6">
                 <div class="service">
                     <i class="fa fa-diamond"></i>
-                    <h3>Marketing</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+                    <h3><fmt:message key="index.musicselection" bundle="${bundle}" /></h3>
+                    <p><fmt:message key="index.msg.musicselection" bundle="${bundle}" /></p>
+                </div>
+            </div>
+            <!-- /service -->
+
+            <!-- service -->
+            <div class="col-md-4 col-sm-6">
+                <div class="service">
+                    <i class="fa fa-rocket"></i>
+                    <h3><fmt:message key="index.feedback" bundle="${bundle}" /></h3>
+                    <p><fmt:message key="index.msg.feedback" bundle="${bundle}" /></p>
                 </div>
             </div>
             <!-- /service -->
@@ -361,8 +248,8 @@
             <div class="col-md-4 col-sm-6">
                 <div class="service">
                     <i class="fa fa-pencil"></i>
-                    <h3>Awesome Support</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+                    <h3><fmt:message key="index.community" bundle="${bundle}" /></h3>
+                    <p><fmt:message key="index.msg.community" bundle="${bundle}" /></p>
                 </div>
             </div>
             <!-- /service -->
@@ -371,8 +258,8 @@
             <div class="col-md-4 col-sm-6">
                 <div class="service">
                     <i class="fa fa-flask"></i>
-                    <h3>Brand Design</h3>
-                    <p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
+                    <h3><fmt:message key="index.cost" bundle="${bundle}" /></h3>
+                    <p><fmt:message key="index.msg.cost" bundle="${bundle}" /></p>
                 </div>
             </div>
             <!-- /service -->
@@ -399,35 +286,30 @@
             <!-- why choose us content -->
             <div class="col-md-6">
                 <div class="section-header">
-                    <h2 class="title">Why Choose Us</h2>
+                    <h2 class="title"><fmt:message key="index.whychoiseus" bundle="${bundle}" /></h2>
                 </div>
-                <p>Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris. Ultrices sagittis orci a scelerisque purus.</p>
+                <p><fmt:message key="index.msg.whychoiseus" bundle="${bundle}" /></p>
                 <div class="feature">
                     <i class="fa fa-check"></i>
-                    <p>Quis varius quam quisque id diam vel quam elementum.</p>
-                </div>
-                <div class="feature">
-                    <i class="fa fa-check"></i>
-                    <p>Mauris augue neque gravida in fermentum.</p>
+                    <p><fmt:message key="index.msg.longinweb" bundle="${bundle}" /></p>
                 </div>
                 <div class="feature">
                     <i class="fa fa-check"></i>
-                    <p>Orci phasellus egestas tellus rutrum.</p>
+                    <p><fmt:message key="index.msg.parthner" bundle="${bundle}" /></p>
                 </div>
                 <div class="feature">
                     <i class="fa fa-check"></i>
-                    <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium.</p>
+                    <p><fmt:message key="index.msg.soundquality" bundle="${bundle}" /></p>
                 </div>
             </div>
             <!-- /why choose us content -->
 
             <!-- About slider -->
             <div class="col-md-6">
-                <div id="about-slider" class="owl-carousel owl-theme">
+                <div id="about-slider" class="owl-carousel owl-theme" style="display: run-in">
                     <img class="img-responsive" src="site/img/about1.jpg" alt="">
                     <img class="img-responsive" src="site/img/about2.jpg" alt="">
                     <img class="img-responsive" src="site/img/about1.jpg" alt="">
-                    <img class="img-responsive" src="site/img/about2.jpg" alt="">
                 </div>
             </div>
             <!-- /About slider -->
@@ -461,8 +343,8 @@
             <div class="col-sm-3 col-xs-6">
                 <div class="number">
                     <i class="fa fa-users"></i>
-                    <h3 class="white-text"><span class="counter">451</span></h3>
-                    <span class="white-text">Happy clients</span>
+                    <h3 class="white-text"><span class="counter"><fmt:message key="index.container.many" bundle="${bundle}" /></span></h3>
+                    <span class="white-text"><fmt:message key="index.container.happyclient" bundle="${bundle}" /></span>
                 </div>
             </div>
             <!-- /number -->
@@ -471,8 +353,8 @@
             <div class="col-sm-3 col-xs-6">
                 <div class="number">
                     <i class="fa fa-trophy"></i>
-                    <h3 class="white-text"><span class="counter">12</span></h3>
-                    <span class="white-text">Awards won</span>
+                    <h3 class="white-text"><span class="counter"><fmt:message key="index.container.alot" bundle="${bundle}" /></span></h3>
+                    <span class="white-text"><fmt:message key="index.container.wons" bundle="${bundle}" /></span>
                 </div>
             </div>
             <!-- /number -->
@@ -481,8 +363,8 @@
             <div class="col-sm-3 col-xs-6">
                 <div class="number">
                     <i class="fa fa-coffee"></i>
-                    <h3 class="white-text"><span class="counter">154</span>K</h3>
-                    <span class="white-text">Cups of Coffee</span>
+                    <h3 class="white-text"><span class="counter">99</span></h3>
+                    <span class="white-text"><fmt:message key="index.container.coffees" bundle="${bundle}" /></span>
                 </div>
             </div>
             <!-- /number -->
@@ -491,8 +373,8 @@
             <div class="col-sm-3 col-xs-6">
                 <div class="number">
                     <i class="fa fa-file"></i>
-                    <h3 class="white-text"><span class="counter">45</span></h3>
-                    <span class="white-text">Projects completed</span>
+                    <h3 class="white-text"><span class="counter">15</span></h3>
+                    <span class="white-text"><fmt:message key="index.container.days" bundle="${bundle}" /></span>
                 </div>
             </div>
             <!-- /number -->
@@ -517,7 +399,7 @@
 
             <!-- Section header -->
             <div class="section-header text-center">
-                <h2 class="title">Pricing Table</h2>
+                <h2 class="title"><fmt:message key="index.pricing.table" bundle="${bundle}" /></h2>
             </div>
             <!-- /Section header -->
 
@@ -525,24 +407,10 @@
             <div class="col-sm-4">
                 <div class="pricing">
                     <div class="price-head">
-                        <span class="price-title">Basic plan</span>
+                        <span class="price-title"><fmt:message key="index.pricing.composition" bundle="${bundle}" /></span>
                         <div class="price">
-                            <h3>$9<span class="duration">/ month</span></h3>
+                            <h3>~$1<span class="duration">/ <fmt:message key="index.pricing.song" bundle="${bundle}" /></span></h3>
                         </div>
-                    </div>
-                    <ul class="price-content">
-                        <li>
-                            <p>1GB Disk Space</p>
-                        </li>
-                        <li>
-                            <p>100 Email Account</p>
-                        </li>
-                        <li>
-                            <p>24/24 Support</p>
-                        </li>
-                    </ul>
-                    <div class="price-btn">
-                        <button class="outline-btn">Purchase now</button>
                     </div>
                 </div>
             </div>
@@ -552,24 +420,10 @@
             <div class="col-sm-4">
                 <div class="pricing">
                     <div class="price-head">
-                        <span class="price-title">Silver plan</span>
+                        <span class="price-title"><fmt:message key="index.pricing.album" bundle="${bundle}" /></span>
                         <div class="price">
-                            <h3>$19<span class="duration">/ month</span></h3>
+                            <h3>~$3<span class="duration">/ <fmt:message key="index.pricing.albumcost" bundle="${bundle}" /></span></h3>
                         </div>
-                    </div>
-                    <ul class="price-content">
-                        <li>
-                            <p>1GB Disk Space</p>
-                        </li>
-                        <li>
-                            <p>100 Email Account</p>
-                        </li>
-                        <li>
-                            <p>24/24 Support</p>
-                        </li>
-                    </ul>
-                    <div class="price-btn">
-                        <button class="outline-btn">Purchase now</button>
                     </div>
                 </div>
             </div>
@@ -579,24 +433,10 @@
             <div class="col-sm-4">
                 <div class="pricing">
                     <div class="price-head">
-                        <span class="price-title">Gold plan</span>
+                        <span class="price-title"><fmt:message key="index.pricing.musicselectioncost" bundle="${bundle}" /></span>
                         <div class="price">
-                            <h3>$39<span class="duration">/ month</span></h3>
+                            <h3>~$10<span class="duration">/ <fmt:message key="index.pricing.selection" bundle="${bundle}" /></span></h3>
                         </div>
-                    </div>
-                    <ul class="price-content">
-                        <li>
-                            <p>1GB Disk Space</p>
-                        </li>
-                        <li>
-                            <p>100 Email Account</p>
-                        </li>
-                        <li>
-                            <p>24/24 Support</p>
-                        </li>
-                    </ul>
-                    <div class="price-btn">
-                        <button class="outline-btn">Purchase now</button>
                     </div>
                 </div>
             </div>
@@ -621,221 +461,8 @@
     </div>
     <!-- /Background Image -->
 
-    <!-- Container -->
-    <div class="container">
-
-        <!-- Row -->
-        <div class="row">
-
-            <!-- Testimonial slider -->
-            <div class="col-md-10 col-md-offset-1">
-                <div id="testimonial-slider" class="owl-carousel owl-theme">
-
-                    <!-- testimonial -->
-                    <div class="testimonial">
-                        <div class="testimonial-meta">
-                            <img src="site/img/perso1.jpg" alt="">
-                            <h3 class="white-text">John Doe</h3>
-                            <span>Web Designer</span>
-                        </div>
-                        <p class="white-text">Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris.</p>
-                    </div>
-                    <!-- /testimonial -->
-
-                    <!-- testimonial -->
-                    <div class="testimonial">
-                        <div class="testimonial-meta">
-                            <img src="site/img/perso2.jpg" alt="">
-                            <h3 class="white-text">John Doe</h3>
-                            <span>Web Designer</span>
-                        </div>
-                        <p class="white-text">Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris.</p>
-                    </div>
-                    <!-- /testimonial -->
-
-                </div>
-            </div>
-            <!-- /Testimonial slider -->
-
-        </div>
-        <!-- /Row -->
-
-    </div>
-    <!-- /Container -->
-
 </div>
 <!-- /Testimonial -->
-
-<!-- Team -->
-<div id="team" class="section md-padding">
-
-    <!-- Container -->
-    <div class="container">
-
-        <!-- Row -->
-        <div class="row">
-
-            <!-- Section header -->
-            <div class="section-header text-center">
-                <h2 class="title">Our Team</h2>
-            </div>
-            <!-- /Section header -->
-
-            <!-- team -->
-            <div class="col-sm-4">
-                <div class="team">
-                    <div class="team-img">
-                        <img class="img-responsive" src="site/img/team1.jpg" alt="">
-                        <div class="overlay">
-                            <div class="team-social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-google-plus"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-content">
-                        <h3>John Doe</h3>
-                        <span>Web Designer</span>
-                    </div>
-                </div>
-            </div>
-            <!-- /team -->
-
-            <!-- team -->
-            <div class="col-sm-4">
-                <div class="team">
-                    <div class="team-img">
-                        <img class="img-responsive" src="site/img/team2.jpg" alt="">
-                        <div class="overlay">
-                            <div class="team-social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-google-plus"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-content">
-                        <h3>John Doe</h3>
-                        <span>Web Designer</span>
-                    </div>
-                </div>
-            </div>
-            <!-- /team -->
-
-            <!-- team -->
-            <div class="col-sm-4">
-                <div class="team">
-                    <div class="team-img">
-                        <img class="img-responsive" src="site/img/team3.jpg" alt="">
-                        <div class="overlay">
-                            <div class="team-social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-google-plus"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-content">
-                        <h3>John Doe</h3>
-                        <span>Web Designer</span>
-                    </div>
-                </div>
-            </div>
-            <!-- /team -->
-
-        </div>
-        <!-- /Row -->
-
-    </div>
-    <!-- /Container -->
-
-</div>
-<!-- /Team -->
-
-<!-- Blog -->
-<div id="blog" class="section md-padding bg-grey">
-
-    <!-- Container -->
-    <div class="container">
-
-        <!-- Row -->
-        <div class="row">
-
-            <!-- Section header -->
-            <div class="section-header text-center">
-                <h2 class="title">Recents news</h2>
-            </div>
-            <!-- /Section header -->
-
-            <!-- blog -->
-            <div class="col-md-4">
-                <div class="blog">
-                    <div class="blog-img">
-                        <img class="img-responsive" src="site/img/blog1.jpg" alt="">
-                    </div>
-                    <div class="blog-content">
-                        <ul class="blog-meta">
-                            <li><i class="fa fa-user"></i>John doe</li>
-                            <li><i class="fa fa-clock-o"></i>18 Oct</li>
-                            <li><i class="fa fa-comments"></i>57</li>
-                        </ul>
-                        <h3>Molestie at elementum eu facilisis sed odio</h3>
-                        <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
-                        <a href="${pageContext.request.contextPath}/site/blog-single.html">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <!-- /blog -->
-
-            <!-- blog -->
-            <div class="col-md-4">
-                <div class="blog">
-                    <div class="blog-img">
-                        <img class="img-responsive" src="site/img/blog2.jpg" alt="">
-                    </div>
-                    <div class="blog-content">
-                        <ul class="blog-meta">
-                            <li><i class="fa fa-user"></i>John doe</li>
-                            <li><i class="fa fa-clock-o"></i>18 Oct</li>
-                            <li><i class="fa fa-comments"></i>57</li>
-                        </ul>
-                        <h3>Molestie at elementum eu facilisis sed odio</h3>
-                        <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
-                        <a href="${pageContext.request.contextPath}/site/blog-single.html">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <!-- /blog -->
-
-            <!-- blog -->
-            <div class="col-md-4">
-                <div class="blog">
-                    <div class="blog-img">
-                        <img class="img-responsive"  src="site/img/blog3.jpg" alt="">
-                    </div>
-                    <div class="blog-content">
-                        <ul class="blog-meta">
-                            <li><i class="fa fa-user"></i>John doe</li>
-                            <li><i class="fa fa-clock-o"></i>18 Oct</li>
-                            <li><i class="fa fa-comments"></i>57</li>
-                        </ul>
-                        <h3>Molestie at elementum eu facilisis sed odio</h3>
-                        <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
-                        <a href="${pageContext.request.contextPath}/site/blog-single.html">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <!-- /blog -->
-
-        </div>
-        <!-- /Row -->
-
-    </div>
-    <!-- /Container -->
-
-</div>
-<!-- /Blog -->
 
 <!-- Contact -->
 <div id="contact" class="section md-padding">
@@ -848,7 +475,7 @@
 
             <!-- Section-header -->
             <div class="section-header text-center">
-                <h2 class="title">Get in touch</h2>
+                <h2 class="title"><li><a><fmt:message key="index.getintouch" bundle="${bundle}" /></li></h2>
             </div>
             <!-- /Section-header -->
 
@@ -856,8 +483,8 @@
             <div class="col-sm-4">
                 <div class="contact">
                     <i class="fa fa-phone"></i>
-                    <h3>Phone</h3>
-                    <p>512-421-3940</p>
+                    <h3><li><fmt:message key="index.phone" bundle="${bundle}" /></li></h3>
+                    <p>+375-25-7261864</p>
                 </div>
             </div>
             <!-- /contact -->
@@ -867,7 +494,7 @@
                 <div class="contact">
                     <i class="fa fa-envelope"></i>
                     <h3>Email</h3>
-                    <p>email@support.com</p>
+                    <p>mytunessupp@gmail.com</p>
                 </div>
             </div>
             <!-- /contact -->
@@ -876,8 +503,8 @@
             <div class="col-sm-4">
                 <div class="contact">
                     <i class="fa fa-map-marker"></i>
-                    <h3>Address</h3>
-                    <p>1739 Bubby Drive</p>
+                    <h3><fmt:message key="index.address" bundle="${bundle}" /></h3>
+                    <p><fmt:message key="index.msg.address" bundle="${bundle}" /></p>
                 </div>
             </div>
             <!-- /contact -->
@@ -885,11 +512,11 @@
             <!-- contact form -->
             <div class="col-md-8 col-md-offset-2">
                 <form class="contact-form">
-                    <input type="text" class="input" placeholder="Name">
+                    <input type="text" class="input" placeholder="<fmt:message key="index.placeholder.name" bundle="${bundle}" />">
                     <input type="email" class="input" placeholder="Email">
-                    <input type="text" class="input" placeholder="Subject">
-                    <textarea class="input" placeholder="Message"></textarea>
-                    <button class="main-btn">Send message</button>
+                    <input type="text" class="input" placeholder="<fmt:message key="index.placeholder.subject" bundle="${bundle}" />">
+                    <textarea class="input" placeholder="<fmt:message key="index.placeholder.message" bundle="${bundle}" />"></textarea>
+                    <button class="main-btn"><fmt:message key="index.msg.sendemail" bundle="${bundle}" /></button>
                 </form>
             </div>
             <!-- /contact form -->
@@ -916,25 +543,25 @@
             <div class="col-md-12">
 
                 <!-- footer logo -->
-                <div class="footer-logo">
-                    <a href="${pageContext.request.contextPath}/site/index.html"><img src="site/img/logo-alt.png" alt="logo"></a>
-                </div>
+                <%--<div class="footer-logo">--%>
+                    <%--<a href="${pageContext.request.contextPath}/index.jsp"><img src="site/img/mt-logo.png" alt="logo"  style="max-height: 200px; width: 200px; height: 200px"></a>--%>
+                <%--</div>--%>
                 <!-- /footer logo -->
 
-                <!-- footer follow -->
-                <ul class="footer-follow">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                </ul>
-                <!-- /footer follow -->
+                <%--<!-- footer follow -->--%>
+                <%--<ul class="footer-follow">--%>
+                    <%--<li><a href="#"><i class="fa fa-facebook" style="margin-top: 30%"></i></a></li>--%>
+                    <%--<li><a href="#"><i class="fa fa-twitter" style="margin-top: 30%"></i></a></li>--%>
+                    <%--<li><a href="#"><i class="fa fa-google-plus" style="margin-top: 30%"></i></a></li>--%>
+                    <%--<li><a href="#"><i class="fa fa-instagram" style="margin-top: 30%"></i></a></li>--%>
+                    <%--<li><a href="#"><i class="fa fa-linkedin" style="margin-top: 30%"></i></a></li>--%>
+                    <%--<li><a href="#"><i class="fa fa-vk" style="margin-top: 30%"></i></a></li>--%>
+                <%--</ul>--%>
+                <%--<!-- /footer follow -->--%>
 
                 <!-- footer copyright -->
                 <div class="footer-copyright">
-                    <p>Copyright © 2017. All Rights Reserved. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                    <p><fmt:message key="index.footer.copyrighr" bundle="${bundle}" /></p>
                 </div>
                 <!-- /footer copyright -->
 

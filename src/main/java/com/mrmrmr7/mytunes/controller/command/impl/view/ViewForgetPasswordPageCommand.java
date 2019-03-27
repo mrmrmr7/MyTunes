@@ -1,7 +1,7 @@
-package com.mrmrmr7.mytunes.controller.command.impl;
-
+package com.mrmrmr7.mytunes.controller.command.impl.view;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
+import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.util.PageDirector;
@@ -9,12 +9,12 @@ import com.mrmrmr7.mytunes.util.PageDirector;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SkipF5Command implements Command {
+public class ViewForgetPasswordPageCommand implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println(CommandDirector.VIEW_FORGET_PASSWORD_PAGE.getValue() + " command detected");
         ResponseContent responseContent = new ResponseContent();
-        PageDirector pageDirector = PageDirector.getEnum(request.getParameter("from"));
-        responseContent.setRouter(new Router(pageDirector, Router.Type.FORWARD));
+        responseContent.setRouter(new Router(PageDirector.VIEW_FORGET_PASSWORD_PAGE, Router.Type.FORWARD));
         return responseContent;
     }
 }

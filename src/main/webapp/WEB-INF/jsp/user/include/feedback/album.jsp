@@ -18,14 +18,13 @@
 
 <head>
 
-    <title>Sufee Admin - HTML5 Admin Template</title>
     <meta charset="UTF-8"/>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title><fmt:message key="title.feedback" bundle="${bundle}" /></title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/images/logo_icon.png">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/font-awesome/css/font-awesome.min.css">
@@ -67,11 +66,10 @@
                 <div class="user-area dropdown float-right">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
-                        <a href="${pageContext.request.contextPath}/#" class="dropdown-toggle" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle"
-                                 src="${pageContext.request.contextPath}/site/images/admin.jpg" alt="User Avatar">
-                        </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/crud?command=logout"><i
+                                    class="fa fa-power-off" ></i><fmt:message key="composition.logout" bundle="${bundle}"/></a>
+                        </li>
 
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="${pageContext.request.contextPath}/#" ><i class="fa fa-user"></i>
@@ -109,7 +107,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Account information</h1>
+                    <h1><fmt:message key="feedback.album.info" bundle="${bundle}"/></h1>
                 </div>
             </div>
         </div>
@@ -117,7 +115,7 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Dashboard</li>
+                        <li class="active"><fmt:message key="feedback.album.dashboard" bundle="${bundle}"/></li>
                     </ol>
                 </div>
             </div>
@@ -133,7 +131,7 @@
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active show" id="showFeedbackTab" data-toggle="tab" href="#profile"
-                               role="tab" aria-controls="profile" aria-selected="true">Show feedback</a>
+                               role="tab" aria-controls="profile" aria-selected="true"><fmt:message key="feedback.album.show" bundle="${bundle}"/></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="addFeedbackTab" data-toggle="tab" href="#home" role="tab"
@@ -141,7 +139,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="changeFeedbackTab" data-toggle="tab" href="#contact" role="tab"
-                               aria-controls="contact" aria-selected="false">Change feedback</a>
+                               aria-controls="contact" aria-selected="false"><fmt:message key="feedback.album.change" bundle="${bundle}"/></a>
                         </li>
                     </ul>
                     <div class="card" style="border-top: none">
@@ -158,11 +156,11 @@
                                                 <div class="input-group">
                                                     <div class="input-group-btn">
                                                         <button class="btn" id="btnClass" disabled="disabled">
-                                                            <i class="fa fa-search"></i> Show
+                                                            <i class="fa fa-search"></i> <fmt:message key="feedback.album.button.show" bundle="${bundle}"/>
                                                         </button>
                                                     </div>
                                                     <input type="text" id="input" name="albumName"
-                                                           placeholder="Album name" class="form-control">
+                                                           placeholder="<fmt:message key="feedback.album.placeholder.name" bundle="${bundle}"/>" class="form-control">
                                                     <script>
                                                         input.oninput = function () {
                                                             document.getElementById("btnClass").className = "btn btn-primary";
@@ -180,14 +178,14 @@
 
                                         <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show"
                                              style="margin-top: 1rem;">
-                                            <span class="badge badge-pill badge-dark">OK</span>
-                                            Feedback table about ${albumName} is shown!
+                                            <span class="badge badge-pill badge-dark"><fmt:message key="feedback.album.success" bundle="${bundle}"/></span>
+                                            ${albumName} <fmt:message key="feedback.album.areshown" bundle="${bundle}"/>
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">X</span>
                                             </button>
                                         </div>
                                         <div class="card-header" style="margin-top: 1rem; ">
-                                            <strong class="card-title">Feedback list</strong>
+                                            <strong class="card-title"><fmt:message key="feedback.album.feedbacklist" bundle="${bundle}"/></strong>
                                         </div>
                                         <div class="card-body">
                                             <div id="bootstrap-data-table-export_wrapper"
@@ -205,13 +203,13 @@
                                                                     rowspan="1" colspan="1"
                                                                     aria-sort="ascending"
                                                                     aria-label="Name: activate to sort column descending"
-                                                                    style="width: 263px;">User
+                                                                    style="width: 263px;"><fmt:message key="feedback.album.user" bundle="${bundle}"/>
                                                                 </th>
                                                                 <th class="sorting" tabindex="0"
                                                                     aria-controls="bootstrap-data-table-export"
                                                                     rowspan="1" colspan="1"
                                                                     aria-label="Office: activate to sort column ascending"
-                                                                    style="width: 196px;">Feedback
+                                                                    style="width: 196px;"><fmt:message key="feedback.album.feedback" bundle="${bundle}"/>
                                                                 </th>
                                                                 <th class="sorting" tabindex="0"
                                                                     aria-controls="bootstrap-data-table-export"
@@ -248,7 +246,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="addFeedbackTab">
                                     <div class="card-header" style="background: white">
-                                        <strong>Basic Form</strong> Elements
+                                        <strong><fmt:message key="feedback.album.success" bundle="${bundle}"/></strong> Elements
                                     </div>
                                     <div class="card-body card-block">
                                         <form action="${pageContext.request.contextPath}/crud" method="post"

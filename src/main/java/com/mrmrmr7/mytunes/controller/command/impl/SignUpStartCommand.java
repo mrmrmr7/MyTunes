@@ -19,11 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 public class SignUpStartCommand implements Command {
-    private final static String PARAMETER_LOGIN = "login";
-    private final static String PARAMETER_PASSWORD = "password";
-    private final static String PARAMETER_FIRST_NAME = "first_name";
-    private final static String PARAMETER_SECOND_NAME = "second_name";
-    private final static String PARAMETER_EMAIL = "second_name";
 
 
     @Override

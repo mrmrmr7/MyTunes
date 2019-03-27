@@ -27,6 +27,8 @@ public enum PageDirector {
     VIEW_UPDATE_COMPOSITION_PAGE ("/WEB-INF/jsp/admin/updatecomposition.jsp"),
     VIEW_UPLOAD_COMPOSITION_TO_MUSIC_SELECTION_PAGE ("/WEB-INF/jsp/admin/uploadcompositiontomusicselection.jsp"),
     VIEW_UPDATE_MUSIC_SELECTION_PAGE ("WEB-INF/jsp/admin/updatemusicselection.jsp"),
+    VIEW_FORGET_PASSWORD_PAGE ("WEB-INF/jsp/forgetpasswd.jsp"),
+    VIEW_RESET_PASSWORD_PAGE ("WEB-INF/jsp/resetpassword.jsp"),
 
     VIEW_CURRENT_BALANCE_PAGE ("/WEB-INF/jsp/user/include/balance/current.jsp"),
     CRUD_ALBUM_FEEDBACK ("/WEB-INF/jsp/crud/albumfeedback.jsp"),

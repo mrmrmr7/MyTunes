@@ -21,11 +21,11 @@
 
     <fmt:requestEncoding value="UTF-8"/>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title><fmt:message key="title.balance" bundle="${bundle}" /></title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/images/logo_icon.png">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/font-awesome/css/font-awesome.min.css">

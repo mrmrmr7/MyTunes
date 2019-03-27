@@ -20,11 +20,11 @@
 
     <fmt:requestEncoding value="UTF-8"/>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title><fmt:message key="title.shop" bundle="${bundle}" /></title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/images/logo_icon.png">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/font-awesome/css/font-awesome.min.css">
@@ -61,11 +61,10 @@
                 <div class="user-area dropdown float-right">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
-                        <a href="${pageContext.request.contextPath}/#" class="dropdown-toggle" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle"
-                                 src="${pageContext.request.contextPath}/site/images/admin.jpg" alt="User Avatar">
-                        </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/crud?command=logout"><i
+                                    class="fa fa-power-off" ></i><fmt:message key="composition.logout" bundle="${bundle}"/> </a>
+                        </li>
 
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="${pageContext.request.contextPath}/#" ><i class="fa fa-user"></i>
@@ -100,7 +99,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Account information</h1>
+                    <h1><fmt:message key="shop.album.info" bundle="${bundle}"/></h1>
                 </div>
             </div>
         </div>
@@ -108,7 +107,7 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Dashboard</li>
+                        <li class="active"><fmt:message key="shop.album.dashboard" bundle="${bundle}"/></li>
                     </ol>
                 </div>
             </div>
@@ -119,8 +118,8 @@
 
         <c:if test="${success}">
             <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
-                <span class="badge badge-pill badge-dark">Success</span>
-                You buy ${albumName} album!
+                <span class="badge badge-pill badge-dark"><fmt:message key="shop.album.success" bundle="${bundle}"/></span>
+                <fmt:message key="shop.album.buynextalbum" bundle="${bundle}"/> ${albumName}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">X</span>
                 </button>
@@ -132,7 +131,7 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header">
-                            <strong>Album</strong> buy
+                            <strong><fmt:message key="shop.album.album" bundle="${bundle}"/></strong> <fmt:message key="shop.album.buy" bundle="${bundle}"/>
                         </div>
                         <div class="card-body card-block">
                             <form action="${pageContext.request.contextPath}/crud" method="post" class="form-horizontal">
@@ -141,11 +140,11 @@
                                         <div class="input-group">
                                             <div class="input-group-btn">
                                                 <button id="btnClass" class="btn">
-                                                    <i class="fa fa-search"></i> Buy
+                                                    <i class="fa fa-search"></i> <fmt:message key="shop.album.placeholder.button.buy" bundle="${bundle}"/>
                                                 </button>
                                             </div>
                                             <input type="text" id="input" name="albumName"
-                                                   placeholder="Album name" class="form-control">
+                                                   placeholder="<fmt:message key="shop.album.placeholder.albumname" bundle="${bundle}"/>" class="form-control">
                                             <script>
                                                 input.oninput = function() {
                                                     document.getElementById("btnClass").className = "btn btn-primary";
@@ -165,9 +164,6 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <strong class="card-title">Data Table</strong>
-                        </div>
                         <div class="card-body">
                             <div id="bootstrap-data-table-export_wrapper"
                                  class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -182,34 +178,33 @@
                                                     aria-controls="bootstrap-data-table-export" rowspan="1" colspan="1"
                                                     aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending"
-                                                    style="width: 263px;">Name
+                                                    style="width: 263px;"><fmt:message key="shop.album.name" bundle="${bundle}"/>
                                                 </th>
                                                 <th class="sorting" tabindex="0"
                                                     aria-controls="bootstrap-data-table-export" rowspan="1" colspan="1"
                                                     aria-label="Position: activate to sort column ascending"
-                                                    style="width: 432px;">Genre
+                                                    style="width: 432px;"><fmt:message key="shop.album.placeholder.genre" bundle="${bundle}"/>
                                                 </th>
                                                 <th class="sorting" tabindex="0"
                                                     aria-controls="bootstrap-data-table-export" rowspan="1" colspan="1"
                                                     aria-label="Office: activate to sort column ascending"
-                                                    style="width: 196px;">Author
+                                                    style="width: 196px;"><fmt:message key="shop.album.placeholder.author" bundle="${bundle}"/>
                                                 </th>
                                                 <th class="sorting" tabindex="0"
                                                     aria-controls="bootstrap-data-table-export" rowspan="1" colspan="1"
                                                     aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 157px;">Year
+                                                    style="width: 157px;"><fmt:message key="shop.album.placeholder.year" bundle="${bundle}"/>
                                                 </th>
                                                 <th class="sorting" tabindex="0"
                                                     aria-controls="bootstrap-data-table-export" rowspan="1" colspan="1"
                                                     aria-label="Salary: activate to sort column ascending"
-                                                    style="width: 157px;">Price
+                                                    style="width: 157px;"><fmt:message key="shop.album.placeholder.price" bundle="${bundle}"/>
                                                 </th>
                                             </tr>
                                             </thead>
                                             <tbody>
 
                                             <c:forEach var="albumDto" items="${albumDtoList}">
-
                                                 <tr role="row" class="odd">
                                                     <td class ="sorting_1"><c:out value="${albumDto.name}"/></td>
                                                     <td><c:out value="${albumDto.genre}"/></td>
@@ -217,7 +212,6 @@
                                                     <td><c:out value="${albumDto.year}"/></td>
                                                     <td><c:out value="${albumDto.price}"/></td>
                                                 </tr>
-
                                             </c:forEach>
                                             </tbody>
                                         </table>
@@ -229,9 +223,7 @@
                 </div>
             </div>
         </div>
-
     </div> <!-- .content -->
-
 
     <!-- Header-->
 

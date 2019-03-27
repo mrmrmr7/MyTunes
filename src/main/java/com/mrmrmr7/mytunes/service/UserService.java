@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-public interface ServiceUser {
+public interface UserService {
 
     boolean isRightUser(String login, String password) throws ServiceException;
 
@@ -16,7 +16,9 @@ public interface ServiceUser {
 
     void logout(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServiceException;
 
-    boolean register(User user);
+    boolean tryRestartPassword(String email) throws ServiceException;
 
     boolean isAuthorized(String command, HttpServletRequest httpServletRequest) throws ServiceException;
+
+    void changePassword(int id, String password) throws ServiceException;
 }

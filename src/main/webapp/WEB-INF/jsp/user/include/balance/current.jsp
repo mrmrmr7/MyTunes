@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+
 
 <c:choose>
     <c:when test="${not empty requestScope.get('lang')}">
@@ -20,11 +22,11 @@
 
     <fmt:requestEncoding value="UTF-8"/>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title><fmt:message key="title.balance" bundle="${bundle}" /></title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/images/logo_icon.png">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/font-awesome/css/font-awesome.min.css">
@@ -65,11 +67,11 @@
                 <div class="user-area dropdown float-right">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
-                        <a href="${pageContext.request.contextPath}/#" class="dropdown-toggle" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle"
-                                 src="${pageContext.request.contextPath}/site/images/admin.jpg" alt="User Avatar">
-                        </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/crud?command=logout"><i
+                                    class="fa fa-power-off" ></i><fmt:message key="composition.logout" bundle="${bundle}"/></a>
+                        </li>
+
 
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="${pageContext.request.contextPath}/#" ><i class="fa fa-user"></i>
@@ -108,7 +110,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Account information</h1>
+                    <h1><fmt:message key="currentbalance.info" bundle="${bundle}"/></h1>
                 </div>
             </div>
         </div>
@@ -116,7 +118,7 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Dashboard</li>
+                        <li class="active"><fmt:message key="composition.dashboard" bundle="${bundle}"/></li>
                     </ol>
                 </div>
             </div>
@@ -126,24 +128,26 @@
 
 
     <div class="content mt-3">
-        <c:if test="${not empty newBalance}" >
-            <div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">
-                <span class="badge badge-pill badge-dark">Success</span>
-                Your balance equals ${newBalance}$
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">X</span>
-                </button>
-            </div>
-        </c:if>
+        <tag:alert needShow="${newBalance}" label="balance.update.label.success" message="balance.update.msg.success"/>
+
+        <%--<c:if test="${not empty newBalance}" >--%>
+            <%--<div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">--%>
+                <%--<span class="badge badge-pill badge-dark">Success</span>--%>
+                <%--Your balance equals ${newBalance}$--%>
+                <%--<button type="button" class="close" data-dismiss="alert" aria-label="Close">--%>
+                    <%--<span aria-hidden="true">X</span>--%>
+                <%--</button>--%>
+            <%--</div>--%>
+        <%--</c:if>--%>
 
         <div class="animated fadeIn">
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Current balance</strong>
+                        <strong class="card-title"><fmt:message key="currentbalance.currentbalance" bundle="${bundle}"/></strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Your current balance is: <b>${balance}$</b></p>
+                        <p class="card-text"><fmt:message key="currentbalance.balance" bundle="${bundle}"/> <b>${balance}$</b></p>
                     </div>
                 </div>
             </div>

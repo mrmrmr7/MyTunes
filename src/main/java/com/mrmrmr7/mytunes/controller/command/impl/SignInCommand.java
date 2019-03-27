@@ -52,14 +52,14 @@ public class SignInCommand implements Command {
                     httpServletResponse.addCookie(cookieMap.get(RequestDirector.TOKEN.getValue()));
                     httpServletResponse.addCookie(cookieMap.get(RequestDirector.PUBLIC_KEY.getValue()));
 
-                    responseContent.setRouter(new Router(PageDirector.ACCOUNT, Router.Type.FORWARD));
+                    responseContent.setRouter(new Router(PageDirector.REDIRECT_PATH.getValue() + CommandDirector.VIEW_PROFILE_PAGE.getValue(), Router.Type.REDIRECT));
                 } else {
-                    request.setAttribute("failSignIn", true);
-                    responseContent.setRouter(new Router(PageDirector.SIGN_IN, Router.Type.FORWARD));
+                    httpServletResponse.addCookie(new Cookie("failSignIn", String.valueOf(true)));
+                    responseContent.setRouter(new Router(PageDirector.REDIRECT_PATH.getValue() + CommandDirector.VIEW_SIGN_IN_PAGE.getValue(), Router.Type.REDIRECT));
                 }
             } else {
-                request.setAttribute("failData", true);
-                responseContent.setRouter(new Router(PageDirector.SIGN_IN, Router.Type.FORWARD));
+                httpServletResponse.addCookie(new Cookie("failData", String.valueOf(true)));
+                responseContent.setRouter(new Router(PageDirector.REDIRECT_PATH.getValue() + CommandDirector.VIEW_SIGN_IN_PAGE.getValue(), Router.Type.REDIRECT));
             }
 
         } catch (ServiceException e) {

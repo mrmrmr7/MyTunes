@@ -36,8 +36,8 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.*;
 
 public class SignUpServiceImpl implements SignUpService {
-    public final static String USERNAME = "mytunesmaler@gmail.com";
-    public final static String PASSWORD = "CStheBEST7";
+    private final static String USERNAME = "mytunesmaler@gmail.com";
+    private final static String PASSWORD = "CStheBEST7";
 
     @Override
     public Properties getProperties() {
@@ -105,7 +105,7 @@ public class SignUpServiceImpl implements SignUpService {
                     "\n\n" +
                     "Please, confirm your registration by this link: " +
                     "\n\n" +
-                    "http://localhost:8080/crud?command=finishRegistration&token=" + token + "&publicKey=" + rsaPublicKeyStr);
+                    "http://207.154.220.222:8181/mytunes/crud?command=finishRegistration&token=" + token + "&publicKey=" + rsaPublicKeyStr);
 
             Transport.send(message);
         } catch (MessagingException e) {

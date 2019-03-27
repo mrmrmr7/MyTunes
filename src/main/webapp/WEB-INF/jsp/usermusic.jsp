@@ -20,10 +20,10 @@
 
     <fmt:requestEncoding value="UTF-8"/>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title><fmt:message key="title.usermusic" bundle="${bundle}" /></title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
 
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/images/logo_icon.png">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/font-awesome/css/font-awesome.min.css">
@@ -65,25 +65,13 @@
                 <div class="user-area dropdown float-right">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
-                        <a href="${pageContext.request.contextPath}/#" class="dropdown-toggle" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle"
-                                 src="${pageContext.request.contextPath}/site/images/admin.jpg" alt="User Avatar">
-                        </a>
 
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/#" ><i class="fa fa-user"></i>
-                                My Profile</a>
-
-                            <a class="nav-link" href="${pageContext.request.contextPath}/#"><i class="fa fa-user"></i>
-                                Notifications <span class="count">13</span></a>
-
-                            <a class="nav-link" href="${pageContext.request.contextPath}/#"><i class="fa fa-cog"></i>
-                                Settings</a>
-
+                        <li class="nav-item">
                             <a class="nav-link" href="${pageContext.request.contextPath}/crud?command=logout"><i
-                                    class="fa fa-power-off"></i>Logout</a>
-                        </div>
+                                    class="fa fa-power-off" ></i><fmt:message key="usermusic.logout" bundle="${bundle}"/> </a>
+                        </li>
+
+
                         <li class="nav-item">
                             <a class="nav-link" id="pills-home-tab"href="${pageContext.request.contextPath}/crud?command=changeLang&lang=ru&from=/crud?command=music"
                                role="tab" aria-controls="pills-home" aria-selected="false">RU</a>
@@ -107,7 +95,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Account information</h1>
+                    <h1><fmt:message key="usermusic.musicinformation" bundle="${bundle}"/></h1>
                 </div>
             </div>
         </div>
@@ -115,7 +103,7 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Dashboard</li>
+                        <li class="active"><fmt:message key="usermusic.info" bundle="${bundle}"/></li>
                     </ol>
                 </div>
             </div>
@@ -131,15 +119,15 @@
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active show" id="showFeedbackTab" data-toggle="tab" href="#profile"
-                               role="tab" aria-controls="profile" aria-selected="true">Compositions</a>
+                               role="tab" aria-controls="profile" aria-selected="true"><fmt:message key="usermusic.compositions" bundle="${bundle}"/></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="addFeedbackTab" data-toggle="tab" href="#home" role="tab"
-                               aria-controls="home" aria-selected="false">Albums</a>
+                               aria-controls="home" aria-selected="false"><fmt:message key="usermusic.albums" bundle="${bundle}"/></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="changeFeedbackTab" data-toggle="tab" href="#contact" role="tab"
-                               aria-controls="contact" aria-selected="false">Music selections</a>
+                               aria-controls="contact" aria-selected="false"><fmt:message key="usermusic.musicselections" bundle="${bundle}"/></a>
                         </li>
                     </ul>
                     <div class="card" style="border-top: none">
@@ -164,17 +152,17 @@
                                                                     aria-controls="bootstrap-data-table-export"
                                                                     rowspan="1" colspan="1" aria-label="Name
                                             : activate to sort column descending" style="width: 280px;"
-                                                                    aria-sort="ascending">Name
+                                                                    aria-sort="ascending"><fmt:message key="usermusic.name" bundle="${bundle}"/>
                                                                 </th>
                                                                 <th class="sorting" tabindex="0"
                                                                     aria-controls="bootstrap-data-table-export"
                                                                     rowspan="1" colspan="1" aria-label="Album
-                                            : activate to sort column ascending" style="width: 476px;">Album
+                                            : activate to sort column ascending" style="width: 476px;"><fmt:message key="usermusic.album" bundle="${bundle}"/>
                                                                 </th>
                                                                 <th class="sorting" tabindex="0"
                                                                     aria-controls="bootstrap-data-table-export"
                                                                     rowspan="1" colspan="1" aria-label="Author
-                                            : activate to sort column ascending" style="width: 202px;">Author
+                                            : activate to sort column ascending" style="width: 202px;"><fmt:message key="usermusic.author" bundle="${bundle}"/>
                                                                 </th>
                                                             </tr>
                                                             </thead>
@@ -218,22 +206,22 @@
                                                                     aria-controls="bootstrap-data-table-export"
                                                                     rowspan="1" colspan="1" aria-label="Name
                                             : activate to sort column descending" style="width: 280px;"
-                                                                    aria-sort="ascending">Name
+                                                                    aria-sort="ascending"><fmt:message key="usermusic.name" bundle="${bundle}"/>
                                                                 </th>
                                                                 <th class="sorting" tabindex="0"
                                                                     aria-controls="bootstrap-data-table-export"
                                                                     rowspan="1" colspan="1" aria-label="Album
-                                            : activate to sort column ascending" style="width: 476px;">Genre
+                                            : activate to sort column ascending" style="width: 476px;"><fmt:message key="usermusic.genre" bundle="${bundle}"/>
                                                                 </th>
                                                                 <th class="sorting" tabindex="0"
                                                                     aria-controls="bootstrap-data-table-export"
                                                                     rowspan="1" colspan="1" aria-label="Author
-                                            : activate to sort column ascending" style="width: 202px;">Author
+                                            : activate to sort column ascending" style="width: 202px;"><fmt:message key="usermusic.author" bundle="${bundle}"/>
                                                                 </th>
                                                                 <th class="sorting" tabindex="0"
                                                                     aria-controls="bootstrap-data-table-export"
                                                                     rowspan="1" colspan="1" aria-label="Author
-                                            : activate to sort column ascending" style="width: 202px;">Year
+                                            : activate to sort column ascending" style="width: 202px;"><fmt:message key="usermusic.year" bundle="${bundle}"/>
                                                                 </th>
                                                             </tr>
                                                             </thead>
@@ -280,12 +268,12 @@
                                                                     aria-controls="bootstrap-data-table-export"
                                                                     rowspan="1" colspan="1" aria-label="Name
                                             : activate to sort column descending" style="width: 280px;"
-                                                                    aria-sort="ascending">Name
+                                                                    aria-sort="ascending"><fmt:message key="usermusic.name" bundle="${bundle}"/>
                                                                 </th>
                                                                 <th class="sorting" tabindex="0"
                                                                     aria-controls="bootstrap-data-table-export"
                                                                     rowspan="1" colspan="1" aria-label="Album
-                                            : activate to sort column ascending" style="width: 476px;">Description
+                                            : activate to sort column ascending" style="width: 476px;"><fmt:message key="usermusic.description" bundle="${bundle}"/>
                                                                 </th>
                                                             </tr>
                                                             </thead>

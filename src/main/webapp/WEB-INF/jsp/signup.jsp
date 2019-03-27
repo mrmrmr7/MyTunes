@@ -19,12 +19,11 @@
 <head>
     <meta charset="UTF-8"/>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <title>Sufee Admin - HTML5 Admin Template</title>
+    <title><fmt:message key="title.signup" bundle="${bundle}" /></title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/site/apple-icon.png">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/favicon.ico">
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/site/images/logo_icon.png">
 
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/site/vendors/bootstrap/dist/css/bootstrap.min.css">
@@ -48,7 +47,7 @@
         <div class="login-content">
             <div class="login-logo">
                 <a href="${pageContext.request.contextPath}/index.jsp">
-                    <img class="align-content" src="${pageContext.request.contextPath}/site/images/logo.png" alt="">
+                    <img class="align-content" src="${pageContext.request.contextPath}/site/images/logo_name.png" alt="">
                 </a>
             </div>
 
