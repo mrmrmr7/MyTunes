@@ -46,21 +46,21 @@ public class RedirectFilter implements Filter {
 
         if (accessLevel == AccessLevel.ALL) {
             if (!isAuthorized) {
-                httpServletRequest.getRequestDispatcher(httpServletRequest.getContextPath() + "/crud?command=" + command).forward(servletRequest, servletResponse);
+                httpServletRequest.getRequestDispatcher("/crud?command=" + command).forward(servletRequest, servletResponse);
             } else {
                 HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-                httpServletResponse.sendRedirect("/crud?command=" + CommandDirector.VIEW_PROFILE_PAGE.getValue());
+                httpServletResponse.sendRedirect(((HttpServletRequest) servletRequest).getContextPath() + "/crud?command=" + CommandDirector.VIEW_PROFILE_PAGE.getValue());
             }
         } else {
 
             if (isAuthorized) {
                 if (accessLevel == AccessLevel.USER) {
-                    httpServletRequest.getRequestDispatcher(httpServletRequest.getContextPath() + "/crud?command=" + command).forward(servletRequest, servletResponse);
+                    httpServletRequest.getRequestDispatcher("/crud?command=" + command).forward(servletRequest, servletResponse);
                 } else {
                     if (AccesLevelUtil.showAccessLevelFromReques(servletRequest) == AccessLevel.ADMIN) {
-                        httpServletRequest.getRequestDispatcher(httpServletRequest.getContextPath() + "/crud?command=" + command).forward(servletRequest, servletResponse);
+                        httpServletRequest.getRequestDispatcher("/crud?command=" + command).forward(servletRequest, servletResponse);
                     } else {
-                        httpServletRequest.getRequestDispatcher(((HttpServletRequest) servletRequest).getContextPath() + "/crud?command=" + CommandDirector.VIEW_PROFILE_PAGE.getValue()).forward(servletRequest, servletResponse);
+                        httpServletRequest.getRequestDispatcher("/crud?command=" + CommandDirector.VIEW_PROFILE_PAGE.getValue()).forward(servletRequest, servletResponse);
                     }
                 }
             } else {
