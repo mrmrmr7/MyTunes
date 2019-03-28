@@ -21,20 +21,15 @@ import java.util.List;
 
 public class ViewAdminCreateAlbumPage implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADMIN_VIEW_ADD_ALBUM_PAGE.getValue() + " command detected");
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         ResponseContent responseContent = new ResponseContent();
         AuthorService authorService = new AuthorServiceImpl();
         GenreService genreService = new GenreServiceImpl();
 
-        try {
-            List<Author> authorList = authorService.getAuthorList();
+        List<Author> authorList = authorService.getAuthorList();
 
-            request.setAttribute("genreList", genreService.getGenreList());
-            request.setAttribute("authorList", authorList);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("genreList", genreService.getGenreList());
+        request.setAttribute("authorList", authorList);
 
         responseContent.setRouter(new Router(PageDirector.VIEW_ADMIN_CREATE_ALBUM_PAGE, Router.Type.FORWARD));
         return responseContent;

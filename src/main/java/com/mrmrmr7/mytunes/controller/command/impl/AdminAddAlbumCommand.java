@@ -20,22 +20,17 @@ import java.util.List;
 
 public class AdminAddAlbumCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADMIN_ADD_ALBUM.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         ResponseContent responseContent = new ResponseContent();
         AlbumService albumService = new AlbumServiceImpl();
         GenreService genreService = new GenreServiceImpl();
         AuthorService authorService = new AuthorServiceImpl();
 
-        try {
-            List<Author> authorList = authorService.getAuthorList();
-            request.setAttribute("authorList", authorList);
-            request.setAttribute("genreList", genreService.getGenreList());
-            request.setAttribute("success", albumService.addAlbum(request));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        List<Author> authorList = authorService.getAuthorList();
+        request.setAttribute("authorList", authorList);
+        request.setAttribute("genreList", genreService.getGenreList());
+        request.setAttribute("success", albumService.addAlbum(request));
+
 
         responseContent.setRouter(new Router(PageDirector.VIEW_ADMIN_CREATE_ALBUM_PAGE, Router.Type.FORWARD));
         return responseContent;

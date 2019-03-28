@@ -8,8 +8,10 @@ import com.mrmrmr7.mytunes.dto.MusicSelectionFeedbackDto;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.MusicSelectionFeedbackDtoService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,15 +56,15 @@ public class MusicSelectionFeedbackDtoServiceImpl implements MusicSelectionFeedb
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                throw new ServiceException(e1.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e.getMessage());
             }
-            e.printStackTrace();
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
         return musicSelectionFeedbackDtoList;

@@ -15,7 +15,6 @@ import java.util.Optional;
 public class ViewSignInPageCommand implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.VIEW_SIGN_IN_PAGE.getValue() + " command detected");
         ResponseContent responseContent = new ResponseContent();
         Optional<Cookie> failSignIn = Arrays.stream(request.getCookies()).filter(s -> s.getName().equals("failSignIn")).findFirst();
         Optional<Cookie> failData = Arrays.stream(request.getCookies()).filter(s -> s.getName().equals("failData")).findFirst();

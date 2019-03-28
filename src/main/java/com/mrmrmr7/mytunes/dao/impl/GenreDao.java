@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Genre;
@@ -10,6 +11,7 @@ import com.mrmrmr7.mytunes.entity.Genre;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +29,10 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
                 resultSet.next();
                 return Optional.of(resultSetToBean.toGenre(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.7.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1052));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.7.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1053));
         }
     }
 
@@ -47,10 +49,10 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
                             .add(resultSetToBean.toGenre(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.7.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1054));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.7.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1055));
         }
 
         return userList;
@@ -63,7 +65,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.7.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1056));
         }
     }
 
@@ -74,7 +76,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.7.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1057));
         }
     }
 
@@ -85,7 +87,7 @@ public class GenreDao extends AbstractJdbcDao<Genre, Integer> implements Generic
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.7.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1058));
         }
     }
 

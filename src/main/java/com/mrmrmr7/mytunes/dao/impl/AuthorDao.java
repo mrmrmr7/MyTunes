@@ -3,11 +3,13 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Author;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +28,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
             resultSet.next();
             return Optional.of(resultSetToBean.toAuthor(resultSet));
         } catch (SQLException e) {
-            throw new DaoException("4.3.1");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1019));
         }
     }
 
@@ -43,10 +45,10 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
                             .add(resultSetToBean.toAuthor(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.3.2");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1020));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.3.3");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1021));
         }
 
         return userList;
@@ -59,7 +61,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.3.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1022));
         }
     }
 
@@ -70,7 +72,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.3.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1023));
         }
     }
 
@@ -81,7 +83,7 @@ public class AuthorDao extends AbstractJdbcDao<Author, Integer> implements Gener
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.3.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1024));
         }
     }
 

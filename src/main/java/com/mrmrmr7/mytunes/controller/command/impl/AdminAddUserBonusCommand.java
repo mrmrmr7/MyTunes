@@ -9,25 +9,21 @@ import com.mrmrmr7.mytunes.service.UserBonusService;
 import com.mrmrmr7.mytunes.service.impl.UserBonusServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AdminAddUserBonusCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) {
-        System.out.println(CommandDirector.ADMIN_ADD_USER_BONUS.getValue() + " command detected");
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServiceException {
         int bonusId = Integer.valueOf(request.getParameter("bonusId"));
         String userLogin = request.getParameter("userLogin");
         UserBonusService userBonusService = new UserBonusServiceImpl();
 
-        try {
-            request.setAttribute("success", userBonusService.addBonusToUser(userLogin, bonusId));
-        } catch (ServiceException e) {
-            System.out.println("ups, upalo");
-        }
+        httpServletResponse.addCookie(new Cookie("success", String.valueOf(userBonusService.addBonusToUser(userLogin, bonusId))));
 
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router(PageDirector.VIEW_ADMIN_ADD_USER_BONUS_PAGE, Router.Type.FORWARD));
+        responseContent.setRouter(new Router(PageDirector.REDIRECT_PATH.getValue() + CommandDirector.ADMIN_VIEW_ADD_USER_BONUS_PAGE.getValue(), Router.Type.FORWARD));
         return responseContent;
     }
 }

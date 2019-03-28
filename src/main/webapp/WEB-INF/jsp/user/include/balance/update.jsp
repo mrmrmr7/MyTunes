@@ -55,61 +55,40 @@
     <!-- Header-->
 
     <header id="header" class="header">
-
         <div class="header-menu">
-
             <div class="col-sm-7">
             </div>
-
             <div class="col-sm-5">
-
                 <div class="user-area dropdown float-right">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
-                        <a href="${pageContext.request.contextPath}/#" class="dropdown-toggle" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle"
-                                 src="${pageContext.request.contextPath}/site/images/admin.jpg" alt="User Avatar">
-                        </a>
 
-                        <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/#" ><i class="fa fa-user"></i>
-                                My Profile</a>
-
-                            <a class="nav-link" href="${pageContext.request.contextPath}/#"><i class="fa fa-user"></i>
-                                Notifications <span class="count">13</span></a>
-
-                            <a class="nav-link" href="${pageContext.request.contextPath}/#"><i class="fa fa-cog"></i>
-                                Settings</a>
-
-                            <a class="nav-link" href="${pageContext.request.contextPath}/crud?command=logout"><i
-                                    class="fa fa-power-off"></i>Logout</a>
-                        </div>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-home-tab"href="${pageContext.request.contextPath}/crud?command=changeLang&from=/crud?command=viewCurrentBalancePage&lang=ru"
+                            <a class="nav-link" href="${pageContext.request.contextPath}/crud?command=logout"><i
+                                    class="fa fa-power-off" ></i><fmt:message key="usermusic.logout" bundle="${bundle}"/> </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-home-tab"href="${pageContext.request.contextPath}/crud?command=changeLang&from=/crud?command=viewUpdateBalancePage&lang=ru"
                                role="tab" aria-controls="pills-home" aria-selected="false">RU</a>
                         </li>
                         <li class="nav-item active ">
-                            <a class="nav-link" id="pills-profile-tab" href="${pageContext.request.contextPath}/crud?command=changeLang&from=/crud?command=viewCurrentBalancePage&lang=en"
+                            <a class="nav-link" id="pills-profile-tab" href="${pageContext.request.contextPath}/crud?command=changeLang&from=/crud?command=viewUpdateBalancePage&lang=en"
                                role="tab" aria-controls="pills-profile" aria-selected="false">EN</a>
                         </li>
 
                     </ul>
                 </div>
-
-
             </div>
         </div>
-
     </header><!-- /header -->
-
     <!-- Header-->
 
     <div class="breadcrumbs">
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Account information</h1>
+                    <h1><fmt:message key="update.info" bundle="${bundle}"/> </h1>
                 </div>
             </div>
         </div>
@@ -117,7 +96,7 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Dashboard</li>
+                        <li class="active"><fmt:message key="update.type" bundle="${bundle}"/></li>
                     </ol>
                 </div>
             </div>
@@ -136,41 +115,37 @@
                 <div class="col-md-6 offset-md-3 mr-auto ml-auto">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Credit Card</strong>
+                            <strong class="card-title"><fmt:message key="update.paymentInfo" bundle="${bundle}"/></strong>
                         </div>
                         <div class="card-body">
                             <!-- Credit Card -->
                             <div id="pay-invoice">
                                 <div class="card-body">
-                                    <div class="card-title">
-                                        <h3 class="text-center">Pay Invoice</h3>
-                                    </div>
-                                    <hr>
                                     <form action="${pageContext.request.contextPath}/crud" method="post" id="updateBalanceForm" novalidate="novalidate">
                                         <div class="form-group">
-                                            <label for="cc-pament" class="control-label mb-1">Payment amount</label>
-                                            <input id="cc-pament" name="paymentCount" type="text" class="form-control" aria-required="true" aria-invalid="false" value="100">
+                                            <label for="cc-pament" class="control-label mb-1"><fmt:message key="update.paymentamount" bundle="${bundle}"/></label>
+                                            <input id="cc-pament" name="paymentCount" type="number" min="1" class="form-control" aria-required="true" aria-invalid="false" value="100">
                                         </div>
                                         <div class="form-group has-success">
-                                            <label for="cc-name" class="control-label mb-1">Name on card</label>
+                                            <label for="cc-name" class="control-label mb-1"><fmt:message key="update.cardname" bundle="${bundle}"/></label>
                                             <input id="cc-name" name="paymentNameOnCard" type="text" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card" autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
                                             <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
                                         </div>
                                         <div class="form-group">
-                                            <label for="cc-number" class="control-label mb-1">Card number</label>
+                                            <label for="cc-number" class="control-label mb-1"><fmt:message key="update.cardnumber" bundle="${bundle}"/></label>
                                             <input id="cc-number" name="paymentCardNumber" type="tel" class="form-control cc-number identified visa" value="" data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number" autocomplete="cc-number">
                                             <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
                                         </div>
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label for="cc-exp" class="control-label mb-1">Expiration</label>
+                                                    <label for="cc-exp" class="control-label mb-1"><fmt:message key="update.expiration" bundle="${bundle}"/></label>
                                                     <input id="cc-exp" name="paymentCardExpiration" type="tel" class="form-control cc-exp" value="" data-val="true" data-val-required="Please enter the card expiration" data-val-cc-exp="Please enter a valid month and year" placeholder="MM / YY" autocomplete="cc-exp">
                                                     <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
                                                 </div>
                                             </div>
                                             <div class="col-6">
-                                                <label for="x_card_code" class="control-label mb-1">Security code</label>
+                                                <label for="x_card_code" class="control-label mb-1"><fmt:message key="update.css" bundle="${bundle}"/></label>
                                                 <div class="input-group">
                                                     <input id="x_card_code" name="paymentCardSecurityCode" type="tel" class="form-control cc-cvc" value="" data-val="true" data-val-required="Please enter the security code" data-val-cc-cvc="Please enter a valid security code" autocomplete="off">
                                                     <div class="input-group-addon">
@@ -181,7 +156,7 @@
                                         </div>
                                         <div>
                                             <button id="payment-button" type="submit" form="updateBalanceForm" class="btn btn-lg btn-info btn-block">
-                                                <span id="payment-button-amount">Pay $100.00</span>
+                                                <span id="payment-button-amount"><fmt:message key="update.pay" bundle="${bundle}"/></span>
                                             </button>
                                         </div>
                                         <input type="hidden" name="command" value="updateBalance">

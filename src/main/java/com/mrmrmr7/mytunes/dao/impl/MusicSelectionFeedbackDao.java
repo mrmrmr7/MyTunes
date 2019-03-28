@@ -2,6 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.MusicSelectionFeedback;
@@ -9,6 +10,7 @@ import com.mrmrmr7.mytunes.entity.MusicSelectionFeedback;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,10 +31,10 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
                 }
                 return Optional.of(resultSetToBean.toMusicSelectionFeedback(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.9.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1068));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.9.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1069));
         }
     }
 
@@ -48,10 +50,10 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
                             .add(resultSetToBean.toMusicSelectionFeedback(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.9.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1070));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.9.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1071));
         }
 
         return musicSelectionFeedbackList;
@@ -64,7 +66,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.9.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1072));
         }
     }
 
@@ -75,7 +77,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.9.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1073));
         }
     }
 
@@ -86,7 +88,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.9.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1074));
         }
     }
 
@@ -95,7 +97,11 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
     protected PreparedStatement prepareStatementForInsert(MusicSelectionFeedback object) throws SQLException {
 
         PreparedStatement preparedStatement = connection.prepareStatement(getInsertQuery());
-        return prepareForUpdate(preparedStatement, object);
+        int i = 0;
+        preparedStatement.setInt(++i, object.getId());
+        preparedStatement.setString(++i, object.getFeedback());
+        preparedStatement.setTimestamp(++i, object.getTimestamp());
+        return preparedStatement;
     }
 
     @AutoConnection
@@ -105,7 +111,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
         PreparedStatement preparedStatement = prepareForUpdate(connection
                         .prepareStatement(getUpdateQuery()),
                 object);
-        preparedStatement.setInt(4, object.getId());
+        preparedStatement.setInt(3, object.getId());
         return preparedStatement;
     }
 
@@ -132,7 +138,6 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
     private PreparedStatement prepareForUpdate(PreparedStatement preparedStatement, MusicSelectionFeedback object) throws SQLException {
 
         int i = 0;
-        preparedStatement.setInt(++i, object.getId());
         preparedStatement.setString(++i, object.getFeedback());
         preparedStatement.setTimestamp(++i, object.getTimestamp());
         return preparedStatement;
@@ -152,7 +157,7 @@ public class MusicSelectionFeedbackDao extends AbstractJdbcDao<MusicSelectionFee
     protected String getUpdateQuery() {
 
         return "UPDATE " + Table.MUSIC_SELECTION_FEEDBACK.getValue() + " SET " +
-                "ID=?, FEEDBACK=?, " +
-                "DATE=? WHERE ID=?";
+                "FEEDBACK=?, " +
+                "TIMESTAMP=? WHERE ID=?";
     }
 }

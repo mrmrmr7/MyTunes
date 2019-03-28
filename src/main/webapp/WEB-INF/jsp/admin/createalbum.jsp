@@ -100,7 +100,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Account information</h1>
+                    <h1><fmt:message key="admin.createalbum.info" bundle="${bundle}"/></h1>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Dashboard</li>
+                        <li class="active"><fmt:message key="admin.createalbum.admin" bundle="${bundle}"/></li>
                     </ol>
                 </div>
             </div>
@@ -133,7 +133,7 @@
             <div class="col-lg-8 offset-md-3 mr-auto ml-auto">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Album</strong> information
+                        <strong><fmt:message key="admin.createalbum.album" bundle="${bundle}"/></strong> information
                     </div>
                     <div class="card-body">
                         <form action="${pageContext.request.contextPath}/crud" method="post" id="addUserBonusFormId" class="form-horizontal">
@@ -145,14 +145,14 @@
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col col-md-3"><label for="compositionPriceId" class=" form-control-label">Price</label></div>
+                                <div class="col col-md-3"><label for="compositionPriceId" class=" form-control-label"><fmt:message key="admin.createalbum.price" bundle="${bundle}"/></label></div>
                                 <div class="col-12 col-md-9">
-                                    <input type="text" id="compositionPriceId" name="albumPrice" placeholder="Enter price"
+                                    <input type="number" min="0" id="compositionPriceId" name="albumPrice" placeholder="Enter price"
                                            class="form-control">
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col col-md-3"><label for="compositionYearId" class=" form-control-label">Year</label></div>
+                                <div class="col col-md-3"><label for="compositionYearId" class=" form-control-label"><fmt:message key="admin.createalbum.year" bundle="${bundle}"/></label></div>
                                 <div class="col-12 col-md-9">
                                     <input type="text" id="compositionYearId" name="albumYear" placeholder="Enter year"
                                            class="form-control">
@@ -160,7 +160,7 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col col-md-3"><label for="SelectLm1"
-                                                                 class=" form-control-label">Author</label></div>
+                                                                 class=" form-control-label"><fmt:message key="admin.createalbum.author" bundle="${bundle}"/></label></div>
                                 <div class="col-12 col-md-9">
                                     <select name="authorId" id="SelectLm1" class="form-control-sm form-control">>
                                         <option value="0">Please select</option>
@@ -172,7 +172,7 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col col-md-3"><label for="SelectLm2"
-                                                                 class=" form-control-label">Genre</label></div>
+                                                                 class=" form-control-label"><fmt:message key="admin.createalbum.genre" bundle="${bundle}"/></label></div>
                                 <div class="col-12 col-md-9">
                                     <select name="genreId" id="SelectLm2" class="form-control-sm form-control">>
                                         <option value="0">Please select</option>
@@ -183,7 +183,7 @@
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Feedback</label>
+                                <div class="col col-md-3"><label for="textarea-input" class=" form-control-label"><fmt:message key="admin.createalbum.descr" bundle="${bundle}"/></label>
                                 </div>
                                 <div class="col-12 col-md-9"><textarea name="albumDescription" id="textarea-input" rows="9" placeholder="Content..." class="form-control"></textarea>
                                 </div>
@@ -193,10 +193,10 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" form="addUserBonusFormId" class="btn btn-primary btn-sm">
-                            <i class="fa fa-dot-circle-o"></i> Submit
+                            <i class="fa fa-dot-circle-o"></i> <fmt:message key="admin.createalbum.submit" bundle="${bundle}"/>
                         </button>
                         <button type="reset" class="btn btn-danger btn-sm">
-                            <i class="fa fa-ban"></i> Reset
+                            <i class="fa fa-ban"></i> <fmt:message key="admin.createalbum.reset" bundle="${bundle}"/>
                         </button>
                     </div>
                 </div>

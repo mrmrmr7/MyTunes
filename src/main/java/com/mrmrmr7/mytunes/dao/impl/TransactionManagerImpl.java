@@ -3,10 +3,12 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class TransactionManagerImpl implements TransactionManager {
         try {
             singleConnection.setAutoCommit(false);
         } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1098));
         }
 
         for (GenericDao dao : daos) {
@@ -35,11 +37,11 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     @Override
-    public void end() {
+    public void end() throws DaoException {
         try {
             singleConnection.setAutoCommit(true);
         } catch (SQLException e) {
-            System.out.println("impossible to set autocommit: false");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1099));
         }
 
         try {
@@ -48,43 +50,38 @@ public class TransactionManagerImpl implements TransactionManager {
                     .getConnectionPool(ConnectionPoolType.MYSQL)
                     .releaseConnection(this.singleConnection);
         } catch (DaoException e) {
-            e.printStackTrace();
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1100));
         }
 
         for (GenericDao genericDAO : genericDaoList) {
-            try {
-                removeConnectionWithReflection(genericDAO);
-            } catch (DaoException e) {
-                System.out.println("impossible to close connection in: " + genericDAO);
-            }
+            removeConnectionWithReflection(genericDAO);
         }
     }
 
     @Override
-    public void commit() {
+    public void commit() throws DaoException {
         try {
             singleConnection.commit();
         } catch (SQLException e) {
-            System.out.println("impossible to commit");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1101));
         }
     }
 
     @Override
-    public void rollBack() {
+    public void rollBack() throws DaoException {
         try {
             singleConnection.rollback();
         } catch (SQLException e) {
-            System.out.println("impossible to rollBack");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1102));
         }
     }
 
     public static void setConnectionWithReflection(Object dao, Connection connection) throws DaoException {
         if (!(dao instanceof AbstractJdbcDao)) {
-            throw new DaoException("DAO implementation does not extend AbstractJdbcDao.");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1103));
         }
 
         try {
-
             Field connectionField = AbstractJdbcDao.class.getDeclaredField("connection");
             if (!connectionField.isAccessible()) {
                 connectionField.setAccessible(true);
@@ -92,8 +89,10 @@ public class TransactionManagerImpl implements TransactionManager {
 
             connectionField.set(dao, connection);
 
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new DaoException("Failed to set connection for transactional DAO. ");
+        } catch (NoSuchFieldException e) {
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1104));
+        } catch (IllegalAccessException e) {
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1105));
         }
     }
 

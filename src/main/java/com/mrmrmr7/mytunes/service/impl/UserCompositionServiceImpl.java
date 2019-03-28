@@ -9,9 +9,11 @@ import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.entity.UserComposition;
 import com.mrmrmr7.mytunes.service.UserCompositionService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +30,11 @@ public class UserCompositionServiceImpl implements UserCompositionService {
         try {
             user = JdbcDaoFactory.getInstance().getDao(User.class).getByPK(decodedJWT.getClaim("userId").asInt());
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA) + e.getMessage());
         }
 
         if (!user.isPresent()) {
-            throw new ServiceException("No such user");
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.INVALID_DATA));
         }
 
         Optional<UserComposition> userCompositionOptional;
@@ -40,24 +42,19 @@ public class UserCompositionServiceImpl implements UserCompositionService {
 
         try {
             userCompositionOptional = JdbcDaoFactory.getInstance().getDao(UserComposition.class).getByPK(user.get().getId());
-            userCompositionOptional.ifPresent(
-                    u -> {
-                        u.getCompositionIdList().forEach(
-                                c -> {
-                                    try {
-                                        Optional<Composition> compositionOptional = JdbcDaoFactory.getInstance().getDao(Composition.class).getByPK(c);
-                                        compositionOptional.ifPresent(
-                                                compositionList::add
-                                        );
-                                    } catch (DaoException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                        );
+            if (userCompositionOptional.isPresent()) {
+                UserComposition u = userCompositionOptional.get();
+                for (int c : u.getCortageIdList()) {
+                    try {
+                        Optional<Composition> compositionOptional = JdbcDaoFactory.getInstance().getDao(Composition.class).getByPK(c);
+                        compositionOptional.ifPresent(compositionList::add);
+                    } catch (DaoException e) {
+                        throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA) + e.getMessage());
                     }
-            );
+                }
+            }
         } catch (DaoException e) {
-            e.printStackTrace();
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA) + e.getMessage());
         }
 
         return compositionList;

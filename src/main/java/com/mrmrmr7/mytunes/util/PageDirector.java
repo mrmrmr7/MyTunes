@@ -7,6 +7,7 @@ public enum PageDirector {
     SIGN_UP ("/WEB-INF/jsp/signup.jsp"),
     ERROR ("/WEB-INF/jsp/error.jsp"),
     REDIRECT_PATH ("/redirect?to="),
+    ERROR_PAGE ("/WEB-INF/jsp/error.jsp"),
 
     //SHOP
     COMPOSITION_SHOP ("/WEB-INF/jsp/user/include/shop/composition.jsp"),

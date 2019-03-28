@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 public class ViewForgetPasswordPageCommand implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.VIEW_FORGET_PASSWORD_PAGE.getValue() + " command detected");
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.VIEW_FORGET_PASSWORD_PAGE, Router.Type.FORWARD));
         return responseContent;

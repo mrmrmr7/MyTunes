@@ -126,17 +126,17 @@ class MusicSelectionFeedbackDAOTest {
     void update() throws SQLException, DaoException {
 
         MusicSelectionFeedback compositionFeedback = new MusicSelectionFeedback(
-                1,
+                5,
                 "Fail song",
                 new Timestamp(1231435)
         );
 
         musicSelectionFeedbackDAO.update(compositionFeedback);
 
-        Optional<MusicSelectionFeedback> compositionFeedback1 = musicSelectionFeedbackDAO.getByPK(1);
+        Optional<MusicSelectionFeedback> compositionFeedback1 = musicSelectionFeedbackDAO.getByPK(5);
 
         String actual = compositionFeedback1.get().toString();
-        String expected = "MusicSelectionFeedback{id=1, feedback='Fail song', timestamp=1970-01-01 03:20:31.435}";
+        String expected = "MusicSelectionFeedback{id=5, feedback='Fail song', timestamp=1970-01-01 03:20:31.435}";
 
         assertEquals(expected, actual);
     }

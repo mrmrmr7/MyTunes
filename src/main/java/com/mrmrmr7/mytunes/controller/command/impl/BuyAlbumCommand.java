@@ -16,24 +16,17 @@ import javax.servlet.http.HttpServletResponse;
 
 public class BuyAlbumCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.BUY_ALBUM.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         MusicService musicService = new MusicServiceImpl();
         AlbumService albumService = new AlbumServiceImpl();
 
-        try {
-            request.setAttribute("success", musicService.buyAlbum(request));
-            request.setAttribute("albumDtoList", albumService.getAllNotUserAlbumDto(request));
-            request.setAttribute("albumName", request.getParameter("albumName"));
-
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("success", musicService.buyAlbum(request));
+        request.setAttribute("albumDtoList", albumService.getAllNotUserAlbumDto(request));
+        request.setAttribute("albumName", request.getParameter("albumName"));
 
         ResponseContent responseContent = new ResponseContent();
 
-        responseContent.setRouter(new Router(PageDirector.ALBUM_SHOP, Router.Type.FORWARD));
+        responseContent.setRouter(new Router(PageDirector.REDIRECT_PATH.getValue() + CommandDirector.VIEW_ALBUM_SHOP.getValue(), Router.Type.REDIRECT));
 
         return responseContent;
     }

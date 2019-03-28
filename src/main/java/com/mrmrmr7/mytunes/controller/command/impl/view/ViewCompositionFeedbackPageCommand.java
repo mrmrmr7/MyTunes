@@ -14,15 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ViewCompositionFeedbackPageCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.VIEW_COMPOSITION_FEEDBACK_PAGE.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         CompositionFeedbackService compositionFeedbackDtoService = new CompositionFeedbackServiceImpl();
-        try {
-            request.setAttribute("userCompositionFeedbackList", compositionFeedbackDtoService.getUserCompositionFeedbackList(request));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+
+        request.setAttribute("userCompositionFeedbackList", compositionFeedbackDtoService.getUserCompositionFeedbackList(request));
+
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.VIEW_COMPOSITION_FEEDBACK, Router.Type.FORWARD));
         return responseContent;

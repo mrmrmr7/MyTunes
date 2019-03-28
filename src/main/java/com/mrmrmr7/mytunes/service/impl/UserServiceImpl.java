@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(e.getMessage());
         } catch (JWTVerificationException e) {
         }
-        return false;
+        return true;
     }
 
     public boolean tryRestartPassword(String email) throws ServiceException {
@@ -177,8 +177,9 @@ public class UserServiceImpl implements UserService {
             user = ((UserDaoExtended) JdbcDaoFactory.getInstance().getDao(User.class)).getByLogin(login);
             return user.filter(user1 -> BCrypt.checkpw(password, user1.getPassword())).isPresent();
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage() + ":" + ExceptionDirector.SRV_USR_IRU.getValue());
         }
+
+        return false;
     }
 
     @Override

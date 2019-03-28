@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
-
 
 <c:choose>
     <c:when test="${not empty requestScope.get('lang')}">
@@ -22,7 +20,7 @@
 
     <fmt:requestEncoding value="UTF-8"/>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <title><fmt:message key="title.balance" bundle="${bundle}" /></title>
+    <title><fmt:message key="title.error" bundle="${bundle}" /></title>
     <meta name="description" content="Sufee Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -47,49 +45,18 @@
 
 <!-- Left Panel -->
 
-<jsp:include page="/WEB-INF/jsp/include/leftpanel.jsp"/>
+<jsp:include page="include/errorleftpanel.jsp"/>
 
 <%--<jsp:include page="testpanel.jsp"/>--%>
 
 <div id="right-panel" class="right-panel" style="width: 100%;">
 
-    <!-- Header-->
-
-    <header id="header" class="header">
-        <div class="header-menu">
-            <div class="col-sm-7">
-            </div>
-            <div class="col-sm-5">
-                <div class="user-area dropdown float-right">
-                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/crud?command=logout"><i
-                                    class="fa fa-power-off" ></i><fmt:message key="usermusic.logout" bundle="${bundle}"/> </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" id="pills-home-tab"href="${pageContext.request.contextPath}/crud?command=changeLang&from=/crud?command=viewCurrentBalancePage&lang=ru"
-                               role="tab" aria-controls="pills-home" aria-selected="false">RU</a>
-                        </li>
-                        <li class="nav-item active ">
-                            <a class="nav-link" id="pills-profile-tab" href="${pageContext.request.contextPath}/crud?command=changeLang&from=/crud?command=viewCurrentBalancePage&lang=en"
-                               role="tab" aria-controls="pills-profile" aria-selected="false">EN</a>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header><!-- /header -->
-    <!-- Header-->
 
     <div class="breadcrumbs">
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1><fmt:message key="currentbalance.info" bundle="${bundle}"/></h1>
+                    <h1>Error page</h1>
                 </div>
             </div>
         </div>
@@ -97,7 +64,7 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active"><fmt:message key="composition.dashboard" bundle="${bundle}"/></li>
+                        <li class="active">Sorry</li>
                     </ol>
                 </div>
             </div>
@@ -107,31 +74,44 @@
 
 
     <div class="content mt-3">
-        <tag:alert needShow="${newBalance}" label="balance.update.label.success" message="balance.update.msg.success"/>
+        <div class="content mt-3">
+            <div class="animated fadeIn">
 
-        <%--<c:if test="${not empty newBalance}" >--%>
-            <%--<div class="sufee-alert alert with-close alert-dark alert-dismissible fade show">--%>
-                <%--<span class="badge badge-pill badge-dark">Success</span>--%>
-                <%--Your balance equals ${newBalance}$--%>
-                <%--<button type="button" class="close" data-dismiss="alert" aria-label="Close">--%>
-                    <%--<span aria-hidden="true">X</span>--%>
-                <%--</button>--%>
-            <%--</div>--%>
-        <%--</c:if>--%>
+                <div class="alerts">
+                    <div class="row">
 
-        <div class="animated fadeIn">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <strong class="card-title"><fmt:message key="currentbalance.currentbalance" bundle="${bundle}"/></strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text"><fmt:message key="currentbalance.balance" bundle="${bundle}"/> <b>${balance}$</b></p>
+
+
+                        <div class="col-md-6 offset-md-3 mr-auto ml-auto">
+
+
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong class="card-title">Error: ${errorCode}</strong>
+                                </div>
+                                <div class="card-body">
+
+
+
+
+                                    <div class="alert alert-danger" role="alert">
+                                        <h4 class="alert-heading">Sorry</h4>
+                                        <p>${errorMessage}</p>
+                                        <hr>
+                                        <p class="mb-0">We are sad to show you this page, but you still can use our site started by left menu</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
+            </div><!-- .animated -->
+        </div>
     </div>
 
 

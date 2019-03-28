@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.UserAlbumDaoExtended;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserAlbum;
@@ -10,6 +11,7 @@ import com.mrmrmr7.mytunes.entity.UserAlbum;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,10 +30,10 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
                 resultSet.next();
                 return Optional.of(resultSetToBean.toUserAlbum(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.12.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1106));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.12.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1107));
         }
     }
 
@@ -47,10 +49,10 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
                             .add(resultSetToBean.toUserAlbum(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.12.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1108));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.12.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1109));
         }
 
         return userList;
@@ -63,7 +65,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DaoException("4.12.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1110));
         }
     }
 
@@ -74,7 +76,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.12.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1111));
         }
     }
 
@@ -85,7 +87,7 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DaoException("4.12.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1112));
         }
     }
 
@@ -188,10 +190,10 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
                             .add(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.14.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1113));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.14.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1114));
         }
 
         return userList;
@@ -208,10 +210,10 @@ public class UserAlbumDao extends AbstractJdbcDao<UserAlbum, Integer> implements
                 }
                 return Optional.of(resultSetToBean.toUserAlbum(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.14.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1115));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.14.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1116));
         }
 
     }

@@ -18,7 +18,6 @@ public class ViewCreateMusicSelectionPageCommand implements Command {
 
     @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADMIN_VIEW_CREATE_MUSIC_SELECTION_PAGE.getValue() + " command detected");
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.VIEW_CREATE_MUSIC_SELECTION_PAGE, Router.Type.FORWARD));
         return responseContent;

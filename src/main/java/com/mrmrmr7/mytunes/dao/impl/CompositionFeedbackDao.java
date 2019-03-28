@@ -3,11 +3,13 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.CompositionFeedback;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,10 +30,10 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
                 };
                 return Optional.of(resultSetToBean.toCompositionFeedback(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.6.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1041));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.6.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1042));
         }
     }
 
@@ -47,10 +49,10 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
                             .add(resultSetToBean.toCompositionFeedback(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.6.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1043));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.6.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1044));
         }
 
         return compositionFeedbackList;
@@ -63,7 +65,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.6.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1045));
         }
     }
 
@@ -74,7 +76,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.6.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1046));
         }
     }
 
@@ -85,7 +87,7 @@ public class CompositionFeedbackDao extends AbstractJdbcDao<CompositionFeedback,
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.6.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1047));
         }
     }
 

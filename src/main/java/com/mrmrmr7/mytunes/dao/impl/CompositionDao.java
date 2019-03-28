@@ -3,11 +3,13 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Composition;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,10 +27,10 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
                 resultSet.next();
                 return Optional.of(resultSetToBean.toComposition(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.5.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1032));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.5.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1033));
         }
     }
 
@@ -57,10 +59,10 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
                 resultSet.next();
                 return Optional.of(resultSetToBean.toComposition(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.5.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1034));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.5.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1035));
         }
     }
 
@@ -77,10 +79,10 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
                             .add(resultSetToBean.toComposition(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.5.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1036));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.5.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1037));
         }
 
         return userList;
@@ -93,7 +95,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.5.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1038));
         }
     }
 
@@ -104,7 +106,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.5.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1039));
         }
     }
 
@@ -115,7 +117,7 @@ public class CompositionDao extends AbstractJdbcDao<Composition, Integer> implem
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.5.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1040));
         }
     }
 

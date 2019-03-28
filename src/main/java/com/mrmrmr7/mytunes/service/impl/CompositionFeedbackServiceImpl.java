@@ -10,11 +10,12 @@ import com.mrmrmr7.mytunes.dto.CompositionFeedbackDto;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.CompositionFeedbackService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
-import com.mrmrmr7.mytunes.util.ProtectionUtil;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.util.*;
 
 public class CompositionFeedbackServiceImpl implements CompositionFeedbackService {
@@ -59,15 +60,15 @@ public class CompositionFeedbackServiceImpl implements CompositionFeedbackServic
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                throw new ServiceException(e1.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e.getMessage());
             }
-            e.printStackTrace();
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
         return compositionFeedbackDtoList;
@@ -126,19 +127,17 @@ public class CompositionFeedbackServiceImpl implements CompositionFeedbackServic
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                e1.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e.getMessage());
             }
-            e.printStackTrace();
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                e.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
-
-        return true;
     }
 
     @Override

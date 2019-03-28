@@ -2,7 +2,6 @@ package com.mrmrmr7.mytunes.controller.command.impl;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.controller.command.exception.CommandException;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.service.UserService;
@@ -16,18 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 
 public class StartRestartPasswordCmmand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) throws CommandException {
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServiceException {
         String email = request.getParameter("email");
 
         boolean isStartRestart = false;
         UserService userService = new UserServiceImpl();
 
         if (email != null) {
-            try {
                 isStartRestart = userService.tryRestartPassword(email);
-            } catch (ServiceException e) {
-                e.printStackTrace();
-            }
         }
 
         ResponseContent responseContent = new ResponseContent();

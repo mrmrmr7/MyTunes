@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Bonus;
@@ -10,6 +11,7 @@ import com.mrmrmr7.mytunes.entity.Bonus;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,10 +30,10 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
                 resultSet.next();
                 return Optional.of(resultSetToBean.toBonus(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.4.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1025));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.4.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1026));
         }
     }
 
@@ -48,10 +50,10 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
                             .add(resultSetToBean.toBonus(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.4.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1027));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.4.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1028));
         }
 
         return userList;
@@ -64,7 +66,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.4.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1029));
         }
     }
 
@@ -75,7 +77,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.4.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1030));
         }
     }
 
@@ -86,7 +88,7 @@ public class BonusDao extends AbstractJdbcDao<Bonus, Integer> implements Generic
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.4.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1031));
         }
     }
 

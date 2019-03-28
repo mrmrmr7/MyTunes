@@ -16,16 +16,10 @@ public class ViewProfileCommand implements Command {
     private static final String PATH_ACCOUNT = "account";
 
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.VIEW_PROFILE_PAGE.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         UserDtoServiceImpl userDtoServiceImpl = new UserDtoServiceImpl();
 
-        try {
-            userDtoServiceImpl.setDtoFromToken(request);
-        } catch (ServiceException e) {
-            System.out.println("fail to get dto");
-        }
+        userDtoServiceImpl.setDtoFromToken(request);
 
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.ACCOUNT, Router.Type.FORWARD));

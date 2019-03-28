@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AlbumDaoExtended;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Album;
@@ -10,6 +11,7 @@ import com.mrmrmr7.mytunes.entity.Album;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,10 +26,10 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
                 resultSet.next();
                 return Optional.of(resultSetToBean.toAlbum(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.1.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1001));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.1.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1002));
         }
     }
 
@@ -39,10 +41,10 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
                 resultSet.next();
                 return Optional.of(resultSetToBean.toAlbum(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.1.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1003));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.1.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1004));
         }
     }
 
@@ -59,10 +61,10 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
                             .add(resultSetToBean.toAlbum(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.1.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1005));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.1.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1006));
         }
 
         return userList;
@@ -104,10 +106,10 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
                             .add(resultSetToBean.toAlbum(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.1.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1007));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.1.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1008));
         }
 
         return userList;
@@ -120,7 +122,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.1.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1009));
         }
     }
 
@@ -131,7 +133,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.1.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1010));
         }
     }
 
@@ -141,7 +143,7 @@ public class AlbumDao extends AbstractJdbcDao<Album, Integer> implements AlbumDa
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.1.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1011));
         }
     }
 

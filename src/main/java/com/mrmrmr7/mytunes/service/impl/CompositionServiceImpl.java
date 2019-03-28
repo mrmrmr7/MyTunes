@@ -2,6 +2,7 @@ package com.mrmrmr7.mytunes.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.mrmrmr7.mytunes.controller.command.RequestDirector;
 import com.mrmrmr7.mytunes.dao.CompositionDaoExtended;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
@@ -9,18 +10,14 @@ import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
 import com.mrmrmr7.mytunes.dto.CompositionDto;
-import com.mrmrmr7.mytunes.entity.Album;
-import com.mrmrmr7.mytunes.entity.Author;
-import com.mrmrmr7.mytunes.entity.Composition;
-import com.mrmrmr7.mytunes.entity.UserComposition;
+import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.CompositionService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
-import com.mrmrmr7.mytunes.util.ProtectionUtil;
-import sun.rmi.server.InactiveGroupException;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,15 +25,17 @@ import java.util.Optional;
 
 public class CompositionServiceImpl implements CompositionService {
 
+    private static final String PARAMETER_COMPOSITION_NAME = "compositionName";
+
     @Override
     public List<CompositionDto> getAllCompositionDto() throws ServiceException {
         List<CompositionDto> compositionDtoList = new ArrayList<>();
 
         TransactionManager transactionManager = new TransactionManagerImpl();
         try {
-            GenericDao compositionDao = JdbcDaoFactory.getInstance().getTransactionalDao(Composition.class);
-            GenericDao albumDao = JdbcDaoFactory.getInstance().getTransactionalDao(Album.class);
-            GenericDao authorDao = JdbcDaoFactory.getInstance().getTransactionalDao(Author.class);
+            GenericDao<Composition, Integer> compositionDao = JdbcDaoFactory.getInstance().getTransactionalDao(Composition.class);
+            GenericDao<Album, Integer> albumDao = JdbcDaoFactory.getInstance().getTransactionalDao(Album.class);
+            GenericDao<Author, Integer> authorDao = JdbcDaoFactory.getInstance().getTransactionalDao(Author.class);
 
             transactionManager = new TransactionManagerImpl();
             transactionManager.begin(compositionDao, albumDao, authorDao);
@@ -67,15 +66,15 @@ public class CompositionServiceImpl implements CompositionService {
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e.getMessage());
             }
-            throw new ServiceException(e.getMessage());
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
 
@@ -93,10 +92,10 @@ public class CompositionServiceImpl implements CompositionService {
 
         TransactionManager transactionManager = new TransactionManagerImpl();
         try {
-            GenericDao compositionDao = JdbcDaoFactory.getInstance().getTransactionalDao(Composition.class);
-            GenericDao albumDao = JdbcDaoFactory.getInstance().getTransactionalDao(Album.class);
-            GenericDao authorDao = JdbcDaoFactory.getInstance().getTransactionalDao(Author.class);
-            GenericDao userCompositionDao = JdbcDaoFactory.getInstance().getTransactionalDao(UserComposition.class);
+            GenericDao<Composition, Integer> compositionDao = JdbcDaoFactory.getInstance().getTransactionalDao(Composition.class);
+            GenericDao<Album, Integer> albumDao = JdbcDaoFactory.getInstance().getTransactionalDao(Album.class);
+            GenericDao<Author, Integer> authorDao = JdbcDaoFactory.getInstance().getTransactionalDao(Author.class);
+            GenericDao<UserComposition, Integer> userCompositionDao = JdbcDaoFactory.getInstance().getTransactionalDao(UserComposition.class);
 
             transactionManager = new TransactionManagerImpl();
             transactionManager.begin(compositionDao, albumDao, authorDao, userCompositionDao);
@@ -132,7 +131,7 @@ public class CompositionServiceImpl implements CompositionService {
                         authorOptional.ifPresent(auth -> compositionDto.setAuthor(auth.getPseudonim()));
                     }
                 } catch (DaoException e) {
-                    e.printStackTrace();
+                    throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA) + e.getMessage());
                 }
 
                 compositionDtoList.add(compositionDto);
@@ -142,15 +141,15 @@ public class CompositionServiceImpl implements CompositionService {
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e.getMessage());
             }
-            throw new ServiceException(e.getMessage());
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
 
@@ -160,7 +159,7 @@ public class CompositionServiceImpl implements CompositionService {
     @Override
     public List<CompositionDto> getAllUserCompositionDto(HttpServletRequest request) throws ServiceException {
         Cookie[] cookies = request.getCookies();
-        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        Optional<Cookie> cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals(RequestDirector.TOKEN.getValue())).findFirst();
         DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
         TransactionManager transactionManager = new TransactionManagerImpl();
@@ -206,15 +205,15 @@ public class CompositionServiceImpl implements CompositionService {
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                e1.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e.getMessage());
             }
-            throw new ServiceException(e.getMessage());
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                e.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
 
@@ -228,7 +227,7 @@ public class CompositionServiceImpl implements CompositionService {
         try {
             compositionOptional =((CompositionDaoExtended)JdbcDaoFactory.getInstance().getDao(Composition.class)).getByName(name);
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA) + e.getMessage());
         }
 
         return compositionOptional;
@@ -236,7 +235,7 @@ public class CompositionServiceImpl implements CompositionService {
 
     @Override
     public boolean addComposition(HttpServletRequest request) throws ServiceException {
-        String compositionName = request.getParameter("compositionName");
+        String compositionName = request.getParameter(PARAMETER_COMPOSITION_NAME);
         int compositionPrice = Integer.parseInt(request.getParameter("compositionPrice"));
         int compositionYear = Integer.parseInt(request.getParameter("compositionYear"));
         int albumId = Integer.parseInt(request.getParameter("albumId"));
@@ -270,15 +269,15 @@ public class CompositionServiceImpl implements CompositionService {
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                e1.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK ) + e.getMessage());
             }
-            e.printStackTrace();
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                e.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
 
@@ -287,7 +286,7 @@ public class CompositionServiceImpl implements CompositionService {
 
     @Override
     public boolean updateComposition(HttpServletRequest request) throws ServiceException {
-        String compositionName = request.getParameter("compositionName");
+        String compositionName = request.getParameter(PARAMETER_COMPOSITION_NAME);
         int compositionPrice = Integer.parseInt(request.getParameter("compositionPrice"));
         int compositionYear = Integer.parseInt(request.getParameter("compositionYear"));
         int albumId = Integer.parseInt(request.getParameter("albumId"));
@@ -304,7 +303,7 @@ public class CompositionServiceImpl implements CompositionService {
         try {
             JdbcDaoFactory.getInstance().getDao(Composition.class).update(composition);
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
         }
 
         return true;

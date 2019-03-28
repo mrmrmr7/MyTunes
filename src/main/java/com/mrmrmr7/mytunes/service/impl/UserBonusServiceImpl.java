@@ -10,7 +10,9 @@ import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.entity.UserBonus;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.UserBonusService;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,11 +35,11 @@ public class UserBonusServiceImpl implements UserBonusService {
 
                 if(userBonusOptional.isPresent()) {
                     List<Integer> userBonusList = userBonusOptional.get().getBonusIdList();
-                    if (userBonusList.contains(bonusId)) {
-                        throw new ServiceException("such bonus is present");
-                    } else {
+                    if (!userBonusList.contains(bonusId)) {
                         UserBonus userBonus = new UserBonus(userId, bonusId);
                         userBonusDao.insert(userBonus);
+                    } else {
+                        return false;
                     }
                 } else {
                     UserBonus userBonus = new UserBonus(userId, bonusId);
@@ -51,14 +53,15 @@ public class UserBonusServiceImpl implements UserBonusService {
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                throw new ServiceException(e1.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e.getMessage());
             }
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
 

@@ -13,18 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 public class LogOutCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) {
-        System.out.println(CommandDirector.LOG_OUT.getValue() + " command in detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServiceException {
         ResponseContent responseContent = new ResponseContent();
 
         UserServiceImpl serviceUser = new UserServiceImpl();
 
-        try {
-            serviceUser.logout(request, httpServletResponse);
-        } catch (ServiceException e) {
-            System.out.println("Fail to log out");
-        }
+        serviceUser.logout(request, httpServletResponse);
 
         responseContent.setRouter(new Router(PageDirector.LANDING, Router.Type.REDIRECT));
 

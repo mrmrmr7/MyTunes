@@ -20,7 +20,6 @@ import java.util.List;
 public class ViewUploadCompositionToMusicSelectionPageCommand implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADMIN_VIEW_UPLOAD_COMPOSITION_TO_MUSIC_SELECTION_PAGE.getValue() + " command detected");
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.VIEW_UPLOAD_COMPOSITION_TO_MUSIC_SELECTION_PAGE, Router.Type.FORWARD));
         return responseContent;

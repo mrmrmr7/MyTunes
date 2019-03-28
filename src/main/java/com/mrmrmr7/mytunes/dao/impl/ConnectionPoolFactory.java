@@ -3,7 +3,9 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.ConnectionPool;
 import com.mrmrmr7.mytunes.dao.ConnectionPoolType;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
+import java.text.MessageFormat;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -32,7 +34,7 @@ public class ConnectionPoolFactory {
 
         switch (type) {
             case MYSQL: return ConnectionPoolImpl.getInstance();
-            default: throw new DaoException("dao.connectionpool.1");
+            default: throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1048));
         }
     }
 }

@@ -22,22 +22,16 @@ import java.util.List;
 public class AdminCompositionUploadCommand implements Command {
 
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADMIN_UPLOAD_COMPOSITION.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         CompositionService compositionService = new CompositionServiceImpl();
         AlbumService albumService = new AlbumServiceImpl();
         AuthorService authorService = new AuthorServiceImpl();
 
-        try {
-            List<Album> albumList = albumService.getAllAlbum();
-            request.setAttribute("albumList", albumList);
-            List<Author> authorList = authorService.getAuthorList();
-            request.setAttribute("authorList", authorList);
-            request.setAttribute("success", compositionService.addComposition(request));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        List<Album> albumList = albumService.getAllAlbum();
+        request.setAttribute("albumList", albumList);
+        List<Author> authorList = authorService.getAuthorList();
+        request.setAttribute("authorList", authorList);
+        request.setAttribute("success", compositionService.addComposition(request));
 
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.VIEW_UPLOAD_COMPOSITION_PAGE, Router.Type.FORWARD));

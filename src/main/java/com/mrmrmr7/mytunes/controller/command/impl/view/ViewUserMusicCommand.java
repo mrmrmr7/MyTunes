@@ -9,22 +9,28 @@ import com.mrmrmr7.mytunes.service.UserMusicDtoService;
 import com.mrmrmr7.mytunes.service.impl.UserMusicDtoServiceImpl;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.Optional;
 
 public class ViewUserMusicCommand implements Command {
 
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.VIEW_USER_MUSIC.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         UserMusicDtoService userDtoServiceImpl = new UserMusicDtoServiceImpl();
 
-        try {
-            request.setAttribute("userMusicDto", userDtoServiceImpl.getUserMusicDto(request));
-        } catch (ServiceException e) {
-            System.out.println("fail to get dto");
-        }
+        request.setAttribute("userMusicDto", userDtoServiceImpl.getUserMusicDto(request));
+
+        Optional<Cookie> cookieSuccess = Arrays.stream(request.getCookies()).filter(s -> s.getName().equalsIgnoreCase("success")).findFirst();
+
+        cookieSuccess.ifPresent(c -> {
+            request.setAttribute("success", Boolean.valueOf(c.getValue()));
+            c.setMaxAge(0);
+            response.addCookie(c);
+                }
+        );
 
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.VIEW_USER_MUSIC, Router.Type.FORWARD));

@@ -3,11 +3,13 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.*;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -95,7 +97,7 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory {
     public <T extends Identified<PK>, PK extends Number> GenericDao<T, PK> getDao(Class<T> tClass) throws DaoException {
         Supplier<GenericDao> supplier = daoSupplier.get(tClass);
         if (supplier == null) {
-            throw new DaoException("kek");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1060));
         }
 
         GenericDao dao = supplier.get();
@@ -109,7 +111,7 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory {
         Supplier<GenericDao> supplier = daoSupplier.get(tClass);
 
         if (supplier == null) {
-            throw new DaoException("lol");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1059));
         }
 
         return supplier.get();

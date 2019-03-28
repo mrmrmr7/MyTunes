@@ -15,8 +15,6 @@ import java.util.Optional;
 public class ViewUpdateBalancePageCommand implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.VIEW_UPDATE_BALANCE_PAGE.getValue() + " command detected");
-
         Optional<Cookie> cookie = Arrays.stream(request.getCookies()).filter(s -> s.getName().equals("success")).findFirst();
         Optional<Cookie> validDataCookie = Arrays.stream(request.getCookies()).filter(s -> s.getName().equals("notValidData")).findFirst();
 

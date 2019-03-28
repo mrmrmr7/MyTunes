@@ -2,6 +2,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 
 import com.mrmrmr7.mytunes.dao.ConnectionPool;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hsqldb.jdbc.JDBCConnection;
@@ -11,13 +12,14 @@ import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ConnectionPoolImpl implements ConnectionPool {
+public final class ConnectionPoolImpl implements ConnectionPool {
     private final static Logger logger = LogManager.getLogger(ConnectionPoolImpl.class);
     private final static ConnectionPoolImpl INSTANCE = new ConnectionPoolImpl();
     private final String JDBC_URL;
@@ -39,7 +41,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
         try {
             properties.load(getClass().getResourceAsStream("/property/db.properties"));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Property for connection can not be used: " + e.getMessage());
         }
         semaphore = new Semaphore(POOL_CAPACITY, true);
         JDBC_URL = properties.getProperty("url");
@@ -53,8 +55,9 @@ public class ConnectionPoolImpl implements ConnectionPool {
         try {
             semaphore.acquire();
         } catch (InterruptedException e) {
-            throw new DaoException("");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1049));
         }
+        //--------------------------------------------------------
         lockForOpen.lock();
 
         try {
@@ -68,7 +71,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 createdConnectionCount.incrementAndGet();
             }
         } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1050));
         }
 
         Connection connection = pool.pollLast();
@@ -105,8 +108,33 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 connection.close();
                 pool.remove(connection);
             } catch (SQLException e) {
-                throw new DaoException(e.getMessage());
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1051));
             }
         }
+    }
+}
+
+
+class Test {
+    final int a;
+    final int b;
+
+    Test(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    int getA() {
+        return a;
+    }
+
+    int getB() {
+        return b;
+    }
+
+    public static void main(String[] args) {
+        final Test a = new Test(1,2);
+
+
     }
 }

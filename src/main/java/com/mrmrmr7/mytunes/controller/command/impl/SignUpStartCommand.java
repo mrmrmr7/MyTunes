@@ -22,13 +22,12 @@ public class SignUpStartCommand implements Command {
 
 
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.SIGN_UP.getValue() + " command detected");
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         ResponseContent responseContent = new ResponseContent();
 
         Builder userBuilder = BuilderFactory.getInstance().getBuilder(User.class);
 
-        User user = null;
+        User user;
 
         try {
             user = (User)userBuilder.build(request);
@@ -40,13 +39,7 @@ public class SignUpStartCommand implements Command {
 
         SignUpService signUpService = new SignUpServiceImpl();
 
-        try {
-            request.setAttribute("successRegStart", signUpService.sendSignUpMessage(user));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
-
-
+        request.setAttribute("successRegStart", signUpService.sendSignUpMessage(user));
 
         responseContent.setRouter(new Router(PageDirector.LOGIN, Router.Type.FORWARD));
         return responseContent;

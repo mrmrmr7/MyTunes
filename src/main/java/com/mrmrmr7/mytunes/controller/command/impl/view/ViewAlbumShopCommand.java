@@ -14,14 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ViewAlbumShopCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.VIEW_ALBUM_SHOP.getValue() + " command detected");
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         AlbumService albumService = new AlbumServiceImpl();
-        try {
-            request.setAttribute("albumDtoList", albumService.getAllNotUserAlbumDto(request));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+
+        request.setAttribute("albumDtoList", albumService.getAllNotUserAlbumDto(request));
+
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.ALBUM_SHOP, Router.Type.FORWARD));
         return responseContent;

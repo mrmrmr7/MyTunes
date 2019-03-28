@@ -15,18 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 public class AddAlbumFeedbackCommand implements Command {
 
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADD_ALBUM_FEEDBACK.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         AlbumFeedbackService albumFeedbackDtoService = new AlbumFeedbackServiceImpl();
 
-        try {
-            request.setAttribute("albumName", request.getParameter("albumName"));
-            request.setAttribute("success", albumFeedbackDtoService.addAlbumFeedback(request));
-            request.setAttribute("userAlbumFeedbackList", albumFeedbackDtoService.getUserAlbumFeedbackList(request));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("albumName", request.getParameter("albumName"));
+        request.setAttribute("success", albumFeedbackDtoService.addAlbumFeedback(request));
+        request.setAttribute("userAlbumFeedbackList", albumFeedbackDtoService.getUserAlbumFeedbackList(request));
 
         ResponseContent responseContent = new ResponseContent();
 

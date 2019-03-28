@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Role;
@@ -10,6 +11,7 @@ import com.mrmrmr7.mytunes.entity.Role;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,10 +30,10 @@ public class RoleDao extends AbstractJdbcDao<Role, Byte> implements GenericDao<R
                 resultSet.next();
                 return Optional.of(resultSetToBean.toRole(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.10.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1084));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.10.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1085));
         }
     }
 
@@ -48,10 +50,10 @@ public class RoleDao extends AbstractJdbcDao<Role, Byte> implements GenericDao<R
                             .add(resultSetToBean.toRole(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.10.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1086));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.10.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1087));
         }
 
         return userList;
@@ -64,7 +66,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Byte> implements GenericDao<R
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.10.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1088));
         }
     }
 
@@ -75,7 +77,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Byte> implements GenericDao<R
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.10.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1089));
         }
     }
 
@@ -86,7 +88,7 @@ public class RoleDao extends AbstractJdbcDao<Role, Byte> implements GenericDao<R
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.10.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1090));
         }
     }
 

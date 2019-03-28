@@ -86,7 +86,7 @@ class UserDAOTest {
 
         User user = new User(
                 2,
-                new Date(324234234),
+                new Date(34),
                 "Kotik",
                 "KissMeMeow",
                 "Alex",
@@ -103,8 +103,7 @@ class UserDAOTest {
         Optional<User> user1 = userDAO.getByPK(11);
 
 
-        String expected = "User{ID=11, LOGIN='Kotik', register_data=1970-01-04, password='KissMeMeow', first_name='Alex', second_name='Ermakow', email='aliex.s@yanedex.kz', balance=2, sale=1, role_id=1, status_id=1}";
-        String actual = user1.get().toString();
+        String expected = "User{ID=11, LOGIN='Kotik', register_data=1970-01-01, password='KissMeMeow', first_name='Alex', second_name='Ermakow', email='aliex.s@yanedex.kz', balance=2, sale=1, role_id=1, status_id=1}";        String actual = user1.get().toString();
 
         assertEquals(expected, actual);
     }

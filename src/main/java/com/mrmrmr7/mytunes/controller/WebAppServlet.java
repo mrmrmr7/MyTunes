@@ -3,11 +3,12 @@ package com.mrmrmr7.mytunes.controller;
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
 import com.mrmrmr7.mytunes.controller.command.CommandProvider;
-import com.mrmrmr7.mytunes.controller.command.exception.CommandException;
 import com.mrmrmr7.mytunes.entity.ExceptionDescription;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
+import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.util.ExceptionHandler;
+import com.mrmrmr7.mytunes.util.PageDirector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,23 +46,22 @@ public class WebAppServlet extends HttpServlet {
                 responseContent = command.process(request, response);
 
                 if (responseContent.getRouter().getType().equals(Router.Type.REDIRECT.getValue())) {
-                    System.out.println(request.getAttribute(ATTRIBUTE_VIEW_NAME));
                     response.sendRedirect(request.getContextPath() + responseContent.getRouter().getRoute());
                 } else {
-                    System.out.println("Forward to " + request.getContextPath() + responseContent.getRouter().getRoute());
                     request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request, response);
                 }
+
             } catch (ServletException e) {
-                logger.error("Servlet exception found");
-            } catch (CommandException e) {
+                response.sendRedirect(request.getContextPath() + PageDirector.ERROR_PAGE);
+            } catch (ServiceException e) {
                 ExceptionDescription exceptionDescription = ExceptionHandler.getDescription(e.getMessage());
                 request.setAttribute("errorCode", exceptionDescription.getErrorCode());
+                request.setAttribute("errorMessage", exceptionDescription.getMessage());
                 logger.error(exceptionDescription.getMessage());
                 try {
                     request.getRequestDispatcher(exceptionDescription.getResponseContent().getRouter().getRoute()).forward(request,response);
                 } catch (ServletException e1) {
-                    logger.error("Impossible to redirect");
-                    response.sendRedirect(request.getContextPath());
+                    response.sendRedirect(request.getContextPath() + PageDirector.ERROR_PAGE.getValue());
                 }
             }
         }

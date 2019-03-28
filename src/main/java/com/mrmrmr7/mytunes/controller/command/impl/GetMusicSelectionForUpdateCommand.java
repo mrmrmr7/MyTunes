@@ -21,20 +21,14 @@ import java.util.Optional;
 
 public class GetMusicSelectionForUpdateCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADMIN_GET_MUSIC_SELECTION_FOR_UPDATE.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         MusicSelectionService musicSelectionService = new MusicSelectionServiceImpl();
 
         String name = request.getParameter("musicSelectionNameToGet");
 
-        try {
-            Optional<MusicSelectionInfo> musicSelectionInfoOptional = musicSelectionService.getMusicSelectionInfoByName(name);
+        Optional<MusicSelectionInfo> musicSelectionInfoOptional = musicSelectionService.getMusicSelectionInfoByName(name);
 
-            request.setAttribute("musicSelectionInfo", musicSelectionInfoOptional.get());
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("musicSelectionInfo", musicSelectionInfoOptional.get());
 
         request.setAttribute("showInf", true);
 

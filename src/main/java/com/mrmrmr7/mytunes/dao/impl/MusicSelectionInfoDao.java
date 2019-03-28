@@ -3,11 +3,13 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.*;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.MusicSelectionInfo;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,16 +19,19 @@ public class MusicSelectionInfoDao extends AbstractJdbcDao<MusicSelectionInfo, I
     @AutoConnection
     @Override
     public Optional<MusicSelectionInfo> getByPK(Integer id) throws DaoException {
+
         try (PreparedStatement preparedStatement = prepareStatementForGet(id)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 resultSet.next();
                 return Optional.of(resultSetToBean.toMusicSelectionInfo(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.1.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1075));
             }
+
         } catch (SQLException e) {
-            throw new DaoException("4.1.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1076));
         }
+
     }
 
     @AutoConnection
@@ -40,10 +45,10 @@ public class MusicSelectionInfoDao extends AbstractJdbcDao<MusicSelectionInfo, I
                 Optional<MusicSelectionInfo> musicSelectionInfo = Optional.of(resultSetToBean.toMusicSelectionInfo(resultSet));
                 return musicSelectionInfo;
             } catch (SQLException e) {
-                throw new DaoException("4.1.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1077));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.1.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1078));
         }
     }
 
@@ -74,10 +79,10 @@ public class MusicSelectionInfoDao extends AbstractJdbcDao<MusicSelectionInfo, I
                             .add(resultSetToBean.toMusicSelectionInfo(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.1.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1079));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.1.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1080));
         }
 
         return userList;
@@ -90,7 +95,7 @@ public class MusicSelectionInfoDao extends AbstractJdbcDao<MusicSelectionInfo, I
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.1.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1081));
         }
     }
 
@@ -101,7 +106,7 @@ public class MusicSelectionInfoDao extends AbstractJdbcDao<MusicSelectionInfo, I
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.1.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1082));
         }
     }
 
@@ -111,7 +116,7 @@ public class MusicSelectionInfoDao extends AbstractJdbcDao<MusicSelectionInfo, I
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.1.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1083));
         }
     }
 

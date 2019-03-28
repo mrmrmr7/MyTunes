@@ -11,11 +11,11 @@ import com.mrmrmr7.mytunes.dto.AlbumDto;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.AlbumService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
-import com.mrmrmr7.mytunes.util.ProtectionUtil;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
-import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +29,7 @@ public class AlbumServiceImpl implements AlbumService {
         try {
             albumList = JdbcDaoFactory.getInstance().getDao(Album.class).getAll();
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DAO));
         }
         return albumList;
     }
@@ -67,7 +67,7 @@ public class AlbumServiceImpl implements AlbumService {
                         albumDto.setGenre(genre.getGenre());
                     }
                 } catch (DaoException e) {
-                    e.printStackTrace();
+                    throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA) + e.getMessage());
                 }
 
                 albumDtoList.add(albumDto);
@@ -77,15 +77,15 @@ public class AlbumServiceImpl implements AlbumService {
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e1.getMessage());
             }
-            throw new ServiceException(e.getMessage());
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
 
@@ -146,7 +146,7 @@ public class AlbumServiceImpl implements AlbumService {
                         albumDto.setGenre(genre.getGenre());
                     }
                 } catch (DaoException e) {
-                    e.printStackTrace();
+                    throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA) + e.getMessage());
                 }
 
                 albumDtoList.add(albumDto);

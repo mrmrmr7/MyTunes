@@ -11,6 +11,7 @@ import com.mrmrmr7.mytunes.dao.AutoConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,10 +32,10 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
                 }
                 return Optional.of(resultSetToBean.toUser(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.15.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1135));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.15.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1136));
         }
     }
 
@@ -49,10 +50,10 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
                             .add(resultSetToBean.toUser(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.15.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1137));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.15.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1138));
         }
 
         return userList;
@@ -65,7 +66,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.15.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1139));
         }
     }
 
@@ -76,7 +77,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.15.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1140));
         }
     }
 
@@ -87,7 +88,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)) {
                     preparedStatement.executeUpdate();
         } catch (SQLException e){
-            throw new DaoException("4.15.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1141));
         }
     }
 
@@ -190,7 +191,7 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
             }
             return Optional.of(resultSetToBean.toUser(resultSet));
         } catch (SQLException e) {
-            throw new DaoException(ExceptionDirector.DAO_USR_GBL.getValue());
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1142));
         }
     }
 
@@ -217,8 +218,10 @@ public class UserDao extends AbstractJdbcDao<User, Integer> implements UserDaoEx
             }
             return Optional.of(resultSetToBean.toUser(resultSet));
         } catch (SQLException e) {
-            throw new DaoException(ExceptionDirector.DAO_USR_GBL.getValue());
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1143));
         }
+
+
     }
 
 }

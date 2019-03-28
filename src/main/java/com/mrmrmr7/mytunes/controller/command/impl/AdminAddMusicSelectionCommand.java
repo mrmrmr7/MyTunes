@@ -14,16 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AdminAddMusicSelectionCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADMIN_ADD_MUSIC_SELECTION.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         MusicSelectionService musicSelectionService = new MusicSelectionServiceImpl();
 
-        try {
-            request.setAttribute("success", musicSelectionService.insertMusicSelection(request));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("success", musicSelectionService.insertMusicSelection(request));
 
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.VIEW_CREATE_MUSIC_SELECTION_PAGE, Router.Type.FORWARD));

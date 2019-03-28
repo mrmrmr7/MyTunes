@@ -15,16 +15,10 @@ public class SignUpFinishCommand implements Command {
     private final static String PARAMETER_TOKEN = "token";
 
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("SignUp command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         SignUpService signUpService = new SignUpServiceImpl();
 
-        try {
-            request.setAttribute("successRegFinish", signUpService.finishSignUp(request));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("successRegFinish", signUpService.finishSignUp(request));
 
         ResponseContent responseContent = new ResponseContent();
 

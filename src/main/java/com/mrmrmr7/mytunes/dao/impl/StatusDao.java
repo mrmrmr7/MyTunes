@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.Status;
@@ -10,6 +11,7 @@ import com.mrmrmr7.mytunes.entity.Status;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +29,10 @@ public class StatusDao extends AbstractJdbcDao<Status, Byte> implements GenericD
                 resultSet.next();
                 return Optional.of(resultSetToBean.toStatus(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.11.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1091));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.11.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1092));
         }
     }
 
@@ -47,10 +49,10 @@ public class StatusDao extends AbstractJdbcDao<Status, Byte> implements GenericD
                             .add(resultSetToBean.toStatus(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.11.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1093));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.11.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1094));
         }
 
         return userList;
@@ -63,7 +65,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Byte> implements GenericD
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.11.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1095));
         }
     }
 
@@ -74,7 +76,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Byte> implements GenericD
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.11.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1096));
         }
     }
 
@@ -85,7 +87,7 @@ public class StatusDao extends AbstractJdbcDao<Status, Byte> implements GenericD
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.11.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1097));
         }
     }
 

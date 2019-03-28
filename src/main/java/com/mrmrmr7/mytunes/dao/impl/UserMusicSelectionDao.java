@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.UserMusicSelectionDaoExtended;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserMusicSelection;
@@ -10,6 +11,7 @@ import com.mrmrmr7.mytunes.entity.UserMusicSelection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +32,10 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
                 }
                 return Optional.of(resultSetToBean.toUserMusicSelection(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.16.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1144));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.16.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1145));
         }
     }
 
@@ -49,10 +51,10 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
                             .add(resultSetToBean.toUserMusicSelection(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.16.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1146));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.16.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1147));
         }
 
         return userList;
@@ -65,7 +67,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DaoException("4.16.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1148));
         }
     }
 
@@ -76,7 +78,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.16.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1149));
         }
     }
 
@@ -87,7 +89,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DaoException("4.16.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1150));
         }
     }
 
@@ -205,7 +207,7 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
                             .add(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.14.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1151));
             }
         } catch (SQLException e) {
             throw new DaoException("4.14.4");
@@ -223,10 +225,10 @@ public class UserMusicSelectionDao extends AbstractJdbcDao<UserMusicSelection, I
                 }
                 return Optional.of(resultSetToBean.toUserMusicSelection(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.14.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1152));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.14.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1153));
         }
 
     }

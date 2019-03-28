@@ -14,18 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ViewMusicSelectionFeedbackCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.VIEW_MUSIC_SELECTION_FEEDBACK_TABLE.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         MusicSelectionFeedbackDtoService musicSelectionFeedbackDtoService = new MusicSelectionFeedbackDtoServiceImpl();
 
-        try {
-            request.setAttribute("musicSelectionFeedbackDtoList", musicSelectionFeedbackDtoService.getFeedbackByMusicSelectionId(request));
-            request.setAttribute("musicSelectionName", request.getParameter("musicSelectionName"));
-            request.setAttribute("success", true);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("musicSelectionFeedbackDtoList", musicSelectionFeedbackDtoService.getFeedbackByMusicSelectionId(request));
+        request.setAttribute("musicSelectionName", request.getParameter("musicSelectionName"));
+        request.setAttribute("success", true);
 
         ResponseContent responseContent = new ResponseContent();
 

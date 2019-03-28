@@ -12,6 +12,7 @@ import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.SignUpService;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.KeyPairUtil;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -33,6 +34,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.text.MessageFormat;
 import java.util.*;
 
 public class SignUpServiceImpl implements SignUpService {
@@ -80,8 +82,8 @@ public class SignUpServiceImpl implements SignUpService {
                     .getInstance()
                     .getDao(User.class)
                     .insert(user);
-        } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
+        } catch (Exception e) {
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
         }
 
         Session session = Session.getInstance(mailProperties,
@@ -105,11 +107,11 @@ public class SignUpServiceImpl implements SignUpService {
                     "\n\n" +
                     "Please, confirm your registration by this link: " +
                     "\n\n" +
-                    "http://207.154.220.222:8181/mytunes/crud?command=finishRegistration&token=" + token + "&publicKey=" + rsaPublicKeyStr);
+                    "http://localhost:8080/crud?command=finishRegistration&token=" + token + "&publicKey=" + rsaPublicKeyStr);
 
             Transport.send(message);
         } catch (MessagingException e) {
-            e.printStackTrace();
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_SEND_MESSAGE) + e.getMessage());
         }
 
         System.out.println("Done");
@@ -118,8 +120,6 @@ public class SignUpServiceImpl implements SignUpService {
 
     @Override
     public boolean finishSignUp(HttpServletRequest request) throws ServiceException {
-        Cookie[] cookies = request.getCookies();
-
         DecodedJWT decodedJWT = JWT.decode(request.getParameter("token"));
 
         try {
@@ -147,10 +147,14 @@ public class SignUpServiceImpl implements SignUpService {
             userOptional.ifPresent(s -> s.setStatusId((byte)1));
 
             JdbcDaoFactory.getInstance().getDao(User.class).update(userOptional.get());
-        } catch (DaoException | NoSuchAlgorithmException | InvalidKeySpecException e) {
-            e.printStackTrace();
+        } catch (DaoException e) {
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
         } catch (JWTVerificationException e) {
-            throw new ServiceException(e.getMessage());
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.INVALID_TOKEN) + e.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.INVALID_DATA) + e.getMessage());
+        } catch (InvalidKeySpecException e) {
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.INVALID_KEY) + e.getMessage());
         }
 
         return true;

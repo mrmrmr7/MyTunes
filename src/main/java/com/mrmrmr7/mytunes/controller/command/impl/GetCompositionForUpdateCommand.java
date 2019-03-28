@@ -2,7 +2,6 @@ package com.mrmrmr7.mytunes.controller.command.impl;
 
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.dto.CompositionDto;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.AlbumService;
 import com.mrmrmr7.mytunes.service.AuthorService;
@@ -20,35 +19,28 @@ import java.util.Optional;
 
 public class GetCompositionForUpdateCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADMIN_GET_COMPOSITION_FOR_UPDATE.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         CompositionService compositionService = new CompositionServiceImpl();
         AlbumService albumService = new AlbumServiceImpl();
         AuthorService authorService = new AuthorServiceImpl();
 
         String name = request.getParameter("compositionName");
 
-        try {
-            Optional<Composition> compositionOptional = compositionService.getCompositionDtoByName(name);
-            request.setAttribute("composition", compositionOptional.get());
+        Optional<Composition> compositionOptional = compositionService.getCompositionDtoByName(name);
+        request.setAttribute("composition", compositionOptional.get());
 
-            List<Album> albumList = albumService.getAllAlbum();
-            request.setAttribute("albumList", albumList);
+        List<Album> albumList = albumService.getAllAlbum();
+        request.setAttribute("albumList", albumList);
 
-            List<Author> authorList = authorService.getAuthorList();
-            request.setAttribute("authorList", authorList);
+        List<Author> authorList = authorService.getAuthorList();
+        request.setAttribute("authorList", authorList);
 
-            for (Album each : albumList) {
-                if (each.getId() == compositionOptional.get().getAlbum_id()) {
-                    request.setAttribute("compositionAuthorId", each.getAuthor_id());
-                    request.setAttribute("compositionAlbumId", compositionOptional.get().getAlbum_id());
-                    break;
-                }
+        for (Album each : albumList) {
+            if (each.getId() == compositionOptional.get().getAlbum_id()) {
+                request.setAttribute("compositionAuthorId", each.getAuthor_id());
+                request.setAttribute("compositionAlbumId", compositionOptional.get().getAlbum_id());
+                break;
             }
-
-        } catch (ServiceException e) {
-            e.printStackTrace();
         }
 
         request.setAttribute("showInf", true);

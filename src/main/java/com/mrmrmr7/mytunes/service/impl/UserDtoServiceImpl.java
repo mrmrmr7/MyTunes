@@ -12,11 +12,11 @@ import com.mrmrmr7.mytunes.dto.*;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.UserDtoService;
-import com.mrmrmr7.mytunes.util.ProtectionUtil;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.security.interfaces.RSAPublicKey;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -29,17 +29,17 @@ public class UserDtoServiceImpl implements UserDtoService {
         JdbcDaoFactory daoFactory = JdbcDaoFactory.getInstance();
 
         try {
-            GenericDao userDao = daoFactory.getTransactionalDao(User.class);
-            GenericDao userBonusDao = daoFactory.getTransactionalDao(UserBonus.class);
-            GenericDao userAlbumDao = daoFactory.getTransactionalDao(UserAlbum.class);
-            GenericDao userCompositionDao = daoFactory.getTransactionalDao(UserComposition.class);
-            GenericDao userMusicSelectionDao = daoFactory.getTransactionalDao(UserMusicSelection.class);
-            GenericDao statusDao = daoFactory.getTransactionalDao(Status.class);
-            GenericDao roleDao = daoFactory.getTransactionalDao(Role.class);
-            GenericDao bonusDao = daoFactory.getTransactionalDao(Bonus.class);
-            GenericDao compositionDao = daoFactory.getTransactionalDao(Composition.class);
-            GenericDao musicSelectionDao = daoFactory.getTransactionalDao(MusicSelection.class);
-            GenericDao albumDao = daoFactory.getTransactionalDao(Album.class);
+            GenericDao<User, Integer> userDao = daoFactory.getTransactionalDao(User.class);
+            GenericDao<UserBonus, Integer> userBonusDao = daoFactory.getTransactionalDao(UserBonus.class);
+            GenericDao<UserAlbum, Integer> userAlbumDao = daoFactory.getTransactionalDao(UserAlbum.class);
+            GenericDao<UserComposition, Integer> userCompositionDao = daoFactory.getTransactionalDao(UserComposition.class);
+            GenericDao<UserMusicSelection, Integer> userMusicSelectionDao = daoFactory.getTransactionalDao(UserMusicSelection.class);
+            GenericDao<Status, Byte> statusDao = daoFactory.getTransactionalDao(Status.class);
+            GenericDao<Role, Byte> roleDao = daoFactory.getTransactionalDao(Role.class);
+            GenericDao<Bonus, Integer> bonusDao = daoFactory.getTransactionalDao(Bonus.class);
+            GenericDao<Composition, Integer> compositionDao = daoFactory.getTransactionalDao(Composition.class);
+            GenericDao<MusicSelection, Integer> musicSelectionDao = daoFactory.getTransactionalDao(MusicSelection.class);
+            GenericDao<Album, Integer> albumDao = daoFactory.getTransactionalDao(Album.class);
 
             transactionManager.begin(userDao,
                     userAlbumDao,
@@ -58,7 +58,7 @@ public class UserDtoServiceImpl implements UserDtoService {
             Optional<User> userOptional = userDao.getByPK(id);
 
             if (!userOptional.isPresent()) {
-                throw new ServiceException("lol");
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.INVALID_DATA));
             }
 
             User user = userOptional.get();
@@ -72,7 +72,7 @@ public class UserDtoServiceImpl implements UserDtoService {
             Optional<Status> statusOptional = statusDao.getByPK(user.getStatusId());
 
             if (!statusOptional.isPresent()) {
-                throw new ServiceException("kek");
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.INVALID_DATA));
             }
 
             Status status = statusOptional.get();
@@ -81,7 +81,7 @@ public class UserDtoServiceImpl implements UserDtoService {
             Optional<Role> roleOptional = roleDao.getByPK(user.getRoleId());
 
             if (!roleOptional.isPresent()) {
-                throw new ServiceException("omg");
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.INVALID_DATA));
             }
 
             Role role = roleOptional.get();
@@ -90,86 +90,96 @@ public class UserDtoServiceImpl implements UserDtoService {
 
             Optional<UserComposition> userCompositionOptional = userCompositionDao.getByPK(user.getId());
 
-            userCompositionOptional.ifPresent(u -> {
+            if (userCompositionOptional.isPresent()) {
+                UserComposition u = userCompositionOptional.get();
                 List<Integer> userCompositionIdList = u.getCompositionIdList();
-                userCompositionIdList.forEach(s -> {
+                for (int s : userCompositionIdList) {
                     try {
                         Optional<Composition> compositionOptional = compositionDao.getByPK(s);
                         compositionOptional.ifPresent(userDto::addComposition);
                     } catch (DaoException e) {
-                        e.printStackTrace();
+                        throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA) + e.getMessage());
                     }
-                });
-            });
+
+                }
+            }
 
             Optional<UserAlbum> userAlbumOptional = userAlbumDao.getByPK(user.getId());
 
-            userAlbumOptional.ifPresent(u -> {
+            if (userAlbumOptional.isPresent()) {
+                UserAlbum u = userAlbumOptional.get();
                 List<Integer> userAlbumList = u.getAlbumIdList();
-                userAlbumList.forEach(t -> {
+                for (int t : userAlbumList) {
                     try {
                         Optional<Album> albumOptional = albumDao.getByPK(t);
                         albumOptional.ifPresent(userDto::addAlbum);
                     } catch (DaoException e) {
-                        e.setStackTrace(e.getStackTrace());
+                        throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA) + e.getMessage());
                     }
-                });
-            });
+                }
+            }
 
             Optional<UserBonus> userBonusOptional = userBonusDao.getByPK(user.getId());
-            userBonusOptional.ifPresent(u -> {
+
+            if (userBonusOptional.isPresent()) {
+                UserBonus u = userBonusOptional.get();
                 List<Integer> bonusIdList = u.getBonusIdList();
-                bonusIdList.forEach(t -> {
+                for (int t : bonusIdList) {
                     try {
                         Optional<Bonus> bonusOptional = bonusDao.getByPK(t);
                         bonusOptional.ifPresent(userDto::addBonus);
                     } catch (DaoException e) {
-                        e.setStackTrace(e.getStackTrace());
+                        throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA) + e.getMessage());
                     }
-                });
-            });
+                }
+            }
 
             Optional<UserMusicSelection> userMusicSelectionOptional = userMusicSelectionDao.getByPK(user.getId());
 
-            userMusicSelectionOptional.ifPresent(u -> {
+            if (userMusicSelectionOptional.isPresent()) {
+                UserMusicSelection u = userMusicSelectionOptional.get();
                 List<Integer> musicSelectionList = u.getMusicSelectionIdList();
-                musicSelectionList.forEach(t -> {
+                for (int t : musicSelectionList) {
                     try {
                         Optional<MusicSelection> musicSelectionOptional = musicSelectionDao.getByPK(t);
                         musicSelectionOptional.ifPresent(userDto::addMusicSelection);
                     } catch (DaoException e) {
-                        e.setStackTrace(e.getStackTrace());
+                        throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA) + e.getMessage());
                     }
-                });
-            });
+                }
+            }
+
+            transactionManager.commit();
             return userDto;
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
-        } finally {
             try {
-                transactionManager.commit();
-            } catch (DaoException e) {
-                throw new ServiceException(e.getMessage());
+                transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
+            } catch (DaoException e1) {
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK + e.getMessage()));
             }
+        } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION + e.getMessage()));
             }
         }
     }
 
     @Override
     public UserDto getDtoByLogin(String login) throws ServiceException {
-        Optional<User> userOptional = null;
+        Optional<User> userOptional;
         try {
             userOptional = ((UserDaoExtended) JdbcDaoFactory.getInstance().getDao(User.class)).getByLogin(login);
         } catch (DaoException e) {
-            e.printStackTrace();
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET_DATA + e.getMessage()));
         }
-
-
-        return getDtoById(userOptional.get().getId());
+        if (userOptional.isPresent()) {
+            return getDtoById(userOptional.get().getId());
+        } else {
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.INVALID_DATA));
+        }
     }
 
     public void setDtoFromToken(HttpServletRequest httpServletRequest) throws ServiceException {
@@ -180,24 +190,18 @@ public class UserDtoServiceImpl implements UserDtoService {
         cookieToken = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
 
         if (!cookieToken.isPresent()) {
-            throw new ServiceException("no token");
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.INVALID_TOKEN));
         }
 
         cookiePublicKey = Arrays.stream(cookies).filter(s -> s.getName().equals("publicKey")).findFirst();
 
         if(!cookiePublicKey.isPresent()) {
-            throw new ServiceException("no public key");
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.INVALID_KEY));
         }
-
-        RSAPublicKey publicKey = (RSAPublicKey)ProtectionUtil.stringToPublicKey(cookiePublicKey.get().getValue());
 
         DecodedJWT decodedJWT = JWT.decode(cookieToken.get().getValue());
 
-        UserDto userDto = new UserDto();
-
-        userDto = getDtoById(decodedJWT.getClaim("userId").asInt());
-
-
+        UserDto userDto = getDtoById(decodedJWT.getClaim("userId").asInt());
         httpServletRequest.setAttribute("userDto", userDto);
     }
 

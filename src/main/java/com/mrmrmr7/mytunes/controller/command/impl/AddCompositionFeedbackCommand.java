@@ -14,18 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AddCompositionFeedbackCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADD_COMPOSITION_FEEDBACK.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         CompositionFeedbackService compositionFeedbackDtoService = new CompositionFeedbackServiceImpl();
 
-        try {
-            request.setAttribute("compositionName", request.getParameter("compositionName"));
-            request.setAttribute("success", compositionFeedbackDtoService.addCompositionFeedback(request));
-            request.setAttribute("userCompositionFeedbackList", compositionFeedbackDtoService.getUserCompositionFeedbackList(request));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("compositionName", request.getParameter("compositionName"));
+        request.setAttribute("success", compositionFeedbackDtoService.addCompositionFeedback(request));
+        request.setAttribute("userCompositionFeedbackList", compositionFeedbackDtoService.getUserCompositionFeedbackList(request));
+
 
         ResponseContent responseContent = new ResponseContent();
 

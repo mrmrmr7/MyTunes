@@ -1,17 +1,16 @@
 package com.mrmrmr7.mytunes.controller.command.impl;
 
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mrmrmr7.mytunes.builder.Builder;
 import com.mrmrmr7.mytunes.builder.exception.BuilderException;
 import com.mrmrmr7.mytunes.builder.impl.UserIdBuilder;
 import com.mrmrmr7.mytunes.controller.command.Command;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
-import com.mrmrmr7.mytunes.controller.command.exception.CommandException;
 import com.mrmrmr7.mytunes.entity.ResponseContent;
 import com.mrmrmr7.mytunes.entity.Router;
 import com.mrmrmr7.mytunes.service.BalanceService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.impl.BalanceServiceImpl;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.PageDirector;
 import com.mrmrmr7.mytunes.validator.Validator;
 import com.mrmrmr7.mytunes.validator.impl.PaymentValidator;
@@ -19,18 +18,14 @@ import com.mrmrmr7.mytunes.validator.impl.PaymentValidator;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.MessageFormat;
 
 public class UpdateBalanceCommand implements Command {
     private final String PAYMENT_COUNT = "paymentCount";
     private final String COOKIES = "cookies";
 
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) throws CommandException {
-        System.out.println(CommandDirector.UPDATE_BALANCE.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) throws ServiceException {
         BalanceService balanceService = new BalanceServiceImpl();
 
         Validator validator = new PaymentValidator();
@@ -42,14 +37,11 @@ public class UpdateBalanceCommand implements Command {
                 boolean success = balanceService.updateBalance(userId, paymentCount);
 
                 httpServletResponse.addCookie(new Cookie("success", String.valueOf(success)));
-
-            } catch (ServiceException e) {
-                throw new CommandException(e.getMessage() + ":" + CommandDirector.UPDATE_BALANCE.getCode());
             } catch (BuilderException e) {
-                e.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.INVALID_DATA) + e.getMessage());
             }
         } else {
-            httpServletResponse.addCookie(new Cookie("notValidData", String.valueOf(false)));
+            httpServletResponse.addCookie(new Cookie("notValidData", String.valueOf(true)));
         }
 
         ResponseContent responseContent = new ResponseContent();

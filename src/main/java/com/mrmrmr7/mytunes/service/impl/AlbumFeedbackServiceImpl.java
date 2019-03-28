@@ -2,6 +2,7 @@ package com.mrmrmr7.mytunes.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.mrmrmr7.mytunes.controller.command.RequestDirector;
 import com.mrmrmr7.mytunes.dao.AlbumDaoExtended;
 import com.mrmrmr7.mytunes.dao.GenericDao;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
@@ -10,19 +11,18 @@ import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
 import com.mrmrmr7.mytunes.dto.AlbumFeedbackDto;
-import com.mrmrmr7.mytunes.dto.AlbumFeedbackDto;
 import com.mrmrmr7.mytunes.entity.Album;
 import com.mrmrmr7.mytunes.entity.AlbumFeedback;
 import com.mrmrmr7.mytunes.entity.User;
 import com.mrmrmr7.mytunes.entity.UserAlbum;
 import com.mrmrmr7.mytunes.service.AlbumFeedbackService;
-import com.mrmrmr7.mytunes.service.AlbumService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
-import com.mrmrmr7.mytunes.util.ProtectionUtil;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
+import java.text.MessageFormat;
 import java.util.*;
 
 public class AlbumFeedbackServiceImpl implements AlbumFeedbackService {
@@ -67,15 +67,15 @@ public class AlbumFeedbackServiceImpl implements AlbumFeedbackService {
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                throw new ServiceException(e1.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e1.getMessage());
             }
-            e.printStackTrace();
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
         return albumFeedbackDtoList;
@@ -88,7 +88,7 @@ public class AlbumFeedbackServiceImpl implements AlbumFeedbackService {
         }
 
         Cookie[] cookies = request.getCookies();
-        Optional<Cookie> cookie = Arrays.stream(cookies).filter(s -> s.getName().equals("token")).findFirst();
+        Optional<Cookie> cookie = Arrays.stream(cookies).filter(s -> s.getName().equals(RequestDirector.TOKEN.getValue())).findFirst();
         DecodedJWT decodedJWT = JWT.decode(cookie.get().getValue());
 //        Claims claims = ProtectionUtil.getClaimsFromCookies(cookies);
 
@@ -135,19 +135,17 @@ public class AlbumFeedbackServiceImpl implements AlbumFeedbackService {
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                e1.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e.getMessage());
             }
-            e.printStackTrace();
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                e.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
-
-        return true;
     }
 
     @Override
@@ -198,15 +196,15 @@ public class AlbumFeedbackServiceImpl implements AlbumFeedbackService {
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                e1.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e.getMessage());
             }
-            throw new ServiceException(e.getMessage());
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                e.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
 

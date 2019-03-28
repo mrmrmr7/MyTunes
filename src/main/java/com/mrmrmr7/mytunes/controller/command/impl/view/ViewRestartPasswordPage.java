@@ -20,8 +20,6 @@ import java.util.Optional;
 public class ViewRestartPasswordPage implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) {
-        System.out.println(CommandDirector.VIEW_RESTART_PASSWORD_PAGE.getValue() + " command detected");
-
         Validator validator = new RestartPasswordValidator();
 
         if (validator.validate(request)) {

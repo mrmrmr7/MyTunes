@@ -14,16 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ViewCurrentBalanceCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.VIEW_CURRENT_BALANCE_PAGE.getValue() + " command detected");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         BalanceService balanceService = new BalanceServiceImpl();
 
-        try {
-            request.setAttribute("balance", balanceService.getBalanceById(request));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("balance", balanceService.getBalanceById(request));
 
         ResponseContent responseContent = new ResponseContent();
 

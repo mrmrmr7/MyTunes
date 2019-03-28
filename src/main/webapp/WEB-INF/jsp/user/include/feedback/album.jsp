@@ -135,7 +135,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="addFeedbackTab" data-toggle="tab" href="#home" role="tab"
-                               aria-controls="home" aria-selected="false">Add feedback</a>
+                               aria-controls="home" aria-selected="false"><fmt:message key="feedback.album.add" bundle="${bundle}"/></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="changeFeedbackTab" data-toggle="tab" href="#contact" role="tab"
@@ -246,27 +246,26 @@
                                 </div>
                                 <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="addFeedbackTab">
                                     <div class="card-header" style="background: white">
-                                        <strong><fmt:message key="feedback.album.success" bundle="${bundle}"/></strong> Elements
+                                        <strong><fmt:message key="feedback.album.updateform" bundle="${bundle}"/></strong>
                                     </div>
                                     <div class="card-body card-block">
                                         <form action="${pageContext.request.contextPath}/crud" method="post"
                                               id="addAlbumFeedbackForm" class="form-horizontal">
                                             <div class="row form-group">
                                                 <div class="col col-md-3"><label for="text-input"
-                                                                                 class=" form-control-label">Album
-                                                    name</label></div>
+                                                                                 class=" form-control-label"><fmt:message key="feedback.album.placeholder.name" bundle="${bundle}"/></label></div>
                                                 <div class="col-12 col-md-9"><input type="text" id="text-input"
                                                                                     name="albumName"
-                                                                                    placeholder="Text"
+                                                                                    placeholder="<fmt:message key="feedback.album.placeholder.name" bundle="${bundle}"/>"
                                                                                     class="form-control"></div>
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col col-md-3"><label for="textarea-input"
-                                                                                 class=" form-control-label">Feedback</label>
+                                                                                 class=" form-control-label"><fmt:message key="feedback.album.feedback" bundle="${bundle}"/></label>
                                                 </div>
                                                 <div class="col-12 col-md-9"><textarea name="albumFeedback"
                                                                                        id="textarea-input" rows="9"
-                                                                                       placeholder="Content..."
+                                                                                       placeholder="<fmt:message key="feedback.album.feedback" bundle="${bundle}"/>"
                                                                                        class="form-control"></textarea>
                                                 </div>
                                             </div>
@@ -276,10 +275,10 @@
                                     <div class="card-footer" style="background: white; margin: auto;">
                                         <button type="submit" class="btn btn-primary btn-sm" style="margin: auto;"
                                                 form="addAlbumFeedbackForm">
-                                            <i class="fa fa-dot-circle-o"></i> Submit
+                                            <i class="fa fa-dot-circle-o"></i> <fmt:message key="feedback.album.submit" bundle="${bundle}"/>
                                         </button>
                                         <button type="reset" class="btn btn-danger btn-sm" style="margin: auto;">
-                                            <i class="fa fa-ban"></i> Reset
+                                            <i class="fa fa-ban"></i> <fmt:message key="feedback.album.reset" bundle="${bundle}"/>
                                         </button>
                                     </div>
                                 </div>
@@ -287,7 +286,7 @@
                                      aria-labelledby="changeFeedbackTab">
 
                                     <div class="card-header" style="margin-top: 1rem; border-bottom: none;">
-                                        <strong class="card-title">Feedback list</strong>
+                                        <strong class="card-title"><fmt:message key="feedback.album.feedbacklist" bundle="${bundle}"/></strong>
                                     </div>
                                     <div class="card-body">
                                         <div id="bootstrap-data-table-export_wrapper1"
@@ -305,19 +304,19 @@
                                                                 colspan="1"
                                                                 aria-sort="ascending"
                                                                 aria-label="Name: activate to sort column descending"
-                                                                style="width: 263px;">Album name
+                                                                style="width: 263px;"><fmt:message key="feedback.album.placeholder.name" bundle="${bundle}"/>
                                                             </th>
                                                             <th class="sorting" tabindex="0"
                                                                 aria-controls="bootstrap-data-table-export" rowspan="1"
                                                                 colspan="1"
                                                                 aria-label="Office: activate to sort column ascending"
-                                                                style="width: 196px;">Feedback
+                                                                style="width: 196px;"><fmt:message key="feedback.album.feedback" bundle="${bundle}"/>
                                                             </th>
                                                             <th class="sorting" tabindex="0"
                                                                 aria-controls="bootstrap-data-table-export" rowspan="1"
                                                                 colspan="1"
                                                                 aria-label="Salary: activate to sort column ascending"
-                                                                style="width: 157px;">Date
+                                                                style="width: 157px;"><fmt:message key="feedback.album.date" bundle="${bundle}"/>
                                                             </th>
                                                         </tr>
                                                         </thead>

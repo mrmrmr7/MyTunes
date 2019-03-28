@@ -14,16 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class UpdateCompositionCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADMIN_UPDATE_COMPOSITION.getValue() + " command found");
-
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         CompositionService compositionService = new CompositionServiceImpl();
 
-        try {
-            request.setAttribute("success", compositionService.updateComposition(request));
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        request.setAttribute("success", compositionService.updateComposition(request));
 
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.VIEW_UPDATE_COMPOSITION_PAGE, Router.Type.FORWARD));

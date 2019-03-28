@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.UserCompositionDaoExtended;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.UserComposition;
@@ -10,6 +11,7 @@ import com.mrmrmr7.mytunes.entity.UserComposition;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +32,10 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
                 }
                 return Optional.of(resultSetToBean.toUserComposition(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.14.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1124));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.14.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1125));
         }
 
     }
@@ -50,10 +52,10 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
                             .add(resultSetToBean.toUserComposition(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.14.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1126));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.14.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1127));
         }
 
         return userList;
@@ -71,10 +73,10 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
                             .add(resultSet.getInt(1));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.14.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1128));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.14.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1129));
         }
 
         return userList;
@@ -91,10 +93,10 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
                 }
                 return Optional.of(resultSetToBean.toUserComposition(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.14.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1130));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.14.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1131));
         }
 
     }
@@ -131,7 +133,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DaoException("4.14.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1132));
         }
     }
 
@@ -142,7 +144,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.14.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1133));
         }
     }
 
@@ -153,7 +155,7 @@ public class UserCompositionDao extends AbstractJdbcDao<UserComposition, Integer
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DaoException("4.14.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1134));
         }
     }
 

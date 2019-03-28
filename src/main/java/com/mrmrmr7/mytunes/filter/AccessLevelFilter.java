@@ -3,9 +3,12 @@ package com.mrmrmr7.mytunes.filter;
 import com.mrmrmr7.mytunes.controller.command.AccessLevel;
 import com.mrmrmr7.mytunes.controller.command.CommandAccessLevel;
 import com.mrmrmr7.mytunes.controller.command.CommandDirector;
+import com.mrmrmr7.mytunes.entity.ExceptionDescription;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
 import com.mrmrmr7.mytunes.service.impl.UserServiceImpl;
 import com.mrmrmr7.mytunes.util.AccesLevelUtil;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
+import com.mrmrmr7.mytunes.util.ExceptionHandler;
 import com.mrmrmr7.mytunes.util.PageDirector;
 
 import javax.servlet.*;
@@ -28,17 +31,10 @@ public class AccessLevelFilter implements Filter {
                          ServletResponse servletResponse,
                          FilterChain filterChain)
             throws IOException, ServletException {
+
         String command = servletRequest.getParameter(CommandDirector.COMMAND.getValue());
 
         AccessLevel accessLevel = null;
-
-//        System.out.println("Request url: " + ((HttpServletRequest) servletRequest).getRequestURL().toString());
-//        System.out.println("QueryString: " + ((HttpServletRequest) servletRequest).getQueryString());
-//        System.out.println("Context path: " + ((HttpServletRequest) servletRequest).getContextPath());
-//        System.out.println("Path info: " + ((HttpServletRequest) servletRequest).getPathInfo());
-//        System.out.println("Path tranlated: " + ((HttpServletRequest) servletRequest).getPathTranslated());
-//        System.out.println("Servlet path: " + ((HttpServletRequest) servletRequest).getServletPath());
-//        System.out.println("Request URI: " + ((HttpServletRequest) servletRequest).getRequestURI());
 
         if (command == null && (((HttpServletRequest) servletRequest).getRequestURI().equals("/") || ((HttpServletRequest) servletRequest).getRequestURI().equals("/index.jsp"))) {
             accessLevel = AccessLevel.ALL;
@@ -54,7 +50,10 @@ public class AccessLevelFilter implements Filter {
         try {
             isAuthorized = serviceUser.isAuthorized(command, httpServletRequest);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            ExceptionDescription exceptionDescription = ExceptionHandler.getDescription(e.getMessage());
+            httpServletRequest.setAttribute("errorCode", exceptionDescription.getErrorCode());
+            httpServletRequest.setAttribute("errorMessage", exceptionDescription.getMessage());
+            httpServletRequest.getRequestDispatcher(httpServletRequest.getContextPath() + PageDirector.ERROR_PAGE).forward(servletRequest, servletResponse);
         }
 
         if (accessLevel == AccessLevel.ALL) {

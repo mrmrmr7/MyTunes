@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 public class ViewUpdateCompositionPageCommand implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse httpServletResponse) {
-        System.out.println(CommandDirector.ADMIN_VIEW_UPDATE_COMPOSITION_PAGE.getValue() + " command detected");
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.VIEW_UPDATE_COMPOSITION_PAGE, Router.Type.FORWARD));
         return responseContent;

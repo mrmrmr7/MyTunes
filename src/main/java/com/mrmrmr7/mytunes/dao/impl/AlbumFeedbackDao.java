@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.AlbumFeedback;
@@ -10,6 +11,7 @@ import com.mrmrmr7.mytunes.entity.AlbumFeedback;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +32,10 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
                     }
                     return Optional.of(resultSetToBean.toAlbumFeedback(resultSet));
                 } catch (SQLException e) {
-                    throw new DaoException("4.2.0");
+                    throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1012));
                 }
         } catch (SQLException e) {
-            throw new DaoException("4.2.1");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1013));
         }
     }
 
@@ -49,10 +51,10 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
                             .add(resultSetToBean.toAlbumFeedback(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.2.2");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1014));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.2.3");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1015));
         }
 
         return compositionFeedbackList;
@@ -65,7 +67,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.2.3");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1016));
         }
     }
 
@@ -76,7 +78,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.2.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1017));
         }
     }
 
@@ -87,7 +89,7 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.2.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1018));
         }
     }
 
@@ -107,8 +109,6 @@ public class AlbumFeedbackDao extends AbstractJdbcDao<AlbumFeedback, Integer> im
         PreparedStatement preparedStatement = prepareForUpdate(connection
                         .prepareStatement(getUpdateQuery()),
                 object);
-        preparedStatement.setString(1, object.getFeedback());
-        preparedStatement.setTimestamp(2, object.getTimestamp());
         preparedStatement.setInt(3, object.getId());
         return preparedStatement;
     }

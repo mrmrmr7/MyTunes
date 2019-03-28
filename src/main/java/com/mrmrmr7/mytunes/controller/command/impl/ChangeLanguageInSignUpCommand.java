@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 public class ChangeLanguageInSignUpCommand implements Command {
     @Override
     public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.CHANGE_LANGUAGE_COMMAND.getValue() + " command detected");
         ResponseContent responseContent = new ResponseContent();
         request.setAttribute("lang", request.getParameter("lang"));
         Cookie cookie = new Cookie("locale", request.getParameter("lang"));

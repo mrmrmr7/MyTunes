@@ -70,14 +70,14 @@ class AlbumFeedbackDAOTest {
 
         String actual = albumFeedbackList.toString();
         String expected = "[" +
-                "AlbumFeedback{id=2, feedback='NORM TAKOY ALBUM2', date=2019-03-14}, " +
-                "AlbumFeedback{id=3, feedback='NORM TAKOY ALBUM3', date=2019-03-14}, " +
-                "AlbumFeedback{id=4, feedback='NORM TAKOY ALBUM4', date=2019-03-14}, " +
-                "AlbumFeedback{id=5, feedback='NORM TAKOY ALBUM5', date=2019-03-14}, " +
-                "AlbumFeedback{id=6, feedback='NORM TAKOY ALBUM6', date=2019-03-14}, " +
-                "AlbumFeedback{id=7, feedback='NORM TAKOY ALBUM7', date=2019-03-14}, " +
-                "AlbumFeedback{id=8, feedback='NORM TAKOY ALBUM8', date=2019-03-14}, " +
-                "AlbumFeedback{id=9, feedback='NORM TAKOY ALBUM9', date=2019-03-14}" +
+                "AlbumFeedback{id=2, feedback='NORM TAKOY ALBUM2', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=3, feedback='NORM TAKOY ALBUM3', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=4, feedback='NORM TAKOY ALBUM4', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=5, feedback='NORM TAKOY ALBUM5', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=6, feedback='NORM TAKOY ALBUM6', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=7, feedback='NORM TAKOY ALBUM7', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=8, feedback='NORM TAKOY ALBUM8', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=9, feedback='NORM TAKOY ALBUM9', timestamp=2019-05-03 12:00:03.0}" +
                 "]";
 
         assertEquals(expected, actual);
@@ -87,13 +87,13 @@ class AlbumFeedbackDAOTest {
     void insert() throws SQLException, DaoException {
 
         AlbumFeedback albumFeedback = new AlbumFeedback(
-                1,
+                11,
                 "Fail song",
-                new Timestamp(1232213123)
+                new Timestamp(123223)
         );
 
         albumFeedbackDAO.insert(albumFeedback);
-        Optional<AlbumFeedback> optionalAlbumFeedback = albumFeedbackDAO.getByPK(1);
+        Optional<AlbumFeedback> optionalAlbumFeedback = albumFeedbackDAO.getByPK(11);
 
         String actual = optionalAlbumFeedback.get().toString();
         String expected = albumFeedback.toString();
@@ -109,14 +109,14 @@ class AlbumFeedbackDAOTest {
 
         String actual = albumFeedbackList.toString();
         String expected = "[" +
-                "AlbumFeedback{id=2, feedback='NORM TAKOY ALBUM2', date=2019-03-14}, " +
-                "AlbumFeedback{id=3, feedback='NORM TAKOY ALBUM3', date=2019-03-14}, " +
-                "AlbumFeedback{id=4, feedback='NORM TAKOY ALBUM4', date=2019-03-14}, " +
-                "AlbumFeedback{id=5, feedback='NORM TAKOY ALBUM5', date=2019-03-14}, " +
-                "AlbumFeedback{id=6, feedback='NORM TAKOY ALBUM6', date=2019-03-14}, " +
-                "AlbumFeedback{id=7, feedback='NORM TAKOY ALBUM7', date=2019-03-14}, " +
-                "AlbumFeedback{id=8, feedback='NORM TAKOY ALBUM8', date=2019-03-14}, " +
-                "AlbumFeedback{id=9, feedback='NORM TAKOY ALBUM9', date=2019-03-14}" +
+                "AlbumFeedback{id=2, feedback='NORM TAKOY ALBUM2', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=3, feedback='NORM TAKOY ALBUM3', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=4, feedback='NORM TAKOY ALBUM4', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=5, feedback='NORM TAKOY ALBUM5', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=6, feedback='NORM TAKOY ALBUM6', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=7, feedback='NORM TAKOY ALBUM7', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=8, feedback='NORM TAKOY ALBUM8', timestamp=2019-05-03 12:00:03.0}, " +
+                "AlbumFeedback{id=9, feedback='NORM TAKOY ALBUM9', timestamp=2019-05-03 12:00:03.0}" +
                 "]";
 
         assertEquals(expected, actual);

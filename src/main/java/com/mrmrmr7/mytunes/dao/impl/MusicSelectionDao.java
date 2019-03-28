@@ -3,6 +3,7 @@ package com.mrmrmr7.mytunes.dao.impl;
 import com.mrmrmr7.mytunes.dao.AbstractJdbcDao;
 import com.mrmrmr7.mytunes.dao.AutoConnection;
 import com.mrmrmr7.mytunes.dao.GenericDao;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 import com.mrmrmr7.mytunes.util.Table;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.entity.MusicSelection;
@@ -10,6 +11,7 @@ import com.mrmrmr7.mytunes.entity.MusicSelection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,10 +29,10 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
                 resultSet.next();
                 return Optional.of(resultSetToBean.toMusicSelection(resultSet));
             } catch (SQLException e) {
-                throw new DaoException("4.8.1");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1061));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.8.2");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1062));
         }
     }
 
@@ -46,10 +48,10 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
                             .add(resultSetToBean.toMusicSelection(resultSet));
                 }
             } catch (SQLException e) {
-                throw new DaoException("4.8.3");
+                throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1063));
             }
         } catch (SQLException e) {
-            throw new DaoException("4.8.4");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1064));
         }
 
         return userList;
@@ -61,7 +63,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         try (PreparedStatement preparedStatement = prepareStatementForInsert(object)) {
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DaoException("4.8.5");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1065));
         }
     }
 
@@ -71,7 +73,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         try (PreparedStatement preparedStatement = prepareStatementForDelete(id)){
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DaoException("4.8.6");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1066));
         }
     }
 
@@ -81,7 +83,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
         try (PreparedStatement preparedStatement = prepareStatementForUpdate(object)){
             preparedStatement.executeBatch();
         } catch (SQLException e) {
-            throw new DaoException("4.8.7");
+            throw new DaoException(MessageFormat.format(ExceptionDirector.EXC_MSG, 1067));
         }
     }
 
@@ -168,7 +170,7 @@ public class MusicSelectionDao extends AbstractJdbcDao<MusicSelection, Integer> 
     public String getUpdateQuery() {
 
         return "UPDATE " + Table.MUSIC_SELECTION.getValue() + " SET " +
-                "SELECTION_ID=?, COMPOSITION_ID=? " +
+                "MUSIC_SELECTION_ID=?, COMPOSITION_ID=? " +
                 "WHERE ID=?";
 
     }

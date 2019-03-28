@@ -19,19 +19,14 @@ import java.util.List;
 
 public class ViewCompositionUploadPageCommand implements Command {
     @Override
-    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(CommandDirector.ADMIN_VIEW_UPLOAD_COMPOSITION_PAGE.getValue() + " command detected");
+    public ResponseContent process(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         AlbumService albumService = new AlbumServiceImpl();
         AuthorService authorService = new AuthorServiceImpl();
 
-        try {
-            List<Album> albumList = albumService.getAllAlbum();
-            request.setAttribute("albumList", albumList);
-            List<Author> authorList = authorService.getAuthorList();
-            request.setAttribute("authorList", authorList);
-        } catch (ServiceException e) {
-            e.printStackTrace();
-        }
+        List<Album> albumList = albumService.getAllAlbum();
+        request.setAttribute("albumList", albumList);
+        List<Author> authorList = authorService.getAuthorList();
+        request.setAttribute("authorList", authorList);
 
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(PageDirector.VIEW_UPLOAD_COMPOSITION_PAGE, Router.Type.FORWARD));

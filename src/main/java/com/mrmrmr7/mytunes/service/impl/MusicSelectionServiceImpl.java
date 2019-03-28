@@ -8,17 +8,15 @@ import com.mrmrmr7.mytunes.dao.MusicSelectionInfoDaoExtended;
 import com.mrmrmr7.mytunes.dao.TransactionManager;
 import com.mrmrmr7.mytunes.dao.exception.DaoException;
 import com.mrmrmr7.mytunes.dao.impl.JdbcDaoFactory;
-import com.mrmrmr7.mytunes.dao.impl.MusicSelectionDao;
-import com.mrmrmr7.mytunes.dao.impl.MusicSelectionInfoDao;
 import com.mrmrmr7.mytunes.dao.impl.TransactionManagerImpl;
 import com.mrmrmr7.mytunes.entity.*;
 import com.mrmrmr7.mytunes.service.MusicSelectionService;
 import com.mrmrmr7.mytunes.service.exception.ServiceException;
-import com.mrmrmr7.mytunes.util.ProtectionUtil;
+import com.mrmrmr7.mytunes.util.ExceptionDirector;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.rowset.serial.SerialException;
+import java.text.MessageFormat;
 import java.util.*;
 
 public class MusicSelectionServiceImpl implements MusicSelectionService {
@@ -29,7 +27,7 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
             musicSelectionInfoOptional = ((MusicSelectionInfoDaoExtended) JdbcDaoFactory.getInstance().getDao(MusicSelectionInfo.class)).getByName(name);
 
         } catch (DaoException e) {
-            e.printStackTrace();
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
         }
         return musicSelectionInfoOptional;
     }
@@ -50,7 +48,7 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
         try {
             JdbcDaoFactory.getInstance().getDao(MusicSelectionInfo.class).insert(musicSelectionInfo);
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
         }
 
 
@@ -75,7 +73,7 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
         try {
             JdbcDaoFactory.getInstance().getDao(MusicSelectionInfo.class).update(musicSelectionInfo);
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
         }
 
         return true;
@@ -95,7 +93,7 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
         try {
             JdbcDaoFactory.getInstance().getDao(MusicSelectionInfo.class).insert(musicSelectionInfo);
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
         }
 
         return true;
@@ -114,7 +112,7 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
             musicSelection.setSelection_id(musicSelectionOptional.get().getId());
             JdbcDaoFactory.getInstance().getDao(MusicSelection.class).insert(musicSelection);
         } catch (DaoException e) {
-            throw new ServiceException(e.getMessage());
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
         }
 
         return true;
@@ -126,7 +124,7 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
         try {
             musicSelectionInfoList = JdbcDaoFactory.getInstance().getDao(MusicSelectionInfo.class).getAll();
         } catch (DaoException e) {
-            e.printStackTrace();
+            throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
         }
         return musicSelectionInfoList;
     }
@@ -141,8 +139,8 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
         List<MusicSelectionInfo> realMusicSelectionInfoList = new ArrayList<>();
         TransactionManager transactionManager = new TransactionManagerImpl();
         try {
-            GenericDao musicSelectionInfoDao = JdbcDaoFactory.getInstance().getTransactionalDao(MusicSelectionInfo.class);
-            GenericDao userMusicSelectionDao = JdbcDaoFactory.getInstance().getTransactionalDao(UserMusicSelection.class);
+            GenericDao<MusicSelectionInfo, Integer> musicSelectionInfoDao = JdbcDaoFactory.getInstance().getTransactionalDao(MusicSelectionInfo.class);
+            GenericDao<UserMusicSelection, Integer> userMusicSelectionDao = JdbcDaoFactory.getInstance().getTransactionalDao(UserMusicSelection.class);
 
             transactionManager.begin(musicSelectionInfoDao, userMusicSelectionDao);
 
@@ -160,15 +158,15 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e.getMessage());
             }
-            throw new ServiceException(e.getMessage());
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                throw new ServiceException(e.getMessage());
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
 
@@ -197,10 +195,7 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
                 for (Integer each : userMusicSelectionIdList) {
 
                     Optional<MusicSelectionInfo> musicSelectionInfoOptional = musicSelectionInfoDao.getByPK(each);
-                    if (musicSelectionInfoOptional.isPresent()) {
-
-                        musicSelectionInfoList.add(musicSelectionInfoOptional.get());
-                    }
+                    musicSelectionInfoOptional.ifPresent(musicSelectionInfoList::add);
                 }
             }
 
@@ -208,15 +203,15 @@ public class MusicSelectionServiceImpl implements MusicSelectionService {
         } catch (DaoException e) {
             try {
                 transactionManager.rollBack();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_GET) + e.getMessage());
             } catch (DaoException e1) {
-                e1.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_ROLL_BACK) + e.getMessage());
             }
-            throw new ServiceException(e.getMessage());
         } finally {
             try {
                 transactionManager.end();
             } catch (DaoException e) {
-                e.printStackTrace();
+                throw new ServiceException(MessageFormat.format(ExceptionDirector.EXC_MSG, ExceptionDirector.IMPOSSIBLE_END_TRANSACTION) + e.getMessage());
             }
         }
 
